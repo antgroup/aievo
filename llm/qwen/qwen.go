@@ -25,7 +25,7 @@ var (
 func newClient(opt *options) (*goopenai.Client, error) {
 
 	if len(opt.token) == 0 {
-		return nil, errors.New("missing the QWen API key, set it in the DASHSCOPE_API_KEY environment variable")
+		return nil, errors.New("missing the QWen API key, set it in the QWEN_API_KEY environment variable")
 	}
 
 	config := goopenai.DefaultConfig(opt.token)
@@ -104,7 +104,7 @@ func (l LLM) GenerateContent(ctx context.Context, messages []llm.Message, option
 	for _, tool := range opts.Tools {
 		t, err := toolFromTool(&tool)
 		if err != nil {
-			return nil, fmt.Errorf("failed to convert llms tool to openai tool: %w", err)
+			return nil, fmt.Errorf("failed to convert llms tool to qwen tool: %w", err)
 		}
 		req.Tools = append(req.Tools, t)
 	}

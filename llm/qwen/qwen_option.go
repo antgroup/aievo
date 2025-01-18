@@ -138,13 +138,13 @@ func WithTemperature(temperature float32) Option {
 	}
 }
 
-func WithMessages(messages []Message) Option {
+func WithMessages(messages []llm.Message) Option {
 	return func(opts *options) {
 		opts.messages = messages
 	}
 }
 
-func WithMessage(message Message) Option {
+func WithMessage(message llm.Message) Option {
 	return func(opts *options) {
 		opts.messages = append(opts.messages, message)
 	}
