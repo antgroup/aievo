@@ -18,6 +18,8 @@ type GenerateOptions struct {
 	Temperature float32 `json:"temperature"`
 	// StopWords is a list of words to stop on.
 	StopWords []string `json:"stop_words"`
+	//Stream is a flag to enable streaming.
+	Stream bool `json:"stream"`
 	// StreamingFunc is a function to be called for each chunk of a streaming response.
 	// Return an error to stop streaming early.
 	StreamingFunc func(ctx context.Context, chunk []byte) error `json:"-"`

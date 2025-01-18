@@ -33,6 +33,8 @@ type Message struct {
 	ToolCalls  []ToolCall `json:"tool_calls,omitempty"`
 	// Content is the content of the message.
 	Content string `json:"content,omitempty"`
+	// Partial indicates whether the message use partial mode in QWen model.
+	Partial bool `json:"partial,omitempty"`
 }
 
 func NewUserMessage(name, content string) *Message {
