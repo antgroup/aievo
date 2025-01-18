@@ -1,6 +1,7 @@
 package qwen
 
 import (
+	"github.com/antgroup/aievo/llm"
 	goopenai "github.com/sashabaranov/go-openai"
 	"net/http"
 )
@@ -9,7 +10,7 @@ type options struct {
 	token           string
 	model           string
 	stream          bool
-	messages        []Message
+	messages        []llm.Message
 	temperature     float32
 	topP            float32
 	presencePenalty float32
@@ -19,7 +20,6 @@ type options struct {
 	stop            []string
 	enableSearch    bool
 	baseURL         string
-	apiType         goopenai.APIType
 	httpClient      *http.Client
 	responseFormat  *goopenai.ChatCompletionResponseFormat
 }
@@ -114,13 +114,6 @@ func WithEnableSearch(enableSearch bool) Option {
 func WithBaseUrl(baseURL string) Option {
 	return func(opts *options) {
 		opts.baseURL = baseURL
-	}
-}
-
-// WithApiType passes the QWen API type to the client. If not set, the default value is goopenai.APITypeOpenAI.
-func WithApiType(apiType goopenai.APIType) Option {
-	return func(opts *options) {
-		opts.apiType = apiType
 	}
 }
 
