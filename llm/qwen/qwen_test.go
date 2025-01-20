@@ -12,21 +12,13 @@ import (
 func newTestClient(t *testing.T, opts ...Option) *LLM {
 	t.Helper()
 
-	//client, err := New(
-	//	WithToken(os.Getenv("QWEN_API_KEY")),
-	//	WithModel(os.Getenv("QWEN_MODEL")),
-	//	WithBaseURL(os.Getenv("QWEN_BASE_URL")),
-	//	WithStream(true))
-	//if err != nil {
-	//	t.Fatal(err)
-	//}
 	client, err := New(
-		WithToken("sk-13e4a662584a418690dc65e80c4fd035"),
-		WithModel("qwen-plus"),
-		WithBaseURL("https://dashscope.aliyuncs.com/compatible-mode/v1"),
+		WithToken(os.Getenv("QWEN_API_KEY")),
+		WithModel(os.Getenv("QWEN_MODEL")),
+		WithBaseURL(os.Getenv("QWEN_BASE_URL")),
 		WithStream(true))
 	if err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 	}
 	return client
 }
