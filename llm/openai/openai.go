@@ -145,7 +145,7 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 		}
 		if len(recv.Choices) > 0 {
 			if recv.Choices[0].Delta.ToolCalls != nil {
-				response.ToolCalls = toolCall2LLMToolCall(recv.Choices[0].Delta.ToolCalls)
+				toolCall2LLMToolCall(response, recv.Choices[0].Delta.ToolCalls)
 			}
 			if recv.Choices[0].FinishReason != "" {
 				response.StopReason = fmt.Sprint(recv.Choices[0].FinishReason)
@@ -210,20 +210,32 @@ func llmToolCall2ToolCall(toolCalls []llm.ToolCall) []goopenai.ToolCall {
 	return calls
 }
 
-func toolCall2LLMToolCall(toolCalls []goopenai.ToolCall) []llm.ToolCall {
+func toolCall2LLMToolCall(generation *llm.Generation, toolCalls []goopenai.ToolCall) {
 	if len(toolCalls) == 0 {
-		return nil
+		return
 	}
-	calls := make([]llm.ToolCall, 0, len(toolCalls))
-	for _, call := range toolCalls {
-		calls = append(calls, llm.ToolCall{
-			ID:   call.ID,
-			Type: string(call.Type),
-			Function: &llm.FunctionCall{
-				Name:      call.Function.Name,
-				Arguments: call.Function.Arguments,
-			},
-		})
+	if len(generation.ToolCalls) == 0 {
+		generation.ToolCalls = make([]llm.ToolCall, 0, len(toolCalls))
 	}
-	return calls
+
+	for idx, call := range toolCalls {
+		if call.Index != nil {
+			idx = *call.Index
+		}
+		for i := len(generation.ToolCalls); i <= idx; i++ {
+			generation.ToolCalls = append(generation.ToolCalls, llm.ToolCall{
+				ID:       "",
+				Type:     "",
+				Function: &llm.FunctionCall{},
+			})
+		}
+		if call.ID != "" {
+			generation.ToolCalls[idx].ID = call.ID
+		}
+		if call.Type != "" {
+			generation.ToolCalls[idx].Type = string(call.Type)
+		}
+		generation.ToolCalls[idx].Function.Arguments += call.Function.Arguments
+		generation.ToolCalls[idx].Function.Name += call.Function.Name
+	}
 }
