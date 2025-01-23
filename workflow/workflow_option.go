@@ -1,6 +1,8 @@
 package workflow
 
-import "context"
+import (
+	"context"
+)
 
 // Option defines the option used to instantiate a Workflow.
 // If an error occurs during instantiation, it needs to be reported. If no errors occurred, `nil` is returned.
@@ -19,6 +21,32 @@ func NewWorkflow[TInput, TOutput any](options ...Option[TInput, TOutput]) (*Work
 			return nil, err
 		}
 	}
+	dag.transits.muTransits.Lock()
+	for _, transit := range dag.transits.transits {
+		inputs := transit.GetChannelInputs()
+		for _, input := range inputs {
+			for _, tr := range dag.transits.transits {
+				if transit.Name() == tr.Name() {
+					continue
+				}
+				if contains(tr.GetChannelOutputs(), input) {
+					transit.addInputTransit(tr, input)
+				}
+			}
+		}
+		outputs := transit.GetChannelOutputs()
+		for _, output := range outputs {
+			for _, tr := range dag.transits.transits {
+				if transit.Name() == tr.Name() {
+					continue
+				}
+				if contains(tr.GetChannelInputs(), output) {
+					transit.addOutputTransit(output, tr)
+				}
+			}
+		}
+	}
+	dag.transits.muTransits.Unlock()
 	return dag, nil
 }
 

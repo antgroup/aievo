@@ -44,13 +44,12 @@ To use a tool, you must response with json format like below:
 }
 ~~~
 
-When you have a response to say to the other agent or ask other agent for more information or dispatcher/transfer task to other agent, you MUST response with json format like below:
+When you have a response to use, you MUST response with json format like below:
 ~~~
 {
-	"receiver": "The name of the agent that transfer task/question to you, receiver MUST be in one of [{{.agent_names}}]",
-    "cate": "msg",
+    "cate": "END",
     "thought": "Clearly describe why you think the conversation should send to the receiver agent",
-    "content": "The final answer to the original input question or what you want to ask or The task information to dispatcher, you must clearly describe your content here to make sure the receiver is clear about their role, please respond in Chinese and format the response in markdown"
+    "content": "The final answer to the original input question, please respond in Chinese and format the response in markdown"
 }
 ~~~
 

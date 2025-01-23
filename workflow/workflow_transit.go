@@ -64,6 +64,12 @@ type TransitInterface interface {
 
 	// setWorker sets the worker for the current transit for the Run to call.
 	setWorker(func(ctx context.Context, a ...any) (any, error))
+
+	// addInputTransit add input relationship between transit and chan.
+	addInputTransit(transit TransitInterface, chanName string)
+
+	// addOutputTransit add output relationship between transit and chan.
+	addOutputTransit(chanName string, transit TransitInterface)
 }
 
 // Transit defines the transit node of a directed acyclic graph.
@@ -74,6 +80,8 @@ type Transit struct {
 	channelOutputs []string
 	allowFailure   bool
 	worker         func(context.Context, ...any) (any, error)
+	inputTransits  map[string]TransitInterface
+	outputTransits map[string]TransitInterface
 }
 
 func (t *Transit) Name() string {
@@ -112,6 +120,14 @@ func (t *Transit) setWorker(worker func(ctx context.Context, a ...any) (any, err
 	t.worker = worker
 }
 
+func (t *Transit) addInputTransit(transit TransitInterface, chanName string) {
+	t.inputTransits[chanName] = transit
+}
+
+func (t *Transit) addOutputTransit(chanName string, transit TransitInterface) {
+	t.outputTransits[chanName] = transit
+}
+
 // Transits represents the transits for the workflow.
 type Transits struct {
 	muTransits sync.RWMutex
@@ -120,7 +136,11 @@ type Transits struct {
 
 // NewTransit instantiates the workflow's transit.
 func NewTransit(name string, options ...TransitOption) TransitInterface {
-	transit := &Transit{name: name}
+	transit := &Transit{
+		name:           name,
+		inputTransits:  make(map[string]TransitInterface),
+		outputTransits: make(map[string]TransitInterface),
+	}
 	for _, option := range options {
 		option(transit)
 	}
