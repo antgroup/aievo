@@ -44,7 +44,7 @@ To use a tool, you must response with json format like below:
 }
 ~~~
 
-When you have a response to use, you MUST response with json format like below:
+When you have a response to user, you MUST response with json format like below:
 ~~~
 {
     "cate": "END",

@@ -11,19 +11,19 @@ import (
 	"github.com/antgroup/aievo/llm"
 	prompt2 "github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/schema"
+	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/utils/json"
 )
 
 type NodeType string
 
 const (
-	NodeTypeAgent  NodeType = "Agent"
-	NodeTypeLLM    NodeType = "LLM"
-	NodeTypeParser NodeType = "Parser"
-	NodeTypeTool   NodeType = "Tool"
-	NodeTypeBranch NodeType = "Branch"
-	NodeTypeLoop   NodeType = "Loop"
-	NodeTypeDirect NodeType = "Direct"
+	NodeTypeAgent     NodeType = "Agent"
+	NodeTypeLLM       NodeType = "LLM"
+	NodeTypeBranch    NodeType = "Branch"
+	NodeTypeDirect    NodeType = "Direct"
+	NodeTypeProcessor NodeType = "Processor"
+	NodeTypeTool      NodeType = "Tool"
 )
 
 const (
@@ -39,6 +39,8 @@ type NodeOptions struct {
 	name                   string
 	agent                  schema.Agent
 	llm                    llm.LLM
+	processor              Processor
+	tool                   tool.Tool
 	nodeInputs             []string
 	nodeOutputs            []string
 	nodeConditionalOutputs []ConditionalOutput
@@ -61,6 +63,18 @@ func WithAgent(agent schema.Agent) NodeOption {
 func WithLLM(llm llm.LLM) NodeOption {
 	return func(o *NodeOptions) {
 		o.llm = llm
+	}
+}
+
+func WithProcessor(processor Processor) NodeOption {
+	return func(o *NodeOptions) {
+		o.processor = processor
+	}
+}
+
+func WithTool(tool tool.Tool) NodeOption {
+	return func(o *NodeOptions) {
+		o.tool = tool
 	}
 }
 
@@ -202,7 +216,7 @@ func (n *AgentNode) agentWorker(ctx context.Context, a ...any) (any, error) {
 		return createSkipDTO(), nil
 	}
 
-	prompt := combineDtosToInput(dtos)
+	prompt := extractInput(dtos)
 
 	fmt.Println(fmt.Sprintf("[%s] input:\n%s", n.name, prompt))
 	generation, _ := n.Agent().Run(ctx, []schema.Message{
@@ -260,7 +274,7 @@ func (n *LLMNode) llmWorker(ctx context.Context, a ...any) (any, error) {
 		return createSkipDTO(), nil
 	}
 
-	prompt := combineDtosToInput(dtos)
+	prompt := extractInput(dtos)
 
 	fmt.Println(fmt.Sprintf("[%s] input:\n%s", n.name, prompt))
 	generate, err := n.LLM().Generate(ctx, prompt)
@@ -339,7 +353,7 @@ func (n *BranchNode) branchWorker(ctx context.Context, a ...any) (any, error) {
 		n.branches = append(n.branches, branch)
 	}
 
-	input := combineDtosToInput(dtos)
+	input := extractInput(dtos)
 
 	args := make(map[string]any)
 	args["branches"] = convertBranches(n.branches)
@@ -395,19 +409,19 @@ func extractJSONContent(content string) string {
 	return content
 }
 
-func combineDtosToInput(dtos []DTO) string {
-	if len(dtos) == 1 {
-		return dtos[0].object.(string)
+func extractInput(dtos []DTO) string {
+	if len(dtos) == 0 {
+		return ""
 	}
-	var sb strings.Builder
-	sb.WriteString("previous node's output:\n")
+	return dtos[0].object.(string)
+}
+
+func extractInputs(dtos []DTO) []string {
+	var inputs []string
 	for _, v := range dtos {
-		if v == nil {
-			continue
-		}
-		sb.WriteString(fmt.Sprintf("[%s]:\n%s\n", v.fromNodeName, v.object.(string)))
+		inputs = append(inputs, v.object.(string))
 	}
-	return sb.String()
+	return inputs
 }
 
 type DirectNode struct {
@@ -441,8 +455,207 @@ func (n *DirectNode) directWorker(ctx context.Context, a ...any) (any, error) {
 	if noSelect {
 		return createSkipDTO(), nil
 	}
-	input := combineDtosToInput(dtos)
+	input := extractInput(dtos)
 	return FromNode(n.name, input), nil
+}
+
+type ProcessorNode struct {
+	BaseNode
+	processor Processor
+}
+
+func NewProcessorNode(opts ...NodeOption) (*ProcessorNode, error) {
+	options := &NodeOptions{}
+	for _, opt := range opts {
+		opt(options)
+	}
+
+	if options.processor == nil {
+		return nil, errors.New("processor is required")
+	}
+
+	node := &ProcessorNode{}
+	initProcessorNode(node, options)
+
+	return node, nil
+}
+
+func initProcessorNode(node *ProcessorNode, options *NodeOptions) {
+	node.nodeType = NodeTypeProcessor
+	node.name = options.name
+	node.processor = options.processor
+	node.inputTransits = make(map[string]TransitInterface)
+	node.outputTransits = make(map[string]TransitInterface)
+	node.setChannelInputs(options.nodeInputs...)
+	node.setChannelOutputs(options.nodeOutputs...)
+	node.setWorker(node.processorWorker)
+}
+
+func (n *ProcessorNode) processorWorker(ctx context.Context, a ...any) (any, error) {
+	dtos, noSelect := n.handleInput(ctx, a...)
+	if noSelect {
+		return createSkipDTO(), nil
+	}
+	inputs := extractInputs(dtos)
+	output, err := n.processor.Process(ctx, inputs)
+	if err != nil {
+		return nil, err
+	}
+	return FromNode(n.Name(), output), nil
+}
+
+type ProcessorOptions struct {
+	llm llm.LLM
+}
+
+type ProcessorOption func(*ProcessorOptions)
+
+func WithLLMClient(llm llm.LLM) ProcessorOption {
+	return func(o *ProcessorOptions) {
+		o.llm = llm
+	}
+}
+
+type Processor interface {
+	Process(ctx context.Context, inputs []string) (string, error)
+}
+
+type JsonParser struct {
+	Processor
+}
+
+func NewJsonParser(opts ...ProcessorOption) *JsonParser {
+	options := &ProcessorOptions{}
+	for _, opt := range opts {
+		opt(options)
+	}
+	return &JsonParser{}
+}
+
+func (p *JsonParser) Process(ctx context.Context, inputs []string) (string, error) {
+	if len(inputs) == 0 {
+		return "", errors.New("input is required")
+	}
+
+	if len(inputs) > 1 {
+		return "", errors.New("too many inputs, this processor only support one input")
+	}
+
+	return extractJSONContent(inputs[0]), nil
+}
+
+//go:embed prompts/merge_data.txt
+var mergeDataPrompt string
+
+type LLMDataMerger struct {
+	Processor
+	llm llm.LLM
+}
+
+func NewLLMDataMerger(opts ...ProcessorOption) *LLMDataMerger {
+	options := &ProcessorOptions{}
+	for _, opt := range opts {
+		opt(options)
+	}
+	return &LLMDataMerger{
+		llm: options.llm,
+	}
+}
+
+func (m *LLMDataMerger) Process(ctx context.Context, inputs []string) (string, error) {
+	if len(inputs) == 0 {
+		return "", errors.New("input is required")
+	}
+
+	if len(inputs) == 1 {
+		return inputs[0], nil
+	}
+
+	args := make(map[string]any)
+	args["texts"] = convertTexts(inputs)
+
+	p, err := prompt2.NewPromptTemplate(mergeDataPrompt)
+	if err != nil {
+		return "", err
+	}
+
+	prompt, err := p.Format(args)
+	if err != nil {
+		return "", err
+	}
+
+	generate, err := m.llm.Generate(ctx, prompt)
+	if err != nil {
+		return "", err
+	}
+
+	return convertLLMOutputToMergeText(generate.Content), nil
+}
+
+func convertTexts(texts []string) string {
+	var sb strings.Builder
+	for i, v := range texts {
+		sb.WriteString(fmt.Sprintf("text%d: %s\n", i+1, v))
+	}
+	return sb.String()
+}
+
+func convertLLMOutputToMergeText(output string) string {
+	jsn := extractJSONContent(output)
+	var result map[string]string
+	err := json.Unmarshal([]byte(jsn), &result)
+	if err != nil {
+		return ""
+	}
+	return result["merged_text"]
+}
+
+type ToolNode struct {
+	BaseNode
+	tool tool.Tool
+}
+
+func NewToolNode(opts ...NodeOption) (*ToolNode, error) {
+	options := &NodeOptions{}
+	for _, opt := range opts {
+		opt(options)
+	}
+
+	if options.tool == nil {
+		return nil, errors.New("tool is required")
+	}
+
+	node := &ToolNode{}
+	initToolNode(node, options)
+
+	return node, nil
+}
+
+func initToolNode(node *ToolNode, options *NodeOptions) {
+	node.nodeType = NodeTypeTool
+	node.name = options.name
+	node.tool = options.tool
+	node.inputTransits = make(map[string]TransitInterface)
+	node.outputTransits = make(map[string]TransitInterface)
+	node.setChannelInputs(options.nodeInputs...)
+	node.setChannelOutputs(options.nodeOutputs...)
+	node.setWorker(node.toolWorker)
+}
+
+func (n *ToolNode) toolWorker(ctx context.Context, a ...any) (any, error) {
+	dtos, noSelect := n.handleInput(ctx, a...)
+	if noSelect {
+		return createSkipDTO(), nil
+	}
+
+	input := extractInput(dtos)
+
+	output, err := n.tool.Call(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+
+	return FromNode(n.Name(), output), nil
 }
 
 func contains[T comparable](s []T, e T) bool {

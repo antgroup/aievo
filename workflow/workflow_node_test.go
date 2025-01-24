@@ -2,7 +2,6 @@ package workflow
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"testing"
 
@@ -62,17 +61,26 @@ func NewTestWorkflow01() *Workflow[DTO, DTO] {
 		WithNodeOutputs("t4"),
 	)
 
-	agentNode4, _ := NewLLMNode(
+	processorNode1, _ := NewProcessorNode(
+		WithName("processorNode1"),
+		WithNodeInputs("t3", "t4"),
+		WithProcessor(NewLLMDataMerger(
+			WithLLMClient(NewTestLLM01()),
+		)),
+		WithNodeOutputs("t5"),
+	)
+
+	llmNode1, _ := NewLLMNode(
 		WithName("llmNode"),
 		WithLLM(NewTestLLM01()),
-		WithNodeInputs("t3", "t4"),
+		WithNodeInputs("t5"),
 		WithNodeOutputs("output"),
 	)
 
 	f, _ := NewWorkflow[DTO, DTO](
 		WithChannelInput[DTO, DTO]("input"),
 		WithChannelOutput[DTO, DTO]("output"),
-		WithTransits[DTO, DTO](agentNode1, agentNode2, agentNode3, agentNode4),
+		WithTransits[DTO, DTO](agentNode1, agentNode2, agentNode3, processorNode1, llmNode1),
 	)
 	return f
 }
@@ -139,13 +147,11 @@ func NewTestWorkflow02() *Workflow[DTO, DTO] {
 func TestExecuteWorkflow01(t *testing.T) {
 	w := NewTestWorkflow01()
 	input := From("你是谁")
-	output := w.Execute(context.Background(), &input)
-	fmt.Println(Object(*output).(string))
+	w.Execute(context.Background(), &input)
 }
 
 func TestExecuteWorkflow02(t *testing.T) {
 	w := NewTestWorkflow02()
-	input := From("细胞的结构")
-	output := w.Execute(context.Background(), &input)
-	fmt.Println(Object(*output).(string))
+	input := From("质能方程是啥")
+	w.Execute(context.Background(), &input)
 }
