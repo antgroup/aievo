@@ -78,6 +78,7 @@ func (t *trie) buildFailurePointers() {
 func (t *trie) search(text, mode string) (string, error) {
 	currentNode := t.root
 	var filterWords []string
+	start := 0
 
 	for i, ch := range text {
 		for currentNode != nil && currentNode.children[ch] == nil {
@@ -92,16 +93,22 @@ func (t *trie) search(text, mode string) (string, error) {
 				currentNode = child
 			} else {
 				currentNode = t.root
+				start = i + 1
 			}
 		}
 
 		if currentNode.isEnd {
-			filterWords = append(filterWords, text[i-len(currentNode.children)+1:i+1])
+			filterWords = append(filterWords, text[start:i+1])
+			start = i + 1
+		}
+
+		if i == len(text)-1 && currentNode.isEnd {
+			filterWords = append(filterWords, text[start:])
 		}
 	}
 
 	if mode == FirstSensitiveWord && len(filterWords) > 0 {
 		return filterWords[0], nil
 	}
-	return strings.Join(filterWords, ", "), nil
+	return strings.Join(filterWords, ","), nil
 }
