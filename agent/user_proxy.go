@@ -3,6 +3,7 @@ package agent
 import (
 	"bufio"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -27,6 +28,10 @@ func NewUserProxy(name, desc string, command bool) *UserProxyAgent {
 }
 
 func (a *UserProxyAgent) Run(ctx context.Context, messages []schema.Message, opts ...llm.GenerateOption) (*schema.Generation, error) {
+	if messages == nil || len(messages) == 0 {
+		return nil, errors.New("no messages provided")
+	}
+
 	message := messages[len(messages)-1]
 	if !a.command {
 		return &schema.Generation{
