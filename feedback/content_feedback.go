@@ -52,7 +52,7 @@ func checkRepeatCall(steps []schema.StepAction, actions []schema.StepAction) *Fe
 				step.Observation != "" {
 				return &FeedbackInfo{
 					Type: NotApproved,
-					Msg:  fmt.Sprintf("this tool has been called before, do not repeated calls"),
+					Msg:  fmt.Sprintf("this tool has been called before, do not repeate calls"),
 				}
 
 			}

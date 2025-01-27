@@ -75,7 +75,7 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			if receiver == nil {
 				if len(receivers) == 1 {
 					return msg.Content, fmt.Errorf(
-						"get unexcept agent %s", msg.Receiver)
+						"get unexpected agent %s", msg.Receiver)
 				}
 				continue
 			}
@@ -92,7 +92,7 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			}
 
 			if gen.Messages == nil {
-				return "", fmt.Errorf("gen messages is nil for agent %s", msg.Receiver)
+				return "", fmt.Errorf("generating messages is nil for agent %s", msg.Receiver)
 			}
 
 			_ = e.Produce(ctx, gen.Messages...)

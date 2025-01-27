@@ -22,6 +22,10 @@ func NewSopAgent(opts ...Option) (schema.Agent, error) {
 }
 
 func parseSopOutput(_ string, output *llm.Generation) ([]schema.StepAction, []schema.Message, error) {
+	if output == nil {
+		return nil, nil, errors.New("output is empty")
+	}
+
 	if len(output.ToolCalls) > 0 {
 		return parseToolCalls(output.ToolCalls), nil, nil
 	}
