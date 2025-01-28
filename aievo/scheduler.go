@@ -9,14 +9,14 @@ import (
 )
 
 func (e *AIEvo) BuildPlan(_ context.Context, _ string, _ ...llm.GenerateOption) (string, error) {
-	// 预留，根据LLM自定义 team成员
+	// reserved, self define team member via LLM
 	err := e.Team.InitSubRelation()
 	return "", err
 }
 
 func (e *AIEvo) BuildSOP(ctx context.Context, prompt string, opts ...llm.GenerateOption) (string, error) {
 	if e.SOP() == "" && e.SopExpert != nil {
-		// 执行 sop agent 获取sop
+		//execute sop agent, obtain sop
 		gen, err := e.SopExpert.Run(ctx, []schema.Message{{
 			Type:     schema.MsgTypeMsg,
 			Content:  prompt,
@@ -27,7 +27,7 @@ func (e *AIEvo) BuildSOP(ctx context.Context, prompt string, opts ...llm.Generat
 			return "", err
 		}
 
-		// 更新cost
+		// update cost
 		_ = e.Produce(ctx, gen.Messages...)
 	}
 

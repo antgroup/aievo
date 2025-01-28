@@ -13,7 +13,7 @@ type Message struct {
 	Condition string `json:"condition"`
 	Token     int    `json:"token"`
 	Log       string
-	// 控制信息，用于剔除和更新Agent
+	// control msg, to remove and update Agent
 	MngInfo     *MngInfo
 	AllReceiver []string
 }

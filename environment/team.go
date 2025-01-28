@@ -16,7 +16,7 @@ var (
 )
 
 const (
-	// DefaultSubMode 存在leader agent的时候，则使用leader sub,否则ALL sub
+	// DefaultSubMode if leader agent exists，use leader sub, or else ALL sub
 	DefaultSubMode SubscribeMode = iota
 	LeaderSubMode
 	ALLSubMode
@@ -39,7 +39,7 @@ func NewTeam() *Team {
 }
 
 func (t *Team) InitSubRelation() error {
-	// 根据订阅模式填充订阅关系
+	//fill subscribe relation via subscribe mode
 	switch t.SubMode {
 	case DefaultSubMode:
 		if t.Leader != nil {

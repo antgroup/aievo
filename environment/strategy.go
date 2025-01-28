@@ -7,7 +7,7 @@ import (
 	"github.com/thoas/go-funk"
 )
 
-// msg分发
+// msg dispatch
 func (e *Environment) dispatch(ctx context.Context, msg *schema.Message) error {
 	e.Callback.HandleMessageInQueue(ctx, msg)
 	if handler, exists := e.strategies[msg.Type]; exists {
@@ -33,7 +33,7 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 	if msg.MngInfo == nil {
 		return nil
 	}
-	// 当前仅支持移除
+	//only support 'Remove' currently
 	if msg.MngInfo.Remove != nil {
 		e.Team.RemoveMembers(msg.MngInfo.Remove)
 	}

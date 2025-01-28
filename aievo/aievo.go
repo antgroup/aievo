@@ -34,7 +34,7 @@ func NewAIEvo(opts ...Option) (*AIEvo, error) {
 	if e.GetTeamLeader() == nil {
 		return nil, ErrMissingLeader
 	}
-	if len(e.GetTeam()) == 0 {
+	if e.GetTeam() == nil || len(e.GetTeam()) == 0 {
 		return nil, ErrMissTeam
 	}
 	return e, nil
@@ -74,6 +74,9 @@ func initializeTeam(e *AIEvo, o *options) {
 
 func setupAgents(e *AIEvo) {
 	for _, agent := range e.GetTeam() {
+		if agent == nil {
+			continue
+		}
 		agent.WithEnv(e.Environment)
 	}
 }
