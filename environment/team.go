@@ -39,7 +39,7 @@ func NewTeam() *Team {
 }
 
 func (t *Team) InitSubRelation() error {
-	//fill subscribe relation via subscribe mode
+	// fill subscribe relation via subscribe mode
 	switch t.SubMode {
 	case DefaultSubMode:
 		if t.Leader != nil {

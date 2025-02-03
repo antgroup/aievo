@@ -33,7 +33,7 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 	if msg.MngInfo == nil {
 		return nil
 	}
-	//only support 'Remove' currently
+	// only support 'Remove' currently
 	if msg.MngInfo.Remove != nil {
 		e.Team.RemoveMembers(msg.MngInfo.Remove)
 	}

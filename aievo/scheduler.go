@@ -16,7 +16,7 @@ func (e *AIEvo) BuildPlan(_ context.Context, _ string, _ ...llm.GenerateOption) 
 
 func (e *AIEvo) BuildSOP(ctx context.Context, prompt string, opts ...llm.GenerateOption) (string, error) {
 	if e.SOP() == "" && e.SopExpert != nil {
-		//execute sop agent, obtain sop
+		// execute sop agent, obtain sop
 		gen, err := e.SopExpert.Run(ctx, []schema.Message{{
 			Type:     schema.MsgTypeMsg,
 			Content:  prompt,
