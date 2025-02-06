@@ -5,19 +5,19 @@ import (
 )
 
 type Environment interface {
-	// Produce 生产消息
+	// Produce produce msg
 	Produce(ctx context.Context, msgs ...Message) error
-	// Consume 消费消息
+	// Consume consume msg
 	Consume(ctx context.Context) *Message
 
-	// SOP 任务SOP
+	// SOP task SOP
 	SOP() string
-	// GetTeam 团队所有成员
+	// GetTeam all team members
 	GetTeam() []Agent
-	// GetTeamLeader 团队Leader
+	// GetTeamLeader team Leader
 	GetTeamLeader() Agent
 
-	// LoadMemory 获取Agent的历史消息
+	// LoadMemory get Agent's historical msg
 	LoadMemory(ctx context.Context, receiver Agent) []Message
 
 	GetSubscribeAgents(_ context.Context, subscribed Agent) []Agent
@@ -27,7 +27,7 @@ type Environment interface {
 type Memory interface {
 	Load(ctx context.Context, filter func(index, consumption int, message Message) bool) []Message
 
-	// LoadNext 加载下一条消息，filter 对下一条消息进行检查，不符合的话，则不会返回
+	// LoadNext load next msg，filter check next msg，if not passed，then do not return
 	LoadNext(ctx context.Context, filter func(message Message) bool) *Message
 
 	Save(ctx context.Context, msg Message) error

@@ -48,8 +48,8 @@ func (e *Environment) Consume(ctx context.Context) *schema.Message {
 
 func (e *Environment) LoadMemory(ctx context.Context, receiver schema.Agent) []schema.Message {
 	// 按照当前消费位点，返回消息
-	if receiver == e.Watcher || receiver == e.SopExpert ||
-		receiver == e.Planner || receiver == nil {
+	if receiver == nil || receiver == e.Watcher || receiver == e.SopExpert ||
+		receiver == e.Planner {
 		return e.Memory.Load(ctx, nil)
 	}
 	return e.Memory.Load(ctx, func(index, consumption int, message schema.Message) bool {

@@ -2,7 +2,6 @@ package aievo
 
 import (
 	"context"
-
 	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/memory"
@@ -73,8 +72,9 @@ func initializeTeam(e *AIEvo, o *options) {
 }
 
 func setupAgents(e *AIEvo) {
-	for _, agent := range e.GetTeam() {
-		agent.WithEnv(e.Environment)
+	members := e.GetTeam()
+	for index := 0; index < len(members) && members[index] != nil; index++ {
+		members[index].WithEnv(e.Environment)
 	}
 }
 
