@@ -273,10 +273,6 @@ func ConvertToolToFunctionDefinition(tools []tool.Tool) []llm.Tool {
 }
 
 func parseOutput(name string, output *llm.Generation) ([]schema.StepAction, []schema.Message, error) {
-	if output == nil || output.ToolCalls == nil {
-		return nil, nil, errors.New("output is empty")
-	}
-
 	if len(output.ToolCalls) > 0 {
 		return parseToolCalls(output.ToolCalls), nil, nil
 	}
@@ -300,10 +296,6 @@ func parseOutput(name string, output *llm.Generation) ([]schema.StepAction, []sc
 }
 
 func parseToolCalls(toolCalls []llm.ToolCall) []schema.StepAction {
-	if toolCalls == nil {
-		return nil
-	}
-
 	actions := make([]schema.StepAction, 0, len(toolCalls))
 	for _, toolCall := range toolCalls {
 		logBytes, _ := json.Marshal(toolCall)

@@ -65,6 +65,8 @@ var testJson5 = `{
 	\"type\": \"end\"}"
 }`
 
+var testJson6 = `{\n\t\"thought\": \"这是一个简单的数学乘法问题，我可以使用calculator工具来解决这个问题。\",\n\t\"action\": \"calculator\",\n\t\"input\": {\"param\": \"20 * 30\"}\n}`
+
 func TestDecode1(t *testing.T) {
 	var msg Message
 	err := Unmarshal([]byte(testJson1), &msg)
@@ -121,6 +123,16 @@ func TestDecode6(t *testing.T) {
 	msgs := &Message{}
 	// testJson4 = strings.Replace(testJson4, `\"`, `'`, -1)
 	err := Unmarshal([]byte(testJson5), &msgs)
+	if err != nil {
+		fmt.Print(err)
+	}
+	fmt.Println(msgs)
+}
+
+func TestDecode7(t *testing.T) {
+	msgs := &Message{}
+	// testJson4 = strings.Replace(testJson4, `\"`, `'`, -1)
+	err := Unmarshal([]byte(testJson6), &msgs)
 	if err != nil {
 		fmt.Print(err)
 	}

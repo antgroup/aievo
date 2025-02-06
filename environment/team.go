@@ -24,7 +24,7 @@ const (
 )
 
 type Team struct {
-	Members    []schema.Agent
+	members    []schema.Agent
 	Leader     schema.Agent
 	Subscribes []schema.Subscribe
 	SubMode    SubscribeMode
@@ -32,7 +32,7 @@ type Team struct {
 
 func NewTeam() *Team {
 	return &Team{
-		Members:    []schema.Agent{},
+		members:    []schema.Agent{},
 		Subscribes: []schema.Subscribe{},
 		SubMode:    DefaultSubMode,
 	}
@@ -61,7 +61,7 @@ func (t *Team) InitSubRelation() error {
 }
 
 func (t *Team) Member(name string) schema.Agent {
-	for _, a := range t.Members {
+	for _, a := range t.members {
 		if strings.EqualFold(a.Name(), name) {
 			return a
 		}
@@ -70,7 +70,11 @@ func (t *Team) Member(name string) schema.Agent {
 }
 
 func (t *Team) AddMembers(members ...schema.Agent) {
-	t.Members = append(t.Members, members...)
+	for _, member := range members {
+		if member != nil {
+			t.members = append(t.members, member)
+		}
+	}
 }
 
 func (t *Team) GetSubMembers(_ context.Context,
@@ -80,7 +84,7 @@ func (t *Team) GetSubMembers(_ context.Context,
 		if subscribe.Subscribed.Name() == subscribed.Name() &&
 			subscribe.Subscriber.Name() != subscribed.Name() {
 			// 仅考虑组内成员
-			for _, member := range t.Members {
+			for _, member := range t.members {
 				if subscribe.Subscriber.Name() == member.Name() {
 					members = append(members, subscribe.Subscriber)
 					break
@@ -97,7 +101,7 @@ func (t *Team) GetMsgSubMembers(msg *schema.Message) (subscribers []string) {
 			if subscribe.Condition != "" && subscribe.Condition != msg.Condition {
 				continue
 			}
-			for _, member := range t.Members {
+			for _, member := range t.members {
 				if subscribe.Subscriber.Name() == member.Name() {
 					subscribers = append(subscribers, subscribe.Subscriber.Name())
 					break
@@ -110,10 +114,10 @@ func (t *Team) GetMsgSubMembers(msg *schema.Message) (subscribers []string) {
 
 func (t *Team) RemoveMembers(names []string) {
 	for _, name := range names {
-		for i, member := range t.Members {
+		for i, member := range t.members {
 			if strings.EqualFold(member.Name(),
 				strings.TrimSpace(name)) {
-				t.Members = append(t.Members[:i], t.Members[i+1:]...)
+				t.members = append(t.members[:i], t.members[i+1:]...)
 				break
 			}
 		}
@@ -121,7 +125,7 @@ func (t *Team) RemoveMembers(names []string) {
 }
 
 func (t *Team) buildLeaderSubRelation() {
-	for _, a := range t.Members {
+	for _, a := range t.members {
 		if a.Name() == t.Leader.Name() {
 			continue
 		}
@@ -137,8 +141,8 @@ func (t *Team) buildLeaderSubRelation() {
 }
 
 func (t *Team) buildAllSubRelation() {
-	for _, a := range t.Members {
-		for _, tmp := range t.Members {
+	for _, a := range t.members {
+		for _, tmp := range t.members {
 			if a.Name() == tmp.Name() {
 				continue
 			}

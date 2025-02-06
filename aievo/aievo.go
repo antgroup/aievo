@@ -2,6 +2,7 @@ package aievo
 
 import (
 	"context"
+
 	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/memory"
@@ -28,7 +29,6 @@ func NewAIEvo(opts ...Option) (*AIEvo, error) {
 	initializeAIEvo(e, o)
 	initializeEnvironment(e)
 	initializeTeam(e, o)
-	setupAgents(e)
 
 	if e.GetTeamLeader() == nil {
 		return nil, ErrMissingLeader
@@ -69,12 +69,10 @@ func initializeTeam(e *AIEvo, o *options) {
 	if o.user != nil {
 		e.Team.AddMembers(o.user)
 	}
-}
-
-func setupAgents(e *AIEvo) {
-	members := e.GetTeam()
-	for index := 0; index < len(members) && members[index] != nil; index++ {
-		members[index].WithEnv(e.Environment)
+	for _, member := range e.GetTeam() {
+		if member.Env() == nil {
+			member.WithEnv(e.Environment)
+		}
 	}
 }
 

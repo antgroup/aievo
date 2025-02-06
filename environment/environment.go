@@ -80,7 +80,7 @@ func (e *Environment) SOP() string {
 }
 
 func (e *Environment) GetTeam() []schema.Agent {
-	return e.Team.Members
+	return e.Team.members
 }
 
 func (e *Environment) GetTeamLeader() schema.Agent {

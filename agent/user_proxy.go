@@ -28,7 +28,7 @@ func NewUserProxy(name, desc string, command bool) *UserProxyAgent {
 }
 
 func (a *UserProxyAgent) Run(ctx context.Context, messages []schema.Message, opts ...llm.GenerateOption) (*schema.Generation, error) {
-	if messages == nil || len(messages) == 0 {
+	if len(messages) == 0 {
 		return nil, errors.New("no messages provided")
 	}
 
