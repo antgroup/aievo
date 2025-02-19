@@ -46,7 +46,7 @@ type GenerateOptions struct {
 	// Tools is a list of tools to use. Each tool can be a specific tool or a function.
 	Tools []Tool `json:"tools,omitempty"`
 	// ParallelToolCalls Whether to enable parallel function calling during tool use.
-	ParallelToolCalls bool `json:"parallel_tool_calls"`
+	ParallelToolCalls *bool `json:"parallel_tool_calls,omitempty"`
 	// ToolChoice is the choice of tool to use, it can either be "none", "auto" (the default behavior), or a specific tool as described in the ToolChoice type.
 	ToolChoice any `json:"tool_choice"`
 
@@ -259,13 +259,14 @@ func WithResponseMIMEType(responseMIMEType string) GenerateOption {
 
 func WithParallelToolCalls(parallel bool) GenerateOption {
 	return func(o *GenerateOptions) {
-		o.ParallelToolCalls = parallel
+		o.ParallelToolCalls = &parallel
 	}
 }
 
 func DefaultGenerateOption() *GenerateOptions {
+	// v := true
 	return &GenerateOptions{
-		ParallelToolCalls: false,
+		ParallelToolCalls: nil,
 		// ToolChoice:        "none",
 	}
 }

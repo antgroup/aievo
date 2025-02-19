@@ -103,11 +103,11 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 
 		MaxCompletionTokens: opts.MaxTokens,
 
-		ToolChoice:        opts.ToolChoice,
-		ParallelToolCalls: opts.ParallelToolCalls,
-		Seed:              &opts.Seed,
-		Metadata:          opts.Metadata,
+		ToolChoice: opts.ToolChoice,
+		Seed:       &opts.Seed,
+		Metadata:   opts.Metadata,
 	}
+
 	if opts.JSONMode {
 		req.ResponseFormat = &goopenai.ChatCompletionResponseFormat{Type: "json_object"}
 	}
@@ -119,6 +119,11 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 			return nil, fmt.Errorf("failed to convert llms tool to openai tool: %w", err)
 		}
 		req.Tools = append(req.Tools, t)
+	}
+
+	// fix for some platform dont support ParallelToolCalls when tool not set
+	if opts.ParallelToolCalls != nil && len(req.Tools) > 0 {
+		req.ParallelToolCalls = opts.ParallelToolCalls
 	}
 
 	// if o.client.ResponseFormat is set, use it for the request
