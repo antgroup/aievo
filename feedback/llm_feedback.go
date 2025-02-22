@@ -95,7 +95,7 @@ func (lf *LLMFeedback) Feedback(ctx context.Context, agent schema.Agent,
 
 func (lf *LLMFeedback) feedback(ctx context.Context, agent schema.Agent,
 	messages []schema.Message, actions []schema.StepAction,
-	steps []schema.StepAction, prompt string) *FeedbackInfo {
+	steps []schema.StepAction, _ string) *FeedbackInfo {
 
 	// 考虑一直反馈失败的情况
 	info := &FeedbackInfo{Type: Approved}
@@ -153,7 +153,7 @@ func (lf *LLMFeedback) feedback(ctx context.Context, agent schema.Agent,
 			info.Msg += strings.TrimSpace(tmp.Msg) + "\n"
 		}
 		return tmp
-	}, lf.expert)
+	}, lf.expert, lf.expert)
 
 	info.Type = NotApproved
 	if approve > int32(lf.expert/2) {

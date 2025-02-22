@@ -30,8 +30,8 @@ func TestMultiContentText(t *testing.T) {
 	var content []llm.Message
 
 	content = append(content,
-		*llm.NewSystemMessage("", "You are an assistant"),
-		*llm.NewUserMessage("", "使用计算器计算一下，3*4等于多少"))
+		llm.NewSystemMessage("", "You are an assistant"),
+		llm.NewUserMessage("", "使用计算器计算一下，3*4等于多少"))
 	cal := &calculator.Calculator{}
 	rsp, err := client.GenerateContent(context.Background(), content,
 		llm.WithTools([]llm.Tool{
@@ -49,9 +49,9 @@ func TestMultiContentText(t *testing.T) {
 		t.Fatal(err)
 	}
 	fmt.Println(rsp)
-	content = append(content, *llm.NewAssistantMessage(
+	content = append(content, llm.NewAssistantMessage(
 		"", "", rsp.ToolCalls))
-	content = append(content, *llm.NewToolMessage(
+	content = append(content, llm.NewToolMessage(
 		rsp.ToolCalls[0].ID, "12"))
 	rsp, err = client.GenerateContent(context.Background(), content,
 		llm.WithTools([]llm.Tool{

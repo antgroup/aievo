@@ -175,7 +175,7 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 
 func (l *LLM) Generate(ctx context.Context, prompt string, options ...llm.GenerateOption) (*llm.Generation, error) {
 	message := llm.NewUserMessage("", prompt)
-	return l.GenerateContent(ctx, []llm.Message{*message}, options...)
+	return l.GenerateContent(ctx, []llm.Message{message}, options...)
 }
 
 // toolFromTool converts an llms.Tool to a Tool.

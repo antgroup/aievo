@@ -35,24 +35,24 @@ type Message struct {
 	Content string `json:"content,omitempty"`
 }
 
-func NewUserMessage(name, content string) *Message {
-	return &Message{
+func NewUserMessage(name, content string) Message {
+	return Message{
 		Role:    MessageTypeUser,
 		Name:    name,
 		Content: content,
 	}
 }
 
-func NewSystemMessage(name, content string) *Message {
-	return &Message{
+func NewSystemMessage(name, content string) Message {
+	return Message{
 		Role:    MessageTypeSystem,
 		Name:    name,
 		Content: content,
 	}
 }
 
-func NewAssistantMessage(name, content string, toolCalls []ToolCall) *Message {
-	return &Message{
+func NewAssistantMessage(name, content string, toolCalls []ToolCall) Message {
+	return Message{
 		Role:      MessageTypeAssistant,
 		Name:      name,
 		Content:   content,
@@ -60,8 +60,8 @@ func NewAssistantMessage(name, content string, toolCalls []ToolCall) *Message {
 	}
 }
 
-func NewToolMessage(id, content string) *Message {
-	return &Message{
+func NewToolMessage(id, content string) Message {
+	return Message{
 		Role:       MessageTypeTool,
 		ToolCallId: id,
 		Content:    content,
