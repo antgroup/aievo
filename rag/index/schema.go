@@ -39,6 +39,7 @@ type Entity struct {
 	Title       string
 	Type        string
 	Desc        string
+	TmpDesc     []string
 	TextUnitIds []string
 }
 
@@ -47,7 +48,8 @@ type Relationship struct {
 	Source         *Entity
 	Target         *Entity
 	Desc           string
-	Weight         int
+	TmpDesc        []string
+	Weight         float64
 	CombinedDegree int
 	TextUnitIds    []string
 }

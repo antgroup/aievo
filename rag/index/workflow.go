@@ -45,12 +45,18 @@ func NewWorkflow(nodes []Progress, opts ...Option) (*Workflow, error) {
 	return w, nil
 }
 
+func DefaultNodes() []Progress {
+	return []Progress{
+		BaseDocuments,
+		BaseTextUnits,
+		FinalDocuments,
+		ExtraGraph,
+	}
+}
+
 func Default() (*Workflow, error) {
 	return NewWorkflow(
-		[]Progress{
-			BaseDocuments,
-			BaseTextUnits,
-		},
+		DefaultNodes(),
 		WithMaxToken(_defaultMaxToken),
 		WithEntityTypes(_defaultEntityTypes),
 		WithLLMCallConcurrency(_defaultLLMConcurrency))
