@@ -36,11 +36,16 @@ type TextUnit struct {
 
 type Entity struct {
 	Id          string
+	Index       int64
 	Title       string
 	Type        string
 	Desc        string
 	TmpDesc     []string
 	TextUnitIds []string
+}
+
+func (e *Entity) ID() int64 {
+	return e.Index
 }
 
 type Relationship struct {
@@ -76,4 +81,12 @@ type Community struct {
 }
 
 type Report struct {
+}
+
+type HierarchicalCluster struct {
+	Node           string `json:"node"`
+	Cluster        int    `json:"cluster"`
+	ParentCluster  int    `json:"parent_cluster"`
+	Level          int    `json:"level"`
+	IsFinalCluster bool   `json:"is_final_cluster"`
 }

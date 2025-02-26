@@ -150,7 +150,7 @@ func parseResults(_ context.Context, args *WorkflowContext, results []string) er
 					eMap[entity.Id].TmpDesc, strings.Trim(attrs[3], `"`))
 				eMap[entity.Id].TextUnitIds = append(
 					eMap[entity.Id].TextUnitIds, args.TextUnits[idx].Id)
-
+				eMap[entity.Id].TextUnitIds = funk.UniqString(eMap[entity.Id].TextUnitIds)
 			}
 		}
 	}
@@ -192,6 +192,7 @@ func parseResults(_ context.Context, args *WorkflowContext, results []string) er
 					rMap[relation.Id].TmpDesc, desc)
 				rMap[relation.Id].TextUnitIds = append(
 					rMap[relation.Id].TextUnitIds, args.TextUnits[idx].Id)
+				rMap[relation.Id].TextUnitIds = funk.UniqString(rMap[relation.Id].TextUnitIds)
 				rMap[relation.Id].Weight += weight
 			}
 		}
