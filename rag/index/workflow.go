@@ -53,6 +53,10 @@ func DefaultNodes() []Progress {
 		ExtraGraph,
 		FinalEntities,
 		ComputeCommunities,
+		FinalNodes,
+		FinalCommunities,
+		FinalTextUnits,
+		FinalCommunityReport,
 	}
 }
 

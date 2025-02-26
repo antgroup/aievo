@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/exec"
 	"sort"
-	"strconv"
 	"time"
 )
 
@@ -16,10 +15,15 @@ func ComputeCommunities(ctx context.Context, args *WorkflowContext) error {
 	if err != nil {
 		return err
 	}
+	// id 复用 entity 的 id
+	m := make(map[string]string)
+	for _, entity := range args.Entities {
+		m[entity.Title] = entity.Id
+	}
 	for _, cluster := range communities {
 		args.Communities = append(args.Communities,
 			&Community{
-				Id:              id(strconv.Itoa(cluster.Cluster)),
+				Id:              m[cluster.Node],
 				Title:           cluster.Node,
 				Community:       cluster.Cluster,
 				Level:           cluster.Level,
