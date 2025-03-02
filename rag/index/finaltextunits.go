@@ -2,9 +2,11 @@ package index
 
 import (
 	"context"
+
+	"github.com/antgroup/aievo/rag"
 )
 
-func FinalTextUnits(ctx context.Context, args *WorkflowContext) error {
+func FinalTextUnits(ctx context.Context, args *rag.WorkflowContext) error {
 	me2t := make(map[string][]string)
 	mr2t := make(map[string][]string)
 	for _, entity := range args.Entities {

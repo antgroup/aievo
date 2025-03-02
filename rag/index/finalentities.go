@@ -2,10 +2,12 @@ package index
 
 import (
 	"context"
+
+	"github.com/antgroup/aievo/rag"
 )
 
-func FinalEntities(_ context.Context, args *WorkflowContext) error {
-	me := make(map[string]*Entity)
+func FinalEntities(_ context.Context, args *rag.WorkflowContext) error {
+	me := make(map[string]*rag.Entity)
 	for _, entity := range args.Entities {
 		me[entity.Title] = entity
 	}

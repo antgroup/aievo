@@ -3,11 +3,12 @@ package index
 import (
 	"context"
 
+	"github.com/antgroup/aievo/rag"
 	"github.com/thoas/go-funk"
 )
 
-func FinalDocuments(_ context.Context, args *WorkflowContext) error {
-	m := make(map[string]*Document)
+func FinalDocuments(_ context.Context, args *rag.WorkflowContext) error {
+	m := make(map[string]*rag.Document)
 	for _, document := range args.Documents {
 		m[document.Id] = document
 	}

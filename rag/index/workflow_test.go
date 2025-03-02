@@ -13,13 +13,14 @@ import (
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
+	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/index/prompts"
 	"github.com/stretchr/testify/assert"
 	"github.com/thoas/go-funk"
 )
 
 func TestBaseDocuments(t *testing.T) {
-	args := &WorkflowContext{basepath: "/Users/tyloafer/WorkPlace/src/github.com/antgroup/aievo/rag"}
+	args := &rag.WorkflowContext{BasePath: "/Users/tyloafer/WorkPlace/src/github.com/antgroup/aievo/rag"}
 	err := BaseDocuments(context.Background(),
 		args)
 	if err != nil {
@@ -298,14 +299,14 @@ func TestSingleResult(t *testing.T) {
 	content := getraw("results_record.json")
 	records := strings.Split(content, "\n")
 	type tmp struct {
-		Entities      []*Entity          `json:"entities"`
-		Relationships []*TmpRelationship `json:"relationships"`
-		Id            string             `json:"id"`
+		Entities      []*rag.Entity          `json:"entities"`
+		Relationships []*rag.TmpRelationship `json:"relationships"`
+		Id            string                 `json:"id"`
 	}
 	tmps := make(map[string]*tmp)
-	args := &WorkflowContext{
-		basepath: "",
-		config: &WorkflowConfig{
+	args := &rag.WorkflowContext{
+		BasePath: "",
+		Config: &rag.WorkflowConfig{
 			ChunkSize:          1200,
 			ChunkOverlap:       200,
 			Separators:         nil,
@@ -329,7 +330,7 @@ func TestSingleResult(t *testing.T) {
 		tmps[r.Id] = r
 	}
 
-	textUnits := make([]*TextUnit, 0, 50)
+	textUnits := make([]*rag.TextUnit, 0, 50)
 	get("create_base_text_units.json", &textUnits)
 
 	for _, t2 := range tmps {
@@ -351,8 +352,8 @@ func TestSingleResult(t *testing.T) {
 			panic(err)
 		}
 
-		tmpEntities := make(map[string]*Entity)
-		argEntities := make(map[string]*Entity)
+		tmpEntities := make(map[string]*rag.Entity)
+		argEntities := make(map[string]*rag.Entity)
 
 		for _, entity := range tmps[unit.Id].Entities {
 			tmpEntities[entity.Title] = entity
@@ -370,8 +371,8 @@ func TestSingleResult(t *testing.T) {
 		}
 
 		// 比对 relation
-		tmpRelationships := make(map[string]*TmpRelationship)
-		argRelations := make(map[string]*TmpRelationship)
+		tmpRelationships := make(map[string]*rag.TmpRelationship)
+		argRelations := make(map[string]*rag.TmpRelationship)
 
 		for _, relation := range tmps[unit.Id].Relationships {
 			tmpRelationships[id(relation.Source+"-"+relation.Target)] = relation
@@ -397,9 +398,9 @@ func TestSingleResult(t *testing.T) {
 
 func TestWorkflow_Run(t *testing.T) {
 	// 初始化 base_text_unit 和 base_document
-	args := &WorkflowContext{
-		basepath: "",
-		config: &WorkflowConfig{
+	args := &rag.WorkflowContext{
+		BasePath: "",
+		Config: &rag.WorkflowConfig{
 			ChunkSize:          1200,
 			ChunkOverlap:       200,
 			Separators:         nil,
@@ -413,32 +414,32 @@ func TestWorkflow_Run(t *testing.T) {
 	// 获取初始数据
 	get("create_base_text_units.json", &args.TextUnits)
 	get("create_final_documents.json", &args.Documents)
-	finalDocuments := make([]*Document, 0, 100)
+	finalDocuments := make([]*rag.Document, 0, 100)
 	get("create_final_documents.json", &finalDocuments)
 
-	baseEntity := make([]*Entity, 0, 100)
+	baseEntity := make([]*rag.Entity, 0, 100)
 	get("base_entity_nodes.json", &baseEntity)
 	for _, entity := range baseEntity {
 		entity.TextUnitIds = funk.UniqString(entity.TextUnitIds)
 	}
 
-	baseRelations := make([]*TmpRelationship, 0, 100)
+	baseRelations := make([]*rag.TmpRelationship, 0, 100)
 	get("base_relationship_edges.json", &baseRelations)
 
-	baseCommunity := make([]*Community, 0, 100)
+	baseCommunity := make([]*rag.Community, 0, 100)
 	get("base_communities.json", &baseCommunity)
-	finalEntities := make([]*Entity, 0, 100)
+	finalEntities := make([]*rag.Entity, 0, 100)
 	get("create_final_entities.json", &finalEntities)
-	finalRelationships := make([]*TmpRelationship, 0, 100)
+	finalRelationships := make([]*rag.TmpRelationship, 0, 100)
 	get("create_final_relationships.json", &finalRelationships)
-	finalNodes := make([]*Node, 0, 100)
+	finalNodes := make([]*rag.Node, 0, 100)
 	get("create_final_nodes.json", &finalNodes)
-	finalCommunities := make([]*Community, 0, 100)
+	finalCommunities := make([]*rag.Community, 0, 100)
 	get("create_final_communities.json", &finalCommunities)
-	finalTextUnits := make([]*TextUnit, 0, 100)
+	finalTextUnits := make([]*rag.TextUnit, 0, 100)
 	get("create_final_text_units.json", &finalTextUnits)
 
-	finalReport := make([]*Report, 0, 100)
+	finalReport := make([]*rag.Report, 0, 100)
 	get("create_final_community_reports.json", &finalReport)
 
 	for _, document := range args.Documents {
@@ -455,8 +456,8 @@ func TestWorkflow_Run(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, len(baseEntity), len(args.Entities))
 	// 首先检查 entity
-	baseEntityMap := make(map[string]*Entity)
-	entityMap := make(map[string]*Entity)
+	baseEntityMap := make(map[string]*rag.Entity)
+	entityMap := make(map[string]*rag.Entity)
 	for _, entity := range baseEntity {
 		baseEntityMap[entity.Title] = entity
 	}
@@ -483,8 +484,8 @@ func TestWorkflow_Run(t *testing.T) {
 	// assert.Equal(t, len(baseRelations), len(args.Relationships))
 
 	// 开始 断言 relation
-	baseRelationMap := make(map[string]*TmpRelationship)
-	relationMap := make(map[string]*Relationship)
+	baseRelationMap := make(map[string]*rag.TmpRelationship)
+	relationMap := make(map[string]*rag.Relationship)
 	for _, relation := range baseRelations {
 		relation.TextUnitIds = funk.UniqString(relation.TextUnitIds)
 		if _, ok := baseRelationMap[relation.Source+"-"+relation.Target]; ok {
@@ -516,8 +517,8 @@ func TestWorkflow_Run(t *testing.T) {
 		panic(err)
 	}
 	assert.Nil(t, err)
-	baseCommunityMap := make(map[string]*Community)
-	communityMap := make(map[string]*Community)
+	baseCommunityMap := make(map[string]*rag.Community)
+	communityMap := make(map[string]*rag.Community)
 	for _, community := range args.Communities {
 		communityMap[fmt.Sprintf("%s-%d-%d", community.Title, community.Community, community.Level)] = community
 	}
@@ -534,8 +535,8 @@ func TestWorkflow_Run(t *testing.T) {
 	// assert final entity
 	err = FinalEntities(context.Background(), args)
 	assert.Nil(t, err)
-	finalEntitiesMap := make(map[string]*Entity)
-	entitiesMap := make(map[string]*Entity)
+	finalEntitiesMap := make(map[string]*rag.Entity)
+	entitiesMap := make(map[string]*rag.Entity)
 	for _, entity := range args.Entities {
 		entitiesMap[entity.Title] = entity
 	}
@@ -559,8 +560,8 @@ func TestWorkflow_Run(t *testing.T) {
 	// asset nodes
 	err = FinalNodes(context.Background(), args)
 	assert.Nil(t, err)
-	finalNodesMap := make(map[string]*Node)
-	nodesMap := make(map[string]*Node)
+	finalNodesMap := make(map[string]*rag.Node)
+	nodesMap := make(map[string]*rag.Node)
 	for _, node := range args.Nodes {
 		nodesMap[fmt.Sprintf("%s-%d", node.Title, node.Community)] = node
 	}
@@ -581,7 +582,7 @@ func TestWorkflow_Run(t *testing.T) {
 			panic(err)
 		}
 		args.Relationships = append(args.Relationships,
-			&Relationship{
+			&rag.Relationship{
 				Id:             relation.Id,
 				Source:         entityMap[relation.Source],
 				Target:         entityMap[relation.Target],
@@ -594,8 +595,8 @@ func TestWorkflow_Run(t *testing.T) {
 	// assert final community
 	err = FinalCommunities(context.Background(), args)
 	assert.Nil(t, err)
-	finalCommunitiesMap := make(map[int]*Community)
-	communitiesMap := make(map[int]*Community)
+	finalCommunitiesMap := make(map[int]*rag.Community)
+	communitiesMap := make(map[int]*rag.Community)
 	for _, community := range args.Communities {
 		communitiesMap[community.Community] = community
 	}
@@ -620,8 +621,8 @@ func TestWorkflow_Run(t *testing.T) {
 	// assert final text unit
 	err = FinalTextUnits(context.Background(), args)
 	assert.Nil(t, err)
-	finalTextUnitsMap := make(map[string]*TextUnit)
-	textUnitsMap := make(map[string]*TextUnit)
+	finalTextUnitsMap := make(map[string]*rag.TextUnit)
+	textUnitsMap := make(map[string]*rag.TextUnit)
 	for _, textUnit := range args.TextUnits {
 		textUnitsMap[textUnit.Id] = textUnit
 	}

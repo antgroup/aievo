@@ -3,10 +3,12 @@ package index
 import (
 	"context"
 	"sort"
+
+	"github.com/antgroup/aievo/rag"
 )
 
-func FinalNodes(ctx context.Context, args *WorkflowContext) error {
-	m := make(map[*Entity]int)
+func FinalNodes(ctx context.Context, args *rag.WorkflowContext) error {
+	m := make(map[*rag.Entity]int)
 	for _, relation := range args.Relationships {
 		m[relation.Source]++
 		m[relation.Target]++
@@ -21,7 +23,7 @@ func FinalNodes(ctx context.Context, args *WorkflowContext) error {
 		entity := args.Entities[mEntities[community.Title]]
 		delete(mFlag, community.Title)
 		args.Nodes = append(args.Nodes,
-			&Node{
+			&rag.Node{
 				Id:        entity.Id,
 				Title:     entity.Title,
 				Community: community.Community,
@@ -33,7 +35,7 @@ func FinalNodes(ctx context.Context, args *WorkflowContext) error {
 	for title := range mFlag {
 		entity := args.Entities[mEntities[title]]
 		args.Nodes = append(args.Nodes,
-			&Node{
+			&rag.Node{
 				Id:        entity.Id,
 				Title:     entity.Title,
 				Community: -1,

@@ -7,7 +7,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/antgroup/aievo/llm"
+	"github.com/antgroup/aievo/rag"
 )
 
 var (
@@ -18,21 +18,12 @@ var (
 )
 
 type Workflow struct {
-	nodes  []Progress
-	config *WorkflowConfig
+	nodes  []rag.Progress
+	config *rag.WorkflowConfig
 }
 
-type WorkflowConfig struct {
-	ChunkSize          int
-	ChunkOverlap       int
-	Separators         []string
-	MaxToken           int
-	EntityTypes        []string
-	LLM                llm.LLM
-	LLMCallConcurrency int
-}
-
-func NewWorkflow(nodes []Progress, opts ...Option) (*Workflow, error) {
+// NewWorkflow 初始化一个 index workflow, 在最后可以加一个存储的 progress，便于将数据存储到数据库
+func NewWorkflow(nodes []rag.Progress, opts ...Option) (*Workflow, error) {
 	w := &Workflow{nodes: nodes}
 	for _, opt := range opts {
 		opt(w.config)
@@ -46,8 +37,8 @@ func NewWorkflow(nodes []Progress, opts ...Option) (*Workflow, error) {
 	return w, nil
 }
 
-func DefaultNodes() []Progress {
-	return []Progress{
+func DefaultNodes() []rag.Progress {
+	return []rag.Progress{
 		BaseDocuments,
 		BaseTextUnits,
 		FinalDocuments,
@@ -70,9 +61,9 @@ func Default() (*Workflow, error) {
 }
 
 func (w *Workflow) Run(ctx context.Context, filepath string) error {
-	args := &WorkflowContext{
-		basepath: filepath,
-		config:   w.config,
+	args := &rag.WorkflowContext{
+		BasePath: filepath,
+		Config:   w.config,
 	}
 
 	for _, process := range w.nodes {

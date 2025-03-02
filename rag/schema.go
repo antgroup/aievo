@@ -1,12 +1,24 @@
-package index
+package rag
 
 import (
 	"context"
+
+	"github.com/antgroup/aievo/llm"
 )
 
+type WorkflowConfig struct {
+	ChunkSize          int
+	ChunkOverlap       int
+	Separators         []string
+	MaxToken           int
+	EntityTypes        []string
+	LLM                llm.LLM
+	LLMCallConcurrency int
+}
+
 type WorkflowContext struct {
-	basepath         string
-	config           *WorkflowConfig
+	BasePath         string
+	Config           *WorkflowConfig
 	Documents        []*Document
 	TextUnits        []*TextUnit
 	Relationships    []*Relationship

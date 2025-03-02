@@ -1,0 +1,4 @@
+networkx
+pandas
+graspologic
+future

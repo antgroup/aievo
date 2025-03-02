@@ -9,6 +9,7 @@ import (
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
+	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/index/prompts"
 	"github.com/antgroup/aievo/utils/parallel"
 	"github.com/thoas/go-funk"
@@ -20,14 +21,14 @@ var (
 	_recordDelimiter     = "##"
 )
 
-func ExtraGraph(ctx context.Context, args *WorkflowContext) error {
+func ExtraGraph(ctx context.Context, args *rag.WorkflowContext) error {
 	err := extractEntities(ctx, args)
 	if err != nil {
 		return err
 	}
 	// 当前是 按照 title-type 进行聚类的，去除重复的，仅保留一个title
-	m := make(map[string]*Entity)
-	entities := make([]*Entity, 0, len(args.Entities))
+	m := make(map[string]*rag.Entity)
+	entities := make([]*rag.Entity, 0, len(args.Entities))
 	for _, entity := range args.Entities {
 		if _, ok := m[entity.Title]; !ok {
 			entities = append(entities, entity)
@@ -45,7 +46,7 @@ func ExtraGraph(ctx context.Context, args *WorkflowContext) error {
 	// 修复relation
 	for _, relationship := range args.TmpRelationships {
 		args.Relationships = append(args.Relationships,
-			&Relationship{
+			&rag.Relationship{
 				Id:             relationship.Id,
 				Source:         m[relationship.Source],
 				Target:         m[relationship.Target],
@@ -59,12 +60,12 @@ func ExtraGraph(ctx context.Context, args *WorkflowContext) error {
 	return nil
 }
 
-func extractEntities(ctx context.Context, args *WorkflowContext) error {
+func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 	results := make([]string, len(args.TextUnits))
 	parallel.Parallel(func(i int) any {
 		template, _ := prompt.NewPromptTemplate(prompts.ExtraGraph)
 		p, err := template.Format(map[string]any{
-			"entity_types":         strings.Join(args.config.EntityTypes, ","),
+			"entity_types":         strings.Join(args.Config.EntityTypes, ","),
 			"tuple_delimiter":      _tupleDelimiter,
 			"record_delimiter":     _recordDelimiter,
 			"completion_delimiter": _completionDelimiter,
@@ -77,7 +78,7 @@ func extractEntities(ctx context.Context, args *WorkflowContext) error {
 			fmt.Println("here")
 		}
 		for num := 0; num < 3; num++ {
-			result, err := args.config.LLM.GenerateContent(ctx,
+			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{llm.NewUserMessage("", p)},
 				llm.WithTemperature(0.1))
 			if err == nil {
@@ -89,7 +90,7 @@ func extractEntities(ctx context.Context, args *WorkflowContext) error {
 			return ""
 		}
 		for num := 0; num < 3; num++ {
-			result, err := args.config.LLM.GenerateContent(ctx,
+			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{
 					llm.NewUserMessage("", p),
 					llm.NewAssistantMessage("", results[i], nil),
@@ -102,13 +103,13 @@ func extractEntities(ctx context.Context, args *WorkflowContext) error {
 			}
 		}
 		return ""
-	}, len(args.TextUnits), args.config.LLMCallConcurrency)
+	}, len(args.TextUnits), args.Config.LLMCallConcurrency)
 
 	// 将结果解析成 graph 和 relationship
 	return parseResults(ctx, args, results)
 }
 
-func summaryDesc(ctx context.Context, args *WorkflowContext) error {
+func summaryDesc(ctx context.Context, args *rag.WorkflowContext) error {
 	template, _ := prompt.NewPromptTemplate(prompts.SummarizeDescription)
 	// 进一步总结entity desc
 	parallel.Parallel(func(i int) any {
@@ -127,7 +128,7 @@ func summaryDesc(ctx context.Context, args *WorkflowContext) error {
 			"description_list": string(desc),
 		})
 		for num := 0; num < 3; num++ {
-			result, err := args.config.LLM.GenerateContent(ctx,
+			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{llm.NewUserMessage("", p)},
 				llm.WithTemperature(0.1))
 			if err == nil {
@@ -136,7 +137,7 @@ func summaryDesc(ctx context.Context, args *WorkflowContext) error {
 			}
 		}
 		return nil
-	}, len(args.Entities), args.config.LLMCallConcurrency)
+	}, len(args.Entities), args.Config.LLMCallConcurrency)
 
 	// 进一步总结 relation desc
 	parallel.Parallel(func(i int) any {
@@ -157,7 +158,7 @@ func summaryDesc(ctx context.Context, args *WorkflowContext) error {
 			"description_list": string(desc),
 		})
 		for num := 0; num < 3; num++ {
-			result, err := args.config.LLM.GenerateContent(ctx,
+			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{llm.NewUserMessage("", p)},
 				llm.WithTemperature(0.1))
 			if err == nil {
@@ -166,16 +167,16 @@ func summaryDesc(ctx context.Context, args *WorkflowContext) error {
 			}
 		}
 		return nil
-	}, len(args.TmpRelationships), args.config.LLMCallConcurrency)
+	}, len(args.TmpRelationships), args.Config.LLMCallConcurrency)
 	return nil
 }
 
-func parseResults(_ context.Context, args *WorkflowContext, results []string) error {
-	entities := make([]*Entity, 0, len(results))
-	relations := make([]*TmpRelationship, 0, len(results))
+func parseResults(_ context.Context, args *rag.WorkflowContext, results []string) error {
+	entities := make([]*rag.Entity, 0, len(results))
+	relations := make([]*rag.TmpRelationship, 0, len(results))
 	// 用于合并相同的信息
-	eMap := make(map[string]*Entity)
-	rMap := make(map[string]*TmpRelationship)
+	eMap := make(map[string]*rag.Entity)
+	rMap := make(map[string]*rag.TmpRelationship)
 
 	// add entity
 	for idx, result := range results {
@@ -189,7 +190,7 @@ func parseResults(_ context.Context, args *WorkflowContext, results []string) er
 			if len(attrs) >= 4 && attrs[0] == `"entity"` {
 				title := strings.ToUpper(strings.Trim(attrs[1], `"`))
 				typ := strings.ToUpper(strings.Trim(attrs[2], `"`))
-				entity := &Entity{
+				entity := &rag.Entity{
 					Id:          id(title + _tupleDelimiter + typ),
 					Title:       title,
 					Type:        typ,
@@ -224,7 +225,7 @@ func parseResults(_ context.Context, args *WorkflowContext, results []string) er
 				} {
 					if eMap[key] == nil {
 						// 添加 source
-						entity := &Entity{
+						entity := &rag.Entity{
 							Id:          key,
 							Title:       titles[i],
 							Type:        "",
@@ -237,7 +238,7 @@ func parseResults(_ context.Context, args *WorkflowContext, results []string) er
 					eMap[key].TextUnitIds = append(eMap[key].TextUnitIds, args.TextUnits[idx].Id)
 				}
 
-				relation := &TmpRelationship{
+				relation := &rag.TmpRelationship{
 					Id:             id(source + _tupleDelimiter + target),
 					Source:         source,
 					Target:         target,

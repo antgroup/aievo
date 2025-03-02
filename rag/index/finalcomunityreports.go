@@ -7,6 +7,7 @@ import (
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
+	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/index/prompts"
 	"github.com/antgroup/aievo/rag/index/textsplitter"
 	"github.com/antgroup/aievo/utils/json"
@@ -14,9 +15,9 @@ import (
 	"github.com/pkoukk/tiktoken-go"
 )
 
-func FinalCommunityReport(ctx context.Context, args *WorkflowContext) error {
-	mr := make(map[string]*Relationship)
-	reports := make(map[int]*Report)
+func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error {
+	mr := make(map[string]*rag.Relationship)
+	reports := make(map[int]*rag.Report)
 	template, _ := prompt.NewPromptTemplate(prompts.SummarizeCommunity)
 
 	for _, r := range args.Relationships {
@@ -24,7 +25,7 @@ func FinalCommunityReport(ctx context.Context, args *WorkflowContext) error {
 	}
 
 	maxLevel := -1
-	mlevel := make(map[int][]*Community)
+	mlevel := make(map[int][]*rag.Community)
 	for _, community := range args.Communities {
 		if community.Level > maxLevel {
 			maxLevel = community.Level
@@ -35,21 +36,21 @@ func FinalCommunityReport(ctx context.Context, args *WorkflowContext) error {
 	// args.Communities 已经按照level进行过排序，同一level的可以并发执行
 	for i := 0; i <= maxLevel; i++ {
 		parallel.Parallel(func(idx int) any {
-			rs := make([]*Relationship, 0, len(mlevel[i][idx].RelationshipIds))
+			rs := make([]*rag.Relationship, 0, len(mlevel[i][idx].RelationshipIds))
 			for _, r := range mlevel[i][idx].RelationshipIds {
 				rs = append(rs, mr[r])
 			}
 			content := buildCommunityReportContext(
-				ctx, rs, nil, args.config.MaxToken)
+				ctx, rs, nil, args.Config.MaxToken)
 			p, _ := template.Format(map[string]any{
 				"input_text": content,
 			})
 			for num := 0; num < 3; num++ {
-				result, err := args.config.LLM.GenerateContent(ctx,
+				result, err := args.Config.LLM.GenerateContent(ctx,
 					[]llm.Message{llm.NewUserMessage("", p)},
 					llm.WithTemperature(0.1))
 				if err == nil {
-					report := &Report{}
+					report := &rag.Report{}
 					err = json.Unmarshal(
 						[]byte(json.TrimJsonString(result.Content)), report)
 					if err != nil {
@@ -60,7 +61,7 @@ func FinalCommunityReport(ctx context.Context, args *WorkflowContext) error {
 				}
 			}
 			return ""
-		}, len(mlevel[i]), args.config.LLMCallConcurrency)
+		}, len(mlevel[i]), args.Config.LLMCallConcurrency)
 	}
 	for community, report := range reports {
 		report.Community = community
@@ -76,7 +77,7 @@ func FinalCommunityReport(ctx context.Context, args *WorkflowContext) error {
 // 对于level较低的社区，社区数量比较大，
 // todo: 是否需要考虑超出max token 时，用子报告替换部分relations
 func buildCommunityReportContext(ctx context.Context,
-	edges []*Relationship, communities []*Community, maxToken int) string {
+	edges []*rag.Relationship, communities []*rag.Community, maxToken int) string {
 	sort.Slice(communities, func(i, j int) bool {
 		return communities[i].Size > communities[j].Size
 	})

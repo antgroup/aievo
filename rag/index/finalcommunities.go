@@ -5,13 +5,14 @@ import (
 	"sort"
 	"strconv"
 
+	"github.com/antgroup/aievo/rag"
 	"github.com/thoas/go-funk"
 )
 
-func FinalCommunities(ctx context.Context, args *WorkflowContext) error {
-	communities := make([]*Community, 0, 20)
-	mc2e := make(map[int]*Community)
-	me2e := make(map[string]*Entity)
+func FinalCommunities(ctx context.Context, args *rag.WorkflowContext) error {
+	communities := make([]*rag.Community, 0, 20)
+	mc2e := make(map[int]*rag.Community)
+	me2e := make(map[string]*rag.Entity)
 	mLevelEntity := make(map[int][]string)
 
 	for _, entity := range args.Entities {
@@ -20,7 +21,7 @@ func FinalCommunities(ctx context.Context, args *WorkflowContext) error {
 	maxLevel := -1
 	for _, c := range args.Communities {
 		if _, ok := mc2e[c.Community]; !ok {
-			mc2e[c.Community] = &Community{
+			mc2e[c.Community] = &rag.Community{
 				Id:              strconv.Itoa(c.Community),
 				Title:           "Community " + strconv.Itoa(c.Community),
 				Community:       c.Community,

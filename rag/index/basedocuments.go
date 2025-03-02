@@ -5,23 +5,25 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+
+	"github.com/antgroup/aievo/rag"
 )
 
-func BaseDocuments(_ context.Context, args *WorkflowContext) error {
-	stat, err := os.Stat(args.basepath)
+func BaseDocuments(_ context.Context, args *rag.WorkflowContext) error {
+	stat, err := os.Stat(args.BasePath)
 	if err != nil {
 		return errors.New(
 			"failed to stat workflow files, err: " + err.Error())
 	}
 	if !stat.IsDir() {
-		content, err := os.ReadFile(args.basepath)
+		content, err := os.ReadFile(args.BasePath)
 		if err != nil {
 			return errors.New(
 				"failed to load file, err: " + err.Error())
 		}
-		args.Documents = append(args.Documents, &Document{
-			Id:      id(filepath.Base(args.basepath)),
-			Title:   filepath.Base(args.basepath),
+		args.Documents = append(args.Documents, &rag.Document{
+			Id:      id(filepath.Base(args.BasePath)),
+			Title:   filepath.Base(args.BasePath),
 			Content: string(content),
 		})
 		return nil
@@ -42,11 +44,11 @@ func BaseDocuments(_ context.Context, args *WorkflowContext) error {
 		}
 		if !paths[i].isDir {
 			content, err := os.ReadFile(filepath.Join(
-				args.basepath, paths[i].path))
+				args.BasePath, paths[i].path))
 			if err != nil {
 				return err
 			}
-			args.Documents = append(args.Documents, &Document{
+			args.Documents = append(args.Documents, &rag.Document{
 				Id:      id(paths[i].path),
 				Title:   paths[i].path,
 				Content: string(content),
@@ -54,7 +56,7 @@ func BaseDocuments(_ context.Context, args *WorkflowContext) error {
 			continue
 		}
 		// 循环遍历目录
-		entries, err := os.ReadDir(filepath.Join(args.basepath,
+		entries, err := os.ReadDir(filepath.Join(args.BasePath,
 			paths[i].path))
 		if err != nil {
 			return err

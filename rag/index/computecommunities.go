@@ -9,10 +9,12 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/antgroup/aievo/rag"
 )
 
 // ComputeCommunities 通过莱顿算法，将整个社区进行划分
-func ComputeCommunities(ctx context.Context, args *WorkflowContext) error {
+func ComputeCommunities(ctx context.Context, args *rag.WorkflowContext) error {
 	communities, err := leidenCommunities(ctx, args)
 	if err != nil {
 		return err
@@ -24,7 +26,7 @@ func ComputeCommunities(ctx context.Context, args *WorkflowContext) error {
 	}
 	for _, cluster := range communities {
 		args.Communities = append(args.Communities,
-			&Community{
+			&rag.Community{
 				Id:              m[cluster.Node],
 				Title:           cluster.Node,
 				Community:       cluster.Cluster,
@@ -47,7 +49,7 @@ func ComputeCommunities(ctx context.Context, args *WorkflowContext) error {
 
 // 使用leiden算法来计算社区分类
 // todo: fix me
-func leidenCommunities(ctx context.Context, args *WorkflowContext) ([]*HierarchicalCluster, error) {
+func leidenCommunities(ctx context.Context, args *rag.WorkflowContext) ([]*rag.HierarchicalCluster, error) {
 	{
 		type Relation struct {
 			Source string  `json:"source"`
@@ -71,7 +73,10 @@ func leidenCommunities(ctx context.Context, args *WorkflowContext) ([]*Hierarchi
 		output, err := exec.Command(pythonPath,
 			filepath.Join(getAIevoPath(), "rag/index/leiden.py"),
 			"--input", string(marshal)).Output()
-		clusters := make([]*HierarchicalCluster, 0, len(relations))
+		if err != nil {
+			return nil, err
+		}
+		clusters := make([]*rag.HierarchicalCluster, 0, len(relations))
 		var result any
 		err = json.Unmarshal(output, &result)
 		if err != nil {
@@ -104,5 +109,5 @@ func getPythonPath() (string, error) {
 		}
 		pythonPath = string(output)
 	}
-	return pythonPath, nil
+	return strings.TrimSpace(pythonPath), nil
 }

@@ -3,23 +3,24 @@ package index
 import (
 	"context"
 
+	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/index/textsplitter"
 	"github.com/pkoukk/tiktoken-go"
 )
 
-func BaseTextUnits(_ context.Context, args *WorkflowContext) error {
+func BaseTextUnits(_ context.Context, args *rag.WorkflowContext) error {
 	opts := make([]textsplitter.Option, 0)
-	if args.config.ChunkSize > 0 {
+	if args.Config.ChunkSize > 0 {
 		opts = append(opts,
-			textsplitter.WithChunkSize(args.config.ChunkSize))
+			textsplitter.WithChunkSize(args.Config.ChunkSize))
 	}
-	if args.config.ChunkOverlap > 0 {
+	if args.Config.ChunkOverlap > 0 {
 		opts = append(opts,
-			textsplitter.WithChunkOverlap(args.config.ChunkOverlap))
+			textsplitter.WithChunkOverlap(args.Config.ChunkOverlap))
 	}
-	if len(args.config.Separators) > 0 {
+	if len(args.Config.Separators) > 0 {
 		opts = append(opts,
-			textsplitter.WithSeparators(args.config.Separators))
+			textsplitter.WithSeparators(args.Config.Separators))
 	}
 
 	splitter := textsplitter.NewMarkdownHeaderTextSplitter(
@@ -36,7 +37,7 @@ func BaseTextUnits(_ context.Context, args *WorkflowContext) error {
 		}
 		for _, chunk := range chunks {
 			args.TextUnits = append(args.TextUnits,
-				&TextUnit{
+				&rag.TextUnit{
 					Id:              id(chunk),
 					Text:            chunk,
 					DocumentIds:     []string{document.Id},
