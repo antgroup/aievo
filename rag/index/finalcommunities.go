@@ -2,6 +2,7 @@ package index
 
 import (
 	"context"
+	"sort"
 	"strconv"
 
 	"github.com/thoas/go-funk"
@@ -9,51 +10,69 @@ import (
 
 func FinalCommunities(ctx context.Context, args *WorkflowContext) error {
 	communities := make([]*Community, 0, 20)
-	mc2e := make(map[*Community][]string)
-
-	mc2t := make(map[*Community][]string)
+	mc2e := make(map[int]*Community)
 	me2e := make(map[string]*Entity)
+	mLevelEntity := make(map[int][]string)
 
 	for _, entity := range args.Entities {
 		me2e[entity.Id] = entity
 	}
-
-	for _, community := range args.Communities {
-		// entity ids
-		mc2e[community] = append(mc2e[community],
-			community.Id)
-		// TextUnitIds
-		mc2t[community] = append(mc2t[community],
-			me2e[community.Id].TextUnitIds...)
+	maxLevel := -1
+	for _, c := range args.Communities {
+		if _, ok := mc2e[c.Community]; !ok {
+			mc2e[c.Community] = &Community{
+				Id:              strconv.Itoa(c.Community),
+				Title:           "Community " + strconv.Itoa(c.Community),
+				Community:       c.Community,
+				Level:           c.Level,
+				RelationshipIds: make([]string, 0, 20),
+				TextUnitIds:     make([]string, 0, 20),
+				Parent:          c.Parent,
+				EntityIds:       make([]string, 0, 20),
+				Period:          c.Period,
+				Size:            0,
+			}
+			communities = append(communities, mc2e[c.Community])
+		}
+		mc2e[c.Community].EntityIds = append(
+			mc2e[c.Community].EntityIds, c.Id)
+		if _, ok := mLevelEntity[c.Level]; !ok {
+			mLevelEntity[c.Level] = make([]string, 0, 20)
+		}
+		mLevelEntity[c.Level] = append(mLevelEntity[c.Level],
+			me2e[c.Id].Title)
+		if maxLevel < c.Level {
+			maxLevel = c.Level
+		}
 	}
 
-	idx := 0
-	for community, entities := range mc2e {
-		communities = append(communities, &Community{
-			Id:              id(strconv.Itoa(idx)),
-			Title:           "Community " + strconv.Itoa(idx),
-			Community:       community.Community,
-			Level:           community.Level,
-			RelationshipIds: make([]string, 0, 20),
-			TextUnitIds:     funk.UniqString(mc2t[community]),
-			Parent:          community.Parent,
-			EntityIds:       funk.UniqString(entities),
-			Period:          community.Period,
-			Size:            len(entities),
-		})
-		idx++
-	}
-	for _, community := range communities {
+	for _, c := range communities {
 		relations := make([]string, 0, 20)
-		for _, relationship := range args.Relationships {
-			if funk.ContainsString(community.EntityIds, relationship.Source.Title) &&
-				funk.ContainsString(community.EntityIds, relationship.Target.Title) {
-				relations = append(relations, relationship.Id)
+		textUnits := make([]string, 0, 20)
+		for _, r := range args.Relationships {
+			if funk.ContainsString(mLevelEntity[c.Level], r.Source.Title) &&
+				funk.ContainsString(mLevelEntity[c.Level], r.Target.Title) &&
+				funk.ContainsString(c.EntityIds, r.Source.Id) &&
+				funk.ContainsString(c.EntityIds, r.Target.Id) {
+				relations = append(relations, r.Id)
+				textUnits = append(textUnits, r.TextUnitIds...)
 			}
 		}
-		community.RelationshipIds = funk.UniqString(relations)
+		c.RelationshipIds = funk.UniqString(relations)
+		c.TextUnitIds = funk.UniqString(textUnits)
+		c.EntityIds = funk.UniqString(c.EntityIds)
+		c.Size = len(c.EntityIds)
 	}
-	args.Communities = communities
 
+	// 按层级和社区ID排序
+	sort.Slice(communities, func(i, j int) bool {
+		if communities[i].Level == communities[j].Level {
+			return communities[i].Community < communities[j].Community
+		}
+		return communities[i].Level < communities[j].Level
+	})
+
+	args.Communities = communities
 	return nil
+
 }

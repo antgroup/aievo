@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
+	"strings"
 
 	"github.com/antgroup/aievo/llm"
 )
@@ -51,8 +52,8 @@ func DefaultNodes() []Progress {
 		BaseTextUnits,
 		FinalDocuments,
 		ExtraGraph,
-		FinalEntities,
 		ComputeCommunities,
+		FinalEntities,
 		FinalNodes,
 		FinalCommunities,
 		FinalTextUnits,
@@ -85,6 +86,6 @@ func (w *Workflow) Run(ctx context.Context, filepath string) error {
 
 func id(s string) string {
 	hash := sha256.New()
-	hash.Write([]byte(s))
+	hash.Write([]byte(strings.ToUpper(s)))
 	return hex.EncodeToString(hash.Sum(nil))
 }

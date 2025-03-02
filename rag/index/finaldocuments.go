@@ -2,6 +2,8 @@ package index
 
 import (
 	"context"
+
+	"github.com/thoas/go-funk"
 )
 
 func FinalDocuments(_ context.Context, args *WorkflowContext) error {
@@ -14,6 +16,9 @@ func FinalDocuments(_ context.Context, args *WorkflowContext) error {
 			m[documentId].TextUnitIds = append(
 				m[documentId].TextUnitIds, unit.Id)
 		}
+	}
+	for _, document := range args.Documents {
+		document.TextUnitIds = funk.UniqString(document.TextUnitIds)
 	}
 
 	return nil

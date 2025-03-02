@@ -2,13 +2,11 @@ package index
 
 import (
 	"context"
-
-	"github.com/thoas/go-funk"
 )
 
 func FinalTextUnits(ctx context.Context, args *WorkflowContext) error {
 	me2t := make(map[string][]string)
-
+	mr2t := make(map[string][]string)
 	for _, entity := range args.Entities {
 		for _, unitId := range entity.TextUnitIds {
 			me2t[unitId] = append(me2t[unitId],
@@ -16,17 +14,15 @@ func FinalTextUnits(ctx context.Context, args *WorkflowContext) error {
 		}
 	}
 
-	for _, unit := range args.TextUnits {
-		relations := make([]string, 0, 20)
-		entityIds := me2t[unit.Id]
-		for _, relationship := range args.Relationships {
-			if funk.ContainsString(entityIds, relationship.Source.Id) &&
-				funk.ContainsString(entityIds, relationship.Target.Id) {
-				relations = append(relations, relationship.Id)
-			}
+	for _, r := range args.Relationships {
+		for _, unitId := range r.TextUnitIds {
+			mr2t[unitId] = append(mr2t[unitId], r.Id)
 		}
-		unit.RelationshipIds = funk.UniqString(relations)
-		unit.EntityIds = entityIds
+	}
+
+	for _, unit := range args.TextUnits {
+		unit.EntityIds = me2t[unit.Id]
+		unit.RelationshipIds = mr2t[unit.Id]
 	}
 
 	return nil

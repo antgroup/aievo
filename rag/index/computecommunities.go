@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -47,22 +49,27 @@ func ComputeCommunities(ctx context.Context, args *WorkflowContext) error {
 // todo: fix me
 func leidenCommunities(ctx context.Context, args *WorkflowContext) ([]*HierarchicalCluster, error) {
 	{
-		// todo: fix me
 		type Relation struct {
-			Source string `json:"source"`
-			Target string `json:"target"`
+			Source string  `json:"source"`
+			Target string  `json:"target"`
+			Weight float64 `json:"weight"`
 		}
 		relations := make([]*Relation, 0, 100)
 		for _, relationship := range args.Relationships {
 			relations = append(relations, &Relation{
 				Source: relationship.Source.Title,
 				Target: relationship.Target.Title,
+				Weight: relationship.Weight,
 			})
 		}
 
+		pythonPath, err := getPythonPath()
+		if err != nil {
+			return nil, err
+		}
 		marshal, _ := json.Marshal(relations)
-		output, err := exec.Command(os.Getenv("PYTHON_PATH"),
-			os.Getenv("AIEVO_PATH")+"rag/index/leiden.py",
+		output, err := exec.Command(pythonPath,
+			filepath.Join(getAIevoPath(), "rag/index/leiden.py"),
 			"--input", string(marshal)).Output()
 		clusters := make([]*HierarchicalCluster, 0, len(relations))
 		var result any
@@ -76,4 +83,26 @@ func leidenCommunities(ctx context.Context, args *WorkflowContext) ([]*Hierarchi
 		}
 		return clusters, nil
 	}
+}
+
+func getAIevoPath() string {
+	aievoPath := os.Getenv("AIEVO_PATH")
+	if aievoPath == "" {
+		aievoPath, _ = os.Getwd()
+		split := strings.Split(aievoPath, "aievo")
+		aievoPath = filepath.Join(split[0], "aievo")
+	}
+	return aievoPath
+}
+
+func getPythonPath() (string, error) {
+	pythonPath := os.Getenv("PYTHON_PATH")
+	if pythonPath == "" {
+		output, err := exec.Command("which", "python").Output()
+		if err != nil {
+			return "", err
+		}
+		pythonPath = string(output)
+	}
+	return pythonPath, nil
 }

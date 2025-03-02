@@ -2,6 +2,7 @@ package index
 
 import (
 	"context"
+	"sort"
 )
 
 func FinalNodes(ctx context.Context, args *WorkflowContext) error {
@@ -11,11 +12,14 @@ func FinalNodes(ctx context.Context, args *WorkflowContext) error {
 		m[relation.Target]++
 	}
 	mEntities := make(map[string]int)
+	mFlag := make(map[string]struct{})
 	for i, entity := range args.Entities {
 		mEntities[entity.Title] = i
+		mFlag[entity.Title] = struct{}{}
 	}
 	for _, community := range args.Communities {
 		entity := args.Entities[mEntities[community.Title]]
+		delete(mFlag, community.Title)
 		args.Nodes = append(args.Nodes,
 			&Node{
 				Id:        entity.Id,
@@ -25,5 +29,26 @@ func FinalNodes(ctx context.Context, args *WorkflowContext) error {
 				Degree:    m[entity],
 			})
 	}
+	// 补充未用的节点
+	for title := range mFlag {
+		entity := args.Entities[mEntities[title]]
+		args.Nodes = append(args.Nodes,
+			&Node{
+				Id:        entity.Id,
+				Title:     entity.Title,
+				Community: -1,
+				Level:     0,
+				Degree:    m[entity],
+			})
+	}
+	sort.Slice(args.Nodes, func(i, j int) bool {
+		return args.Nodes[i].Level < args.Nodes[j].Level ||
+			args.Nodes[i].Level == args.Nodes[j].Level &&
+				args.Nodes[i].Community < args.Nodes[j].Community ||
+			args.Nodes[i].Level == args.Nodes[j].Level &&
+				args.Nodes[i].Community == args.Nodes[j].Community &&
+				args.Nodes[i].Degree < args.Nodes[j].Degree
+
+	})
 	return nil
 }

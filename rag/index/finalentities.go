@@ -4,10 +4,18 @@ import (
 	"context"
 )
 
-func FinalEntities(ctx context.Context, args *WorkflowContext) error {
-	for i, entity := range args.Entities {
-		// for computer community
-		entity.Index = int64(i)
+func FinalEntities(_ context.Context, args *WorkflowContext) error {
+	me := make(map[string]*Entity)
+	for _, entity := range args.Entities {
+		me[entity.Title] = entity
+	}
+	for _, community := range args.Communities {
+		me[community.Title].Communities = append(me[community.Title].Communities,
+			community.Community)
+	}
+	for _, relationship := range args.Relationships {
+		relationship.Source.Degree++
+		relationship.Target.Degree++
 	}
 	return nil
 }

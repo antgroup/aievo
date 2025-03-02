@@ -1,0 +1,2688 @@
+[
+    {
+        "id":"71072c2b-bbdf-408e-bc0a-784c059dd305",
+        "human_readable_id":0,
+        "title":"PROJECT GUTENBERG",
+        "type":"ORGANIZATION",
+        "description":"Project Gutenberg is a non-profit digital library that provides free access to a vast collection of electronic works, primarily consisting of literary works that are no longer under copyright and many of which are in the public domain in the United States. The library offers a wide range of free eBooks, including classic literature such as \"A Christmas Carol.\" Project Gutenberg is dedicated to the free distribution of these electronic works and relies on the efforts of volunteers and donations to maintain its extensive collection and fulfill its mission.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "f579cd1eb2da1f2c52f7dbb9fce464032734b71c3468658aa77bbef8cca4622a30792586d3c7892b8c9cbddd891bf7fa98a0e925e409b1768da7bf2a214c3a70",
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb",
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"4c409308-f64f-4925-9da5-3ef1b7645176",
+        "human_readable_id":1,
+        "title":"CHARLES DICKENS",
+        "type":"PERSON",
+        "description":"Charles Dickens is the author of A Christmas Carol, a classic novella published in 1843.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"ba24c1a9-fbbf-424b-87a7-b2fcf3c9ab14",
+        "human_readable_id":2,
+        "title":"ARTHUR RACKHAM",
+        "type":"PERSON",
+        "description":"Arthur Rackham is the illustrator of A Christmas Carol, known for his distinctive style in children's books.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"3565d592-b325-42bc-ba7e-22b97fa1c7d6",
+        "human_readable_id":3,
+        "title":"A CHRISTMAS CAROL",
+        "type":"EVENT",
+        "description":"A Christmas Carol is a novella by Charles Dickens that tells the story of Ebenezer Scrooge's transformation after being visited by three spirits.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"71240bc9-b80a-41d6-8630-d581f2b024fd",
+        "human_readable_id":4,
+        "title":"EBENEZER SCROOGE",
+        "type":"PERSON",
+        "description":"Ebenezer Scrooge is a miserly old man and the main character in Charles Dickens' \"A Christmas Carol.\" Initially, he is portrayed as a character who is deeply skeptical of the supernatural, as evidenced by his encounter with the ghost of Jacob Marley, which challenges his disbelief. Throughout the story, Scrooge undergoes a significant transformation, reflecting on his past during the Christmas Eve party hosted by Fezziwig. This journey of self-reflection and confrontation with his own shortcomings ultimately leads to a profound change in his character, moving from a life of greed and isolation to one of generosity and community spirit.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7",
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"91807033-fa49-4e9f-9609-57ba01e68325",
+        "human_readable_id":5,
+        "title":"BOB CRATCHIT",
+        "type":"PERSON",
+        "description":"Bob Cratchit is a central character in Charles Dickens' \"A Christmas Carol,\" serving as Ebenezer Scrooge's clerk. He is depicted as a kind and hardworking man who faces significant challenges in providing for his family on a modest income of fifteen shillings a week. Despite his low wages and the struggles that come with them, Bob remains optimistic and looks forward to Christmas, embodying the spirit of the holiday.\n\nAs a devoted father and husband, Bob Cratchit is particularly concerned about his sick child, Tiny Tim, which highlights the emotional depth of his character and the struggles of the working class. He represents the plight of those who work hard yet live in poverty, making him a poignant figure in the narrative. Bob's character is also significant in Scrooge's transformation, as his kindness and gratitude, especially during the Christmas dinner, serve as a catalyst for Scrooge's eventual change of heart. Overall, Bob Cratchit exemplifies resilience and hope amidst adversity, making him a beloved character in the story.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7",
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87",
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0",
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85",
+            "990810cc42806e862ab06ba66acd3baea96a6fa5071b412b0a3c009301ae07df44b202a414901874660ad2d04da01ecac8f188b0ad426a4675a8767105a01fc2",
+            "866d70f0609a917e2e7357b2950a4ad08e6acd79596e06a93422acfe9881802061c87147dc2ba69f507b6a7532dab3f5e681d3391a7e2a99667ce6e8a1600b90"
+        ]
+    },
+    {
+        "id":"d673b490-cf8e-4df9-b0c5-0510ffe36ed5",
+        "human_readable_id":6,
+        "title":"TIM CRATCHIT",
+        "type":"PERSON",
+        "description":"Tim Cratchit, also known as Tiny Tim, is the youngest son of Bob Cratchit, characterized by his frail health and optimistic spirit.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"f8358625-9cfa-40c6-90a3-fbecd3e1b7fe",
+        "human_readable_id":7,
+        "title":"MR. FEZZIWIG",
+        "type":"PERSON",
+        "description":"Mr. Fezziwig is a kind-hearted merchant and former employer of Ebenezer Scrooge, representing generosity and joy.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"341d4b7c-666a-4532-b562-2b76e2e0803f",
+        "human_readable_id":8,
+        "title":"FRED",
+        "type":"PERSON",
+        "description":"Fred is Ebenezer Scrooge's cheerful nephew, who embodies the spirit of Christmas and family. He often invites Scrooge to join family celebrations, demonstrating a commitment to fostering familial bonds. Fred represents joy and merriment, making efforts to bring happiness to his uncle during the Christmas season. His character stands in stark contrast to Scrooge's, as he exemplifies warmth and kindness, inviting Scrooge to dinner and encouraging him to embrace the festive spirit.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6",
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919",
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459",
+            "990810cc42806e862ab06ba66acd3baea96a6fa5071b412b0a3c009301ae07df44b202a414901874660ad2d04da01ecac8f188b0ad426a4675a8767105a01fc2"
+        ]
+    },
+    {
+        "id":"86487eb1-7616-4f02-95d0-c56f8d8dddaf",
+        "human_readable_id":9,
+        "title":"GHOST OF CHRISTMAS PAST",
+        "type":"PERSON",
+        "description":"The Ghost of Christmas Past is a spirit that plays a pivotal role in Charles Dickens' \"A Christmas Carol.\" This ethereal being visits Ebenezer Scrooge to guide him through significant scenes from his earlier life. By showcasing these memories, the Ghost evokes feelings of nostalgia and regret, prompting Scrooge to reflect on his past choices and their profound impact on his happiness. Through this journey into his own history, the Ghost of Christmas Past aims to inspire Scrooge to reconsider his current life and the path he has chosen.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319",
+            "88479779a69573e42cf7992d37863293a65079f0a9eea134d6f4aebb590f517210cbd610876e36761fa0af3e3bdedc35b0b8c15b9f28b93ec87f9b59ec878ac8"
+        ]
+    },
+    {
+        "id":"0bbd04ed-05ed-43e2-af0c-2b267a732dd1",
+        "human_readable_id":10,
+        "title":"GHOST OF CHRISTMAS PRESENT",
+        "type":"PERSON",
+        "description":"The Ghost of Christmas Present is a spirit that embodies the essence of generosity and the joy of the current Christmas season. This spirit plays a crucial role in the transformation of Ebenezer Scrooge by revealing to him the joys and struggles of others during the festive period. Through its visits, the Ghost of Christmas Present highlights the warmth and celebration of Christmas, emphasizing the importance of compassion and generosity in the lives of those around Scrooge.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7"
+        ]
+    },
+    {
+        "id":"233163bd-9214-4e68-9001-8d8d9b9c3850",
+        "human_readable_id":11,
+        "title":"GHOST OF CHRISTMAS YET TO COME",
+        "type":"PERSON",
+        "description":"The Ghost of Christmas Yet to Come is a silent and foreboding spirit that plays a crucial role in Charles Dickens' \"A Christmas Carol.\" This ghost reveals to Ebenezer Scrooge the potential consequences of his actions by showing him a grim future that awaits him if he continues on his current path. Through its ominous presence, the Ghost of Christmas Yet to Come serves as a catalyst for Scrooge's transformation, highlighting the importance of change and redemption.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404"
+        ]
+    },
+    {
+        "id":"2805d821-8ef0-40bb-8a27-0b221a205502",
+        "human_readable_id":12,
+        "title":"GHOST OF JACOB MARLEY",
+        "type":"PERSON",
+        "description":"The Ghost of Jacob Marley is Scrooge's deceased business partner who warns him to change his ways to avoid a grim fate.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"ef2e95c5-c996-4efc-a7d8-cddb9dce9b22",
+        "human_readable_id":13,
+        "title":"MRS. CRATCHIT",
+        "type":"PERSON",
+        "description":"Mrs. Cratchit is Bob Cratchit's industrious and caring wife, who plays a vital role in managing their household and supporting her family. She is responsible for preparing the Christmas meal, which includes a goose and a pudding, showcasing her dedication to creating a festive atmosphere for her loved ones. Mrs. Cratchit expresses her disdain for Ebenezer Scrooge, reflecting her strong feelings about his character, while also demonstrating confidence in the goodness of others. Her deep care for her family is evident, particularly in her affection for their son, Tiny Tim. Overall, Mrs. Cratchit embodies the spirit of a devoted wife and mother, committed to her family's well-being and happiness.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87",
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0",
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c"
+        ]
+    },
+    {
+        "id":"848e0cce-32d4-4d48-9804-4fdec5886de2",
+        "human_readable_id":14,
+        "title":"BELINDA CRATCHIT",
+        "type":"PERSON",
+        "description":"Belinda Cratchit is one of the daughters of Bob and Mrs. Cratchit, representing the Cratchit family's children. She plays a significant role in the family, particularly in assisting with the preparation of the Christmas meal, highlighting her involvement in the family's festive traditions and responsibilities.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa"
+        ]
+    },
+    {
+        "id":"96184094-357e-4ad5-8499-2e4c54cc750a",
+        "human_readable_id":15,
+        "title":"MARTHA CRATCHIT",
+        "type":"PERSON",
+        "description":"Martha Cratchit is the daughter of Bob and Mrs. Cratchit, playing a significant role in the family dynamic. She is noted for returning home late on Christmas Day, which adds to the warmth and joy of the holiday celebration within the Cratchit household.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa"
+        ]
+    },
+    {
+        "id":"1574b01e-a82a-44a4-a983-164e60bc8e47",
+        "human_readable_id":16,
+        "title":"MRS. DILBER",
+        "type":"PERSON",
+        "description":"Mrs. Dilber is a character who serves as a laundress and is associated with Ebenezer Scrooge, representing the working class. She is depicted as presenting her bundle of items to Old Joe for appraisal, indicating her involvement in the sale of belongings. Additionally, Mrs. Dilber is present in Old Joe's shop, where she engages in conversation regarding the deceased's belongings, further illustrating her role in the narrative and her connection to the themes of poverty and the working class.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9",
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"0ae240cd-e93d-48a1-987a-8d1fb3a20875",
+        "human_readable_id":17,
+        "title":"FAN",
+        "type":"PERSON",
+        "description":"Fan is Ebenezer Scrooge's younger sister, who embodies the warmth of family and the cherished memories of childhood. She plays a significant role in Scrooge's life by bringing him home and expressing joy about their family, highlighting the importance of familial bonds and the happiness associated with their shared past.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e"
+        ]
+    },
+    {
+        "id":"6af8c15a-6e5e-4a51-a568-f1fdca906dfb",
+        "human_readable_id":18,
+        "title":"MR. TOPPER",
+        "type":"PERSON",
+        "description":"Mr. Topper is a bachelor and a friend of Fred, representing the social circle around Scrooge's nephew.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a"
+        ]
+    },
+    {
+        "id":"46528891-c337-4cb6-b417-45a46d1a04ff",
+        "human_readable_id":19,
+        "title":"DICK WILKINS",
+        "type":"PERSON",
+        "description":"Dick Wilkins is a significant figure from Scrooge's early working life, serving as a fellow apprentice during that time. He is fondly remembered by Scrooge, who reflects on their relationship with affection, noting that Dick was very attached to him. This connection highlights the camaraderie and bond formed during their apprenticeship, marking Dick Wilkins as an important part of Scrooge's formative years.",
+        "text_unit_ids":[
+            "336671e337e5f4539069473e8f8691b3ed696331aabe67c02eb462ca2769b8da4786e730ffa928f71527d84167b8a5b22bfe55734e7caa94dd091e383e0afe2a",
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"e524d046-5ccd-4098-afc3-a52b58d81b66",
+        "human_readable_id":20,
+        "title":"FEZZIWIG",
+        "type":"PERSON",
+        "description":"Fezziwig is a character recognized for his joyful demeanor and festive spirit, particularly as Scrooge's former employer. He is depicted as an old gentleman who runs a business and is celebrated for his kindness and generosity. Fezziwig is especially known for hosting lively Christmas balls, where he and his wife, Mrs. Fezziwig, create an atmosphere of happiness and celebration. His ability to make others happy through his actions is a defining trait, as he embodies the spirit of Christmas with his festive gatherings and joyful interactions.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6",
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e",
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4",
+            "88479779a69573e42cf7992d37863293a65079f0a9eea134d6f4aebb590f517210cbd610876e36761fa0af3e3bdedc35b0b8c15b9f28b93ec87f9b59ec878ac8"
+        ]
+    },
+    {
+        "id":"4998e7ab-1079-4d3a-a2d2-942914695735",
+        "human_readable_id":21,
+        "title":"SCROOGE",
+        "type":"PERSON",
+        "description":"Ebenezer Scrooge is a central character known for his miserly behavior, cold-heartedness, and disdain for Christmas. He is depicted as a covetous old sinner, characterized by his tight-fistedness and lack of generosity, often seen as the antagonist in the narrative. Scrooge works in a counting-house and is unsympathetic towards the poor, embodying a cynical view of the holiday season.\n\nThroughout the story, Scrooge undergoes a significant transformation, primarily during the Christmas season. His journey begins when he is visited by the ghost of Jacob Marley, who warns him about his fate and the need to change his ways. This encounter sets the stage for further supernatural visitations from the Spirits of Christmas Past, Present, and Future. Through these encounters, Scrooge reflects on his life choices, experiences nostalgia and regret, and learns valuable lessons about generosity, compassion, and the importance of human connection.\n\nAs he interacts with the spirits, Scrooge observes scenes that evoke horror and reflection, particularly regarding the impact of his actions on others and the nature of wealth and relationships. He experiences emotional growth and ultimately vows to change his ways, embracing the spirit of Christmas. By Christmas Day, Scrooge transforms from a miser into a generous man, showing kindness and a newfound appreciation for the holiday and its associated cheerfulness. His character arc illustrates a profound moral transformation, making him a symbol of redemption and the potential for change.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6",
+            "d798befe565a9ed5b6b536fd8a95a1d396867b232ec308d512b036206d20a3181989241a3e1ff23eef79bfab191ae450954c66ccd1f27b1a2a7b8c89bb424028",
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92",
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63",
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7",
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d",
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf",
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0",
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4",
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319",
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8",
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e",
+            "88479779a69573e42cf7992d37863293a65079f0a9eea134d6f4aebb590f517210cbd610876e36761fa0af3e3bdedc35b0b8c15b9f28b93ec87f9b59ec878ac8",
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92",
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c",
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1",
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803",
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74",
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919",
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e",
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459",
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404",
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5",
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e",
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0",
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c",
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7",
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85",
+            "990810cc42806e862ab06ba66acd3baea96a6fa5071b412b0a3c009301ae07df44b202a414901874660ad2d04da01ecac8f188b0ad426a4675a8767105a01fc2",
+            "866d70f0609a917e2e7357b2950a4ad08e6acd79596e06a93422acfe9881802061c87147dc2ba69f507b6a7532dab3f5e681d3391a7e2a99667ce6e8a1600b90"
+        ]
+    },
+    {
+        "id":"8a681aef-e81d-4c8f-b86f-ce0b7e7a06b8",
+        "human_readable_id":22,
+        "title":"MARLEY",
+        "type":"PERSON",
+        "description":"Marley is Scrooge's deceased business partner, who plays a crucial role in the narrative as a ghostly figure representing the consequences of a life lived without compassion. He is mentioned to have died seven years prior to the events of the story, and his death is a significant event that sets the stage for the unfolding tale. As the ghost of Scrooge's former business partner, Marley appears to warn Scrooge about his ways, urging him to reflect on his life choices and the impact of his actions on others.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6",
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92",
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7",
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"070ac449-6008-4a44-93b3-78543bffc4a6",
+        "human_readable_id":23,
+        "title":"STAVE ONE",
+        "type":"EVENT",
+        "description":"Stave One is the first section of the story, introducing key characters and setting the tone for the narrative.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6"
+        ]
+    },
+    {
+        "id":"b17e4f43-8651-4be3-b868-3128fbba0ef1",
+        "human_readable_id":24,
+        "title":"ST. PAUL'S CHURCHYARD",
+        "type":"GEO",
+        "description":"St. Paul's Churchyard is a location mentioned as a potential setting for a ghostly encounter, adding to the story's eerie atmosphere.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6"
+        ]
+    },
+    {
+        "id":"c39c626b-3e79-4e65-b6d1-04a22c97929e",
+        "human_readable_id":25,
+        "title":"JOE",
+        "type":"PERSON",
+        "description":"Joe is a character who engages in conversation about the bed-curtains, showcasing the interactions among the characters in the story.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6"
+        ]
+    },
+    {
+        "id":"e526de74-17bb-457a-bc25-caca45ca4547",
+        "human_readable_id":26,
+        "title":"CHRISTMAS",
+        "type":"EVENT",
+        "description":"Christmas is a festive holiday celebrated on December 25th, symbolizing joy, generosity, and family gatherings. It is a season marked by music, charitable acts, and joyful family reunions. The narrative surrounding Christmas often highlights its significance as a time for goodwill and reflection, particularly in the context of Scrooge's transformation. Initially, Scrooge dismisses Christmas as a \"humbug,\" showing reluctance to participate in the celebrations embraced by his family and others. However, throughout the story, he experiences a profound change of heart, learning to appreciate the values of kindness and generosity that Christmas represents. This holiday serves as a central theme in the narrative, contrasting Scrooge's miserly nature with the warmth and joy associated with the season. Ultimately, Christmas evokes deep emotions and memories for Scrooge, prompting his journey towards embracing the spirit of the holiday and its core messages of family, kindness, and generosity.",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6",
+            "d798befe565a9ed5b6b536fd8a95a1d396867b232ec308d512b036206d20a3181989241a3e1ff23eef79bfab191ae450954c66ccd1f27b1a2a7b8c89bb424028",
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92",
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63",
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8",
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e",
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c",
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1",
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87",
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74",
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919",
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e",
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459",
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0",
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85",
+            "990810cc42806e862ab06ba66acd3baea96a6fa5071b412b0a3c009301ae07df44b202a414901874660ad2d04da01ecac8f188b0ad426a4675a8767105a01fc2",
+            "866d70f0609a917e2e7357b2950a4ad08e6acd79596e06a93422acfe9881802061c87147dc2ba69f507b6a7532dab3f5e681d3391a7e2a99667ce6e8a1600b90"
+        ]
+    },
+    {
+        "id":"01deaf0a-9428-4b31-936b-0078f8f9dcff",
+        "human_readable_id":27,
+        "title":"MRS. FEZZIWIG",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "2160a0c64179a7920c578f3400ad64f77c22927e6ab8c70af3e923755c5588577ea86a9d53fbb4c587dd0d60abf02eb9fe3853dfe7af8edf09c91cd4269a9bb6"
+        ]
+    },
+    {
+        "id":"4609f681-3b70-4a21-8bcf-95dbd9e26026",
+        "human_readable_id":28,
+        "title":"SCROOGE'S NEPHEW",
+        "type":"PERSON",
+        "description":"Scrooge's nephew is a character who embodies the spirit of Christmas, consistently encouraging his uncle, Ebenezer Scrooge, to embrace the holiday and its associated goodwill. He is depicted as a cheerful and optimistic individual who believes in the joy of Christmas and makes efforts to engage Scrooge in festive cheer, despite his uncle's grumpy demeanor. Additionally, Scrooge's nephew demonstrates kindness and concern for Bob Cratchit and his family, further representing the spirit of generosity and compassion during the holiday season. Through his actions and attitude, he serves as a contrast to Scrooge, highlighting the importance of kindness and the festive spirit.",
+        "text_unit_ids":[
+            "d798befe565a9ed5b6b536fd8a95a1d396867b232ec308d512b036206d20a3181989241a3e1ff23eef79bfab191ae450954c66ccd1f27b1a2a7b8c89bb424028",
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92",
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e",
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0"
+        ]
+    },
+    {
+        "id":"fe250b8e-41ee-4d95-baba-5ce22ff9eafb",
+        "human_readable_id":29,
+        "title":"CLERK",
+        "type":"PERSON",
+        "description":"The clerk is an employee of Scrooge, working in a small, cold office where he spends his time copying letters. Despite the challenges of his low salary and the struggle to keep warm, he maintains a sense of warmth and cheerfulness, particularly during the Christmas season.",
+        "text_unit_ids":[
+            "d798befe565a9ed5b6b536fd8a95a1d396867b232ec308d512b036206d20a3181989241a3e1ff23eef79bfab191ae450954c66ccd1f27b1a2a7b8c89bb424028",
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92"
+        ]
+    },
+    {
+        "id":"ab27e061-cf15-4005-9b4b-11614c4b6999",
+        "human_readable_id":30,
+        "title":"CITY CLOCKS",
+        "type":"EVENT",
+        "description":"The city clocks signify the time of day, marking the late afternoon when Scrooge is busy in his counting-house.",
+        "text_unit_ids":[
+            "d798befe565a9ed5b6b536fd8a95a1d396867b232ec308d512b036206d20a3181989241a3e1ff23eef79bfab191ae450954c66ccd1f27b1a2a7b8c89bb424028"
+        ]
+    },
+    {
+        "id":"2e8c5985-6ad5-4343-9953-0212c4270c1f",
+        "human_readable_id":31,
+        "title":"COUNTING-HOUSE",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "d798befe565a9ed5b6b536fd8a95a1d396867b232ec308d512b036206d20a3181989241a3e1ff23eef79bfab191ae450954c66ccd1f27b1a2a7b8c89bb424028",
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7"
+        ]
+    },
+    {
+        "id":"825c3821-21e6-4989-a7c4-68dd6a282231",
+        "human_readable_id":32,
+        "title":"FESTIVE SEASON",
+        "type":"EVENT",
+        "description":"The festive season refers to the time of year, particularly around Christmas, when people celebrate and engage in acts of goodwill and charity. During this period, individuals are encouraged to come together, fostering a spirit of generosity and community. The festive season is characterized by various celebrations and traditions that promote charitable acts and a sense of togetherness among people.",
+        "text_unit_ids":[
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92",
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"7d56eec1-4460-4601-acc0-5ae037839572",
+        "human_readable_id":33,
+        "title":"SCROOGE AND MARLEY",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "cc6a8a52ea673776c03f32442c2a05f75b59d30a0bf4c00d3356209fdae04a9ccec705b6da666531670778414e4d80461979825358b7f9494559abec0462fd92"
+        ]
+    },
+    {
+        "id":"1ae77fd2-85fb-47a0-b76a-f52f266f0997",
+        "human_readable_id":34,
+        "title":"LORD MAYOR",
+        "type":"PERSON",
+        "description":"The Lord Mayor is a figure responsible for overseeing Christmas celebrations and festivities in the city, ensuring that the holiday is celebrated properly.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"11f2a58a-0944-4a5a-862c-866c733ea3d2",
+        "human_readable_id":35,
+        "title":"MANSION HOUSE",
+        "type":"ORGANIZATION",
+        "description":"The Mansion House is the official residence of the Lord Mayor, where Christmas celebrations are organized and managed.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"ce67285c-d7bf-46a3-9ed9-fd0876f47002",
+        "human_readable_id":36,
+        "title":"POOR LAW",
+        "type":"ORGANIZATION",
+        "description":"The Poor Law is a system established to provide assistance to the poor and destitute, which Scrooge references in his conversation.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"efc71a15-d7f2-4ee9-8943-a80494e15085",
+        "human_readable_id":37,
+        "title":"UNION WORKHOUSES",
+        "type":"ORGANIZATION",
+        "description":"Union workhouses are institutions where the poor could seek shelter and work in exchange for food and lodging, mentioned in Scrooge's dialogue.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"e1453aa8-8c08-4084-bd16-617a1cc66f83",
+        "human_readable_id":38,
+        "title":"CREDENTIALS",
+        "type":"ORGANIZATION",
+        "description":"The credentials are documents presented by the gentleman to establish his authority and purpose in soliciting donations for the poor.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"6ddc2514-2caa-4f26-992b-27fd09b01bc6",
+        "human_readable_id":39,
+        "title":"POOR",
+        "type":"PERSON",
+        "description":"The poor are individuals who are suffering and in need of assistance, as highlighted in the conversation between Scrooge and the gentleman.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"56d26309-2759-4a63-8f97-3d2c9912069f",
+        "human_readable_id":40,
+        "title":"CHURCH",
+        "type":"ORGANIZATION",
+        "description":"The church is a significant institution in the community, serving multiple roles in the lives of the townspeople. It is known for its bell, which chimes the hours, marking the passage of time in Scrooge's life. This auditory cue serves as a reminder of the moments that define his existence. Additionally, the church is a place of worship where individuals gather during Christmas, highlighting the holiday's spiritual significance and fostering a sense of togetherness among the community. Furthermore, the church symbolizes community and charity, with its ancient tower representing a steadfast presence, even as it becomes obscured by fog. Overall, the church embodies a blend of temporal, spiritual, and communal values, making it a cornerstone of the local society.",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63",
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4",
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"d3d7c269-b6ee-43a1-9a57-beff18090bc8",
+        "human_readable_id":41,
+        "title":"GENTLEMAN",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "1c129c3dd67b1761adbdb4186b2de1036b2e4ff3683e4d420cc76db6c616ac0fef51e2625f6979d4c053db169973540b215e74a5f4017d33b164a914c0271b63"
+        ]
+    },
+    {
+        "id":"f6daaae2-247a-496d-b374-af73128b350b",
+        "human_readable_id":42,
+        "title":"CORNHILL",
+        "type":"GEO",
+        "description":"Cornhill is a location in London where Bob Cratchit goes down a slide in celebration of Christmas Eve.",
+        "text_unit_ids":[
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7"
+        ]
+    },
+    {
+        "id":"4678e56b-2980-440a-bcb7-4ee69fd179dc",
+        "human_readable_id":43,
+        "title":"CAMDEN TOWN",
+        "type":"GEO",
+        "description":"Camden Town is a district in London that plays a significant role in the narrative surrounding Bob Cratchit and Ebenezer Scrooge. It is depicted as the place where Bob Cratchit joyfully returns home to celebrate Christmas. Additionally, Camden Town serves as a location where Scrooge plans to send a turkey he has purchased for Bob Cratchit, highlighting the transformation of Scrooge's character and his newfound generosity during the holiday season.",
+        "text_unit_ids":[
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7",
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85"
+        ]
+    },
+    {
+        "id":"561f82b2-48aa-4150-b311-5ee11b4ce60e",
+        "human_readable_id":44,
+        "title":"CHRISTMAS EVE",
+        "type":"EVENT",
+        "description":"Christmas Eve is the evening or day before Christmas Day, recognized by many as a time of joy and festivity. It is often celebrated with various traditions, including festive parties, such as the one hosted by Fezziwig, which embodies the spirit of celebration and community. Additionally, Christmas Eve holds significant literary importance, as it is the night when the ghost visits Ebenezer Scrooge in Charles Dickens' \"A Christmas Carol,\" delivering a powerful message about redemption and the importance of kindness. This combination of joyous celebration and reflective moments makes Christmas Eve a unique and meaningful occasion for many.",
+        "text_unit_ids":[
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7",
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf",
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"ef93480b-f4c2-4d6a-8997-f9b234bab183",
+        "human_readable_id":45,
+        "title":"TAVERN",
+        "type":"ORGANIZATION",
+        "description":"The tavern is where Scrooge takes his melancholy dinner, reflecting his solitary and gloomy lifestyle.",
+        "text_unit_ids":[
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7"
+        ]
+    },
+    {
+        "id":"e134ffdf-d4ae-4182-9696-d60783ed2a71",
+        "human_readable_id":46,
+        "title":"LONDON",
+        "type":"GEO",
+        "description":"London is the city where Scrooge lives and works, known for its fog and cold weather during the Christmas season.",
+        "text_unit_ids":[
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7"
+        ]
+    },
+    {
+        "id":"2c9d57cd-c30c-4c91-8e82-995350909c6a",
+        "human_readable_id":47,
+        "title":"GHOST OF MARLEY",
+        "type":"PERSON",
+        "description":"The Ghost of Marley is the spirit of Scrooge's deceased partner, who appears to warn Scrooge about his life choices and the need for change.",
+        "text_unit_ids":[
+            "fdd19e6236e61193504953904d1221bc393a60fe728ffabb485b2b1d69e6e726dbbac27d2114e96c96320cd61c664600390655daa72e57f274ac116bae0cfba7"
+        ]
+    },
+    {
+        "id":"af835ddc-04c4-4484-b82c-a736de05a761",
+        "human_readable_id":48,
+        "title":"WINE-MERCHANT",
+        "type":"ORGANIZATION",
+        "description":"The wine-merchant is a business entity that owns the cellars where Scrooge hears the clanking noise, indicating a connection to the supernatural.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"3c9946b2-4be1-4621-a713-7b1557afa93a",
+        "human_readable_id":49,
+        "title":"DUTCH MERCHANT",
+        "type":"PERSON",
+        "description":"The Dutch merchant is a historical figure who built the fireplace in Scrooge's home, representing a connection to the past.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"e6b30093-d3c2-4df8-bf34-8bc1416a1795",
+        "human_readable_id":50,
+        "title":"FIREPLACE",
+        "type":"EVENT",
+        "description":"The fireplace is an old structure in Scrooge's home, built by a Dutch merchant, which serves as a setting for Scrooge's reflections and actions.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"181669ab-5a63-4244-b376-543becfa139c",
+        "human_readable_id":51,
+        "title":"ECHOES",
+        "type":"EVENT",
+        "description":"The echoes are sounds that resonate throughout Scrooge's home after he closes the door, representing the haunting atmosphere of his surroundings.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"a7a8af3a-caae-4337-851d-fec4966723f9",
+        "human_readable_id":52,
+        "title":"GRUEL",
+        "type":"EVENT",
+        "description":"Gruel is a simple meal that Scrooge prepares for himself, highlighting his frugality and solitary lifestyle.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"ecfacf18-fcf4-4e5b-a716-3abde6856fdd",
+        "human_readable_id":53,
+        "title":"BELL",
+        "type":"EVENT",
+        "description":"The bell is a disused object in Scrooge's home that begins to swing and ring, signaling the onset of supernatural occurrences. It tolls to mark the hours, serving as a reminder of time passing and the urgency of Scrooge's situation. This dual role of the bell highlights its significance in both the physical and metaphysical realms, emphasizing the themes of time and transformation in Scrooge's journey.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d",
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"0eec94cd-8f3c-4731-ac38-1e5df89bf3d9",
+        "human_readable_id":54,
+        "title":"CHAINS",
+        "type":"EVENT",
+        "description":"The chains are associated with the ghostly presence of Marley, representing the burdens of past actions and regrets.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"8a8d4118-551f-4f14-ba13-9f145bb36d77",
+        "human_readable_id":55,
+        "title":"STAIRS",
+        "type":"EVENT",
+        "description":"The stairs are a physical structure in Scrooge's home that he ascends, symbolizing his journey through his memories and fears.",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"ca9db445-d31f-4e7d-bc15-5e4bfc04be7a",
+        "human_readable_id":56,
+        "title":"CANDLE",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "a998e6a1b2d1e74ba419f937061024540104d2716c19170913b3b16efd90df36a9ed675996b7ab27d1fbf93044593b082cd49b0780a4f85abcb9a0835761b93d"
+        ]
+    },
+    {
+        "id":"085a270f-a39b-46dc-a35b-04e9b6581eb2",
+        "human_readable_id":57,
+        "title":"JACOB MARLEY",
+        "type":"PERSON",
+        "description":"Jacob Marley is the ghost of Ebenezer Scrooge's deceased business partner. He appears as a spectral figure to warn Scrooge about the dire consequences of his actions during his lifetime. In his ghostly form, Marley is depicted dragging chains made of cash-boxes and other items, symbolizing the greed that defined his life. Through his haunting visit, Marley serves as a crucial catalyst for Scrooge's transformation, urging him to reflect on his past and the impact of his choices.",
+        "text_unit_ids":[
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7",
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf",
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0",
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c",
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404",
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7"
+        ]
+    },
+    {
+        "id":"0e251bc8-979a-42b8-89da-6edbc4452091",
+        "human_readable_id":58,
+        "title":"HAUNTED HOUSE",
+        "type":"GEO",
+        "description":"The haunted house is a setting where ghosts are believed to reside, characterized by eerie noises and supernatural occurrences.",
+        "text_unit_ids":[
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7"
+        ]
+    },
+    {
+        "id":"e70b11d6-1e53-4ed3-8fc9-2775ddf04e99",
+        "human_readable_id":59,
+        "title":"GHOST",
+        "type":"EVENT",
+        "description":"The Ghost is a supernatural being that plays a pivotal role in guiding Ebenezer Scrooge towards redemption. This spectral entity appears to Scrooge to reveal visions of his past, present, and future, illustrating the consequences of his past actions. Through these haunting encounters, the Ghost embodies the themes of redemption and transformation, ultimately leading Scrooge to reflect on his life and make meaningful changes.",
+        "text_unit_ids":[
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7",
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c"
+        ]
+    },
+    {
+        "id":"1f6cc0d3-65f7-45a2-8c85-95797f9ba2d7",
+        "human_readable_id":60,
+        "title":"CELLAR DOOR",
+        "type":"GEO",
+        "description":"The cellar door is a physical location in the haunted house that opens with a booming sound, contributing to the eerie atmosphere of the setting.",
+        "text_unit_ids":[
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7"
+        ]
+    },
+    {
+        "id":"1eafc04b-f528-453b-8a46-a28bcd5d40f8",
+        "human_readable_id":61,
+        "title":"SPECTRE",
+        "type":"EVENT",
+        "description":"The spectre is a supernatural being that appears to Scrooge, representing the consequences of his past actions and the theme of redemption.",
+        "text_unit_ids":[
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7"
+        ]
+    },
+    {
+        "id":"7ad78f24-0078-46a5-bb0a-c452851b2773",
+        "human_readable_id":62,
+        "title":"CHAIN",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "3292473b26f94c7aff219219ee64dcba1585532bac0857fe0ecf3a1ad73b02b1139cc203c74a418c8a415ef7af2b4afa567709fdaaf6de35c4f88e2db8556af7"
+        ]
+    },
+    {
+        "id":"f8fd2584-aee3-4509-b965-8a235376dacd",
+        "human_readable_id":63,
+        "title":"CHARITY",
+        "type":"ORGANIZATION",
+        "description":"Charity represents the act of giving to those in need, which the Ghost highlights as a crucial aspect of his business in life.",
+        "text_unit_ids":[
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf"
+        ]
+    },
+    {
+        "id":"492a0088-fba0-4de9-979d-72cb0e9b61be",
+        "human_readable_id":64,
+        "title":"MERCY",
+        "type":"ORGANIZATION",
+        "description":"Mercy is a virtue that the Ghost emphasizes as part of his business, indicating the importance of compassion towards others.",
+        "text_unit_ids":[
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf"
+        ]
+    },
+    {
+        "id":"e5b20e56-98a9-4271-b321-3fd804271422",
+        "human_readable_id":65,
+        "title":"FORBEARANCE",
+        "type":"ORGANIZATION",
+        "description":"Forbearance is the act of refraining from enforcing a debt or obligation, which the Ghost mentions as part of his life's work.",
+        "text_unit_ids":[
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf"
+        ]
+    },
+    {
+        "id":"6d238b2d-aa70-4136-98e1-9e72cd27a2fe",
+        "human_readable_id":66,
+        "title":"BENEVOLENCE",
+        "type":"ORGANIZATION",
+        "description":"Benevolence refers to the disposition to do good, which the Ghost identifies as a key aspect of his business in life.",
+        "text_unit_ids":[
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf"
+        ]
+    },
+    {
+        "id":"127163ae-7228-41e6-9ac4-9f0bb254bf0d",
+        "human_readable_id":67,
+        "title":"MANKIND",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "25ae520bd79457caa7d277e1ba3731e3f498fc62f0293594ea07924d9cc6d670c21ce81c798eaae3f5a4d887a0455bcb48c2cf4ef401982c511c6dc150787bbf"
+        ]
+    },
+    {
+        "id":"0bd2f2fd-6f09-4b02-88d5-d25240664556",
+        "human_readable_id":68,
+        "title":"THREE SPIRITS",
+        "type":"EVENT",
+        "description":"The Three Spirits are supernatural beings that will visit Scrooge to guide him towards redemption.",
+        "text_unit_ids":[
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0"
+        ]
+    },
+    {
+        "id":"e372300c-1d13-4b5e-b755-7ff52fdd5063",
+        "human_readable_id":69,
+        "title":"PHANTOMS",
+        "type":"PERSON",
+        "description":"Phantoms are spirits that wander restlessly, representing lost souls who regret their past actions.",
+        "text_unit_ids":[
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0"
+        ]
+    },
+    {
+        "id":"bca45756-b907-4f05-b3b8-77442074b9ad",
+        "human_readable_id":70,
+        "title":"NIGHT",
+        "type":"GEO",
+        "description":"The night is the setting during which Scrooge experiences the visitations from the ghostly figures.",
+        "text_unit_ids":[
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0"
+        ]
+    },
+    {
+        "id":"7fef1627-ebae-446b-9097-c0a5d236e40e",
+        "human_readable_id":71,
+        "title":"ALHAMIA PRISON",
+        "type":"GEO",
+        "description":"Alhamia Prison serves as a significant symbol in the narrative, representing the weight of Scrooge's past actions and regrets through the presence of phantoms. It is also a poignant backdrop for the hardships faced by Tiny Tim's family, illustrating the broader struggles of the poor. Within this context, Tiny Tim's father, Bob Cratchit, expresses deep concern for his son's health, further emphasizing the family's difficulties. The prison is noted as a place where Bob Cratchit himself has been imprisoned, underscoring the challenges and adversities that the Cratchit family endures. Overall, Alhamia Prison encapsulates themes of regret, hardship, and familial concern within the story.",
+        "text_unit_ids":[
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0",
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508"
+        ]
+    },
+    {
+        "id":"0509fd62-f05c-4197-9400-27e4e55b2788",
+        "human_readable_id":72,
+        "title":"WINDOW",
+        "type":"GEO",
+        "description":"The window is a physical barrier that Scrooge looks through to see the phantoms outside, representing his view into the consequences of his life.",
+        "text_unit_ids":[
+            "d38581de899a32c16a744f6a867412cb91e528f93833722a9ae45f1566cc138705b6d191ea9b9c7c0b2f5051c412f54274eae6cc96c9b248c3f852b8cd313ee0"
+        ]
+    },
+    {
+        "id":"c8970a7f-7377-4c13-bec5-d86dd767b34f",
+        "human_readable_id":73,
+        "title":"MARLEY'S GHOST",
+        "type":"PERSON",
+        "description":"Marley's Ghost is a supernatural figure that visits Scrooge to warn him about the consequences of his actions.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"a0351c22-d66e-4d58-962f-423d3c2f1ab5",
+        "human_readable_id":74,
+        "title":"TIME",
+        "type":"EVENT",
+        "description":"The passage of time is a significant theme in the narrative, particularly as Scrooge reflects on his life and the hours that have passed.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"a99b4162-5d74-4f3d-a5f7-befded827ef1",
+        "human_readable_id":75,
+        "title":"LIGHT",
+        "type":"EVENT",
+        "description":"Light symbolizes enlightenment and transformation, appearing when the ghost visits Scrooge.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"b7f9464f-e5fb-4522-95d1-8519e6fabff9",
+        "human_readable_id":76,
+        "title":"HOLLY",
+        "type":"EVENT",
+        "description":"Holly is a symbol of Christmas and represents the spirit of the season, held by the ghost during its visitation.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"78d2283d-6ad9-46b8-b5d5-00e4a368810e",
+        "human_readable_id":77,
+        "title":"CLOCK",
+        "type":"EVENT",
+        "description":"The clock represents the passage of time and Scrooge's confusion about the hours he has slept.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"f19c10f3-bb37-4eff-a79d-9613d48a8357",
+        "human_readable_id":78,
+        "title":"FROST",
+        "type":"EVENT",
+        "description":"Frost on the window symbolizes the coldness of Scrooge's heart and the winter season during which the story takes place.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"cf549ac7-816e-4c25-816f-bf9a773fc68d",
+        "human_readable_id":79,
+        "title":"DRESSING-GOWN",
+        "type":"EVENT",
+        "description":"The dressing-gown is worn by Scrooge, indicating his state of comfort and isolation in his home.",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"52f6011b-c771-48e2-bf9d-ae677c63d473",
+        "human_readable_id":80,
+        "title":"BED",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "b644ae78a58c60ff6b7a6b959c84a3f5f7d8b97123992dd30a616a9b576d8e620faebd2146ea168c5ca85e8a11bdc30bc739ee633d42d76af0d1eea1f60aebf4"
+        ]
+    },
+    {
+        "id":"3648b77f-1da1-492e-b305-759808253a1f",
+        "human_readable_id":81,
+        "title":"MARKET-TOWN",
+        "type":"GEO",
+        "description":"A little market-town that Scrooge recognizes from his childhood, featuring a bridge, church, and winding river.",
+        "text_unit_ids":[
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319"
+        ]
+    },
+    {
+        "id":"d256df83-1eab-458a-af17-2fe61b2c7689",
+        "human_readable_id":82,
+        "title":"WINTER DAY",
+        "type":"EVENT",
+        "description":"A clear, cold winter day with snow on the ground, during which Scrooge is taken on a journey by the Ghost.",
+        "text_unit_ids":[
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319"
+        ]
+    },
+    {
+        "id":"a4c479f8-e021-476d-a3d2-673e72a3e1c1",
+        "human_readable_id":83,
+        "title":"FIELDS",
+        "type":"GEO",
+        "description":"The fields are part of the landscape that Scrooge and the Spirit traverse, symbolizing his childhood and memories.",
+        "text_unit_ids":[
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319"
+        ]
+    },
+    {
+        "id":"fd6d5f24-dcc1-493d-906a-45ccc51608df",
+        "human_readable_id":84,
+        "title":"SNOW",
+        "type":"GEO",
+        "description":"Snow covers the ground on the winter day, contributing to the atmosphere of the scene and evoking nostalgia for Scrooge.",
+        "text_unit_ids":[
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319"
+        ]
+    },
+    {
+        "id":"41dc39d1-790b-4811-9002-1680e2ad4992",
+        "human_readable_id":85,
+        "title":"BOYS",
+        "type":"PERSON",
+        "description":"The boys are children seen riding ponies and playing, representing the joy and innocence of Scrooge's past.",
+        "text_unit_ids":[
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319"
+        ]
+    },
+    {
+        "id":"77bb92f1-dd83-4b4b-b437-a61e77a01b6f",
+        "human_readable_id":86,
+        "title":"SPIRIT",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "f995cd9f704ad3fe03a64029c2dfa6beb97262269f6a4c90aaa087956236960a63d820a25e9fe4b80fada2cd90a97d7bcf8049e96708c915c7782f47d90fa319"
+        ]
+    },
+    {
+        "id":"e11de417-96f5-4a09-84d4-203e7b7ec211",
+        "human_readable_id":87,
+        "title":"ALI BABA",
+        "type":"PERSON",
+        "description":"Ali Baba is a character from folklore, recognized by Scrooge as a figure from his childhood memories.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"38310750-814a-4acd-b4bc-54d6df8472d0",
+        "human_readable_id":88,
+        "title":"VALENTINE",
+        "type":"PERSON",
+        "description":"Valentine is mentioned as a character from Scrooge's past, associated with his childhood memories.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"986c78a2-f48b-4086-a313-508f352997c9",
+        "human_readable_id":89,
+        "title":"ORSON",
+        "type":"PERSON",
+        "description":"Orson is mentioned as Valentine’s wild brother, part of Scrooge's nostalgic recollections.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"a66579aa-ec3a-4b69-ab12-6087affbbe00",
+        "human_readable_id":90,
+        "title":"DAMASCUS",
+        "type":"GEO",
+        "description":"Damascus is referenced as a location in Scrooge's memories, associated with a character from his past.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"44ddb48e-7504-452e-a3a4-d8a12e3ed867",
+        "human_readable_id":91,
+        "title":"SULTAN'S GROOM",
+        "type":"PERSON",
+        "description":"The Sultan's Groom is a character from Scrooge's memories, turned upside down by the Genii.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"af7ab223-8191-4ee9-b8c7-c7479a5e8830",
+        "human_readable_id":92,
+        "title":"ROBIN CRUSOE",
+        "type":"PERSON",
+        "description":"Robin Crusoe is a character from literature, mentioned by Scrooge in a nostalgic context.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"cfbed265-aaee-424c-8d8d-5efb18887421",
+        "human_readable_id":93,
+        "title":"FRIDAY",
+        "type":"PERSON",
+        "description":"Friday is a character from the story of Robinson Crusoe, referenced by Scrooge as running for his life.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"aeaeda0f-7d59-415d-a649-cbbb271dd171",
+        "human_readable_id":94,
+        "title":"MANSION",
+        "type":"GEO",
+        "description":"The mansion is described as a large house of broken fortunes, significant in Scrooge's memories of his past.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"35466647-c06d-4b83-9333-c4cef31cd6a5",
+        "human_readable_id":95,
+        "title":"HIGH-ROAD",
+        "type":"GEO",
+        "description":"The high-road is a location mentioned as part of the journey taken by Scrooge and the Ghost.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"87a9717e-68cd-48fd-96d5-75760b2a0ac6",
+        "human_readable_id":96,
+        "title":"LONELY BOY",
+        "type":"PERSON",
+        "description":"The lonely boy is a representation of Scrooge's younger self, reflecting his past experiences of neglect.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"5b637083-af86-41d0-8452-be4ec917d824",
+        "human_readable_id":97,
+        "title":"CANDLE LIGHT",
+        "type":"EVENT",
+        "description":"Candle light is associated with the atmosphere of Scrooge's memories, symbolizing the warmth and light in contrast to his cold past.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"45d3764d-5f51-4773-9144-078820345cb2",
+        "human_readable_id":98,
+        "title":"CHILLY BARNESS",
+        "type":"EVENT",
+        "description":"Chilly bareness describes the atmosphere of the mansion, contributing to the melancholic tone of Scrooge's reflections.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"f438d5ff-b82f-48a8-9ffb-39e90286b7b8",
+        "human_readable_id":99,
+        "title":"POPLAR",
+        "type":"GEO",
+        "description":"The leafless boughs of the poplar tree are mentioned in the context of the despondent atmosphere surrounding Scrooge's memories.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"e45d8980-cfb5-4e75-b7ac-ab086e8d0902",
+        "human_readable_id":100,
+        "title":"STOREHOUSE DOOR",
+        "type":"GEO",
+        "description":"The empty storehouse door is mentioned as part of the dreary environment in Scrooge's past.",
+        "text_unit_ids":[
+            "d1537788200767168593eb8e9d4f4c4b7006aba28fb1cc088e284e2d943f0e7e346524326104328ec90fb587fcdb8a35079a16d548f5b925cf5bf21b8b9ab0e8"
+        ]
+    },
+    {
+        "id":"8fe94c20-dea1-4b73-88a5-0e05408f2213",
+        "human_readable_id":101,
+        "title":"CITY",
+        "type":"GEO",
+        "description":"The City is a vibrant and bustling urban environment that serves as the heart of commerce and society. It is characterized by the dynamic interactions of merchants and business people, reflecting the lively spirit of daily life. During the Christmas season, the City transforms into a festive locale, adorned with decorations and filled with shadowy passengers, enhancing its bustling atmosphere. This urban setting is where Scrooge resides, encapsulating the essence of both the everyday hustle and the seasonal cheer that defines the City.",
+        "text_unit_ids":[
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e",
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404",
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5"
+        ]
+    },
+    {
+        "id":"2bd612b5-495b-4b1f-a0d3-4faff9f00e3e",
+        "human_readable_id":102,
+        "title":"SCHOOLMASTER",
+        "type":"PERSON",
+        "description":"The schoolmaster is a character who interacts with Scrooge during his childhood, representing authority and discipline.",
+        "text_unit_ids":[
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e"
+        ]
+    },
+    {
+        "id":"b67809f3-6d61-4e86-b214-a7cb14885dec",
+        "human_readable_id":103,
+        "title":"CHRISTMAS CAROL",
+        "type":"EVENT",
+        "description":"A Christmas carol is a song sung during the Christmas season, symbolizing joy and celebration.",
+        "text_unit_ids":[
+            "5c5adb5118a758e4a0a70d2d702eb73cddadb7d95e2efa03bac1c973d45aa1476f0af0e493d55bac572b566e9e0712f3c9dcffaafaf612f7001ac525ea63d24e"
+        ]
+    },
+    {
+        "id":"8f659fe1-d49b-43c7-a35e-f288b9341146",
+        "human_readable_id":104,
+        "title":"FIDDLER",
+        "type":"PERSON",
+        "description":"The fiddler is a musician who plays during the Christmas Eve party, providing music for the dances.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"eebad4be-644c-41bd-a228-6e45fd5d9db4",
+        "human_readable_id":105,
+        "title":"YOUNG MEN AND WOMEN",
+        "type":"PERSON",
+        "description":"The young men and women employed in Fezziwig's business who participate in the Christmas Eve dance.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"bf2080f1-6ceb-42b3-9d1a-2e0c61227867",
+        "human_readable_id":106,
+        "title":"HOUSEMAID",
+        "type":"PERSON",
+        "description":"The housemaid is an employee of Fezziwig who attends the Christmas Eve party.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"a6a21983-e476-4036-967b-0eaa3701a758",
+        "human_readable_id":107,
+        "title":"BAKER",
+        "type":"PERSON",
+        "description":"The baker is a cousin of the housemaid who also attends the Christmas Eve party.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"da4fa82a-77fa-47b0-af49-04608099ef73",
+        "human_readable_id":108,
+        "title":"COOK",
+        "type":"PERSON",
+        "description":"The cook is another employee of Fezziwig who attends the Christmas Eve party with her brother's friend, the milkman.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"5e2c9552-43e6-4a38-bed7-9817091354b9",
+        "human_readable_id":109,
+        "title":"MILKMAN",
+        "type":"PERSON",
+        "description":"The milkman is a friend of the cook who attends the Christmas Eve party.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"1006a3f8-3ebf-4b4a-b3e4-5df777d09012",
+        "human_readable_id":110,
+        "title":"BOY FROM OVER THE WAY",
+        "type":"PERSON",
+        "description":"The boy from over the way is a young attendee at the Christmas Eve party, trying to hide behind another girl.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"94829a24-fd39-4448-9f3a-7cb2d8098e8f",
+        "human_readable_id":111,
+        "title":"GIRL FROM NEXT DOOR BUT ONE",
+        "type":"PERSON",
+        "description":"The girl from next door but one is another young attendee at the Christmas Eve party, who is involved in the festivities.",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"65456101-7374-40b7-bcf4-5ac248613544",
+        "human_readable_id":112,
+        "title":"THREE MISS FEZZIWIGS",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "3c6bd4bf5311e797262e6b100e39817183f99836bd97607ddebd36d93c94c143732e323be04b6b55e8a5f4cec4197dd068bd64a43ae0a2b00f24e2841e6274b4"
+        ]
+    },
+    {
+        "id":"6a0848ee-66cb-423c-8393-8919634cc3be",
+        "human_readable_id":113,
+        "title":"CHRISTMAS BALL",
+        "type":"EVENT",
+        "description":"The Christmas ball is a festive gathering hosted by Fezziwig, where people dance and celebrate, showcasing joy and community spirit.",
+        "text_unit_ids":[
+            "88479779a69573e42cf7992d37863293a65079f0a9eea134d6f4aebb590f517210cbd610876e36761fa0af3e3bdedc35b0b8c15b9f28b93ec87f9b59ec878ac8"
+        ]
+    },
+    {
+        "id":"cb4f4a7e-f9fc-41f4-8454-5eef7915d37e",
+        "human_readable_id":114,
+        "title":"APPRENTICES",
+        "type":"PERSON",
+        "description":"The apprentices are individuals working for Fezziwig who express their gratitude and happiness during the Christmas ball, highlighting the positive impact of Fezziwig's leadership.",
+        "text_unit_ids":[
+            "88479779a69573e42cf7992d37863293a65079f0a9eea134d6f4aebb590f517210cbd610876e36761fa0af3e3bdedc35b0b8c15b9f28b93ec87f9b59ec878ac8"
+        ]
+    },
+    {
+        "id":"37b03ccd-cc63-4913-86d2-74d551b1c9b4",
+        "human_readable_id":115,
+        "title":"DICK",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "88479779a69573e42cf7992d37863293a65079f0a9eea134d6f4aebb590f517210cbd610876e36761fa0af3e3bdedc35b0b8c15b9f28b93ec87f9b59ec878ac8"
+        ]
+    },
+    {
+        "id":"2861ab7b-d5be-48b3-a44d-60bb4ef5937a",
+        "human_readable_id":116,
+        "title":"YOUNG GIRL",
+        "type":"PERSON",
+        "description":"A beautiful young girl who resembles Scrooge's past love, representing lost opportunities and innocence.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"2c125743-fe13-4714-931e-f26260081e20",
+        "human_readable_id":117,
+        "title":"MATRON",
+        "type":"PERSON",
+        "description":"The matron is a comely woman who is the mother of the young girl, symbolizing the passage of time and the changes in Scrooge's life.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"029682fb-9c87-4b4d-8300-70cf567bcde7",
+        "human_readable_id":118,
+        "title":"CHILDREN",
+        "type":"PERSON",
+        "description":"The children are a vibrant group residing in the matron's home, embodying the joy and carefree spirit of youth. They exhibit excitement and wonder, particularly during festive occasions such as Christmas, where their reactions to presents highlight their innocence and delight. Among them, the Cratchit family children stand out, symbolizing the purity and joy of childhood, which starkly contrasts with the hardships faced by their parents. Additionally, the children are also represented as Ignorance and Want, serving as poignant symbols of the societal issues of neglect and poverty that the character Scrooge is cautioned about. Collectively, these portrayals of children reflect both the beauty of youthful innocence and the pressing social challenges that affect their lives.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92",
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404"
+        ]
+    },
+    {
+        "id":"ad24c7ed-b496-429d-a6c7-0d3425ee2c51",
+        "human_readable_id":119,
+        "title":"ROOM",
+        "type":"GEO",
+        "description":"The ROOM is a multifaceted space that embodies contrasting themes of warmth and somberness. On one hand, it is described as a modest area filled with comfort, where a matron and her children gather, symbolizing warmth and family life. This aspect highlights the room as a nurturing environment that fosters familial bonds and a sense of belonging. On the other hand, the ROOM is also depicted as a dark space where a body is located, creating a somber atmosphere that surrounds death. This duality reflects the room's capacity to represent both the joys of family life and the profound sorrow associated with loss, illustrating the complex emotions that can coexist within a single space.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92",
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0"
+        ]
+    },
+    {
+        "id":"9af4ae85-5723-427e-bc35-7fc715f9df88",
+        "human_readable_id":120,
+        "title":"WEALTH",
+        "type":"EVENT",
+        "description":"Wealth is a concept that is condemned in the text, highlighting the moral implications of the pursuit of material gain.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"1c7c6a7f-ffc1-4fbe-9bf0-2f29832e266e",
+        "human_readable_id":121,
+        "title":"CONTRACT",
+        "type":"EVENT",
+        "description":"The contract mentioned symbolizes the agreement made between Scrooge and his past love, representing their shared hopes and aspirations.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"a2cb7500-9f47-432e-b899-d37387e464fa",
+        "human_readable_id":122,
+        "title":"HAPPINESS",
+        "type":"EVENT",
+        "description":"Happiness is a state that was promised in the past but is now fraught with misery, reflecting the changes in Scrooge's life.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"b3384a91-367c-43e0-9f40-412ee5c84ab6",
+        "human_readable_id":123,
+        "title":"MEMORY",
+        "type":"EVENT",
+        "description":"Memory plays a crucial role in the narrative, as Scrooge reflects on his past and the choices he made.",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"69ffa665-37e1-4d7d-9e24-0534702da0ab",
+        "human_readable_id":124,
+        "title":"POVERTY",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "8ccd3068f17fbac75f94bd0efc6475b47b5967fef3a980169a819126f0e2a2b520c046d5bb2e47ac6743591a3c6a33c870f6b1b0a2a6a0e96347f976194b0c92"
+        ]
+    },
+    {
+        "id":"dc257ea7-6e9b-474c-a5a6-0d4f39016d4a",
+        "human_readable_id":125,
+        "title":"BELLE",
+        "type":"PERSON",
+        "description":"Belle is Scrooge's former fiancée, representing lost love and the choices Scrooge made in his life.",
+        "text_unit_ids":[
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c"
+        ]
+    },
+    {
+        "id":"a7ec051d-579f-4a18-93a0-b0281068e22c",
+        "human_readable_id":126,
+        "title":"THE SECOND OF THE THREE SPIRITS",
+        "type":"EVENT",
+        "description":"The Second of the Three Spirits is a ghost that visits Scrooge to show him the consequences of his actions and the joy of Christmas.",
+        "text_unit_ids":[
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c"
+        ]
+    },
+    {
+        "id":"777ea5ab-3481-42f0-956f-f11377911260",
+        "human_readable_id":127,
+        "title":"CHRISTMAS TOYS",
+        "type":"EVENT",
+        "description":"Christmas toys are gifts brought by the father, representing the spirit of giving and the joy of the holiday season.",
+        "text_unit_ids":[
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c"
+        ]
+    },
+    {
+        "id":"b92173e3-13de-4010-be22-5804c8464bb3",
+        "human_readable_id":128,
+        "title":"FATHER",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "8e4d44f5263e181ed4518fcab40100c1d941b9e115e550e856191887df9d3d6597dfd7191d247b239caa889f1fab83425cc1b3b144bcbeb08811742600e3669c"
+        ]
+    },
+    {
+        "id":"8638242a-23cf-4528-8f44-036e8d34048e",
+        "human_readable_id":129,
+        "title":"MISTLETOE",
+        "type":"GEO",
+        "description":"Mistletoe is a plant traditionally hung during Christmas, under which people kiss, symbolizing love and peace.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"4e5da3b5-650c-4cf1-bf99-3e04b7b5f8db",
+        "human_readable_id":130,
+        "title":"IVY",
+        "type":"GEO",
+        "description":"Ivy is a plant that is often used in Christmas decorations, representing fidelity and eternal life.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"d312bf0c-4945-40fb-a5c4-a1ce183bc04b",
+        "human_readable_id":131,
+        "title":"TURKEY",
+        "type":"GEO",
+        "description":"Turkey is a traditional dish served during Christmas celebrations, symbolizing abundance and festivity.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"923d45e4-1731-4fb0-8e16-a4162486e7a1",
+        "human_readable_id":132,
+        "title":"PLUM-PUDDING",
+        "type":"GEO",
+        "description":"Plum-pudding is a traditional Christmas dessert, representing the festive spirit of the season.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"27729600-b620-49c9-b44f-7390277b1749",
+        "human_readable_id":133,
+        "title":"GESE",
+        "type":"GEO",
+        "description":"Geese are another type of poultry often served during Christmas, representing festivity and family gatherings.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"9e8d6e4a-51d3-468d-8a3d-a2e931c25dc0",
+        "human_readable_id":134,
+        "title":"GAME",
+        "type":"GEO",
+        "description":"Game refers to wild animals hunted for food, often included in festive meals during Christmas celebrations.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"4246c86d-eb35-452e-8a89-8d25604f83cb",
+        "human_readable_id":135,
+        "title":"POULTRY",
+        "type":"GEO",
+        "description":"Poultry includes various birds raised for food, commonly featured in Christmas dinners.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"58256194-3423-4263-a8a3-b2ff61fda858",
+        "human_readable_id":136,
+        "title":"BRAWN",
+        "type":"GEO",
+        "description":"Brawn is a traditional dish made from meat, often served during festive occasions like Christmas.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"49f69d2e-647a-455b-9f56-c5816cc524ee",
+        "human_readable_id":137,
+        "title":"LONG WREATHS OF SAUSAGES",
+        "type":"GEO",
+        "description":"Sausages are a type of meat product that can be part of Christmas feasts, symbolizing abundance.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"bab7ad9f-db36-45fc-a73a-585f071c5506",
+        "human_readable_id":138,
+        "title":"MINCE-PIES",
+        "type":"GEO",
+        "description":"Mince-pies are sweet pastries traditionally eaten during Christmas, symbolizing the festive spirit.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"ee5ccea2-7e3d-49e0-8496-f5fd566682a0",
+        "human_readable_id":139,
+        "title":"PLUM-PUDDINGS",
+        "type":"GEO",
+        "description":"Plum-puddings are rich desserts served during Christmas, representing the joy of the season.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"28f19c2f-b1fa-40be-b5a3-be5bd8dcdc53",
+        "human_readable_id":140,
+        "title":"BARRELS OF OYSTERS",
+        "type":"GEO",
+        "description":"Oysters are a delicacy often enjoyed during festive meals, symbolizing luxury and celebration.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"c885cc90-e489-4ae8-bbc4-7082cc0382ff",
+        "human_readable_id":141,
+        "title":"RED-HOT CHESTNUTS",
+        "type":"GEO",
+        "description":"Chestnuts are a seasonal treat often roasted and enjoyed during Christmas, symbolizing warmth and festivity.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"8922dae8-7ad6-4f1f-92cc-4be2600ec3f5",
+        "human_readable_id":142,
+        "title":"CHERRY-CHEEKED APPLES",
+        "type":"GEO",
+        "description":"Apples are a common fruit associated with Christmas, often used in decorations and meals.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"95c4755e-a33d-491c-90ef-d75816e9eb2c",
+        "human_readable_id":143,
+        "title":"JUICY ORANGES",
+        "type":"GEO",
+        "description":"Oranges are a festive fruit often included in Christmas celebrations, symbolizing abundance and joy.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"226501c1-ece1-44b9-902b-e06df568de24",
+        "human_readable_id":144,
+        "title":"LUSCIOUS PEARS",
+        "type":"GEO",
+        "description":"Pears are another fruit that symbolizes abundance and are often enjoyed during the Christmas season.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"f2e93ee7-6c9f-496b-9048-ca47575b7a82",
+        "human_readable_id":145,
+        "title":"IMMENSE TWELFTH-CAKES",
+        "type":"GEO",
+        "description":"Twelfth-cakes are rich cakes traditionally served during the Christmas season, symbolizing celebration.",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"23c4e5a0-8aa9-4ab6-b1cf-422f0f5a26de",
+        "human_readable_id":146,
+        "title":"SEETHING BOWLS OF PUNCH",
+        "type":"GEO",
+        "description":"Punch is a festive drink often served during Christmas gatherings, symbolizing hospitality and celebration.)<|COMPLETE|>",
+        "text_unit_ids":[
+            "473d44ae9cce8d39e60f55056fc0f627d9d809450a561432b78eeab2628153c15d8dde728e490bfc14ff5ecd6aefa720d5ba5820195000fc18a11f08b85618c1"
+        ]
+    },
+    {
+        "id":"90a934f8-dc3c-43cc-a2ab-8c9c36be5b48",
+        "human_readable_id":147,
+        "title":"CHRISTMAS MORNING",
+        "type":"EVENT",
+        "description":"Christmas morning is the time when people celebrate and engage in festive activities, as depicted in the text.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"69587362-4027-465a-b017-280583574219",
+        "human_readable_id":148,
+        "title":"GREAT BRITAIN",
+        "type":"GEO",
+        "description":"Great Britain is the location where the events are taking place, characterized by its gloomy weather and festive atmosphere.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"8258f54c-2cd0-4654-8cab-9f3451b0d2e3",
+        "human_readable_id":149,
+        "title":"PEOPLE",
+        "type":"PERSON",
+        "description":"The people in the streets are characterized by their jovial and cheerful demeanor as they celebrate Christmas morning.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"abd3d8da-ea10-4d01-82c9-839e5447069f",
+        "human_readable_id":150,
+        "title":"POULTERERS' SHOPS",
+        "type":"ORGANIZATION",
+        "description":"Poulterers' shops are stores that sell poultry and are part of the festive market scene during Christmas.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"9a271656-4a05-4d3c-9fd3-8ea4fb32d868",
+        "human_readable_id":151,
+        "title":"FRUITERERS' SHOPS",
+        "type":"ORGANIZATION",
+        "description":"Fruiterers' shops are stores that sell fruits, contributing to the vibrant atmosphere of Christmas morning.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"b92f99a6-6b8c-4138-85e9-7747b64cac64",
+        "human_readable_id":152,
+        "title":"CHESTNUTS",
+        "type":"EVENT",
+        "description":"Chestnuts are a traditional food item associated with Christmas, often sold in markets during the holiday season.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"65405536-c022-4536-92cf-8b2ec55118f3",
+        "human_readable_id":153,
+        "title":"SPANISH ONIONS",
+        "type":"EVENT",
+        "description":"Spanish onions are a type of vegetable that adds to the festive market scene, symbolizing abundance during Christmas.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"fd402612-266d-45d9-9d68-d7ee40a726cb",
+        "human_readable_id":154,
+        "title":"NORFOLK BIFFINS",
+        "type":"EVENT",
+        "description":"Norfolk Biffins are a type of apple that is part of the Christmas market offerings, representing seasonal treats.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"968d2aad-160a-4c9f-9be4-3891a8097190",
+        "human_readable_id":155,
+        "title":"GOLD AND SILVER FISH",
+        "type":"EVENT",
+        "description":"Gold and silver fish are decorative elements in the market scene, symbolizing the festive spirit of Christmas.",
+        "text_unit_ids":[
+            "3b2cce02868510cb86fcd63b835ab706dcf6cb84df91a6ebabe1541a1817b63a9d1a2a9d655950a15a132ee02d3db6a21690625f558efc4788ec2d6db55fb803"
+        ]
+    },
+    {
+        "id":"35df4dfd-7435-46ce-b24b-dabc4eeb8812",
+        "human_readable_id":156,
+        "title":"SPIRIT OF CHRISTMAS PRESENT",
+        "type":"PERSON",
+        "description":"The Spirit of Christmas Present is a supernatural being who shows Scrooge the joy and struggles of people during Christmas.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"b3d671db-adb7-4d22-aa3d-6698e280f722",
+        "human_readable_id":157,
+        "title":"BAKERS' SHOPS",
+        "type":"ORGANIZATION",
+        "description":"Bakers' shops are places where people buy bread and other baked goods, significant during the Christmas celebrations.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"45a12ec8-8981-4e89-8550-bcceb363a649",
+        "human_readable_id":158,
+        "title":"TOWN",
+        "type":"GEO",
+        "description":"The town is characterized by an obscure part that has garnered a bad reputation, marked by crime, filth, and misery. Despite this negative aspect, the town serves as the central setting for the unfolding events of the story, particularly during the Christmas season, suggesting a contrast between the town's darker elements and the festive atmosphere typically associated with this time of year.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87",
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9"
+        ]
+    },
+    {
+        "id":"986cc8b4-c52a-4956-8269-55564d8f3892",
+        "human_readable_id":159,
+        "title":"STEEPLE",
+        "type":"GEO",
+        "description":"The steeple is a structure that calls people to church and chapel, significant during the Christmas celebrations.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"89fa0158-cac8-4281-a43c-6a7219fdb160",
+        "human_readable_id":160,
+        "title":"CHAPEL",
+        "type":"ORGANIZATION",
+        "description":"The chapel is another place of worship where people attend services during the Christmas season.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"02f6b16b-1dba-416f-a464-6353da728a95",
+        "human_readable_id":161,
+        "title":"DINNERS",
+        "type":"EVENT",
+        "description":"Dinners are meals prepared and shared during Christmas, symbolizing family gatherings and celebration.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"8fcde217-2d4b-4dd6-82fc-05c0d67cb031",
+        "human_readable_id":162,
+        "title":"INCENSE",
+        "type":"ORGANIZATION",
+        "description":"Incense is used by the Spirit to bless the dinners, representing the festive atmosphere of Christmas.",
+        "text_unit_ids":[
+            "13ca6d54b435a1454e8731cb8d7258b6b38bf086078c26f600185c0def952a7eaa6b400cb8466ed263eccab54a7e3545ca7255b34f05fb14cbd4979eb5ba5c87"
+        ]
+    },
+    {
+        "id":"3ae10afe-4443-45e7-a588-f368ca041405",
+        "human_readable_id":163,
+        "title":"TINY TIM",
+        "type":"PERSON",
+        "description":"Tiny Tim is the youngest son of Bob and Mrs. Cratchit, characterized by his frail health and the use of a crutch due to his physical condition. He symbolizes innocence, hope, and the impact of poverty on families, serving as a poignant reminder of the struggles faced by those less fortunate. Despite his illness, Tiny Tim maintains an optimistic outlook, embodying the spirit of Christmas and the potential for generosity to effect positive change. He is remembered fondly by his family and holds a close bond with his father, Bob Cratchit. As a central figure in the story, Tiny Tim represents both vulnerability and the enduring hope that can arise even in difficult circumstances.",
+        "text_unit_ids":[
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0",
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c",
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85",
+            "866d70f0609a917e2e7357b2950a4ad08e6acd79596e06a93422acfe9881802061c87147dc2ba69f507b6a7532dab3f5e681d3391a7e2a99667ce6e8a1600b90"
+        ]
+    },
+    {
+        "id":"97909be3-3656-4979-87aa-557c804c4109",
+        "human_readable_id":164,
+        "title":"PETER CRATCHIT",
+        "type":"PERSON",
+        "description":"Peter Cratchit is the son of Bob and Mrs. Cratchit. He is portrayed as a responsible and supportive member of his family, actively helping with the Christmas preparations. His character reflects the values of family unity and care, emphasizing his role in contributing to the well-being of his loved ones.",
+        "text_unit_ids":[
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0"
+        ]
+    },
+    {
+        "id":"996de18c-6cb8-4540-b735-2c517d319a0e",
+        "human_readable_id":165,
+        "title":"CHRISTMAS DAY",
+        "type":"EVENT",
+        "description":"Christmas Day is a significant holiday in the story, symbolizing family, generosity, and transformation. It is celebrated on December 25th and holds particular importance for the Cratchit family, who observe the day with family gatherings and festive meals. This holiday also marks a pivotal moment in the narrative, as it is the day when Scrooge realizes he has not missed the celebration and decides to embrace it with joy and generosity, ultimately leading to his transformation.",
+        "text_unit_ids":[
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7",
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85"
+        ]
+    },
+    {
+        "id":"d3b6d561-2659-47d2-8ac9-98d4641eeb1b",
+        "human_readable_id":166,
+        "title":"GOOSE",
+        "type":"EVENT",
+        "description":"The goose is a significant element in the Cratchit family's Christmas celebration, serving as the centerpiece of their festive meal. It symbolizes abundance and celebration, highlighting the importance of family and togetherness during the holiday season. As the main dish at their Christmas dinner, the goose represents not only nourishment but also the joy and warmth of the occasion.",
+        "text_unit_ids":[
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa",
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"94d5103e-dfa0-4cff-ad96-ca8d0def51c1",
+        "human_readable_id":167,
+        "title":"FOUR-ROOMED HOUSE",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "d45fe00fab4cae7a21c69950e5ad4f9183c983e43d43a406b0e828780a4522e95c029d0e76889eeac854dc607d5b66fd435cabb4dae158d14297904408ac20fa"
+        ]
+    },
+    {
+        "id":"461671bc-dec4-4aa5-9c4f-29e9160217eb",
+        "human_readable_id":168,
+        "title":"CRATCHIT FAMILY",
+        "type":"ORGANIZATION",
+        "description":"The Cratchit family is a fictional family in Charles Dickens' \"A Christmas Carol,\" known for their warmth and love despite their poverty.",
+        "text_unit_ids":[
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"9f7c4ece-9858-4279-a91c-6f7f927657ca",
+        "human_readable_id":169,
+        "title":"CHRISTMAS DINNER",
+        "type":"EVENT",
+        "description":"The Christmas dinner is a festive meal prepared by Mrs. Cratchit, featuring a goose and pudding, symbolizing family togetherness.",
+        "text_unit_ids":[
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"ca1ecf33-69f3-40c2-97dc-1f4fd53fe8be",
+        "human_readable_id":170,
+        "title":"PUDDING",
+        "type":"EVENT",
+        "description":"The pudding is a special dessert prepared by Mrs. Cratchit for the Christmas dinner, which is celebrated by the family.",
+        "text_unit_ids":[
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"d08afd27-41e4-4039-9b81-3dd1d591ca7f",
+        "human_readable_id":171,
+        "title":"MISS BELINDA",
+        "type":"PERSON",
+        "description":"Miss Belinda is another young Cratchit child who assists in setting the table for the Christmas dinner.",
+        "text_unit_ids":[
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"a26f219a-3391-4e88-9923-6f7284e5daea",
+        "human_readable_id":172,
+        "title":"TWO YOUNG CRATCHITS",
+        "type":"PERSON",
+        "description":"The two young Cratchits are siblings who eagerly help prepare for the Christmas dinner and enjoy the festivities.",
+        "text_unit_ids":[
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"0c80c984-ad54-441f-ad32-cc1f806f5e6c",
+        "human_readable_id":173,
+        "title":"MASTER PETER",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "262baee4ba5e584b76f4296e1ef5e7faddbc22121d6bc04ab0178f9e508087a65ed1b28fe9f12db6301ab6b8dd664a0a8666139a01b2ea5a2b44eb2f463fa50f"
+        ]
+    },
+    {
+        "id":"ea550f99-b8c9-496a-9081-0e3ee374d2af",
+        "human_readable_id":174,
+        "title":"PETER",
+        "type":"PERSON",
+        "description":"Peter is the son of Bob and Mrs. Cratchit, and he is currently contemplating his future and exploring potential job opportunities. In the context of his family's situation, Peter is considering the possibility of finding a better job to improve his circumstances.",
+        "text_unit_ids":[
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508",
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c"
+        ]
+    },
+    {
+        "id":"7481b05d-2ff7-46b0-8993-a13f7f4a7a2c",
+        "human_readable_id":175,
+        "title":"MARTHA",
+        "type":"PERSON",
+        "description":"Martha is Bob and Mrs. Cratchit's daughter, who works as an apprentice and looks forward to a holiday.",
+        "text_unit_ids":[
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508"
+        ]
+    },
+    {
+        "id":"1eb22541-a864-4453-b1c8-b9717d900c22",
+        "human_readable_id":176,
+        "title":"FAMILY",
+        "type":"ORGANIZATION",
+        "description":"The Cratchit family is a close-knit unit that embodies love, support, and resilience despite their financial struggles.",
+        "text_unit_ids":[
+            "e3bba64330eaa003349dec3ee131febdbcbb7b99c1ccace66ea7fc1ffd0fe6b532150e7d73e54ad4c20513159e02f6f9cd064e5e2cc6ffbc8584b78cced8e508"
+        ]
+    },
+    {
+        "id":"d373985d-1c55-4853-b906-0f99f9ae78c5",
+        "human_readable_id":177,
+        "title":"LIGHTHOUSE",
+        "type":"GEO",
+        "description":"A solitary lighthouse built on a dismal reef, symbolizing isolation and the harshness of the sea.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"89000067-cbd2-46db-86d3-492cb948ba87",
+        "human_readable_id":178,
+        "title":"MOOR",
+        "type":"GEO",
+        "description":"A bleak and desert moor where miners live, representing desolation and hardship.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"68d733ce-a334-4adb-8480-bb5622eb504a",
+        "human_readable_id":179,
+        "title":"HUT",
+        "type":"GEO",
+        "description":"A small dwelling where a cheerful company gathers around a fire, symbolizing warmth and family during the holidays.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"cdfed9a8-c1b4-4aa0-abc9-efc5554812eb",
+        "human_readable_id":180,
+        "title":"SHIP",
+        "type":"GEO",
+        "description":"A vessel at sea where the crew shares Christmas thoughts and songs, illustrating the spirit of camaraderie.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"483f1de9-1b5e-4241-8857-e6d4ad8e21dc",
+        "human_readable_id":181,
+        "title":"GUESTS",
+        "type":"PERSON",
+        "description":"Guests are assembling for friendly gatherings, contributing to the festive atmosphere of the holiday season.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"6d41a41a-75a5-4a0e-9a04-631c56c4b0cf",
+        "human_readable_id":182,
+        "title":"OLD MAN",
+        "type":"PERSON",
+        "description":"An elderly man who sings a Christmas song around the fire, representing tradition and the joy of the holiday.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"5252807b-4083-4cc5-ad5d-7bd480a6d482",
+        "human_readable_id":183,
+        "title":"WOMAN",
+        "type":"PERSON",
+        "description":"An old woman who is gathered with her family around the fire, symbolizing warmth and family unity during Christmas.",
+        "text_unit_ids":[
+            "0d4de8e5a04d39fc424f3c044fdc9f7ac4d47c768477d1d22018ce65f52b6fe77ced889cac4e634a28c5938372738e79525b27bae4ab2473824070c0d7381f74"
+        ]
+    },
+    {
+        "id":"9b495d7b-0b97-4a2c-b148-788c94843733",
+        "human_readable_id":184,
+        "title":"SCROOGE'S NIECE",
+        "type":"PERSON",
+        "description":"Scrooge's niece is Fred's wife, who is described as pretty and lively, and shares her husband's sentiments about Scrooge.",
+        "text_unit_ids":[
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919"
+        ]
+    },
+    {
+        "id":"825f3f14-73ef-4f3f-ad1e-0cccccdaf148",
+        "human_readable_id":185,
+        "title":"TOPPER",
+        "type":"PERSON",
+        "description":"Topper is a jovial character and a friend of Fred, known for his playful antics during the Christmas gathering. He engages in various games, including blind man's buff, which adds to the festive atmosphere. Additionally, Topper is noted for his flirtation with Scrooge's niece's sister, showcasing his lighthearted and charming personality during the event.",
+        "text_unit_ids":[
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919",
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e"
+        ]
+    },
+    {
+        "id":"899911cf-b778-4fc5-8af3-67c8c2d13696",
+        "human_readable_id":186,
+        "title":"PLUMP SISTER",
+        "type":"PERSON",
+        "description":"None",
+        "text_unit_ids":[
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919",
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e",
+            "990810cc42806e862ab06ba66acd3baea96a6fa5071b412b0a3c009301ae07df44b202a414901874660ad2d04da01ecac8f188b0ad426a4675a8767105a01fc2"
+        ]
+    },
+    {
+        "id":"56a4340c-9e2a-4537-8c73-923fdd5171a6",
+        "human_readable_id":187,
+        "title":"LACE TUCKER",
+        "type":"GEO",
+        "description":"The lace tucker is a fashion accessory worn by one of Scrooge's niece's sisters, indicating the social context of the gathering.",
+        "text_unit_ids":[
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919"
+        ]
+    },
+    {
+        "id":"5986ffa7-f16b-46dc-b32c-a6dd44bae584",
+        "human_readable_id":188,
+        "title":"SCROOGE'S NIECE'S SISTERS",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "00d55a11708224576f458fb8beaecc5b423f18b2f732ea164ffd2bf14b3aa6aa0429abfcf832770eaa8517384dc1c61e03b841d0189e8d02c2352117ab187919"
+        ]
+    },
+    {
+        "id":"c2989eba-654f-45f2-a068-c46114a6cbaf",
+        "human_readable_id":189,
+        "title":"FORFEITS",
+        "type":"EVENT",
+        "description":"Forfeits is a game played during the Christmas gathering, where participants engage in fun challenges, contributing to the merriment of the evening.",
+        "text_unit_ids":[
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e"
+        ]
+    },
+    {
+        "id":"7d8b6e90-212d-4464-88e1-75bfe6082973",
+        "human_readable_id":190,
+        "title":"BLIND MAN'S BUFF",
+        "type":"EVENT",
+        "description":"Blind man's buff is a traditional party game played during the Christmas festivities, where one player is blindfolded and tries to catch others.",
+        "text_unit_ids":[
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e"
+        ]
+    },
+    {
+        "id":"d8be4704-ffba-4bab-8407-08d8870750d4",
+        "human_readable_id":191,
+        "title":"MUSIC",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "23b16a51cf44ece4fa8cf953c9d5b9cd6ec5fc1769d5a8ae7b8f6659a883f4c971d2e22f716e984a51b7e87bef1e3c3bd4c2d2d30d3750ce547205d48f0a764e"
+        ]
+    },
+    {
+        "id":"bac63336-077d-4f88-80f8-32cc26a19b34",
+        "human_readable_id":192,
+        "title":"TWELFTH-NIGHT PARTY",
+        "type":"EVENT",
+        "description":"A Twelfth-Night party is a celebration that Scrooge and the Ghost visit, showcasing joy and community spirit.",
+        "text_unit_ids":[
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459"
+        ]
+    },
+    {
+        "id":"8398fc1e-aac2-4e5c-b75e-48d92d2d991a",
+        "human_readable_id":193,
+        "title":"ALMSHOUSE",
+        "type":"GEO",
+        "description":"An almshouse is a place visited by the Spirit, representing the poor and needy in society.",
+        "text_unit_ids":[
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459"
+        ]
+    },
+    {
+        "id":"a820fc85-ccc1-4f8b-bb55-2a01a5d87693",
+        "human_readable_id":194,
+        "title":"HOSPITAL",
+        "type":"GEO",
+        "description":"A hospital is another location visited by the Spirit, showcasing the care for the sick and suffering.",
+        "text_unit_ids":[
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459"
+        ]
+    },
+    {
+        "id":"7772fb0a-fba4-4fea-805f-c61f59ae6590",
+        "human_readable_id":195,
+        "title":"GAOL",
+        "type":"GEO",
+        "description":"A gaol is a prison that the Spirit visits, highlighting the consequences of neglect and indifference.",
+        "text_unit_ids":[
+            "16a44556cf88ce525c0a958d9957e089c92f4f2c2ca36476c34ae9b4dd502467e2884a67c633d5e9a844747c739a49e47b624777e484e1ebd6f144090892e459"
+        ]
+    },
+    {
+        "id":"9e783cf7-8a87-4a9c-a392-1ef2efde0dfd",
+        "human_readable_id":196,
+        "title":"IGNORANCE",
+        "type":"PERSON",
+        "description":"Ignorance is a boy represented by the Spirit, symbolizing societal neglect and the consequences of ignorance.",
+        "text_unit_ids":[
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404"
+        ]
+    },
+    {
+        "id":"e4947384-2717-4f69-859c-e43d9683197c",
+        "human_readable_id":197,
+        "title":"WANT",
+        "type":"PERSON",
+        "description":"Want is a girl represented by the Spirit, symbolizing poverty and the dire needs of the less fortunate.",
+        "text_unit_ids":[
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404"
+        ]
+    },
+    {
+        "id":"4ccfe156-f2b2-43dc-98dd-6f43ced743c1",
+        "human_readable_id":198,
+        "title":"PHANTOM",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "62e001150f4c38017b77e88567bb95d06574e656209f38d1e69031ddaa55ed2324aa75170748134186cc1247aa98e0bd2df00d4f77250fe371af7e3e527a1404"
+        ]
+    },
+    {
+        "id":"dab406b0-f355-40c0-b8b3-9fb1a0461a09",
+        "human_readable_id":199,
+        "title":"JACOB",
+        "type":"PERSON",
+        "description":"Jacob is Scrooge's old partner who has recently died, prompting discussions among the business men about his death and legacy.",
+        "text_unit_ids":[
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5"
+        ]
+    },
+    {
+        "id":"81b35778-5b41-4cc0-afc4-ccb9463591d0",
+        "human_readable_id":200,
+        "title":"CHRISTMAS-TIME",
+        "type":"EVENT",
+        "description":"Christmas-time is the season during which the events are taking place, influencing the mood and conversations of the characters.",
+        "text_unit_ids":[
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5"
+        ]
+    },
+    {
+        "id":"7cb21ad5-eee8-4a28-bfe1-5867d2669199",
+        "human_readable_id":201,
+        "title":"BUSINESS MEN",
+        "type":"PERSON",
+        "description":"Business men are wealthy individuals in the City who are involved in financial discussions and are depicted as having a casual conversation about a deceased colleague.",
+        "text_unit_ids":[
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5"
+        ]
+    },
+    {
+        "id":"878382e8-b2c7-4f48-9e12-abe545e254e4",
+        "human_readable_id":202,
+        "title":"FUNERAL",
+        "type":"EVENT",
+        "description":"The funeral is an event being discussed among the merchants, reflecting on the death of Jacob and the potential attendance of the business community.",
+        "text_unit_ids":[
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5"
+        ]
+    },
+    {
+        "id":"6dd78f68-f6ed-47be-8aea-647710d0b388",
+        "human_readable_id":203,
+        "title":"MERCHANTS",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "af330cac81d68e66875c28c927438fee3f297f0e0877caaeeb0016073c39349e9e40e97541857b3c7fda46704badee67184aa75c8634bf83156388ce8f01b1f5"
+        ]
+    },
+    {
+        "id":"eb33f380-0932-4300-bdf6-9cd1c260986b",
+        "human_readable_id":204,
+        "title":"OLD JOE",
+        "type":"PERSON",
+        "description":"Old Joe is a character who plays a significant role in appraising the belongings of the deceased and interacting with other characters in the scene. He is depicted as a grey-haired rascal, nearly seventy years of age, who operates a shop that specializes in dealing with old rags, bones, and various refuse items. His unique profession and age contribute to his distinct personality and interactions within the narrative.",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9",
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"2fbbc023-7bb0-4f89-8a75-f08290aefbba",
+        "human_readable_id":205,
+        "title":"UNKNOWN WOMAN",
+        "type":"PERSON",
+        "description":"An unnamed woman who enters Old Joe's shop with a heavy bundle and participates in the discussion about the deceased's possessions.",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9"
+        ]
+    },
+    {
+        "id":"cde71be9-1257-4605-a9f6-74507ceb308a",
+        "human_readable_id":206,
+        "title":"DECEASED",
+        "type":"PERSON",
+        "description":"The deceased individual whose belongings are being discussed and evaluated in Old Joe's shop.",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9"
+        ]
+    },
+    {
+        "id":"3119b38c-f8eb-4a2e-b352-9e73ed4be5fb",
+        "human_readable_id":207,
+        "title":"OLD JOE'S SHOP",
+        "type":"ORGANIZATION",
+        "description":"Old Joe's shop is a low-browed establishment where various refuse items are bought and sold, located in a notorious part of town.",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9"
+        ]
+    },
+    {
+        "id":"cb11261f-7a09-4643-84c4-4aa1ae53c177",
+        "human_readable_id":208,
+        "title":"BUNDLE",
+        "type":"EVENT",
+        "description":"The bundle is a significant heavy load carried by an unnamed woman, containing various items that are being evaluated for their value in Old Joe's shop. This collection of items, brought by the characters for appraisal, symbolizes their actions following the man's death, highlighting the importance of these possessions in the context of the narrative.",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9",
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"36169d6b-6dfb-4657-9b65-2e4c546aabec",
+        "human_readable_id":209,
+        "title":"PARLOUR",
+        "type":"ORGANIZATION",
+        "description":"The parlour is the space behind the screen of rags in Old Joe's shop where discussions about the deceased's belongings take place.",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9"
+        ]
+    },
+    {
+        "id":"25a912c6-6433-4eec-969f-24155cd2311a",
+        "human_readable_id":210,
+        "title":"CHARCOAL STOVE",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "9d38ae4c3f3b253daf6a1c8f7f7bb2eea0d70106abba81b59e08d39fd6fe7b8db4dd9e2b934420f40bae13e07e52242e124e544133e774af6be1c0148c7463b9"
+        ]
+    },
+    {
+        "id":"41e12d30-0bec-46d3-ad6e-e820388bd045",
+        "human_readable_id":211,
+        "title":"DECEASED MAN",
+        "type":"PERSON",
+        "description":"The deceased man is the subject of the appraisal, whose belongings are being examined by Old Joe and others.",
+        "text_unit_ids":[
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"cc6ecf30-7ffa-4df2-bac5-33034124f11a",
+        "human_readable_id":212,
+        "title":"SUGAR-TONGS",
+        "type":"EVENT",
+        "description":"The sugar-tongs are another item presented for appraisal, indicating the personal effects of the deceased.",
+        "text_unit_ids":[
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"d4c96e17-ad6c-4f6d-9c1e-444a1db059fd",
+        "human_readable_id":213,
+        "title":"BOOTS",
+        "type":"EVENT",
+        "description":"The boots are part of the belongings being evaluated by Old Joe, showcasing the deceased man's possessions.",
+        "text_unit_ids":[
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"6045293e-80de-4928-914d-4df2fe2f2306",
+        "human_readable_id":214,
+        "title":"BED-CURTAINS",
+        "type":"EVENT",
+        "description":"The bed-curtains are mentioned as an item taken down by the woman, indicating a disregard for the deceased's dignity.",
+        "text_unit_ids":[
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"d6091ea4-1bb1-4d64-9728-16b14a8a0bbb",
+        "human_readable_id":215,
+        "title":"FLANNEL BAG",
+        "type":"EVENT",
+        "description":"The flannel bag contains money and is used by Old Joe to distribute the gains from the appraisal, representing the financial aspect of the deceased's belongings.",
+        "text_unit_ids":[
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"4386824d-ec0f-4906-be3c-a6b9272fa14b",
+        "human_readable_id":216,
+        "title":"SILVER TEASPOONS",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "12511d755f22193db859eae103d3e970b006a4b6bb23348471f7f0409db0fe2cb7e40c4b5ae174fe277abedcee60750100182117cda720ea84b57c7e7ff3c48e"
+        ]
+    },
+    {
+        "id":"561b08e6-bd3c-4a3c-802d-03bc46c1db6e",
+        "human_readable_id":217,
+        "title":"CAROLINE",
+        "type":"PERSON",
+        "description":"Caroline is a character who expresses relief and gratitude upon hearing news of a man's death, indicating her emotional response to the situation.",
+        "text_unit_ids":[
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0"
+        ]
+    },
+    {
+        "id":"e03be6d8-6a0a-40fd-8da1-f97c445cf4d6",
+        "human_readable_id":218,
+        "title":"HUSBAND",
+        "type":"PERSON",
+        "description":"The husband is a character who returns home with news about a deceased man, showing a mix of emotions regarding the situation.",
+        "text_unit_ids":[
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0"
+        ]
+    },
+    {
+        "id":"9c96c30d-d995-4b84-bcd5-b68e422e4a90",
+        "human_readable_id":219,
+        "title":"DEATH",
+        "type":"EVENT",
+        "description":"Death is the central event that triggers reflections and emotions among the characters, particularly Scrooge, regarding the deceased man's life and impact.",
+        "text_unit_ids":[
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0"
+        ]
+    },
+    {
+        "id":"fb1f716a-ed23-430b-a69b-5a3f37462bec",
+        "human_readable_id":220,
+        "title":"MOTHER",
+        "type":"PERSON",
+        "description":"The mother is a character who anxiously awaits her husband's return, reflecting the emotional turmoil caused by the man's death.",
+        "text_unit_ids":[
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0"
+        ]
+    },
+    {
+        "id":"a29306bb-ee97-43cb-9e72-7cb08ff0275c",
+        "human_readable_id":221,
+        "title":"BODY",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "d5216b0d23775bec659f0e04205a240dccfb9886886d66c43fdcfa2b19d2b4c4e21a46ef817be8c51353e855c55b17dd252b7b63289d474c89809e075ffb38e0"
+        ]
+    },
+    {
+        "id":"40c9c9fc-fcf2-48a5-b37e-6c8b18bae300",
+        "human_readable_id":222,
+        "title":"MR. SCROOGE",
+        "type":"PERSON",
+        "description":"Mr. Scrooge is a character known for his initial miserly behavior but shows kindness towards Bob Cratchit and his family.",
+        "text_unit_ids":[
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0"
+        ]
+    },
+    {
+        "id":"e6344810-d593-4216-b4fe-2ee22ec902dc",
+        "human_readable_id":223,
+        "title":"CRATCHIT HOUSE",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "28a097ac2ac91a0894f100b3def2d8b38beef06cf1704004989aa89e6c1f255493a9c27a25a914607d335f9bbcce06e73d44aa01074b2880449534ba228017a0"
+        ]
+    },
+    {
+        "id":"472082b5-89c9-4f45-abca-2577c8f42e6e",
+        "human_readable_id":224,
+        "title":"BOB",
+        "type":"PERSON",
+        "description":"Bob is a character who expresses concern for his family and reflects on the memory of Tiny Tim.",
+        "text_unit_ids":[
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c"
+        ]
+    },
+    {
+        "id":"ccc38118-8c57-4e34-a45b-fa7e4733069f",
+        "human_readable_id":225,
+        "title":"SPIRIT OF TINY TIM",
+        "type":"EVENT",
+        "description":"The Spirit of Tiny Tim represents the essence of hope and the impact of Tiny Tim's life on his family.",
+        "text_unit_ids":[
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c"
+        ]
+    },
+    {
+        "id":"56fc52a7-5fe7-4c45-8d2d-b52dbcb1be9d",
+        "human_readable_id":226,
+        "title":"CHURCHYARD",
+        "type":"GEO",
+        "description":"The churchyard is a graveyard where Scrooge sees the grave that reveals his fate.",
+        "text_unit_ids":[
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c"
+        ]
+    },
+    {
+        "id":"9c922905-cc7e-4794-8f3e-f8500dfb085e",
+        "human_readable_id":227,
+        "title":"GRAVE",
+        "type":"GEO",
+        "description":"The grave is where Scrooge learns of his own death and the neglect surrounding it.",
+        "text_unit_ids":[
+            "b45d6de2f6d34cd4fed5a21d1d596690ba0b703d425abb5ba69671d86c62293925158a86c0def123831ce72d6fb2c5dd8abe5f76a9294733201ef4dc4693bc8c"
+        ]
+    },
+    {
+        "id":"448cef96-d71a-4b94-a262-d3079824d4d7",
+        "human_readable_id":228,
+        "title":"GHOST OF CHRISTMAS FUTURE",
+        "type":"PERSON",
+        "description":"The Ghost of Christmas Future is the spirit that reveals to Scrooge the grim fate that awaits him if he continues on his current path.",
+        "text_unit_ids":[
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7"
+        ]
+    },
+    {
+        "id":"001c7f2c-5aa7-4e54-a78c-b0bb5a66aaa5",
+        "human_readable_id":229,
+        "title":"SUNDAY",
+        "type":"EVENT",
+        "description":"Sunday is the day on which Scrooge interacts with the boy and realizes it is Christmas Day.",
+        "text_unit_ids":[
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7"
+        ]
+    },
+    {
+        "id":"02334bab-9745-4338-bd9e-e7a4e0ed190d",
+        "human_readable_id":230,
+        "title":"BEDPOST",
+        "type":"GEO",
+        "description":"The bedpost is a significant object in Scrooge's room that symbolizes his realization and transformation.",
+        "text_unit_ids":[
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7"
+        ]
+    },
+    {
+        "id":"8b4bb310-ca71-45b5-b54b-319e2c80c493",
+        "human_readable_id":231,
+        "title":"SITTING-ROOM",
+        "type":"GEO",
+        "description":"The sitting-room is where Scrooge experiences his joyful transformation and reflects on the spirits' visits.",
+        "text_unit_ids":[
+            "ef880f85d74fb2faa02030b10f0822c02205cb0439f6f93ce0be9a3b471786a8a29a0c41631750436dd700ac859c284390bb2238a18496bf1833e6b7acf35df7"
+        ]
+    },
+    {
+        "id":"f932f85d-4db0-4a14-ab17-b7e9a2ca242b",
+        "human_readable_id":232,
+        "title":"SPIRITS",
+        "type":"EVENT",
+        "description":"The Spirits refer to supernatural beings that play a crucial role in influencing Ebenezer Scrooge's transformation in Charles Dickens' \"A Christmas Carol.\" These entities visit Scrooge on Christmas Eve, guiding him through a journey of reflection and self-discovery. They embody the themes of redemption and change, ultimately leading to Scrooge's change of heart and his embrace of the Christmas spirit.",
+        "text_unit_ids":[
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85",
+            "866d70f0609a917e2e7357b2950a4ad08e6acd79596e06a93422acfe9881802061c87147dc2ba69f507b6a7532dab3f5e681d3391a7e2a99667ce6e8a1600b90"
+        ]
+    },
+    {
+        "id":"a4e884dc-ca31-4bad-be5b-2b7eb4dccd76",
+        "human_readable_id":233,
+        "title":"PORTLY GENTLEMAN",
+        "type":"PERSON",
+        "description":"The portly gentleman is a character who visits Scrooge's office, representing the kindness and generosity that Scrooge later embraces.",
+        "text_unit_ids":[
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85"
+        ]
+    },
+    {
+        "id":"ded5d76d-a8a3-4e63-aabd-c4e4b1a94d8a",
+        "human_readable_id":234,
+        "title":"SCROOGE AND MARLEY'S",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "174b5be4cee1be7621f8e453c3739f48f90d9c362fc4cf0cf5fba1ea176caf868b0eb3e7334fd2eaf3f1a7cb030af8737e76455a5f6c1c03d0191f5948485a85"
+        ]
+    },
+    {
+        "id":"54849490-ee68-4e25-93e7-d587017349fd",
+        "human_readable_id":235,
+        "title":"DINING-ROOM",
+        "type":"GEO",
+        "description":"The dining-room is where Fred and his family gather for their Christmas dinner, representing warmth and family togetherness.",
+        "text_unit_ids":[
+            "990810cc42806e862ab06ba66acd3baea96a6fa5071b412b0a3c009301ae07df44b202a414901874660ad2d04da01ecac8f188b0ad426a4675a8767105a01fc2"
+        ]
+    },
+    {
+        "id":"203e8d67-fc1d-48f6-b560-a153abe52e90",
+        "human_readable_id":236,
+        "title":"GOOD OLD CITY",
+        "type":"GEO",
+        "description":"The good old City is a phrase used to describe the familiar and traditional urban environment where Scrooge is known.",
+        "text_unit_ids":[
+            "866d70f0609a917e2e7357b2950a4ad08e6acd79596e06a93422acfe9881802061c87147dc2ba69f507b6a7532dab3f5e681d3391a7e2a99667ce6e8a1600b90"
+        ]
+    },
+    {
+        "id":"d928868e-b29a-4c9b-bc61-e0709121d80f",
+        "human_readable_id":237,
+        "title":"PROJECT GUTENBERG LITERARY ARCHIVE FOUNDATION",
+        "type":"ORGANIZATION",
+        "description":"The Project Gutenberg Literary Archive Foundation, also known as PGLAF, is a non-profit educational corporation dedicated to securing the future of Project Gutenberg and its mission. This organization manages the Project Gutenberg™ trademark and oversees the distribution of its extensive collection of electronic works. PGLAF holds a compilation copyright for these works and actively promotes free access to them, ensuring that a wide audience can benefit from the literary resources available through Project Gutenberg.",
+        "text_unit_ids":[
+            "f579cd1eb2da1f2c52f7dbb9fce464032734b71c3468658aa77bbef8cca4622a30792586d3c7892b8c9cbddd891bf7fa98a0e925e409b1768da7bf2a214c3a70",
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb",
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"1fda43f5-5d78-46d4-8aed-be6567d761e2",
+        "human_readable_id":238,
+        "title":"UNITED STATES",
+        "type":"GEO",
+        "description":"The United States is a country where many of the individual works in the Project Gutenberg collection are in the public domain and where copyright laws govern the use of these works.",
+        "text_unit_ids":[
+            "f579cd1eb2da1f2c52f7dbb9fce464032734b71c3468658aa77bbef8cca4622a30792586d3c7892b8c9cbddd891bf7fa98a0e925e409b1768da7bf2a214c3a70"
+        ]
+    },
+    {
+        "id":"18da647f-e477-4473-9867-13cb57d55b64",
+        "human_readable_id":239,
+        "title":"PROJECT GUTENBERG LICENSE",
+        "type":"EVENT",
+        "description":"The Project Gutenberg License outlines the terms under which Project Gutenberg works can be used, copied, and distributed, ensuring compliance with copyright laws.",
+        "text_unit_ids":[
+            "f579cd1eb2da1f2c52f7dbb9fce464032734b71c3468658aa77bbef8cca4622a30792586d3c7892b8c9cbddd891bf7fa98a0e925e409b1768da7bf2a214c3a70"
+        ]
+    },
+    {
+        "id":"f82d71c1-4b59-4ebf-a051-3b175abf1f9d",
+        "human_readable_id":240,
+        "title":"ELECTRONIC WORKS",
+        "type":"EVENT",
+        "description":"Electronic works encompass the digital texts and literary works available through Project Gutenberg. This collection includes a variety of texts, many of which are in the public domain, allowing for free access and distribution under specific terms.",
+        "text_unit_ids":[
+            "f579cd1eb2da1f2c52f7dbb9fce464032734b71c3468658aa77bbef8cca4622a30792586d3c7892b8c9cbddd891bf7fa98a0e925e409b1768da7bf2a214c3a70",
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb"
+        ]
+    },
+    {
+        "id":"c6c7ac88-a64d-4d06-b6ef-71fb14f36a53",
+        "human_readable_id":241,
+        "title":"COPYRIGHT LAWS",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "f579cd1eb2da1f2c52f7dbb9fce464032734b71c3468658aa77bbef8cca4622a30792586d3c7892b8c9cbddd891bf7fa98a0e925e409b1768da7bf2a214c3a70"
+        ]
+    },
+    {
+        "id":"455a302f-a06b-441a-9f60-a048ae80f6d2",
+        "human_readable_id":242,
+        "title":"COPYRIGHT LAW",
+        "type":"EVENT",
+        "description":"Copyright law governs the legal rights associated with the use and distribution of literary works, impacting how Project Gutenberg operates.",
+        "text_unit_ids":[
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb"
+        ]
+    },
+    {
+        "id":"77b3327b-33fd-4a49-a84b-7cd87ffdf6f3",
+        "human_readable_id":243,
+        "title":"ROYALTY PAYMENTS",
+        "type":"EVENT",
+        "description":"Royalty payments are fees owed to the Project Gutenberg Literary Archive Foundation based on the profits derived from the use of its works.",
+        "text_unit_ids":[
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb"
+        ]
+    },
+    {
+        "id":"53af6e8c-9080-4f62-aba5-3b89fd0902e4",
+        "human_readable_id":244,
+        "title":"REFUND POLICY",
+        "type":"EVENT",
+        "description":"The refund policy outlines the conditions under which users can receive a refund for defective electronic works provided by Project Gutenberg.",
+        "text_unit_ids":[
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb"
+        ]
+    },
+    {
+        "id":"f9aa81fc-97ee-4d12-9892-d7e35f916f4a",
+        "human_readable_id":245,
+        "title":"LIMITED WARRANTY",
+        "type":"EVENT",
+        "description":"The limited warranty refers to the disclaimer of liability by the Project Gutenberg Literary Archive Foundation regarding the quality of its electronic works.",
+        "text_unit_ids":[
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb"
+        ]
+    },
+    {
+        "id":"a7fc83a9-a27f-4737-9488-a68f54d887dc",
+        "human_readable_id":246,
+        "title":"PROJECT GUTENBERG™",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "4402fbc58f49c530587630a7f84d272e019ee84f8b052c78afa66de7a9fe42e13d08086dfd36d68b10109e59141793c0a2d8b6c2fea0e3b38a8107145efa06eb"
+        ]
+    },
+    {
+        "id":"02b4e962-633e-4e73-8cd7-bd7b848a4c09",
+        "human_readable_id":247,
+        "title":"MICHAEL S. HART",
+        "type":"PERSON",
+        "description":"Professor Michael S. Hart is the originator of the Project Gutenberg concept, having produced and distributed eBooks for forty years.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"546392fa-fef3-465c-a76e-6bf0c60df49d",
+        "human_readable_id":248,
+        "title":"SALT LAKE CITY",
+        "type":"GEO",
+        "description":"Salt Lake City is the location of the Project Gutenberg Literary Archive Foundation's business office.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"88831f53-d080-41ba-96f2-eccd03c6acbd",
+        "human_readable_id":249,
+        "title":"MISSISSIPPI",
+        "type":"GEO",
+        "description":"Mississippi is the state under which the Project Gutenberg Literary Archive Foundation is organized.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"06bd3ef7-69ed-40ab-961e-2582a43540b8",
+        "human_readable_id":250,
+        "title":"U.S.",
+        "type":"GEO",
+        "description":"The United States is the country where Project Gutenberg operates and where its tax-exempt status is granted.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"27e352e3-93e1-4d02-8427-318b123304ee",
+        "human_readable_id":251,
+        "title":"EIN",
+        "type":"ORGANIZATION",
+        "description":"The EIN (Employer Identification Number) is a federal tax identification number assigned to the Project Gutenberg Literary Archive Foundation for tax purposes.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"5ca82574-d0d6-404e-b896-277a42e655f7",
+        "human_readable_id":252,
+        "title":"DONATIONS",
+        "type":"EVENT",
+        "description":"Donations refer to the financial contributions made to support the Project Gutenberg Literary Archive Foundation and its mission.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"7eac3fc6-b41a-4157-96d4-898317f5405e",
+        "human_readable_id":253,
+        "title":"VOLUNTEERS",
+        "type":"PERSON",
+        "description":"Volunteers are individuals who contribute their time and effort to support the production, promotion, and distribution of Project Gutenberg electronic works.",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    },
+    {
+        "id":"4d4a8cca-23ce-4e8e-981a-202858e025cb",
+        "human_readable_id":254,
+        "title":"FOUNDATION",
+        "type":"",
+        "description":"",
+        "text_unit_ids":[
+            "aa68b6c1603744d1b2567f6300c9bcdf7a2c20d8ed31b820e6ea0c75b14480cfaf305d1b47696849a53b0bd9c4cec5f1bcfc74df2de772b7fb02ca2533005cad"
+        ]
+    }
+]

@@ -5,82 +5,101 @@ import (
 )
 
 type WorkflowContext struct {
-	basepath      string
-	config        *WorkflowConfig
-	Documents     []*Document
-	TextUnits     []*TextUnit
-	Relationships []*Relationship
-	Entities      []*Entity
-	Communities   []*Community
-	Nodes         []*Node
-	Reports       []*Report
+	basepath         string
+	config           *WorkflowConfig
+	Documents        []*Document
+	TextUnits        []*TextUnit
+	Relationships    []*Relationship
+	TmpRelationships []*TmpRelationship
+	Entities         []*Entity
+	Communities      []*Community
+	Nodes            []*Node
+	Reports          []*Report
 }
 
 type Progress func(ctx context.Context, args *WorkflowContext) error
 
 type Document struct {
-	Id          string
-	Title       string
-	Content     string
-	TextUnitIds []string
+	Id          string   `json:"id"`
+	Title       string   `json:"title"`
+	Content     string   `json:"content"`
+	TextUnitIds []string `json:"text_unit_ids"`
 }
 
 type TextUnit struct {
-	Id              string
-	Text            string
-	DocumentIds     []string
-	EntityIds       []string
-	RelationshipIds []string
-	NumToken        int
+	Id              string   `json:"id"`
+	Text            string   `json:"text"`
+	DocumentIds     []string `json:"document_ids"`
+	EntityIds       []string `json:"entity_ids"`
+	RelationshipIds []string `json:"relationship_ids"`
+	NumToken        int      `json:"num_token"`
 }
 
 type Entity struct {
-	Id          string
-	Index       int64
-	Title       string
-	Type        string
-	Desc        string
-	TmpDesc     []string
-	TextUnitIds []string
-}
-
-func (e *Entity) ID() int64 {
-	return e.Index
+	Id          string   `json:"id"`
+	Title       string   `json:"title"`
+	Type        string   `json:"type"`
+	Desc        string   `json:"description"`
+	Degree      int      `json:"degree"`
+	TmpDesc     []string `json:"-"`
+	Communities []int    `json:"communities"`
+	TextUnitIds []string `json:"text_unit_ids"`
 }
 
 type Relationship struct {
-	Id             string
-	Source         *Entity
-	Target         *Entity
-	Desc           string
-	TmpDesc        []string
-	Weight         float64
-	CombinedDegree int
-	TextUnitIds    []string
+	Id             string   `json:"id"`
+	Source         *Entity  `json:"source"`
+	Target         *Entity  `json:"target"`
+	Desc           string   `json:"desc"`
+	Weight         float64  `json:"weight"`
+	CombinedDegree int      `json:"combined_degree"`
+	TextUnitIds    []string `json:"text_unit_ids"`
+}
+
+type TmpRelationship struct {
+	Id             string   `json:"id"`
+	Source         string   `json:"source"`
+	Target         string   `json:"target"`
+	Desc           string   `json:"desc"`
+	TmpDesc        []string `json:"-"`
+	Weight         float64  `json:"weight"`
+	CombinedDegree int      `json:"combined_degree"`
+	TextUnitIds    []string `json:"text_unit_ids"`
+	SourceId       string   `json:"source_id"`
 }
 
 type Node struct {
-	Id        string
-	Title     string
-	Community int
-	Level     int
-	Degree    int
+	Id        string `json:"id"`
+	Title     string `json:"title"`
+	Community int    `json:"community"`
+	Level     int    `json:"level"`
+	Degree    int    `json:"degree"`
 }
 
 type Community struct {
-	Id              string
-	Title           string
-	Community       int
-	Level           int
-	RelationshipIds []string
-	TextUnitIds     []string
-	Parent          int
-	EntityIds       []string
-	Period          string
-	Size            int
+	Id              string   `json:"id"`
+	Title           string   `json:"title"`
+	Community       int      `json:"community"`
+	Level           int      `json:"level"`
+	RelationshipIds []string `json:"relationship_ids"`
+	TextUnitIds     []string `json:"text_unit_ids"`
+	Parent          int      `json:"parent"`
+	EntityIds       []string `json:"entity_ids"`
+	Period          string   `json:"period"`
+	Size            int      `json:"size"`
 }
 
 type Report struct {
+	Community         int        `json:"community"`
+	Title             string     `json:"title"`
+	Summary           string     `json:"summary"`
+	Rating            float64    `json:"rating"`
+	RatingExplanation string     `json:"rating_explanation"`
+	Findings          []*Finding `json:"findings"`
+}
+type Finding struct {
+	Summary     string `json:"summary"`
+	Explanation string `json:"explanation"`
 }
 
 type HierarchicalCluster struct {
