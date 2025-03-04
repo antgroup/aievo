@@ -8,8 +8,7 @@ import (
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
-	"github.com/antgroup/aievo/rag/index/prompts"
-	"github.com/antgroup/aievo/rag/index/textsplitter"
+	"github.com/antgroup/aievo/rag/prompts"
 	"github.com/antgroup/aievo/utils/json"
 	"github.com/antgroup/aievo/utils/parallel"
 	"github.com/pkoukk/tiktoken-go"
@@ -84,7 +83,7 @@ func buildCommunityReportContext(ctx context.Context,
 	sort.Slice(edges, func(i, j int) bool {
 		return edges[i].CombinedDegree > edges[j].CombinedDegree
 	})
-	tk, _ := tiktoken.GetEncoding(textsplitter.DefaultTokenEncoding)
+	tk, _ := tiktoken.GetEncoding(rag.DefaultTokenEncoding)
 
 	entityContent := "-----Entities-----\ntitle,description,degree\n"
 	edgeContent := "-----Relationships-----\nsource,target,description,combined_degree\n"

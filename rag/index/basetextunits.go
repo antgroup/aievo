@@ -25,7 +25,7 @@ func BaseTextUnits(_ context.Context, args *rag.WorkflowContext) error {
 
 	splitter := textsplitter.NewMarkdownHeaderTextSplitter(
 		opts...)
-	tk, err := tiktoken.GetEncoding(textsplitter.DefaultTokenEncoding)
+	tk, err := tiktoken.GetEncoding(rag.DefaultTokenEncoding)
 	if err != nil {
 		return err
 	}

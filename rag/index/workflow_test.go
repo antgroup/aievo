@@ -14,7 +14,7 @@ import (
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
-	"github.com/antgroup/aievo/rag/index/prompts"
+	"github.com/antgroup/aievo/rag/prompts"
 	"github.com/stretchr/testify/assert"
 	"github.com/thoas/go-funk"
 )

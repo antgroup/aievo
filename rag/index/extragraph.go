@@ -10,7 +10,7 @@ import (
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
-	"github.com/antgroup/aievo/rag/index/prompts"
+	prompts2 "github.com/antgroup/aievo/rag/prompts"
 	"github.com/antgroup/aievo/utils/parallel"
 	"github.com/thoas/go-funk"
 )
@@ -63,7 +63,7 @@ func ExtraGraph(ctx context.Context, args *rag.WorkflowContext) error {
 func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 	results := make([]string, len(args.TextUnits))
 	parallel.Parallel(func(i int) any {
-		template, _ := prompt.NewPromptTemplate(prompts.ExtraGraph)
+		template, _ := prompt.NewPromptTemplate(prompts2.ExtraGraph)
 		p, err := template.Format(map[string]any{
 			"entity_types":         strings.Join(args.Config.EntityTypes, ","),
 			"tuple_delimiter":      _tupleDelimiter,
@@ -94,7 +94,7 @@ func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 				[]llm.Message{
 					llm.NewUserMessage("", p),
 					llm.NewAssistantMessage("", results[i], nil),
-					llm.NewUserMessage("", prompts.ContinueExtra),
+					llm.NewUserMessage("", prompts2.ContinueExtra),
 				},
 				llm.WithTemperature(0.1))
 			if err == nil {
@@ -110,7 +110,7 @@ func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 }
 
 func summaryDesc(ctx context.Context, args *rag.WorkflowContext) error {
-	template, _ := prompt.NewPromptTemplate(prompts.SummarizeDescription)
+	template, _ := prompt.NewPromptTemplate(prompts2.SummarizeDescription)
 	// 进一步总结entity desc
 	parallel.Parallel(func(i int) any {
 		descs := funk.UniqString(args.Entities[i].TmpDesc)

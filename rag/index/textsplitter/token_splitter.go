@@ -7,7 +7,6 @@ import (
 )
 
 const (
-	DefaultTokenEncoding      = "cl100k_base"
 	_defaultTokenChunkSize    = 2048
 	_defaultTokenChunkOverlap = 200
 )

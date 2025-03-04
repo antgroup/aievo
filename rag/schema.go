@@ -6,6 +6,10 @@ import (
 	"github.com/antgroup/aievo/llm"
 )
 
+const (
+	DefaultTokenEncoding = "cl100k_base"
+)
+
 type WorkflowConfig struct {
 	ChunkSize          int
 	ChunkOverlap       int
@@ -16,9 +20,20 @@ type WorkflowConfig struct {
 	LLMCallConcurrency int
 }
 
+type QueryConfig struct {
+	LLM              llm.LLM
+	EmbedMaxToken    int
+	LLMMaxToken      int
+	Embedder         Embedder
+	EmbedConcurrency int
+}
+
 type WorkflowContext struct {
-	BasePath         string
-	Config           *WorkflowConfig
+	BasePath string
+	// config for index
+	Config *WorkflowConfig
+	// config for query
+	QueryConfig      *QueryConfig
 	Documents        []*Document
 	TextUnits        []*TextUnit
 	Relationships    []*Relationship

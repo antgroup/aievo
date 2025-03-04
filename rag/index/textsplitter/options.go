@@ -1,5 +1,9 @@
 package textsplitter
 
+import (
+	"github.com/antgroup/aievo/rag"
+)
+
 // Options is a struct that contains options for a text splitter.
 type Options struct {
 	ChunkSize        int
@@ -17,7 +21,7 @@ func DefaultOptions() Options {
 		ChunkOverlap: _defaultTokenChunkOverlap,
 		Separators:   []string{"\n\n", "\n", " ", ""},
 
-		EncodingName: DefaultTokenEncoding,
+		EncodingName: rag.DefaultTokenEncoding,
 		HeadersToSplitOn: []HeaderType{
 			{Type: "#", Name: "H1"},
 			{Type: "##", Name: "H2"},

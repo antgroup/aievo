@@ -23,7 +23,7 @@ type Workflow struct {
 }
 
 // NewWorkflow 初始化一个 index workflow, 在最后可以加一个存储的 progress，便于将数据存储到数据库
-func NewWorkflow(nodes []rag.Progress, opts ...Option) (*Workflow, error) {
+func NewWorkflow(nodes []rag.Progress, opts ...rag.Option) (*Workflow, error) {
 	w := &Workflow{nodes: nodes}
 	for _, opt := range opts {
 		opt(w.config)
@@ -55,9 +55,9 @@ func DefaultNodes() []rag.Progress {
 func Default() (*Workflow, error) {
 	return NewWorkflow(
 		DefaultNodes(),
-		WithMaxToken(_defaultMaxToken),
-		WithEntityTypes(_defaultEntityTypes),
-		WithLLMCallConcurrency(_defaultLLMConcurrency))
+		rag.WithMaxToken(_defaultMaxToken),
+		rag.WithEntityTypes(_defaultEntityTypes),
+		rag.WithLLMCallConcurrency(_defaultLLMConcurrency))
 }
 
 func (w *Workflow) Run(ctx context.Context, filepath string) error {
