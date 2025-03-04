@@ -103,9 +103,11 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 
 		MaxCompletionTokens: opts.MaxTokens,
 
-		ToolChoice: opts.ToolChoice,
-		Seed:       &opts.Seed,
-		Metadata:   opts.Metadata,
+		ToolChoice:  opts.ToolChoice,
+		LogProbs:    opts.LogProbs,
+		TopLogProbs: opts.TopLogProbs,
+		Seed:        &opts.Seed,
+		Metadata:    opts.Metadata,
 	}
 
 	if opts.JSONMode {
@@ -137,7 +139,8 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 	}
 
 	var response = &llm.Generation{
-		Usage: &llm.Usage{},
+		Usage:    &llm.Usage{},
+		LogProbs: &goopenai.ChatCompletionStreamChoiceLogprobs{},
 	}
 
 	for {
@@ -157,6 +160,10 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 			}
 			if recv.Choices[0].Delta.Role != "" {
 				response.Role = recv.Choices[0].Delta.Role
+			}
+			if recv.Choices[0].Logprobs != nil {
+				response.LogProbs.Content = append(response.LogProbs.Content,
+					recv.Choices[0].Logprobs.Content...)
 			}
 			response.Content += recv.Choices[0].Delta.Content
 			if opts.StreamingFunc != nil {

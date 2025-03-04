@@ -2,6 +2,8 @@ package llm
 
 import (
 	"context"
+
+	"github.com/sashabaranov/go-openai"
 )
 
 type Generation struct {
@@ -14,6 +16,7 @@ type Generation struct {
 	// ToolCalls is a list of tool calls the model asks to invoke.
 	ToolCalls []ToolCall
 	Usage     *Usage
+	LogProbs  *openai.ChatCompletionStreamChoiceLogprobs
 }
 
 type Usage struct {
