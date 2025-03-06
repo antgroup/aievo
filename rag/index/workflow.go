@@ -49,6 +49,7 @@ func DefaultNodes() []rag.Progress {
 		FinalCommunities,
 		FinalTextUnits,
 		FinalCommunityReport,
+		SaveToStorage,
 	}
 }
 

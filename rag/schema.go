@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/antgroup/aievo/llm"
+	"gorm.io/gorm"
 )
 
 const (
@@ -18,6 +19,7 @@ type WorkflowConfig struct {
 	EntityTypes        []string
 	LLM                llm.LLM
 	LLMCallConcurrency int
+	DB                 *gorm.DB
 }
 
 type QueryConfig struct {
@@ -29,6 +31,7 @@ type QueryConfig struct {
 }
 
 type WorkflowContext struct {
+	Id       int64
 	BasePath string
 	// config for index
 	Config *WorkflowConfig
@@ -42,6 +45,19 @@ type WorkflowContext struct {
 	Communities      []*Community
 	Nodes            []*Node
 	Reports          []*Report
+}
+
+func NewWorkflowContext() *WorkflowContext {
+	ctx := &WorkflowContext{}
+	ctx.Documents = make([]*Document, 0)
+	ctx.TextUnits = make([]*TextUnit, 0)
+	ctx.Relationships = make([]*Relationship, 0)
+	ctx.TmpRelationships = make([]*TmpRelationship, 0)
+	ctx.Entities = make([]*Entity, 0)
+	ctx.Communities = make([]*Community, 0)
+	ctx.Nodes = make([]*Node, 0)
+	ctx.Reports = make([]*Report, 0)
+	return ctx
 }
 
 type Progress func(ctx context.Context, args *WorkflowContext) error

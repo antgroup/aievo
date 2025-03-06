@@ -2,6 +2,7 @@ package rag
 
 import (
 	"github.com/antgroup/aievo/llm"
+	"gorm.io/gorm"
 )
 
 type Option func(c *WorkflowConfig)
@@ -48,6 +49,12 @@ func WithLLMCallConcurrency(concurrency int) Option {
 	}
 }
 
+func WithDB(db *gorm.DB) Option {
+	return func(c *WorkflowConfig) {
+		c.DB = db
+	}
+}
+
 type QueryOption func(c *QueryConfig)
 
 func WithQueryMaxToken(maxToken int) QueryOption {
@@ -72,6 +79,7 @@ func WithEmbedder(embedder Embedder) QueryOption {
 		c.Embedder = embedder
 	}
 }
+
 func WithEmbedConcurrency(concurrency int) QueryOption {
 	return func(c *QueryConfig) {
 		c.EmbedConcurrency = concurrency

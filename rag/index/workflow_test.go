@@ -10,13 +10,18 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/prompts"
+	db2 "github.com/antgroup/aievo/rag/storage/db"
 	"github.com/stretchr/testify/assert"
 	"github.com/thoas/go-funk"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func TestBaseDocuments(t *testing.T) {
@@ -396,7 +401,30 @@ func TestSingleResult(t *testing.T) {
 	}
 }
 
+func newTestGormDB() (*gorm.DB, error) {
+	dsn := os.Getenv("AIEVO_DSN")
+	var err error
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	sqlDB, _ := db.DB()
+	if err = sqlDB.Ping(); err != nil {
+		return nil, err
+	}
+	sqlDB.SetMaxIdleConns(10)
+	sqlDB.SetMaxOpenConns(100)
+	sqlDB.SetConnMaxLifetime(time.Minute * 10)
+	return db, nil
+}
+
 func TestWorkflow_Run(t *testing.T) {
+	db, err := newTestGormDB()
+	assert.Nil(t, err)
+
 	// 初始化 base_text_unit 和 base_document
 	args := &rag.WorkflowContext{
 		BasePath: "",
@@ -408,6 +436,7 @@ func TestWorkflow_Run(t *testing.T) {
 			EntityTypes:        []string{"organization", "person", "geo", "event"},
 			LLM:                initMockLLM(),
 			LLMCallConcurrency: 100,
+			DB:                 db,
 		},
 	}
 
@@ -446,7 +475,7 @@ func TestWorkflow_Run(t *testing.T) {
 		document.TextUnitIds = document.TextUnitIds[:]
 	}
 
-	err := FinalDocuments(context.Background(), args)
+	err = FinalDocuments(context.Background(), args)
 	assert.Nil(t, err)
 	assert.Equal(t, len(finalDocuments), len(args.Documents))
 	assert.ElementsMatch(t, finalDocuments[0].TextUnitIds, args.Documents[0].TextUnitIds)
@@ -640,23 +669,41 @@ func TestWorkflow_Run(t *testing.T) {
 	}
 
 	// 最后 assert report
-	// err = FinalCommunityReport(context.Background(), args)
-	// assert.Nil(t, err)
-	// finalCommunityReportMap := make(map[int]*Report)
-	// reportMap := make(map[int]*Report)
-	// for _, report := range args.Reports {
-	// 	reportMap[report.Community] = report
-	// }
-	// for _, report := range finalReport {
-	// 	finalCommunityReportMap[report.Community] = report
-	// }
-	// assert.Equal(t, len(finalCommunityReportMap), len(reportMap))
-	// for key, report := range finalCommunityReportMap {
-	// 	assert.NotNil(t, reportMap[key])
-	// 	assert.Equal(t, report.Title, reportMap[key].Title)
-	// 	assert.Equal(t, report.Summary, reportMap[key].Summary)
-	// 	assert.Equal(t, report.Findings, reportMap[key].Findings)
-	// }
+	//err = FinalCommunityReport(context.Background(), args)
+	//assert.Nil(t, err)
+	//finalCommunityReportMap := make(map[int]*rag.Report)
+	//reportMap := make(map[int]*rag.Report)
+	//for _, report := range args.Reports {
+	//	reportMap[report.Community] = report
+	//}
+	//for _, report := range finalReport {
+	//	finalCommunityReportMap[report.Community] = report
+	//}
+	//assert.Equal(t, len(finalCommunityReportMap), len(reportMap))
+	//for key, report := range finalCommunityReportMap {
+	//	assert.NotNil(t, reportMap[key])
+	//	assert.Equal(t, report.Title, reportMap[key].Title)
+	//	assert.Equal(t, report.Summary, reportMap[key].Summary)
+	//	assert.Equal(t, report.Findings, reportMap[key].Findings)
+	//}
+
+	err = SaveToStorage(context.Background(), args)
+	assert.Nil(t, err)
+}
+
+func TestLoadWorkflow(t *testing.T) {
+	wfCtx := rag.NewWorkflowContext()
+	wfCtx.Id = 1
+
+	db, err := newTestGormDB()
+	assert.Nil(t, err)
+
+	storage := db2.NewStorage(db2.WithDB(db))
+
+	err = storage.Load(context.Background(), wfCtx)
+	assert.Nil(t, err)
+
+	fmt.Println("test")
 }
 
 func get(filename string, result any) {
