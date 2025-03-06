@@ -20,6 +20,7 @@ type WorkflowConfig struct {
 	LLM                llm.LLM
 	LLMCallConcurrency int
 	DB                 *gorm.DB
+	MaxTurn            int
 }
 
 type QueryConfig struct {
@@ -28,6 +29,7 @@ type QueryConfig struct {
 	LLMMaxToken      int
 	Embedder         Embedder
 	EmbedConcurrency int
+	MaxTurn          int
 }
 
 type WorkflowContext struct {
@@ -67,6 +69,7 @@ type Document struct {
 	Title       string   `json:"title"`
 	Content     string   `json:"content"`
 	TextUnitIds []string `json:"text_unit_ids"`
+	Link        string   `json:"link"`
 }
 
 type TextUnit struct {

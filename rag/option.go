@@ -85,3 +85,9 @@ func WithEmbedConcurrency(concurrency int) QueryOption {
 		c.EmbedConcurrency = concurrency
 	}
 }
+
+func WithQueryMaxTurn(turn int) QueryOption {
+	return func(c *QueryConfig) {
+		c.MaxTurn = turn
+	}
+}

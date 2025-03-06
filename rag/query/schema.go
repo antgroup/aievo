@@ -14,6 +14,21 @@ const (
 	_topKRelations  = 10
 )
 
+type Method string
+
+const (
+	Local  Method = "local"
+	Global Method = "global"
+	COT    Method = "cot"
+)
+
 type RAG struct {
-	Context *rag.WorkflowContext
+	*rag.WorkflowContext
+}
+
+type Response struct {
+	Query   string `json:"retrieval"`
+	Reason  string `json:"reason"`
+	Summary string `json:"summary"`
+	Answer  string `json:"answer"`
 }

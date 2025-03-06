@@ -29,13 +29,13 @@ Do not include information where the supporting evidence for it is not provided.
 
 
 ---Target response length and format---
-
-{{.response_type}}
+please response with markdown as detail as possible.
+please response source document link.
 
 
 ---Data tables---
 
-{{.context_data}}
+{{.data}}
 
 
 ---Goal---
@@ -60,8 +60,8 @@ Do not include information where the supporting evidence for it is not provided.
 
 
 ---Target response length and format---
-
-{{.response_type}}
+please response with markdown as detail as possible.
+please response source document link.
 
 Add sections and commentary to the response as appropriate for the length and format. Style the response in markdown.
 

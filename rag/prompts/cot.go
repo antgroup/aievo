@@ -1,0 +1,5 @@
+package prompts
+
+const COTPrompt = `
+
+`

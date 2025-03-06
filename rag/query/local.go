@@ -6,31 +6,61 @@ import (
 	"sort"
 	"strconv"
 
+	"github.com/antgroup/aievo/llm"
+	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
+	"github.com/antgroup/aievo/rag/prompts"
 	"github.com/pkoukk/tiktoken-go"
 	"github.com/thoas/go-funk"
 )
 
-func (r *RAG) LocalQuery(ctx context.Context, query string) (string, error) {
+func (r *RAG) LocalQuery(ctx context.Context, query string, method Method) (string, error) {
+	switch method {
+	case Local:
+		t, _ := prompt.NewPromptTemplate(prompts.LocalQuery)
+		data, err := r.localQueryContext(ctx, query)
+		if err != nil {
+			return "", err
+		}
+		p, _ := t.Format(map[string]any{
+			"data": data,
+		})
+		return r.query(ctx, query, p)
+	}
+	return "", nil
+}
+
+func (r *RAG) query(ctx context.Context, query, p string) (string, error) {
+	content, err := r.QueryConfig.LLM.GenerateContent(ctx, []llm.Message{
+		llm.NewSystemMessage("", p),
+		llm.NewUserMessage("", query),
+	})
+	if err != nil {
+		return "", err
+	}
+	return content.Content, nil
+}
+
+func (r *RAG) localQueryContext(ctx context.Context, query string) (string, error) {
 	// 对 entity 进行召回，召回前20
 	me := make(map[string]*rag.Entity)
 	mr := make(map[string][]*rag.Relationship)
 	encoding, _ := tiktoken.GetEncoding(rag.DefaultTokenEncoding)
 
-	for _, e := range r.Context.Entities {
+	for _, e := range r.Entities {
 		me[e.Title] = e
 	}
 
 	entities := r.getLevelEntities(_maxLevel)
 
 	// 获取到 level <= _minLevel 的所有实体，召回相关的前20
-	entities, err := r.Context.QueryConfig.Embedder.EmbedQuery(ctx, query, entities, 20)
+	entities, err := r.QueryConfig.Embedder.EmbedQuery(ctx, query, entities, 20)
 	if err != nil {
 		return "", err
 	}
 
 	// 进一步选择 relation
-	for _, relation := range r.Context.Relationships {
+	for _, relation := range r.Relationships {
 		mr[relation.Source.Title] = append(mr[relation.Source.Title], relation)
 		mr[relation.Target.Title] = append(mr[relation.Target.Title], relation)
 		mr[relation.Source.Title+_tupleDelimiter+relation.Target.Title] = append(
@@ -42,26 +72,32 @@ func (r *RAG) LocalQuery(ctx context.Context, query string) (string, error) {
 
 	// 最后选择 text unit
 	mt := make(map[string]*rag.TextUnit)
-	for _, unit := range r.Context.TextUnits {
+	for _, unit := range r.TextUnits {
 		mt[unit.Id] = unit
 	}
 
 	mreport := make(map[int]*rag.Report)
-	for _, report := range r.Context.Reports {
+	for _, report := range r.Reports {
 		mreport[report.Community] = report
+	}
+
+	md := make(map[string]*rag.Document)
+	for _, document := range r.Documents {
+		md[document.Id] = document
 	}
 
 	// 开始拼接
 	finalReports := queryRelatedCommunities(
 		entities, me, mreport, encoding,
-		r.Context.QueryConfig.LLMMaxToken*_localCommunityPromptPercent/100)
+		r.QueryConfig.LLMMaxToken*_localCommunityPromptPercent/100)
 	finalEntities, token := queryRelatedEntities(entities,
-		me, encoding, r.Context.QueryConfig.LLMMaxToken*_localEntityPromptPercent/100)
+		me, encoding, r.QueryConfig.LLMMaxToken*_localEntityPromptPercent/100)
 	finalTextUnits := queryRelatedTextUnits(entities,
-		me, mt, encoding, r.Context.QueryConfig.LLMMaxToken*_localTextUnitPromptPercent/100)
+		me, mt, encoding, r.QueryConfig.LLMMaxToken*_localTextUnitPromptPercent/100)
+	finalDocuments := queryRelatedDocuments(finalTextUnits, md)
 	finalRelations := make([]*rag.Relationship, 0, len(entities))
 	added := make([]string, 0, len(entities))
-	leftToken := r.Context.QueryConfig.LLMMaxToken*_localEntityPromptPercent/100 - token
+	leftToken := r.QueryConfig.LLMMaxToken*_localEntityPromptPercent/100 - token
 	for i := 0; i < len(entities) && leftToken > 0; i++ {
 		added = append(added, entities[i])
 		var count = 0
@@ -105,16 +141,25 @@ func (r *RAG) LocalQuery(ctx context.Context, query string) (string, error) {
 		}
 	}
 
+	if len(finalTextUnits) > 0 {
+		content += "-----Source Document Link-----\n"
+		content += "title|link\n"
+		for _, doc := range finalDocuments {
+			content += fmt.Sprintf("%s|%s\n", doc.Title,
+				doc.Link)
+		}
+	}
+
 	return content, nil
 }
 
 func (r *RAG) getLevelEntities(level int) []string {
 	mc := make(map[int]*rag.Community)
-	for _, c := range r.Context.Communities {
+	for _, c := range r.Communities {
 		mc[c.Community] = c
 	}
-	entities := make([]string, 0, len(r.Context.Entities))
-	for _, entity := range r.Context.Entities {
+	entities := make([]string, 0, len(r.Entities))
+	for _, entity := range r.Entities {
 		for _, c := range entity.Communities {
 			if mc[c].Level <= level {
 				entities = append(entities, entity.Title)
@@ -243,4 +288,15 @@ func queryRelatedEntities(entities []string, me map[string]*rag.Entity,
 		}
 	}
 	return final, token
+}
+
+func queryRelatedDocuments(textUnits []*rag.TextUnit,
+	md map[string]*rag.Document) []*rag.Document {
+	docs := make([]*rag.Document, 0, len(textUnits))
+	for _, unit := range textUnits {
+		for _, docId := range unit.DocumentIds {
+			docs = append(docs, md[docId])
+		}
+	}
+	return docs
 }
