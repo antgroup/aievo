@@ -20,16 +20,13 @@ type WorkflowConfig struct {
 	LLM                llm.LLM
 	LLMCallConcurrency int
 	DB                 *gorm.DB
-	MaxTurn            int
 }
 
 type QueryConfig struct {
-	LLM              llm.LLM
-	EmbedMaxToken    int
-	LLMMaxToken      int
-	Embedder         Embedder
-	EmbedConcurrency int
-	MaxTurn          int
+	LLM         llm.LLM
+	LLMMaxToken int
+	Retriever   Retriever
+	MaxTurn     int
 }
 
 type WorkflowContext struct {

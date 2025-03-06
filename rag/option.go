@@ -62,11 +62,6 @@ func WithQueryMaxToken(maxToken int) QueryOption {
 		c.LLMMaxToken = maxToken
 	}
 }
-func WithEmbedMaxToken(maxToken int) QueryOption {
-	return func(c *QueryConfig) {
-		c.EmbedMaxToken = maxToken
-	}
-}
 
 func WithQueryLLM(LLM llm.LLM) QueryOption {
 	return func(c *QueryConfig) {
@@ -74,15 +69,9 @@ func WithQueryLLM(LLM llm.LLM) QueryOption {
 	}
 }
 
-func WithEmbedder(embedder Embedder) QueryOption {
+func WithRetriever(retriever Retriever) QueryOption {
 	return func(c *QueryConfig) {
-		c.Embedder = embedder
-	}
-}
-
-func WithEmbedConcurrency(concurrency int) QueryOption {
-	return func(c *QueryConfig) {
-		c.EmbedConcurrency = concurrency
+		c.Retriever = retriever
 	}
 }
 

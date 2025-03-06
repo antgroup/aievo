@@ -54,7 +54,7 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 	entities := r.getLevelEntities(_maxLevel)
 
 	// 获取到 level <= _minLevel 的所有实体，召回相关的前20
-	entities, err := r.QueryConfig.Embedder.EmbedQuery(ctx, query, entities, 20)
+	entities, err := r.QueryConfig.Retriever.Query(ctx, query, entities, 20)
 	if err != nil {
 		return "", err
 	}
