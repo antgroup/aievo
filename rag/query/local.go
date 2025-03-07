@@ -280,8 +280,9 @@ func queryRelatedTextUnits(entities []string,
 	final := make([]*rag.TextUnit, 0, len(relatedText))
 	for i := 0; i < len(relatedText); i++ {
 		final = append(final, relatedText[i])
-		if len(encoding.Encode(relatedText[i].Text,
-			nil, nil))+token >= maxToken {
+		token += len(encoding.Encode(relatedText[i].Text,
+			nil, nil))
+		if token > maxToken {
 			break
 		}
 	}
@@ -312,5 +313,8 @@ func queryRelatedDocuments(textUnits []*rag.TextUnit,
 			docs = append(docs, md[docId])
 		}
 	}
+	docs = funk.UniqBy(docs, func(document *rag.Document) string {
+		return document.Title
+	}).([]*rag.Document)
 	return docs
 }

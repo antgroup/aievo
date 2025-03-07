@@ -57,7 +57,7 @@ func TestIndex(t *testing.T) {
 	)
 
 	wfCtx := rag.NewWorkflowContext()
-	wfCtx.Id = 2
+	wfCtx.Id = 3
 	wfCtx.BasePath = os.Getenv("SOFARPC_DOC_PATH")
 
 	workflow, err := index.NewWorkflow(
@@ -93,7 +93,7 @@ func TestQuery(t *testing.T) {
 	)
 
 	wfCtx := rag.NewWorkflowContext()
-	wfCtx.Id = 2
+	wfCtx.Id = 3
 	wfCtx.BasePath = os.Getenv("SOFARPC_DOC_PATH")
 	wfCtx.QueryConfig = &rag.QueryConfig{
 		LLM:         deepseek,
