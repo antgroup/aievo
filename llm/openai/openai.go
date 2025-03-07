@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/antgroup/aievo/llm"
-	goopenai "github.com/sashabaranov/go-openai"
+	goopenai "github.com/linhaojun857/go-openai"
 )
 
 type LLM struct {

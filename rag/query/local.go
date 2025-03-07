@@ -14,20 +14,16 @@ import (
 	"github.com/thoas/go-funk"
 )
 
-func (r *RAG) LocalQuery(ctx context.Context, query string, method Method) (string, error) {
-	switch method {
-	case Local:
-		t, _ := prompt.NewPromptTemplate(prompts.LocalQuery)
-		data, err := r.localQueryContext(ctx, query)
-		if err != nil {
-			return "", err
-		}
-		p, _ := t.Format(map[string]any{
-			"data": data,
-		})
-		return r.query(ctx, query, p)
+func (r *RAG) LocalQuery(ctx context.Context, query string) (string, error) {
+	t, _ := prompt.NewPromptTemplate(prompts.LocalQuery)
+	data, err := r.localQueryContext(ctx, query)
+	if err != nil {
+		return "", err
 	}
-	return "", nil
+	p, _ := t.Format(map[string]any{
+		"data": data,
+	})
+	return r.query(ctx, query, p)
 }
 
 func (r *RAG) query(ctx context.Context, query, p string) (string, error) {
@@ -110,6 +106,9 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 		content += "-----Reports-----\n"
 		content += "title|content\n"
 		for _, report := range finalReports {
+			if report == nil {
+				continue
+			}
 			content += fmt.Sprintf("%s|%s\n", report.Title, report.Summary)
 		}
 	}
@@ -118,6 +117,9 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 		content += "-----Entities-----\n"
 		content += "entity|description|number of relationships\n"
 		for _, entity := range finalEntities {
+			if entity == nil {
+				continue
+			}
 			content += fmt.Sprintf("%s|%s|%d\n",
 				entity.Title, entity.Desc, entity.Degree)
 		}
@@ -127,7 +129,10 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 		content += "-----Relations-----\n"
 		content += "source|target|description|weight|links\n"
 		for _, relation := range finalRelations {
-			content += fmt.Sprintf("%s|%s|%s|%d|%d\n",
+			if relation == nil {
+				continue
+			}
+			content += fmt.Sprintf("%s|%s|%s|%f|%d\n",
 				relation.Source.Title, relation.Target.Title, relation.Desc,
 				relation.Weight, relation.CombinedDegree)
 		}
@@ -137,6 +142,9 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 		content += "-----Sources-----\n"
 		content += "id|content\n"
 		for i, unit := range finalTextUnits {
+			if unit == nil {
+				continue
+			}
 			content += fmt.Sprintf("%d|%s\n", i, unit.Text)
 		}
 	}
@@ -145,6 +153,9 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 		content += "-----Source Document Link-----\n"
 		content += "title|link\n"
 		for _, doc := range finalDocuments {
+			if doc == nil {
+				continue
+			}
 			content += fmt.Sprintf("%s|%s\n", doc.Title,
 				doc.Link)
 		}
@@ -241,10 +252,12 @@ func queryRelatedCommunities(entities []string,
 	final := make([]*rag.Report, 0, len(relatedCc))
 	for i := 0; i < len(communities); i++ {
 		final = append(final, mreport[communities[i]])
-		token += len(encoding.Encode(mreport[communities[i]].Summary,
-			nil, nil)) +
-			len(encoding.Encode(mreport[communities[i]].Title,
-				nil, nil))
+		if mreport[communities[i]] != nil {
+			token += len(encoding.Encode(mreport[communities[i]].Summary,
+				nil, nil)) +
+				len(encoding.Encode(mreport[communities[i]].Title,
+					nil, nil))
+		}
 		if token > maxToken {
 			break
 		}

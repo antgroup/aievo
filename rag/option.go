@@ -31,6 +31,12 @@ func WithMaxToken(token int) Option {
 	}
 }
 
+func WithMaxTurn(turn int) Option {
+	return func(c *WorkflowConfig) {
+		c.MaxTurn = turn
+	}
+}
+
 func WithEntityTypes(types []string) Option {
 	return func(c *WorkflowConfig) {
 		c.EntityTypes = types

@@ -3,7 +3,7 @@ package openai
 import (
 	"net/http"
 
-	goopenai "github.com/sashabaranov/go-openai"
+	goopenai "github.com/linhaojun857/go-openai"
 )
 
 type options struct {

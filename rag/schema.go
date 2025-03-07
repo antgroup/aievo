@@ -16,6 +16,7 @@ type WorkflowConfig struct {
 	ChunkOverlap       int
 	Separators         []string
 	MaxToken           int
+	MaxTurn            int
 	EntityTypes        []string
 	LLM                llm.LLM
 	LLMCallConcurrency int

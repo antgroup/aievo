@@ -11,10 +11,11 @@ import (
 )
 
 var (
-	_defaultMaxToken    = 12000
-	_defaultEntityTypes = []string{
+	DefaultMaxToken    = 1024 * 12
+	DefaultMaxTurn     = 6
+	DefaultEntityTypes = []string{
 		"person", "organization", "geo", "event"}
-	_defaultLLMConcurrency = 10
+	DefaultLLMConcurrency = 6
 )
 
 type Workflow struct {
@@ -24,7 +25,10 @@ type Workflow struct {
 
 // NewWorkflow 初始化一个 index workflow, 在最后可以加一个存储的 progress，便于将数据存储到数据库
 func NewWorkflow(nodes []rag.Progress, opts ...rag.Option) (*Workflow, error) {
-	w := &Workflow{nodes: nodes}
+	w := &Workflow{
+		nodes:  nodes,
+		config: &rag.WorkflowConfig{},
+	}
 	for _, opt := range opts {
 		opt(w.config)
 	}
@@ -32,7 +36,7 @@ func NewWorkflow(nodes []rag.Progress, opts ...rag.Option) (*Workflow, error) {
 		return nil, errors.New("LLM is required")
 	}
 	if w.config.LLMCallConcurrency <= 0 {
-		w.config.LLMCallConcurrency = _defaultLLMConcurrency
+		w.config.LLMCallConcurrency = DefaultLLMConcurrency
 	}
 	return w, nil
 }
@@ -56,19 +60,16 @@ func DefaultNodes() []rag.Progress {
 func Default() (*Workflow, error) {
 	return NewWorkflow(
 		DefaultNodes(),
-		rag.WithMaxToken(_defaultMaxToken),
-		rag.WithEntityTypes(_defaultEntityTypes),
-		rag.WithLLMCallConcurrency(_defaultLLMConcurrency))
+		rag.WithMaxToken(DefaultMaxToken),
+		rag.WithEntityTypes(DefaultEntityTypes),
+		rag.WithLLMCallConcurrency(DefaultLLMConcurrency))
 }
 
-func (w *Workflow) Run(ctx context.Context, filepath string) error {
-	args := &rag.WorkflowContext{
-		BasePath: filepath,
-		Config:   w.config,
-	}
+func (w *Workflow) Run(ctx context.Context, wfCtx *rag.WorkflowContext) error {
+	wfCtx.Config = w.config
 
 	for _, process := range w.nodes {
-		err := process(ctx, args)
+		err := process(ctx, wfCtx)
 		if err != nil {
 			return err
 		}

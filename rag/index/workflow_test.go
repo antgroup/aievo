@@ -702,8 +702,6 @@ func TestLoadWorkflow(t *testing.T) {
 
 	err = storage.Load(context.Background(), wfCtx)
 	assert.Nil(t, err)
-
-	fmt.Println("test")
 }
 
 func get(filename string, result any) {

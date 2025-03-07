@@ -11,7 +11,9 @@ import (
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
 	prompts2 "github.com/antgroup/aievo/rag/prompts"
+	"github.com/antgroup/aievo/utils/counter"
 	"github.com/antgroup/aievo/utils/parallel"
+	"github.com/antgroup/aievo/utils/ratelimit"
 	"github.com/thoas/go-funk"
 )
 
@@ -61,8 +63,18 @@ func ExtraGraph(ctx context.Context, args *rag.WorkflowContext) error {
 }
 
 func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
+	c := counter.NewCounter(
+		counter.WithTotal(len(args.TextUnits)),
+		counter.WithDesc("extract entities"),
+	)
+
+	// 创建令牌桶限流器，每秒生成2个令牌，最大容量为10
+	tb := ratelimit.NewTokenBucket(2, 10)
+
 	results := make([]string, len(args.TextUnits))
+
 	parallel.Parallel(func(i int) any {
+		defer c.Add()
 		template, _ := prompt.NewPromptTemplate(prompts2.ExtraGraph)
 		p, err := template.Format(map[string]any{
 			"entity_types":         strings.Join(args.Config.EntityTypes, ","),
@@ -74,22 +86,30 @@ func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 		if err != nil {
 			panic(err)
 		}
-		if p == "" {
-			fmt.Println("here")
-		}
-		for num := 0; num < 3; num++ {
+		for num := 0; num < args.Config.MaxTurn; num++ {
+			// 等待获取令牌
+			if err := tb.Wait(ctx); err != nil {
+				fmt.Println("[WARN] get token failed:", err)
+				continue
+			}
 			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{llm.NewUserMessage("", p)},
 				llm.WithTemperature(0.1))
-			if err == nil {
+			if err == nil && result.Content != "" {
 				results[i] = result.Content
 				break
 			}
 		}
 		if results[i] == "" {
+			fmt.Println("[WARN] extract graph failed")
 			return ""
 		}
-		for num := 0; num < 3; num++ {
+		for num := 0; num < args.Config.MaxTurn; num++ {
+			// 等待获取令牌
+			if err := tb.Wait(ctx); err != nil {
+				fmt.Println("[WARN] get token failed:", err)
+				continue
+			}
 			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{
 					llm.NewUserMessage("", p),
@@ -97,11 +117,12 @@ func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 					llm.NewUserMessage("", prompts2.ContinueExtra),
 				},
 				llm.WithTemperature(0.1))
-			if err == nil {
+			if err == nil && result.Content != "" {
 				results[i] = strings.TrimSpace(results[i] + result.Content)
 				return ""
 			}
 		}
+		fmt.Println("[WARN] continue extra failed")
 		return ""
 	}, len(args.TextUnits), args.Config.LLMCallConcurrency)
 
@@ -110,9 +131,18 @@ func extractEntities(ctx context.Context, args *rag.WorkflowContext) error {
 }
 
 func summaryDesc(ctx context.Context, args *rag.WorkflowContext) error {
+	// 创建令牌桶限流器，每秒生成2个令牌，最大容量为10
+	tb := ratelimit.NewTokenBucket(2, 10)
+
+	c1 := counter.NewCounter(
+		counter.WithTotal(len(args.Entities)),
+		counter.WithDesc("summary entity description"),
+	)
+
 	template, _ := prompt.NewPromptTemplate(prompts2.SummarizeDescription)
 	// 进一步总结entity desc
 	parallel.Parallel(func(i int) any {
+		defer c1.Add()
 		descs := funk.UniqString(args.Entities[i].TmpDesc)
 		if len(descs) == 0 {
 			return nil
@@ -128,19 +158,31 @@ func summaryDesc(ctx context.Context, args *rag.WorkflowContext) error {
 			"description_list": string(desc),
 		})
 		for num := 0; num < 3; num++ {
+			// 等待获取令牌
+			if err := tb.Wait(ctx); err != nil {
+				fmt.Println("[WARN] get token failed:", err)
+				continue
+			}
 			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{llm.NewUserMessage("", p)},
 				llm.WithTemperature(0.1))
-			if err == nil {
+			if err == nil || result.Content != "" {
 				args.Entities[i].Desc = result.Content
 				return nil
 			}
 		}
+		fmt.Println("[WARN] summary description failed")
 		return nil
 	}, len(args.Entities), args.Config.LLMCallConcurrency)
 
+	c2 := counter.NewCounter(
+		counter.WithTotal(len(args.TmpRelationships)),
+		counter.WithDesc("relation entity description"),
+	)
+
 	// 进一步总结 relation desc
 	parallel.Parallel(func(i int) any {
+		defer c2.Add()
 		descs := funk.UniqString(args.TmpRelationships[i].TmpDesc)
 		if len(descs) == 0 {
 			return nil
@@ -158,14 +200,20 @@ func summaryDesc(ctx context.Context, args *rag.WorkflowContext) error {
 			"description_list": string(desc),
 		})
 		for num := 0; num < 3; num++ {
+			// 等待获取令牌
+			if err := tb.Wait(ctx); err != nil {
+				fmt.Println("[WARN] get token failed:", err)
+				continue
+			}
 			result, err := args.Config.LLM.GenerateContent(ctx,
 				[]llm.Message{llm.NewUserMessage("", p)},
 				llm.WithTemperature(0.1))
-			if err == nil {
+			if err == nil || result.Content != "" {
 				args.TmpRelationships[i].Desc = result.Content
 				return nil
 			}
 		}
+		fmt.Println("[WARN] continue summary description failed")
 		return nil
 	}, len(args.TmpRelationships), args.Config.LLMCallConcurrency)
 	return nil

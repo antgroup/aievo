@@ -2,6 +2,7 @@ package index
 
 import (
 	"context"
+	"fmt"
 	"sort"
 	"strconv"
 
@@ -9,8 +10,10 @@ import (
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/prompts"
+	"github.com/antgroup/aievo/utils/counter"
 	"github.com/antgroup/aievo/utils/json"
 	"github.com/antgroup/aievo/utils/parallel"
+	"github.com/antgroup/aievo/utils/ratelimit"
 	"github.com/pkoukk/tiktoken-go"
 )
 
@@ -32,9 +35,23 @@ func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error 
 		mlevel[community.Level] = append(mlevel[community.Level], community)
 	}
 
+	// 创建令牌桶限流器，每秒生成2个令牌，最大容量为10
+	tb := ratelimit.NewTokenBucket(2, 10)
+
+	total := 0
+	for i := 0; i <= maxLevel; i++ {
+		total += len(mlevel[i])
+	}
+
+	c := counter.NewCounter(
+		counter.WithTotal(total),
+		counter.WithDesc("final community report"),
+	)
+
 	// args.Communities 已经按照level进行过排序，同一level的可以并发执行
 	for i := 0; i <= maxLevel; i++ {
 		parallel.Parallel(func(idx int) any {
+			defer c.Add()
 			rs := make([]*rag.Relationship, 0, len(mlevel[i][idx].RelationshipIds))
 			for _, r := range mlevel[i][idx].RelationshipIds {
 				rs = append(rs, mr[r])
@@ -45,6 +62,11 @@ func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error 
 				"input_text": content,
 			})
 			for num := 0; num < 3; num++ {
+				// 等待获取令牌
+				if err := tb.Wait(ctx); err != nil {
+					fmt.Println("[WARN] get token failed:", err)
+					continue
+				}
 				result, err := args.Config.LLM.GenerateContent(ctx,
 					[]llm.Message{llm.NewUserMessage("", p)},
 					llm.WithTemperature(0.1))
