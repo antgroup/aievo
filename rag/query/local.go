@@ -45,6 +45,7 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 
 	for _, e := range r.Entities {
 		me[e.Title] = e
+		me[e.Title+": "+e.Desc] = e
 	}
 
 	entities := r.getLevelEntities(_maxLevel)
@@ -173,7 +174,7 @@ func (r *RAG) getLevelEntities(level int) []string {
 	for _, entity := range r.Entities {
 		for _, c := range entity.Communities {
 			if mc[c].Level <= level {
-				entities = append(entities, entity.Title)
+				entities = append(entities, entity.Title+": "+entity.Desc)
 				break
 			}
 		}
