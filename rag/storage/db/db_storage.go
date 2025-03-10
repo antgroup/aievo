@@ -337,17 +337,19 @@ func (s *Storage) loadReports(ctx context.Context, knowledge Knowledge, wfCtx *r
 	if err := s.db.Find(&reports, "id in ?", reportIds).Error; err != nil {
 		return err
 	}
+	var findings []Finding
+	if err := s.db.Find(&findings, "report_id in ?", reportIds).Error; err != nil {
+		return err
+	}
 	ragReports := make([]*rag.Report, len(reports))
 	for i, report := range reports {
-		var findings []Finding
-		if err := s.db.Where("report_id = ?", report.ID).Find(&findings).Error; err != nil {
-			return err
-		}
-		ragFindings := make([]*rag.Finding, len(findings))
-		for j, finding := range findings {
-			ragFindings[j] = &rag.Finding{
-				Summary:     finding.Summary,
-				Explanation: finding.Explanation,
+		ragFindings := make([]*rag.Finding, 0)
+		for _, finding := range findings {
+			if finding.ReportID == report.ID {
+				ragFindings = append(ragFindings, &rag.Finding{
+					Summary:     finding.Summary,
+					Explanation: finding.Explanation,
+				})
 			}
 		}
 		ragReports[i] = &rag.Report{
