@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/antgroup/aievo/agent"
 	"github.com/antgroup/aievo/llm"
@@ -15,8 +16,6 @@ import (
 	"github.com/antgroup/aievo/tool/file"
 )
 
-const workspace = "/Users/linhaojun/WorkSpace/aievo/examples/engineer/workspace"
-
 func main() {
 	client, err := openai.New(
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
@@ -25,6 +24,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	workspace, _ := os.Getwd()
+	workspace = filepath.Join(workspace,
+		"examples", "single-agent-example", "engineer", "workspace")
 	// 文件创建 文件读取 文件修改 文件删除 文件重命名
 	// 文件夹创建 文件夹读取 文件夹删除 文件夹重命名
 	fileTools, _ := file.GetFileRelatedTools(workspace)
