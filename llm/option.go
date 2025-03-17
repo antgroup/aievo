@@ -58,6 +58,12 @@ type GenerateOptions struct {
 	// Supported MIME types are: text/plain: (default) Text output.
 	// application/json: JSON response in the response candidates.
 	ResponseMIMEType string `json:"response_mime_type,omitempty"`
+
+	LogProbs bool `json:"logprobs,omitempty"`
+	// TopLogProbs is an integer between 0 and 5 specifying the number of most likely tokens to return at each
+	// token position, each with an associated log probability.
+	// logprobs must be set to true if this parameter is used.
+	TopLogProbs int `json:"top_logprobs,omitempty"`
 }
 
 // Tool is a tool that can be used by the model.
@@ -260,6 +266,18 @@ func WithResponseMIMEType(responseMIMEType string) GenerateOption {
 func WithParallelToolCalls(parallel bool) GenerateOption {
 	return func(o *GenerateOptions) {
 		o.ParallelToolCalls = &parallel
+	}
+}
+
+func WithLogProbes(probe bool) GenerateOption {
+	return func(o *GenerateOptions) {
+		o.LogProbs = probe
+	}
+}
+
+func WithTopLogProbs(top int) GenerateOption {
+	return func(o *GenerateOptions) {
+		o.TopLogProbs = top
 	}
 }
 
