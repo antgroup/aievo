@@ -40,24 +40,21 @@ This is the SOP for the debate.
 # Response Format
 ## 1. Push the Debate Forward
 When you need to guide the debate according to the SOP, send a message in the following JSON format:
-~~~
 {
 	"receiver": "one or more names of the players or experts in [{{.agent_names}}]",
     "cate": "msg",
     "thought": "Please analyze the session carefully, identify the node of the SOP where the current session is located, confirm the next node according to the SOP, and issue the instruction of the next node; if the next node is a conditional branch, determine which branch should be taken and give the command of the corresponding branch",
     "content": "here’s what you instruct the players to do follow sop"
 }
-~~~
+
 ## 2. End the Game
 When you determine that the game has ended, send a message in the following JSON format:
-~~~
 {
     "receiver": "",
     "cate": "end",
     "thought": "Please describe why this game is ending and who win.",
     "content": "Describe who wins."
 }
-~~~
 `
 	_defaultHostSuffix = `
 # Game conversation history and Response:
@@ -79,7 +76,6 @@ You support the motion. Your goal is to Persuade the experts and audience that t
 	_defaultPlayerInstruction = `
 # Response Format
 Please send a message in the following JSON format:
-~~~
 {
 	"receiver": "Host",
     "cate": "msg",
@@ -87,7 +83,6 @@ Please send a message in the following JSON format:
     craft a strong and emotional response in 80 words",
     "content": "Please explain your opinion and your position"
 }
-~~~
 `
 
 	_defaultPlayerSuffix = `
@@ -131,14 +126,12 @@ Here are the players and experts in this debate:
 	_defaultExpertInstruction = `
 # Response Format
 Please send a message in the following JSON format:
-~~~
 {
 	"receiver": "Host",
     "cate": "msg",
     "thought": "Evaluate Arguments of 2 player in last turn and Assign Scores",
     "content": "the score of 2 players and your suggestion for each player, must be string or json string"
 }
-~~~
 `
 	_defaultExpertSuffix = `
 # Conversation history and Response:

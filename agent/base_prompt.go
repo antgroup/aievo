@@ -36,23 +36,19 @@ You have access to the following tools:
 ~~~
 
 To use a tool, you must response with json format like below:
-~~~
 {
 	"thought": "you should always think about what to do",
 	"action": "the tool to take, should be one of [{{.tool_names}}]",
 	"input": "the input to the tool, please follow tool description",
 }
-~~~
 
 When you have a response to say to the other agent or ask other agent for more information or dispatcher/transfer task to other agent, you MUST response with json format like below:
-~~~
 {
 	"receiver": "The name of the agent that transfer task/question to you, receiver MUST be in one of [{{.agent_names}}]",
     "cate": "msg",
     "thought": "Clearly describe why you think the conversation should send to the receiver agent",
     "content": "The final answer to the original input question or what you want to ask or The task information to dispatcher, you must clearly describe your content here to make sure the receiver is clear about their role, please respond in Chinese and format the response in markdown"
 }
-~~~
 
 
 You need to make the best judgment based on the question, using tools, answering the question, or transferring the task.

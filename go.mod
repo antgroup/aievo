@@ -6,11 +6,10 @@ require (
 	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/go-shiori/go-readability v0.0.0-20241012063810-92284fa8a71f
 	github.com/goccy/go-graphviz v0.1.3
-	github.com/linhaojun857/go-openai v0.0.0-20250306114755-34fad27948b9
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/pkoukk/tiktoken-go v0.1.7
-	github.com/schollz/progressbar/v3 v3.18.0
+	github.com/sashabaranov/go-openai v1.38.1-0.20250304082659-74d6449f22dd
 	github.com/stretchr/testify v1.9.0
 	github.com/thoas/go-funk v0.9.3
 	github.com/tidwall/match v1.1.1
@@ -34,13 +33,10 @@ require (
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/mitchellh/colorstring v0.0.0-20190213212951-d06e56a500db // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/image v0.21.0 // indirect
 	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect
-	golang.org/x/term v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

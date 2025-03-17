@@ -45,24 +45,21 @@ This is the SOP for the game.
 # Response Format
 ## 1. Push the Game Forward
 When you need to guide the game according to the SOP, send a message in the following JSON format:
-~~~
 {
 	"receiver": "ALL",
     "cate": "msg",
     "thought": "Please analyze the session carefully, identify the node of the SOP where the current session is located, confirm the next node according to the SOP, and issue the instruction of the next node; if the next node is a conditional branch, determine which branch should be taken and give the command of the corresponding branch",
     "content": "here’s what you instruct the players to do follow sop"
 }
-~~~
+
 ## 2. End the Game
 When you determine that the game has ended, send a message in the following JSON format:
-~~~
 {
     "receiver": "ALL",
     "cate": "end",
     "thought": "Please describe why this game is ending.",
     "content": "Describe who wins."
 }
-~~~
 `
 	_defaultMasterSuffix = `
 # Game conversation history and Response:
@@ -112,27 +109,23 @@ You are Civilian in Undercover Game, your goal is
 	_defaultUndercoverInstruction = `
 # Response Format
 Please send a message in the following JSON format:
-~~~
 {
 	"receiver": "GameMaster",
     "cate": "msg",
     "thought": "As the Undercover, I need to describe my word vaguely to avoid suspicion.blending in, misleading Civilians, and surviving until the end. However you can not lie, Your description of the item must be truthful.",
     "content": "here is your answer"
 }
-~~~
 `
 
 	_defaultCivilianInstruction = `
 # Response Format
 Please send a message in the following JSON format:
-~~~
 {
   "receiver": "GameMaster",
     "cate": "msg",
     "thought": "As a Civilian, I need to describe my word clearly but indirectly to help others identify me. deduce who the Undercover is and vote them out.",
     "content": "here is your answer"
 }
-~~~
 `
 	_defaultPlayerSuffix = `
 # Game conversation history and Response:

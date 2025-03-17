@@ -18,7 +18,6 @@ Previous conversation:
 You should follow the instructions of God. You can observe the statements of other players, but you can only communicate with God.
 
 When you need communicate with God, you MUST response with json format like below:
-~~~
 {
 	"receiver": "The name of the agent that god\'s name",
     "cate": "msg",
@@ -26,7 +25,6 @@ When you need communicate with God, you MUST response with json format like belo
     "content": "Please speak and provide your answer. When condition is daily, your content will be seen by all player, Please maintain the mystery of your identity.",
 	"condition": "please follow god's condition, must be in one of [daily,werewolf,witch,hunter,seer]"
 }
-~~~
 `
 
 	_defaultBaseSuffix = `
@@ -79,7 +77,6 @@ Game conversation history:
 {{.history}}
 
 When you need communicate with other player, you MUST response with json format like below:
-~~~
 {
 	"receiver": "The name of the player, MUST be in one or multi of [Hannah, Alex, Bella, Diana, Ethan, George], or ALL to all players with condition",
     "cate": "msg",
@@ -87,17 +84,15 @@ When you need communicate with other player, you MUST response with json format 
     "content": "here’s what you instruct the players to do follow sop",
 	"condition": "the state for this conversation, must be in one of [daily,werewolf,witch,hunter,seer]"
 }
-~~~
 
-When werewolf win or villagers win, Please response like below:
-~~~
+When werewolf win or villagers win, Please response with json format like below:
 {
 	"receiver": "ALL",
     "cate": "end",
     "content": "clearly describe who win",
 	"condition": "daily"
 }
-~~~
+
 daily: when you are in daytime discussions or daytime vote
 werewolf: when you are in night and on Werewolf Operation
 witch: when you are in night and on witch Operation

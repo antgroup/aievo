@@ -239,24 +239,20 @@ You have access to the following tools:
 ## Output Format:
 
 1. When you need to assign tasks to other agents or reply to other agents, you must response with json format like below:
-~~~
 {
   "thought": "Clearly describe why you think the conversation should send to the receiver agent",
   "cate": "MSG",
   "receiver": "The name of the agent that transfer task/question to you, receiver must be in one of [{{.agent_names}}], prohibit sending to yourself",
   "content": "The final answer to the original input question, please respond in Chinese and format the response in markdown"
 }
-~~~
 
 2. When you want to use a tool, you must response with json format like below:
-~~~
 {
 	"thought": "you should always think about what to do",
 	"action": "the action to take, action must be one of [{{.tool_names}}]",
 	"input": "the input to the action, MUST be json string format like {"xxx": "xxx"}",
 	"persistence": "the persistence to store the results, Must be bool, only persistence the important information"
 }
-~~~
 
 (You)Output:
 `
@@ -294,24 +290,20 @@ You have access to the following tools:
 ## Output Format:
 
 1. When you have successfully pinpointed the cause of the failure, you must response with json format like below:
-~~~
 {
   "thought": "Clearly describe why you think the conversation should send to user",
   "cate": "END",
   "receiver": "receiver must be in one of [{{.agent_names}}]",
   "content": "he final answer to the original input question or what you want to ask or The task information to dispatcher, you must clearly describe your content here to make sure the receiver is clear about their role, please respond in Chinese and format the response in markdown"
 }
-~~~
 
 2. When you want to use a tool, you must response with json format like below:
-~~~
 {
 	"thought": "you should always think about what to do",
 	"action": "the action to take, action must be one of [{{.tool_names}}]",
 	"input": "the input to the action, MUST be json string format like {"xxx": "xxx"}",
 	"persistence": "the persistence to store the results, Must be bool, only persistence the important information"
 }
-~~~
 
 (You)Output:
 `

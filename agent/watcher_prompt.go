@@ -40,13 +40,11 @@ You have access to the following tools:
 
 # Response Format
 To use a tool, you must response with json format like below:
-~~~
 {
 	"thought": "you should always think about what to do",
 	"action": "the tool to take, should be one of [{{.tool_names}}]",
 	"input": "the input to the tool, please follow tool description",
 }
-~~~
 
 When you need to create/select/remove agents, your Answer must be json format like:
 {
