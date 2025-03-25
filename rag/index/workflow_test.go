@@ -316,7 +316,7 @@ func TestSingleResult(t *testing.T) {
 			ChunkOverlap:       200,
 			Separators:         nil,
 			MaxToken:           16000,
-			EntityTypes:        []string{"organization", "person", "geo", "event"},
+			EntityTypes:        []string{"concept", "component", "configuration", "example", "person", "log", "platform", "event"},
 			LLM:                initMockLLM(),
 			LLMCallConcurrency: 100,
 		},
@@ -669,23 +669,23 @@ func TestWorkflow_Run(t *testing.T) {
 	}
 
 	// 最后 assert report
-	//err = FinalCommunityReport(context.Background(), args)
-	//assert.Nil(t, err)
-	//finalCommunityReportMap := make(map[int]*rag.Report)
-	//reportMap := make(map[int]*rag.Report)
-	//for _, report := range args.Reports {
+	// err = FinalCommunityReport(context.Background(), args)
+	// assert.Nil(t, err)
+	// finalCommunityReportMap := make(map[int]*rag.Report)
+	// reportMap := make(map[int]*rag.Report)
+	// for _, report := range args.Reports {
 	//	reportMap[report.Community] = report
-	//}
-	//for _, report := range finalReport {
+	// }
+	// for _, report := range finalReport {
 	//	finalCommunityReportMap[report.Community] = report
-	//}
-	//assert.Equal(t, len(finalCommunityReportMap), len(reportMap))
-	//for key, report := range finalCommunityReportMap {
+	// }
+	// assert.Equal(t, len(finalCommunityReportMap), len(reportMap))
+	// for key, report := range finalCommunityReportMap {
 	//	assert.NotNil(t, reportMap[key])
 	//	assert.Equal(t, report.Title, reportMap[key].Title)
 	//	assert.Equal(t, report.Summary, reportMap[key].Summary)
 	//	assert.Equal(t, report.Findings, reportMap[key].Findings)
-	//}
+	// }
 
 	err = SaveToStorage(context.Background(), args)
 	assert.Nil(t, err)

@@ -62,6 +62,7 @@ Do not include information where the supporting evidence for it is not provided.
 ---Target response length and format---
 please response with markdown as detail as possible.
 please response source document link.
+Please use the document language as the output language.
 
 Add sections and commentary to the response as appropriate for the length and format. Style the response in markdown.
 
