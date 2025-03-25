@@ -172,6 +172,10 @@ func (r *RAG) getLevelEntities(level int) []string {
 	}
 	entities := make([]string, 0, len(r.Entities))
 	for _, entity := range r.Entities {
+		if len(entity.Communities) == 0 {
+			entities = append(entities, entity.Title+": "+entity.Desc)
+			continue
+		}
 		for _, c := range entity.Communities {
 			if mc[c].Level <= level {
 				entities = append(entities, entity.Title+": "+entity.Desc)
@@ -272,6 +276,9 @@ func queryRelatedTextUnits(entities []string,
 	relatedText := make([]*rag.TextUnit, 0, len(entities))
 	for _, e := range entities {
 		for _, unitId := range me[e].TextUnitIds {
+			if _, ok := mt[unitId]; !ok {
+				continue
+			}
 			relatedText = append(relatedText, mt[unitId])
 		}
 	}
