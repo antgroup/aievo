@@ -9,6 +9,7 @@ type Document struct {
 	Title       string    `gorm:"column:title;type:varchar(255);not null"`
 	Content     string    `gorm:"column:content;type:text;not null"`
 	TextUnitIDs string    `gorm:"column:text_unit_ids;type:text"`
+	KnowledgeId int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate   time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -22,6 +23,7 @@ type TextUnit struct {
 	EntityIDs       string    `gorm:"column:entity_ids;type:text"`
 	RelationshipIDs string    `gorm:"column:relationship_ids;type:text"`
 	NumToken        int       `gorm:"column:num_token;not null;default:0"`
+	KnowledgeId     int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate       time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified     time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -36,6 +38,7 @@ type Entity struct {
 	Degree      int       `gorm:"column:degree;not null;default:0"`
 	Communities string    `gorm:"column:communities;type:text"`
 	TextUnitIDs string    `gorm:"column:text_unit_ids;type:text"`
+	KnowledgeId int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate   time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -50,6 +53,7 @@ type Relationship struct {
 	Weight         float64   `gorm:"column:weight;type:decimal(10,4);not null;default:0"`
 	CombinedDegree int       `gorm:"column:combined_degree;not null;default:0"`
 	TextUnitIDs    string    `gorm:"column:text_unit_ids;type:text"`
+	KnowledgeId    int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate      time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified    time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -65,6 +69,7 @@ type TmpRelationship struct {
 	CombinedDegree    int       `gorm:"column:combined_degree;not null;default:0"`
 	TextUnitIDs       string    `gorm:"column:text_unit_ids;type:text"`
 	SourceID          string    `gorm:"column:source_id;type:varchar(64);not null"`
+	KnowledgeId       int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate         time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified       time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -77,6 +82,7 @@ type Node struct {
 	Community   int       `gorm:"column:community;not null"`
 	Level       int       `gorm:"column:level;not null"`
 	Degree      int       `gorm:"column:degree;not null;default:0"`
+	KnowledgeId int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate   time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -94,6 +100,7 @@ type Community struct {
 	EntityIDs       string    `gorm:"column:entity_ids;type:text"`
 	Period          string    `gorm:"column:period;type:varchar(64)"`
 	Size            int       `gorm:"column:size;not null;default:0"`
+	KnowledgeId     int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate       time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified     time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -106,6 +113,7 @@ type Report struct {
 	Summary           string    `gorm:"column:summary;type:text"`
 	Rating            float64   `gorm:"column:rating;type:decimal(10,4);not null;default:0"`
 	RatingExplanation string    `gorm:"column:rating_explanation;type:text"`
+	KnowledgeId       int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate         time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified       time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
@@ -116,23 +124,18 @@ type Finding struct {
 	ReportID    int64     `gorm:"column:report_id;not null"`
 	Summary     string    `gorm:"column:summary;type:text"`
 	Explanation string    `gorm:"column:explanation;type:text"`
+	KnowledgeId int64     `gorm:"column:knowledge_id;not null"`
 	GmtCreate   time.Time `gorm:"column:gmt_create;autoCreateTime"`
 	GmtModified time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
 
 // Knowledge 知识汇总表
 type Knowledge struct {
-	ID                 int64     `gorm:"primaryKey;column:id;autoIncrement"`
-	DocumentIDs        string    `gorm:"column:document_ids;type:text"`
-	TextUnitIDs        string    `gorm:"column:textunit_ids;type:text"`
-	RelationshipIDs    string    `gorm:"column:relationship_ids;type:text"`
-	TmpRelationshipIDs string    `gorm:"column:tmprelationship_ids;type:text"`
-	EntityIDs          string    `gorm:"column:entity_ids;type:text"`
-	CommunityIDs       string    `gorm:"column:community_ids;type:text"`
-	NodeIDs            string    `gorm:"column:node_ids;type:text"`
-	ReportIDs          string    `gorm:"column:report_ids;type:text"`
-	GmtCreate          time.Time `gorm:"column:gmt_create;autoCreateTime"`
-	GmtModified        time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
+	ID            int64     `gorm:"primaryKey;column:id;autoIncrement"`
+	Name          string    `gorm:"column:name;type:varchar(255);not null"`
+	IndexProgress int       `gorm:"column:index_progress;not null;default:0"`
+	GmtCreate     time.Time `gorm:"column:gmt_create;autoCreateTime"`
+	GmtModified   time.Time `gorm:"column:gmt_modified;autoUpdateTime"`
 }
 
 // TableName 为每个模型指定表名

@@ -40,21 +40,47 @@ func FinalCommunities(ctx context.Context, args *rag.WorkflowContext) error {
 		if _, ok := mLevelEntity[c.Level]; !ok {
 			mLevelEntity[c.Level] = make([]string, 0, 20)
 		}
-		mLevelEntity[c.Level] = append(mLevelEntity[c.Level],
-			me2e[c.Id].Title)
+		if me2e[c.Id] != nil {
+			mLevelEntity[c.Level] = append(mLevelEntity[c.Level],
+				me2e[c.Id].Title)
+		}
 		if maxLevel < c.Level {
 			maxLevel = c.Level
 		}
 	}
 
+	mLevelEntityHash := make(map[int]map[string]struct{})
+	for i := 0; i <= maxLevel; i++ {
+		mLevelEntityHash[i] = make(map[string]struct{})
+		for _, e := range mLevelEntity[i] {
+			mLevelEntityHash[i][e] = struct{}{}
+		}
+	}
+
+	ContainEntity := func(level int, title string) bool {
+		_, ok := mLevelEntityHash[level][title]
+		return ok
+	}
+
 	for _, c := range communities {
 		relations := make([]string, 0, 20)
 		textUnits := make([]string, 0, 20)
+
+		entityIdHash := make(map[string]struct{})
+		for _, e := range c.EntityIds {
+			entityIdHash[e] = struct{}{}
+		}
+
+		ContainEntityId := func(id string) bool {
+			_, ok := entityIdHash[id]
+			return ok
+		}
+
 		for _, r := range args.Relationships {
-			if funk.ContainsString(mLevelEntity[c.Level], r.Source.Title) &&
-				funk.ContainsString(mLevelEntity[c.Level], r.Target.Title) &&
-				funk.ContainsString(c.EntityIds, r.Source.Id) &&
-				funk.ContainsString(c.EntityIds, r.Target.Id) {
+			if ContainEntity(c.Level, r.Source.Title) &&
+				ContainEntity(c.Level, r.Target.Title) &&
+				ContainEntityId(r.Source.Id) &&
+				ContainEntityId(r.Target.Id) {
 				relations = append(relations, r.Id)
 				textUnits = append(textUnits, r.TextUnitIds...)
 			}

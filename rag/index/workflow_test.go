@@ -687,7 +687,7 @@ func TestWorkflow_Run(t *testing.T) {
 	//	assert.Equal(t, report.Findings, reportMap[key].Findings)
 	// }
 
-	err = SaveToStorage(context.Background(), args)
+	err = Save(context.Background(), args, 10)
 	assert.Nil(t, err)
 }
 

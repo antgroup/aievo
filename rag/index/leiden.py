@@ -1,10 +1,11 @@
 import argparse
+import html
 import json
+from typing import Any, cast
+
 import networkx as nx
 import pandas as pd
 from graspologic.partition import hierarchical_leiden
-import html
-from typing import Any, cast
 from graspologic.utils import largest_connected_component
 
 
@@ -68,19 +69,24 @@ def stable_largest_connected_component(graph: nx.Graph) -> nx.Graph:
 def main():
     # 1. 解析命令行参数
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', required=True, help='json string')
+    parser.add_argument('--input', required=True, help='Path to the input JSON file')
     args = parser.parse_args()
-    # 2. 读取JSON到DataFrame<sup>2</sup>
+
+    # 2. 从文件读取JSON内容
     try:
-        edges_df = pd.read_json(args.input, orient='records')
+        with open(args.input, 'r') as file:
+            json_data = file.read()
+            edges_df = pd.read_json(json_data, orient='records')
     except Exception as e:
-        print(f"Error reading JSON: {str(e)}")
+        print(f"Error reading JSON file: {str(e)}")
         return
+
     # 3. 构建图结构
     graph = nx.from_pandas_edgelist(
         edges_df,
     )
     graph = stable_largest_connected_component(graph)
+
     # 4. 执行社区检测
     community_mapping = hierarchical_leiden(
         graph,

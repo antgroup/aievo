@@ -6,6 +6,7 @@ CREATE TABLE aievo_rag_document
     title         VARCHAR(255) NOT NULL COMMENT '文档标题',
     content       TEXT         NOT NULL COMMENT '文档内容',
     text_unit_ids TEXT COMMENT '逗号分隔的text_unit_ids',
+    knowledge_id  INT          NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX         idx_doc_id (doc_id)
@@ -21,6 +22,7 @@ CREATE TABLE aievo_rag_textunit
     entity_ids       TEXT COMMENT '逗号分隔的entity_ids',
     relationship_ids TEXT COMMENT '逗号分隔的relationship_ids',
     num_token        INT         NOT NULL DEFAULT 0 COMMENT '文本token数量',
+    knowledge_id     INT         NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create       TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX            idx_unit_id (unit_id)
@@ -37,6 +39,7 @@ CREATE TABLE aievo_rag_entity
     degree        INT          NOT NULL DEFAULT 0 COMMENT '度数',
     communities   TEXT COMMENT '逗号分隔的community ids',
     text_unit_ids TEXT COMMENT '逗号分隔的text_unit_ids',
+    knowledge_id  INT          NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX         idx_entity_id (entity_id)
@@ -53,6 +56,7 @@ CREATE TABLE aievo_rag_relationship
     weight           DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '权重',
     combined_degree  INT            NOT NULL DEFAULT 0 COMMENT '组合度数',
     text_unit_ids    TEXT COMMENT '逗号分隔的text_unit_ids',
+    knowledge_id     INT            NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create       TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified     TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX            idx_relationship_id (relationship_id)
@@ -70,6 +74,7 @@ CREATE TABLE aievo_rag_tmprelationship
     combined_degree     INT            NOT NULL DEFAULT 0 COMMENT '组合度数',
     text_unit_ids       TEXT COMMENT '逗号分隔的text_unit_ids',
     source_id           VARCHAR(64)    NOT NULL COMMENT '源ID',
+    knowledge_id        INT            NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create          TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified        TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX               idx_tmp_relationship_id (tmp_relationship_id)
@@ -84,6 +89,7 @@ CREATE TABLE aievo_rag_node
     community    INT          NOT NULL COMMENT '社区ID',
     level        INT          NOT NULL COMMENT '层级',
     degree       INT          NOT NULL DEFAULT 0 COMMENT '度数',
+    knowledge_id INT          NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX        idx_node_id (node_id)
@@ -103,6 +109,7 @@ CREATE TABLE aievo_rag_community
     entity_ids       TEXT COMMENT '逗号分隔的entity_ids',
     period VARCHAR (64) COMMENT '时期',
     size             INT          NOT NULL DEFAULT 0 COMMENT '大小',
+    knowledge_id     INT          NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     INDEX            idx_community_id (community_id)
@@ -117,18 +124,19 @@ CREATE TABLE aievo_rag_report
     summary            TEXT COMMENT '报告摘要',
     rating             DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '评分',
     rating_explanation TEXT COMMENT '评分说明',
+    knowledge_id       INT            NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create         TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified       TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='报告表';
 
 -- 报告发现表
--- noinspection SqlNoDataSourceInspection
 CREATE TABLE aievo_rag_finding
 (
     id           BIGINT PRIMARY KEY AUTO_INCREMENT,
     report_id    BIGINT    NOT NULL COMMENT '关联的报告ID',
     summary      TEXT COMMENT '发现摘要',
     explanation  TEXT COMMENT '发现说明',
+    knowledge_id INT       NOT NULL DEFAULT 0 COMMENT '知识库ID',
     gmt_create   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     gmt_modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='报告发现表';
@@ -136,15 +144,24 @@ CREATE TABLE aievo_rag_finding
 -- 知识汇总表
 CREATE TABLE aievo_rag_knowledge
 (
-    id                  BIGINT PRIMARY KEY AUTO_INCREMENT,
-    document_ids        TEXT COMMENT '文档ID, 逗号分割',
-    textunit_ids        TEXT COMMENT '文本单元ID, 逗号分割',
-    relationship_ids    TEXT COMMENT '关系ID, 逗号分割',
-    tmprelationship_ids TEXT COMMENT '临时关系ID, 逗号分割',
-    entity_ids          TEXT COMMENT '实体ID, 逗号分割',
-    community_ids       TEXT COMMENT '社区ID, 逗号分割',
-    node_ids            TEXT COMMENT '节点ID, 逗号分割',
-    report_ids          TEXT COMMENT '报告ID, 逗号分割',
-    gmt_create          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    gmt_modified        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
+    id             BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name           VARCHAR(255) NOT NULL COMMENT '知识库名称',
+    description    TEXT COMMENT '知识库描述',
+    type           VARCHAR(64)  NOT NULL COMMENT '知识库类型',
+    status         VARCHAR(64)  NOT NULL COMMENT '知识库状态',
+    creator        VARCHAR(100) NOT NULL COMMENT '创建人',
+    knowledge_id   INT          NOT NULL DEFAULT 0 COMMENT '知识库ID',
+    index_progress INT COMMENT  '索引进度',
+    gmt_create     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    gmt_modified   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='知识汇总表';
+
+-- 知识汇总表
+CREATE TABLE aievo_rag_knowledge
+(
+    id             BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name           VARCHAR(255) NOT NULL COMMENT '知识库名称',
+    index_progress INT COMMENT  '索引进度',
+    gmt_create     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    gmt_modified   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='知识汇总表';

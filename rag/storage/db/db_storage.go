@@ -3,6 +3,8 @@ package db
 import (
 	"context"
 	"errors"
+	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -35,8 +37,13 @@ func (s *Storage) Load(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 
 	var knowledge Knowledge
 	if err := s.db.Where("id = ?", wfCtx.Id).First(&knowledge).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil
+		}
 		return err
 	}
+
+	wfCtx.IndexProgress = knowledge.IndexProgress
 
 	if err := s.loadDocuments(ctx, knowledge, wfCtx); err != nil {
 		return err
@@ -73,7 +80,7 @@ func (s *Storage) Load(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 	return nil
 }
 
-func (s *Storage) Save(ctx context.Context, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) Save(ctx context.Context, wfCtx *rag.WorkflowContext, indexProgress int) error {
 	tx := s.db.Begin()
 	defer tx.Commit()
 
@@ -89,62 +96,56 @@ func (s *Storage) Save(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 		}
 	}
 
-	documentIds, err := s.saveDocument(ctx, wfCtx, tx)
+	knowledge.ID = wfCtx.Id
+	knowledge.IndexProgress = indexProgress
+
+	err := s.saveDocument(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	textUnitIds, err := s.saveTextUnit(ctx, wfCtx, tx)
+	err = s.saveTextUnit(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	entityIds, err := s.saveEntity(ctx, wfCtx, tx)
+	err = s.saveEntity(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	relationshipIds, err := s.saveRelationship(ctx, wfCtx, tx)
+	err = s.saveRelationship(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	tmpRelationshipIds, err := s.saveTmpRelationship(ctx, wfCtx, tx)
+	err = s.saveTmpRelationship(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	nodeIds, err := s.saveNode(ctx, wfCtx, tx)
+	err = s.saveNode(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	communityIds, err := s.saveCommunity(ctx, wfCtx, tx)
+	err = s.saveCommunity(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	reportIds, err := s.saveReport(ctx, wfCtx, tx)
+	err = s.saveReport(ctx, wfCtx, &knowledge, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
-
-	knowledge.DocumentIDs = int64ArrayToStr(documentIds)
-	knowledge.TextUnitIDs = int64ArrayToStr(textUnitIds)
-	knowledge.EntityIDs = int64ArrayToStr(entityIds)
-	knowledge.RelationshipIDs = int64ArrayToStr(relationshipIds)
-	knowledge.TmpRelationshipIDs = int64ArrayToStr(tmpRelationshipIds)
-	knowledge.NodeIDs = int64ArrayToStr(nodeIds)
-	knowledge.CommunityIDs = int64ArrayToStr(communityIds)
-	knowledge.ReportIDs = int64ArrayToStr(reportIds)
 
 	if err := tx.Save(&knowledge).Error; err != nil {
 		tx.Rollback()
@@ -162,10 +163,9 @@ func int64ArrayToStr(int64s []int64) string {
 	return strings.Join(strs, ",")
 }
 
-func (s *Storage) loadDocuments(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadDocuments(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var documents []Document
-	documentIds := strings.Split(knowledge.DocumentIDs, ",")
-	if err := s.db.Find(&documents, "id in ?", documentIds).Error; err != nil {
+	if err := s.db.Find(&documents, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragDocuments := make([]*rag.Document, len(documents))
@@ -181,10 +181,9 @@ func (s *Storage) loadDocuments(ctx context.Context, knowledge Knowledge, wfCtx 
 	return nil
 }
 
-func (s *Storage) loadTextUnits(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadTextUnits(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var textUnits []TextUnit
-	textUnitIds := strings.Split(knowledge.TextUnitIDs, ",")
-	if err := s.db.Find(&textUnits, "id in ?", textUnitIds).Error; err != nil {
+	if err := s.db.Find(&textUnits, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragTextUnits := make([]*rag.TextUnit, len(textUnits))
@@ -202,10 +201,9 @@ func (s *Storage) loadTextUnits(ctx context.Context, knowledge Knowledge, wfCtx 
 	return nil
 }
 
-func (s *Storage) loadEntities(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadEntities(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var entities []Entity
-	entityIds := strings.Split(knowledge.EntityIDs, ",")
-	if err := s.db.Find(&entities, "id in ?", entityIds).Error; err != nil {
+	if err := s.db.Find(&entities, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragEntities := make([]*rag.Entity, len(entities))
@@ -241,10 +239,9 @@ func findEntityFromWfCtx(wfCtx *rag.WorkflowContext, entityId string) *rag.Entit
 	return nil
 }
 
-func (s *Storage) loadRelationships(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadRelationships(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var relationships []Relationship
-	relationshipIds := strings.Split(knowledge.RelationshipIDs, ",")
-	if err := s.db.Find(&relationships, "id in ?", relationshipIds).Error; err != nil {
+	if err := s.db.Find(&relationships, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragRelationships := make([]*rag.Relationship, len(relationships))
@@ -263,10 +260,9 @@ func (s *Storage) loadRelationships(ctx context.Context, knowledge Knowledge, wf
 	return nil
 }
 
-func (s *Storage) loadTmpRelationships(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadTmpRelationships(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var tmpRelationships []TmpRelationship
-	tmpRelationshipIds := strings.Split(knowledge.TmpRelationshipIDs, ",")
-	if err := s.db.Find(&tmpRelationships, "id in ?", tmpRelationshipIds).Error; err != nil {
+	if err := s.db.Find(&tmpRelationships, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragTmpRelationships := make([]*rag.TmpRelationship, len(tmpRelationships))
@@ -286,10 +282,9 @@ func (s *Storage) loadTmpRelationships(ctx context.Context, knowledge Knowledge,
 	return nil
 }
 
-func (s *Storage) loadNodes(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadNodes(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var nodes []Node
-	nodeIds := strings.Split(knowledge.NodeIDs, ",")
-	if err := s.db.Find(&nodes, "id in ?", nodeIds).Error; err != nil {
+	if err := s.db.Find(&nodes, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragNodes := make([]*rag.Node, len(nodes))
@@ -306,10 +301,9 @@ func (s *Storage) loadNodes(ctx context.Context, knowledge Knowledge, wfCtx *rag
 	return nil
 }
 
-func (s *Storage) loadCommunities(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadCommunities(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var communities []Community
-	communityIds := strings.Split(knowledge.CommunityIDs, ",")
-	if err := s.db.Find(&communities, "id in ?", communityIds).Error; err != nil {
+	if err := s.db.Find(&communities, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
 	}
 	ragCommunities := make([]*rag.Community, len(communities))
@@ -331,11 +325,14 @@ func (s *Storage) loadCommunities(ctx context.Context, knowledge Knowledge, wfCt
 	return nil
 }
 
-func (s *Storage) loadReports(ctx context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
+func (s *Storage) loadReports(_ context.Context, knowledge Knowledge, wfCtx *rag.WorkflowContext) error {
 	var reports []Report
-	reportIds := strings.Split(knowledge.ReportIDs, ",")
-	if err := s.db.Find(&reports, "id in ?", reportIds).Error; err != nil {
+	if err := s.db.Find(&reports, "knowledge_id = ?", knowledge.ID).Error; err != nil {
 		return err
+	}
+	reportIds := make([]int64, len(reports))
+	for i, report := range reports {
+		reportIds[i] = report.ID
 	}
 	var findings []Finding
 	if err := s.db.Find(&findings, "report_id in ?", reportIds).Error; err != nil {
@@ -366,54 +363,56 @@ func (s *Storage) loadReports(ctx context.Context, knowledge Knowledge, wfCtx *r
 }
 
 func (s *Storage) deleteAllData(_ context.Context, knowledge Knowledge, tx *gorm.DB) error {
-	documentIds := strings.Split(knowledge.DocumentIDs, ",")
-	err := tx.Delete(&Document{}, "id in ?", documentIds).Error
+	err := tx.Delete(&Document{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	textUnitIDs := strings.Split(knowledge.TextUnitIDs, ",")
-	err = tx.Delete(&TextUnit{}, "id in ?", textUnitIDs).Error
+	err = tx.Delete(&TextUnit{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	relationshipIDs := strings.Split(knowledge.RelationshipIDs, ",")
-	err = tx.Delete(&Relationship{}, "id in ?", relationshipIDs).Error
+	err = tx.Delete(&Relationship{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	tmpRelationshipIDs := strings.Split(knowledge.TmpRelationshipIDs, ",")
-	err = tx.Delete(&TmpRelationship{}, "id in ?", tmpRelationshipIDs).Error
+	err = tx.Delete(&TmpRelationship{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	entityIDs := strings.Split(knowledge.EntityIDs, ",")
-	err = tx.Delete(&Entity{}, "id in ?", entityIDs).Error
+	err = tx.Delete(&Entity{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	communityIDs := strings.Split(knowledge.CommunityIDs, ",")
-	err = tx.Delete(&Community{}, "id in ?", communityIDs).Error
+	err = tx.Delete(&Community{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	nodeIDs := strings.Split(knowledge.NodeIDs, ",")
-	err = tx.Delete(&Node{}, "id in ?", nodeIDs).Error
+	err = tx.Delete(&Node{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
 
-	reportIDs := strings.Split(knowledge.ReportIDs, ",")
-	err = tx.Delete(&Finding{}, "report_id in ?", reportIDs).Error
+	var reports []Report
+	if err := s.db.Find(&reports, "knowledge_id = ?", knowledge.ID).Error; err != nil {
+		return err
+	}
+	reportIds := make([]int64, len(reports))
+	for i, report := range reports {
+		reportIds[i] = report.ID
+	}
+
+	err = tx.Delete(&Finding{}, "report_id in ?", reportIds).Error
 	if err != nil {
 		return err
 	}
-	err = tx.Delete(&Report{}, "id in ?", reportIDs).Error
+
+	err = tx.Delete(&Report{}, "knowledge_id = ?", knowledge.ID).Error
 	if err != nil {
 		return err
 	}
@@ -421,9 +420,32 @@ func (s *Storage) deleteAllData(_ context.Context, knowledge Knowledge, tx *gorm
 	return nil
 }
 
-func (s *Storage) saveDocument(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func batchCreate(tx *gorm.DB, data interface{}, batchSize int) error {
+	v := reflect.ValueOf(data)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	if v.Kind() != reflect.Slice {
+		return fmt.Errorf("data must be a slice or a pointer to a slice")
+	}
+	length := v.Len()
+
+	for i := 0; i < length; i += batchSize {
+		end := i + batchSize
+		if end > length {
+			end = length
+		}
+		batch := v.Slice(i, end).Interface()
+		if err := tx.Create(batch).Error; err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (s *Storage) saveDocument(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.Documents) == 0 {
-		return nil, nil
+		return nil
 	}
 	documents := make([]Document, len(wfCtx.Documents))
 	for i, ragDocument := range wfCtx.Documents {
@@ -432,21 +454,22 @@ func (s *Storage) saveDocument(_ context.Context, wfCtx *rag.WorkflowContext, tx
 			Title:       ragDocument.Title,
 			Content:     ragDocument.Content,
 			TextUnitIDs: strings.Join(ragDocument.TextUnitIds, ","),
+			KnowledgeId: knowledge.ID,
 		}
 	}
-	if err := tx.Create(&documents).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, &documents, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(documents))
 	for i, document := range documents {
 		ids[i] = document.ID
 	}
-	return ids, nil
+	return nil
 }
 
-func (s *Storage) saveTextUnit(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveTextUnit(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.TextUnits) == 0 {
-		return nil, nil
+		return nil
 	}
 	textUnits := make([]TextUnit, len(wfCtx.TextUnits))
 	for i, ragTextUnit := range wfCtx.TextUnits {
@@ -457,16 +480,17 @@ func (s *Storage) saveTextUnit(_ context.Context, wfCtx *rag.WorkflowContext, tx
 			EntityIDs:       strings.Join(ragTextUnit.EntityIds, ","),
 			RelationshipIDs: strings.Join(ragTextUnit.RelationshipIds, ","),
 			NumToken:        ragTextUnit.NumToken,
+			KnowledgeId:     knowledge.ID,
 		}
 	}
-	if err := tx.Create(&textUnits).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, textUnits, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(textUnits))
 	for i, textUnit := range textUnits {
 		ids[i] = textUnit.ID
 	}
-	return ids, nil
+	return nil
 }
 
 func intsToStrings(ints []int) []string {
@@ -477,9 +501,9 @@ func intsToStrings(ints []int) []string {
 	return strs
 }
 
-func (s *Storage) saveEntity(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveEntity(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.Entities) == 0 {
-		return nil, nil
+		return nil
 	}
 	entities := make([]Entity, len(wfCtx.Entities))
 	for i, ragEntity := range wfCtx.Entities {
@@ -491,21 +515,22 @@ func (s *Storage) saveEntity(_ context.Context, wfCtx *rag.WorkflowContext, tx *
 			Degree:      ragEntity.Degree,
 			Communities: strings.Join(intsToStrings(ragEntity.Communities), ","),
 			TextUnitIDs: strings.Join(ragEntity.TextUnitIds, ","),
+			KnowledgeId: knowledge.ID,
 		}
 	}
-	if err := tx.Create(&entities).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, entities, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(entities))
 	for i, entity := range entities {
 		ids[i] = entity.ID
 	}
-	return ids, nil
+	return nil
 }
 
-func (s *Storage) saveRelationship(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveRelationship(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.Relationships) == 0 {
-		return nil, nil
+		return nil
 	}
 	relationships := make([]Relationship, len(wfCtx.Relationships))
 	for i, ragRelationship := range wfCtx.Relationships {
@@ -517,21 +542,22 @@ func (s *Storage) saveRelationship(_ context.Context, wfCtx *rag.WorkflowContext
 			Weight:         ragRelationship.Weight,
 			CombinedDegree: ragRelationship.CombinedDegree,
 			TextUnitIDs:    strings.Join(ragRelationship.TextUnitIds, ","),
+			KnowledgeId:    knowledge.ID,
 		}
 	}
-	if err := tx.Create(&relationships).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, relationships, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(relationships))
 	for i, relationship := range relationships {
 		ids[i] = relationship.ID
 	}
-	return ids, nil
+	return nil
 }
 
-func (s *Storage) saveTmpRelationship(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveTmpRelationship(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.TmpRelationships) == 0 {
-		return nil, nil
+		return nil
 	}
 	tmpRelationships := make([]TmpRelationship, len(wfCtx.TmpRelationships))
 	for i, ragTmpRelationship := range wfCtx.TmpRelationships {
@@ -544,45 +570,47 @@ func (s *Storage) saveTmpRelationship(_ context.Context, wfCtx *rag.WorkflowCont
 			CombinedDegree:    ragTmpRelationship.CombinedDegree,
 			TextUnitIDs:       strings.Join(ragTmpRelationship.TextUnitIds, ","),
 			SourceID:          ragTmpRelationship.SourceId,
+			KnowledgeId:       knowledge.ID,
 		}
 	}
-	if err := tx.Create(&tmpRelationships).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, tmpRelationships, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(tmpRelationships))
 	for i, tmpRelationship := range tmpRelationships {
 		ids[i] = tmpRelationship.ID
 	}
-	return ids, nil
+	return nil
 }
 
-func (s *Storage) saveNode(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveNode(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.Nodes) == 0 {
-		return nil, nil
+		return nil
 	}
 	nodes := make([]Node, len(wfCtx.Nodes))
 	for i, ragNode := range wfCtx.Nodes {
 		nodes[i] = Node{
-			NodeID:    ragNode.Id,
-			Title:     ragNode.Title,
-			Community: ragNode.Community,
-			Level:     ragNode.Level,
-			Degree:    ragNode.Degree,
+			NodeID:      ragNode.Id,
+			Title:       ragNode.Title,
+			Community:   ragNode.Community,
+			Level:       ragNode.Level,
+			Degree:      ragNode.Degree,
+			KnowledgeId: knowledge.ID,
 		}
 	}
-	if err := tx.Create(&nodes).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, nodes, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(nodes))
 	for i, node := range nodes {
 		ids[i] = node.ID
 	}
-	return ids, nil
+	return nil
 }
 
-func (s *Storage) saveCommunity(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveCommunity(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.Communities) == 0 {
-		return nil, nil
+		return nil
 	}
 	communities := make([]Community, len(wfCtx.Communities))
 	for i, ragCommunity := range wfCtx.Communities {
@@ -597,21 +625,22 @@ func (s *Storage) saveCommunity(_ context.Context, wfCtx *rag.WorkflowContext, t
 			EntityIDs:       strings.Join(ragCommunity.EntityIds, ","),
 			Period:          ragCommunity.Period,
 			Size:            ragCommunity.Size,
+			KnowledgeId:     knowledge.ID,
 		}
 	}
-	if err := tx.Create(&communities).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, communities, 500); err != nil {
+		return err
 	}
 	ids := make([]int64, len(communities))
 	for i, community := range communities {
 		ids[i] = community.ID
 	}
-	return ids, nil
+	return nil
 }
 
-func (s *Storage) saveReport(_ context.Context, wfCtx *rag.WorkflowContext, tx *gorm.DB) ([]int64, error) {
+func (s *Storage) saveReport(_ context.Context, wfCtx *rag.WorkflowContext, knowledge *Knowledge, tx *gorm.DB) error {
 	if len(wfCtx.Reports) == 0 {
-		return nil, nil
+		return nil
 	}
 	reports := make([]Report, len(wfCtx.Reports))
 	findings := make([]Finding, 0)
@@ -622,10 +651,11 @@ func (s *Storage) saveReport(_ context.Context, wfCtx *rag.WorkflowContext, tx *
 			Summary:           ragReport.Summary,
 			Rating:            ragReport.Rating,
 			RatingExplanation: ragReport.RatingExplanation,
+			KnowledgeId:       knowledge.ID,
 		}
 	}
-	if err := tx.Create(&reports).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, reports, 1000); err != nil {
+		return err
 	}
 	for i, report := range reports {
 		for _, ragFinding := range wfCtx.Reports[i].Findings {
@@ -633,15 +663,16 @@ func (s *Storage) saveReport(_ context.Context, wfCtx *rag.WorkflowContext, tx *
 				ReportID:    report.ID,
 				Summary:     ragFinding.Summary,
 				Explanation: ragFinding.Explanation,
+				KnowledgeId: knowledge.ID,
 			})
 		}
 	}
-	if err := tx.Create(&findings).Error; err != nil {
-		return nil, err
+	if err := batchCreate(tx, findings, 1000); err != nil {
+		return err
 	}
 	ids := make([]int64, len(reports))
 	for i, report := range reports {
 		ids[i] = report.ID
 	}
-	return ids, nil
+	return nil
 }

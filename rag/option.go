@@ -61,6 +61,12 @@ func WithDB(db *gorm.DB) Option {
 	}
 }
 
+func WithCacheDir(cacheDir string) Option {
+	return func(c *WorkflowConfig) {
+		c.CacheDir = cacheDir
+	}
+}
+
 type QueryOption func(c *QueryConfig)
 
 func WithQueryMaxToken(maxToken int) QueryOption {

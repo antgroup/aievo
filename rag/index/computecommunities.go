@@ -70,9 +70,21 @@ func leidenCommunities(ctx context.Context, args *rag.WorkflowContext) ([]*rag.H
 			return nil, err
 		}
 		marshal, _ := json.Marshal(relations)
+
+		temp, err := os.CreateTemp(os.TempDir(), "*.json")
+		if err != nil {
+			return nil, err
+		}
+		defer func() {
+			_ = temp.Close()
+			_ = os.Remove(temp.Name())
+		}()
+
+		_, _ = temp.Write(marshal)
+
 		output, err := exec.Command(pythonPath,
 			filepath.Join(getAIevoPath(), "rag/index/leiden.py"),
-			"--input", string(marshal)).Output()
+			"--input", temp.Name()).Output()
 		if err != nil {
 			return nil, err
 		}

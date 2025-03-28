@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
+	"sync"
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
@@ -13,13 +14,13 @@ import (
 	"github.com/antgroup/aievo/utils/counter"
 	"github.com/antgroup/aievo/utils/json"
 	"github.com/antgroup/aievo/utils/parallel"
-	"github.com/antgroup/aievo/utils/ratelimit"
 	"github.com/pkoukk/tiktoken-go"
 )
 
 func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error {
 	mr := make(map[string]*rag.Relationship)
 	reports := make(map[int]*rag.Report)
+	reportsMutex := &sync.Mutex{}
 	template, _ := prompt.NewPromptTemplate(prompts.SummarizeCommunity)
 
 	for _, r := range args.Relationships {
@@ -34,9 +35,6 @@ func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error 
 		}
 		mlevel[community.Level] = append(mlevel[community.Level], community)
 	}
-
-	// 创建令牌桶限流器，每秒生成2个令牌，最大容量为10
-	tb := ratelimit.NewTokenBucket(2, 10)
 
 	total := 0
 	for i := 0; i <= maxLevel; i++ {
@@ -54,7 +52,9 @@ func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error 
 			defer c.Add()
 			rs := make([]*rag.Relationship, 0, len(mlevel[i][idx].RelationshipIds))
 			for _, r := range mlevel[i][idx].RelationshipIds {
-				rs = append(rs, mr[r])
+				if mr[r] != nil {
+					rs = append(rs, mr[r])
+				}
 			}
 			content := buildCommunityReportContext(
 				ctx, rs, nil, args.Config.MaxToken)
@@ -62,25 +62,23 @@ func FinalCommunityReport(ctx context.Context, args *rag.WorkflowContext) error 
 				"input_text": content,
 			})
 			for num := 0; num < 3; num++ {
-				// 等待获取令牌
-				if err := tb.Wait(ctx); err != nil {
-					fmt.Println("[WARN] get token failed:", err)
-					continue
-				}
-				result, err := args.Config.LLM.GenerateContent(ctx,
-					[]llm.Message{llm.NewUserMessage("", p)},
-					llm.WithTemperature(0.1))
+				llmMsgs := []llm.Message{llm.NewUserMessage("", p)}
+				result, err := CallModel(ctx, args, llmMsgs, num == 0)
 				if err == nil {
 					report := &rag.Report{}
-					err = json.Unmarshal(
-						[]byte(json.TrimJsonString(result.Content)), report)
+					err = json.Unmarshal([]byte(json.TrimJsonString(result.Content)), report)
 					if err != nil {
 						continue
 					}
-					reports[mlevel[i][idx].Community] = report
+					if mlevel[i][idx] != nil {
+						reportsMutex.Lock()
+						reports[mlevel[i][idx].Community] = report
+						reportsMutex.Unlock()
+					}
 					return ""
 				}
 			}
+			fmt.Println("[WARN] generate community report failed")
 			return ""
 		}, len(mlevel[i]), args.Config.LLMCallConcurrency)
 	}

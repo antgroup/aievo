@@ -53,23 +53,28 @@ func DefaultNodes() []rag.Progress {
 		FinalCommunities,
 		FinalTextUnits,
 		FinalCommunityReport,
-		SaveToStorage,
 	}
-}
-
-func Default() (*Workflow, error) {
-	return NewWorkflow(
-		DefaultNodes(),
-		rag.WithMaxToken(DefaultMaxToken),
-		rag.WithEntityTypes(DefaultEntityTypes),
-		rag.WithLLMCallConcurrency(DefaultLLMConcurrency))
 }
 
 func (w *Workflow) Run(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 	wfCtx.Config = w.config
 
-	for _, process := range w.nodes {
-		err := process(ctx, wfCtx)
+	err := Load(ctx, wfCtx)
+	if err != nil {
+		return err
+	}
+
+	for i, process := range w.nodes {
+		if i < wfCtx.IndexProgress {
+			continue
+		}
+
+		err = process(ctx, wfCtx)
+		if err != nil {
+			return err
+		}
+
+		err = Save(ctx, wfCtx, i+1)
 		if err != nil {
 			return err
 		}

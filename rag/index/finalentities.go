@@ -12,6 +12,9 @@ func FinalEntities(_ context.Context, args *rag.WorkflowContext) error {
 		me[entity.Title] = entity
 	}
 	for _, community := range args.Communities {
+		if me[community.Title] == nil {
+			continue
+		}
 		me[community.Title].Communities = append(me[community.Title].Communities,
 			community.Community)
 	}

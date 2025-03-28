@@ -21,6 +21,7 @@ type WorkflowConfig struct {
 	LLM                llm.LLM
 	LLMCallConcurrency int
 	DB                 *gorm.DB
+	CacheDir           string
 }
 
 type QueryConfig struct {
@@ -36,7 +37,9 @@ type WorkflowContext struct {
 	// config for index
 	Config *WorkflowConfig
 	// config for query
-	QueryConfig      *QueryConfig
+	QueryConfig *QueryConfig
+	// index progress
+	IndexProgress    int
 	Documents        []*Document
 	TextUnits        []*TextUnit
 	Relationships    []*Relationship
