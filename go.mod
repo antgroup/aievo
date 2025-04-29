@@ -14,6 +14,7 @@ require (
 	github.com/pkoukk/tiktoken-go v0.1.7
 	github.com/sashabaranov/go-openai v1.38.1-0.20250304082659-74d6449f22dd
 	github.com/stretchr/testify v1.9.0
+	github.com/tealeg/xlsx v1.0.5
 	github.com/thoas/go-funk v0.9.3
 	github.com/tidwall/match v1.1.1
 	github.com/tidwall/pretty v1.2.0

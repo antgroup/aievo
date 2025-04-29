@@ -2,8 +2,10 @@ package db
 
 import (
 	"context"
+	"encoding/gob"
 	"errors"
 	"fmt"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -24,9 +26,89 @@ func NewStorage(opts ...DBStorageOption) *Storage {
 	return s
 }
 
+func serialize(wfCtx *rag.WorkflowContext, filePath string) error {
+	type serializableContext struct {
+		Id               int64
+		IndexProgress    int
+		Documents        []*rag.Document
+		TextUnits        []*rag.TextUnit
+		Relationships    []*rag.Relationship
+		TmpRelationships []*rag.TmpRelationship
+		Entities         []*rag.Entity
+		Communities      []*rag.Community
+		Nodes            []*rag.Node
+		Reports          []*rag.Report
+	}
+
+	sc := &serializableContext{
+		Id:               wfCtx.Id,
+		IndexProgress:    wfCtx.IndexProgress,
+		Documents:        wfCtx.Documents,
+		TextUnits:        wfCtx.TextUnits,
+		Relationships:    wfCtx.Relationships,
+		TmpRelationships: wfCtx.TmpRelationships,
+		Entities:         wfCtx.Entities,
+		Communities:      wfCtx.Communities,
+		Nodes:            wfCtx.Nodes,
+		Reports:          wfCtx.Reports,
+	}
+
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+
+	encoder := gob.NewEncoder(file)
+	if err = encoder.Encode(sc); err != nil {
+		_ = file.Close()
+		_ = os.Remove(filePath)
+		return err
+	}
+
+	_ = file.Close()
+	return nil
+}
+
+func deserialize(filePath string, wfCtx *rag.WorkflowContext) error {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return err
+	}
+
+	decoder := gob.NewDecoder(file)
+	if err = decoder.Decode(wfCtx); err != nil {
+		_ = file.Close()
+		_ = os.Remove(filePath)
+		return err
+	}
+
+	_ = file.Close()
+
+	return nil
+}
+
+func RefreshCache(wfCtx *rag.WorkflowContext) {
+	cacheFilePath := fmt.Sprintf("%s/%s_%d", wfCtx.CacheDir, "rag_cache_", wfCtx.Id)
+	_ = os.Remove(cacheFilePath)
+
+	if wfCtx.Config.DB == nil {
+		return
+	}
+
+	storage := NewStorage(WithDB(wfCtx.Config.DB))
+
+	_ = storage.Load(context.Background(), wfCtx)
+}
+
 func (s *Storage) Load(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 	if wfCtx.Id == 0 {
 		return errors.New("id is not set")
+	}
+
+	cacheFilePath := fmt.Sprintf("%s/%s_%d", wfCtx.CacheDir, "rag_cache_", wfCtx.Id)
+
+	if err := deserialize(cacheFilePath, wfCtx); err == nil {
+		return nil
 	}
 
 	if wfCtx.Documents == nil || wfCtx.TextUnits == nil || wfCtx.Entities == nil ||
@@ -76,6 +158,8 @@ func (s *Storage) Load(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 	if err := s.loadReports(ctx, knowledge, wfCtx); err != nil {
 		return err
 	}
+
+	_ = serialize(wfCtx, cacheFilePath)
 
 	return nil
 }

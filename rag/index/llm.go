@@ -14,7 +14,6 @@ import (
 	"github.com/antgroup/aievo/utils/ratelimit"
 )
 
-var cacheOnce sync.Once
 var tbOnce sync.Once
 var tb *ratelimit.TokenBucket
 
@@ -23,22 +22,9 @@ func CallModel(ctx context.Context, wfCtx *rag.WorkflowContext, messages []llm.M
 		tb = ratelimit.NewTokenBucket(3, 3)
 	})
 
-	if useCache {
-		cacheOnce.Do(func() {
-			if wfCtx.Config.CacheDir != "" {
-				if _, err := os.Stat(wfCtx.Config.CacheDir); os.IsNotExist(err) {
-					err := os.MkdirAll(wfCtx.Config.CacheDir, 0755)
-					if err != nil {
-						fmt.Printf("Failed to create cache directory: %v\n", err)
-					}
-				}
-			}
-		})
-	}
-
-	if wfCtx.Config.CacheDir != "" && useCache {
+	if wfCtx.CacheDir != "" && useCache {
 		cacheKey := generateCacheKey(messages)
-		cacheFilePath := filepath.Join(wfCtx.Config.CacheDir, cacheKey)
+		cacheFilePath := filepath.Join(wfCtx.CacheDir, cacheKey)
 		if _, err := os.Stat(cacheFilePath); err == nil {
 			cachedResult, err := readFromCache(cacheFilePath)
 			if err == nil && cachedResult != nil && cachedResult.Content != "" {
@@ -60,9 +46,9 @@ func CallModel(ctx context.Context, wfCtx *rag.WorkflowContext, messages []llm.M
 		return nil, fmt.Errorf("call model error")
 	}
 
-	if wfCtx.Config.CacheDir != "" {
+	if wfCtx.CacheDir != "" {
 		cacheKey := generateCacheKey(messages)
-		cacheFilePath := filepath.Join(wfCtx.Config.CacheDir, cacheKey)
+		cacheFilePath := filepath.Join(wfCtx.CacheDir, cacheKey)
 		err := writeToCache(cacheFilePath, result)
 		if err != nil {
 			fmt.Printf("Failed to write to cache: %v\n", err)
@@ -72,9 +58,9 @@ func CallModel(ctx context.Context, wfCtx *rag.WorkflowContext, messages []llm.M
 }
 
 func hitCache(wfCtx *rag.WorkflowContext, messages []llm.Message) bool {
-	if wfCtx.Config.CacheDir != "" {
+	if wfCtx.CacheDir != "" {
 		cacheKey := generateCacheKey(messages)
-		cacheFilePath := filepath.Join(wfCtx.Config.CacheDir, cacheKey)
+		cacheFilePath := filepath.Join(wfCtx.CacheDir, cacheKey)
 		if _, err := os.Stat(cacheFilePath); err == nil {
 			return true
 		}

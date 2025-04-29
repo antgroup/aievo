@@ -21,25 +21,23 @@ type WorkflowConfig struct {
 	LLM                llm.LLM
 	LLMCallConcurrency int
 	DB                 *gorm.DB
-	CacheDir           string
 }
 
 type QueryConfig struct {
-	LLM         llm.LLM
-	LLMMaxToken int
-	Retriever   Retriever
-	MaxTurn     int
+	LLM           llm.LLM
+	LLMMaxToken   int
+	Retriever     Retriever
+	MaxTurn       int
+	StreamingFunc func(ctx context.Context, chunk []byte) error
 }
 
 type WorkflowContext struct {
-	Id       int64
-	BasePath string
-	// config for index
-	Config *WorkflowConfig
-	// config for query
-	QueryConfig *QueryConfig
-	// index progress
-	IndexProgress    int
+	Id               int64
+	CacheDir         string          `gob:"-"`
+	BasePath         string          `gob:"-"`
+	Config           *WorkflowConfig `gob:"-"`
+	QueryConfig      *QueryConfig    `gob:"-"`
+	IndexProgress    int             `gob:"-"`
 	Documents        []*Document
 	TextUnits        []*TextUnit
 	Relationships    []*Relationship

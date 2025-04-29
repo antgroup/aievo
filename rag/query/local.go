@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
+	"time"
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
@@ -27,14 +28,14 @@ func (r *RAG) LocalQuery(ctx context.Context, query string) (string, error) {
 }
 
 func (r *RAG) query(ctx context.Context, query, p string) (string, error) {
-	content, err := r.QueryConfig.LLM.GenerateContent(ctx, []llm.Message{
+	result, err := r.QueryConfig.LLM.GenerateContent(ctx, []llm.Message{
 		llm.NewSystemMessage("", p),
 		llm.NewUserMessage("", query),
-	})
-	if err != nil {
-		return "", err
+	}, llm.WithStreamingFunc(r.QueryConfig.StreamingFunc))
+	if err == nil && result.Content != "" {
+		return result.Content, nil
 	}
-	return content.Content, nil
+	return "", fmt.Errorf("call llm failed")
 }
 
 func (r *RAG) localQueryContext(ctx context.Context, query string) (string, error) {
@@ -50,11 +51,15 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 
 	entities := r.getLevelEntities(_maxLevel)
 
+	begin := time.Now()
+
 	// 获取到 level <= _minLevel 的所有实体，召回相关的前20
 	entities, err := r.QueryConfig.Retriever.Query(ctx, query, entities, 20)
 	if err != nil {
 		return "", err
 	}
+
+	fmt.Println("query related communities cost: ", time.Since(begin))
 
 	// 进一步选择 relation
 	for _, relation := range r.Relationships {

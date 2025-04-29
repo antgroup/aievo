@@ -3,13 +3,16 @@ package retriever
 import (
 	"context"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestQuery(t *testing.T) {
-	retriever := NewBgeRetriever()
+	retriever := NewBgeRetriever(
+		WithProviderUrl(os.Getenv("AIEVO_BGE_PROVIDER_URL")),
+	)
 
 	text := "That is a happy person"
 	source := []string{

@@ -1,6 +1,8 @@
 package rag
 
 import (
+	"context"
+
 	"github.com/antgroup/aievo/llm"
 	"gorm.io/gorm"
 )
@@ -61,12 +63,6 @@ func WithDB(db *gorm.DB) Option {
 	}
 }
 
-func WithCacheDir(cacheDir string) Option {
-	return func(c *WorkflowConfig) {
-		c.CacheDir = cacheDir
-	}
-}
-
 type QueryOption func(c *QueryConfig)
 
 func WithQueryMaxToken(maxToken int) QueryOption {
@@ -90,5 +86,11 @@ func WithRetriever(retriever Retriever) QueryOption {
 func WithQueryMaxTurn(turn int) QueryOption {
 	return func(c *QueryConfig) {
 		c.MaxTurn = turn
+	}
+}
+
+func WithStreamingFunc(f func(ctx context.Context, chunk []byte) error) QueryOption {
+	return func(c *QueryConfig) {
+		c.StreamingFunc = f
 	}
 }
