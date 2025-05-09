@@ -15,12 +15,26 @@ import (
 )
 
 var tbOnce sync.Once
+var cacheOnce sync.Once
 var tb *ratelimit.TokenBucket
 
 func CallModel(ctx context.Context, wfCtx *rag.WorkflowContext, messages []llm.Message, useCache bool) (*llm.Generation, error) {
 	tbOnce.Do(func() {
 		tb = ratelimit.NewTokenBucket(3, 3)
 	})
+
+	if useCache {
+		cacheOnce.Do(func() {
+			if wfCtx.CacheDir != "" {
+				if _, err := os.Stat(wfCtx.CacheDir); os.IsNotExist(err) {
+					err := os.MkdirAll(wfCtx.CacheDir, 0755)
+					if err != nil {
+						fmt.Printf("Failed to create cache directory: %v\n", err)
+					}
+				}
+			}
+		})
+	}
 
 	if wfCtx.CacheDir != "" && useCache {
 		cacheKey := generateCacheKey(messages)

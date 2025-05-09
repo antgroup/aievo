@@ -119,10 +119,12 @@ func (s *Storage) Load(ctx context.Context, wfCtx *rag.WorkflowContext) error {
 
 	var knowledge Knowledge
 	if err := s.db.Where("id = ?", wfCtx.Id).First(&knowledge).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil
+		if !errors.Is(err, gorm.ErrRecordNotFound) {
+			return err
+		} else {
+			knowledge.ID = wfCtx.Id
+			knowledge.IndexProgress = 0
 		}
-		return err
 	}
 
 	wfCtx.IndexProgress = knowledge.IndexProgress
