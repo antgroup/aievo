@@ -11,6 +11,7 @@ import (
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/rag"
 	"github.com/antgroup/aievo/rag/prompts"
+	"github.com/pkg/errors"
 	"github.com/pkoukk/tiktoken-go"
 	"github.com/thoas/go-funk"
 )
@@ -42,7 +43,10 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 	// 对 entity 进行召回，召回前20
 	me := make(map[string]*rag.Entity)
 	mr := make(map[string][]*rag.Relationship)
-	encoding, _ := tiktoken.GetEncoding(rag.DefaultTokenEncoding)
+	encoding, err := tiktoken.GetEncoding(rag.DefaultTokenEncoding)
+	if err != nil {
+		return "", errors.Wrap(err, "get encoding failed")
+	}
 
 	for _, e := range r.Entities {
 		me[e.Title] = e
@@ -54,7 +58,7 @@ func (r *RAG) localQueryContext(ctx context.Context, query string) (string, erro
 	begin := time.Now()
 
 	// 获取到 level <= _minLevel 的所有实体，召回相关的前20
-	entities, err := r.QueryConfig.Retriever.Query(ctx, query, entities, 20)
+	entities, err = r.QueryConfig.Retriever.Query(ctx, query, entities, 20)
 	if err != nil {
 		return "", err
 	}
