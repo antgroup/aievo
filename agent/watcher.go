@@ -18,7 +18,7 @@ func parseMngInfoOutput(_ string, output *llm.Generation) ([]schema.StepAction, 
 	if len(output.ToolCalls) > 0 {
 		return parseToolCalls(output.ToolCalls), nil, nil
 	}
-	content := extractJSONContent(strings.TrimSpace(output.Content))
+	content := json.TrimJsonString(strings.TrimSpace(output.Content))
 	action, err := parseAction(content)
 	if err != nil {
 		return nil, nil, err

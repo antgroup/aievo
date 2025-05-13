@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"regexp"
 	"strings"
 	"time"
 
@@ -280,7 +279,7 @@ func parseOutput(name string, output *llm.Generation) ([]schema.StepAction, []sc
 	if content == "" {
 		return nil, nil, errors.New("content is empty")
 	}
-	content = extractJSONContent(content)
+	content = json.TrimJsonString(content)
 	action, err := parseAction(content)
 	if err != nil {
 		return nil, nil, err
@@ -309,30 +308,18 @@ func parseToolCalls(toolCalls []llm.ToolCall) []schema.StepAction {
 	return actions
 }
 
-func extractJSONContent(content string) string {
-	compile := regexp.MustCompile(_jsonParse)
-	submatch := compile.FindAllStringSubmatch(content, -1)
-	if len(submatch) > 0 {
-		return strings.TrimSpace(submatch[0][1])
-	}
-	return content
-}
-
 func parseAction(content string) (*schema.StepAction, error) {
-	action := &schema.StepAction{}
+	action := &schema.StepAction{Log: content}
 	// fix: action input may be json instead of json string
 	actionInput := &schema.StepActionInput{}
-	onlyAction := &schema.StepOnlyAction{}
+	if err := json.Unmarshal([]byte(content), action); err != nil {
+		if action.Action == "" {
+			return nil, err
+		}
+	}
 	if err := json.Unmarshal([]byte(content), actionInput); err != nil {
 		return nil, err
 	}
-	if err := json.Unmarshal([]byte(content), onlyAction); err != nil {
-		return nil, err
-	}
-	action.Action = onlyAction.Action
-	action.Id = onlyAction.Id
-	action.Thought = onlyAction.Thought
-	action.Log = content
 
 	switch actionInput.Input.(type) {
 	case string:

@@ -8,6 +8,7 @@ import (
 
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/schema"
+	"github.com/antgroup/aievo/utils/json"
 	"github.com/goccy/go-graphviz"
 )
 
@@ -33,7 +34,7 @@ func parseSopOutput(_ string, output *llm.Generation) ([]schema.StepAction, []sc
 	if content == "" {
 		return nil, nil, errors.New("content is empty")
 	}
-	jsonContent := extractJSONContent(content)
+	jsonContent := json.TrimJsonString(content)
 	dotContent := extractDOTContent(jsonContent)
 	action, err := parseAction(dotContent)
 	if err == nil && action != nil {
