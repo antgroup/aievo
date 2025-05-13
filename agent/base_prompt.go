@@ -50,7 +50,17 @@ When you have a response to say to the other agent or ask other agent for more i
 	"receiver": "The name of the agent that transfer task/question to you, receiver MUST be in one of [{{.agent_names}}]",
     "cate": "msg",
     "thought": "Clearly describe why you think the conversation should send to the receiver agent",
-    "content": "The final answer to the original input question or what you want to ask or The task information to dispatcher, you must clearly describe your content here to make sure the receiver is clear about their role, please respond in Chinese and format the response in markdown"
+    "content": "What you want to ask or The task information to dispatcher, you must clearly describe your content here to make sure the receiver is clear about their role, please respond in Chinese and format the response in markdown"
+}
+~~~
+
+
+When you have final answer for user's task、question, you MUST response with json format like below:
+~~~
+{
+    "cate": "end",
+    "thought": "Clearly describe your thought",
+    "content": "The final answer to the original input question"
 }
 ~~~
 

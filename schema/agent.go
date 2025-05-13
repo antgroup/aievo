@@ -27,6 +27,16 @@ type StepAction struct {
 	Observation string `json:"observation"`
 }
 
+type StepOnlyAction struct {
+	Id      string `json:"id"`
+	Action  string `json:"action"`
+	Thought string `json:"thought"`
+}
+
+type StepActionInput struct {
+	Input any `json:"input"`
+}
+
 type StepType struct {
 	Type string `json:"type"`
 }

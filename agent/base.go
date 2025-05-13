@@ -319,9 +319,27 @@ func extractJSONContent(content string) string {
 }
 
 func parseAction(content string) (*schema.StepAction, error) {
-	action := &schema.StepAction{Log: content}
-	if err := json.Unmarshal([]byte(content), action); err != nil {
+	action := &schema.StepAction{}
+	// fix: action input may be json instead of json string
+	actionInput := &schema.StepActionInput{}
+	onlyAction := &schema.StepOnlyAction{}
+	if err := json.Unmarshal([]byte(content), actionInput); err != nil {
 		return nil, err
+	}
+	if err := json.Unmarshal([]byte(content), onlyAction); err != nil {
+		return nil, err
+	}
+	action.Action = onlyAction.Action
+	action.Id = onlyAction.Id
+	action.Thought = onlyAction.Thought
+	action.Log = content
+
+	switch actionInput.Input.(type) {
+	case string:
+		action.Input = actionInput.Input.(string)
+	default:
+		marshal, _ := json.Marshal(actionInput.Input)
+		action.Input = string(marshal)
 	}
 	if action.Action != "" {
 		return action, nil
