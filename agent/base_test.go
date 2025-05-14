@@ -13,6 +13,7 @@ import (
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/tool/calculator"
+	"github.com/antgroup/aievo/tool/mcp"
 	"github.com/goccy/go-graphviz"
 )
 
@@ -108,4 +109,40 @@ func TestGoGraphviz(t *testing.T) {
 		fmt.Println(curNode.Get("label"))
 		curNode = g.NextNode(curNode)
 	}
+}
+
+func TestMCPAgent(t *testing.T) {
+	tools, _ := mcp.New(`{
+  "mcpServers": {
+    "sqlite": {
+      "command": "/Users/tyloafer/.local/bin/uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "/Users/tyloafer/WorkPlace/ali/python-sdk/examples/clients/simple-chatbot/mcp_simple_chatbot/test.db"]
+    }
+  }
+}`)
+	base, err := NewBaseAgent(
+		WithLLM(client()),
+		WithName("test"),
+		WithDesc("test"),
+		WithTools(tools),
+		WithFeedbacks(&feedback.ContentFeedback{}))
+	if err != nil {
+		log.Fatal(err)
+	}
+	run, err := base.Run(context.Background(), []schema.Message{
+		{
+			Sender:   "User",
+			Receiver: base.name,
+			Content:  "帮我创建一个学生表，并分别写入三个学生，小明，19岁，81分，小红，19岁，80分，小军，20岁，60分",
+			Type:     "Msg",
+		},
+	},
+		llm.WithTemperature(0.1),
+		llm.WithTopP(0.8),
+		llm.WithRepetitionPenalty(1.05),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%+v\n", run)
 }
