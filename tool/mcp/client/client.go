@@ -21,7 +21,7 @@ func New(ctx context.Context, name string, param *ServerParam) (*Client, error) 
 	var err error
 	switch param.TransportType {
 	case TransportTypeSSE:
-		// mcpClient, err = c.initSSEClient(ctx)
+		mcpClient, err = c.initSSEClient(ctx)
 	case TransportTypeStdio:
 		mcpClient, err = c.initStdioClient(ctx)
 	default:
@@ -31,6 +31,7 @@ func New(ctx context.Context, name string, param *ServerParam) (*Client, error) 
 		return nil, err
 	}
 	c.c = mcpClient
+	go c.refresh()
 	return c, nil
 }
 
@@ -67,9 +68,6 @@ func (c *Client) initSSEClient(ctx context.Context) (client.MCPClient, error) {
 		return nil, err
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
 	if err = mc.Start(ctx); err != nil {
 		log.Printf("failed to start SSE client: %v", err)
 		return nil, err
@@ -93,13 +91,6 @@ func (c *Client) initSSEClient(ctx context.Context) (client.MCPClient, error) {
 
 func (c *Client) ListTools(ctx context.Context) ([]mcp.Tool, error) {
 	var err error
-	if c.param.TransportType == TransportTypeSSE {
-		c.c, err = c.initSSEClient(ctx)
-		if err != nil {
-			log.Printf("failed to initialize SSE client: %v", err)
-			return nil, err
-		}
-	}
 	toolsRequest := mcp.ListToolsRequest{}
 	result, err := c.c.ListTools(ctx, toolsRequest)
 	if err != nil {
@@ -129,6 +120,31 @@ func (c *Client) CallTool(ctx context.Context, name, input string) (*mcp.CallToo
 
 	return result, nil
 
+}
+
+func (c *Client) refresh() {
+	tick := time.Tick(time.Second * 15)
+	for {
+		<-tick
+		ctx := context.Background()
+		err := c.c.Ping(ctx)
+		if err == nil {
+			continue
+		}
+		log.Printf("failed to ping server: %v, refresh client", err)
+		var mcpClient client.MCPClient
+		switch c.param.TransportType {
+		case TransportTypeSSE:
+			mcpClient, err = c.initSSEClient(ctx)
+		case TransportTypeStdio:
+			mcpClient, err = c.initStdioClient(ctx)
+		}
+		if err != nil {
+			log.Printf("failed to initialize mcp client: %v, try again after 15s", err)
+			continue
+		}
+		c.c = mcpClient
+	}
 }
 
 func (c *Client) Close() error {
