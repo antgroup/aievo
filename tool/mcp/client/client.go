@@ -143,7 +143,9 @@ func (c *Client) refresh() {
 			log.Printf("failed to initialize mcp client: %v, try again after 15s", err)
 			continue
 		}
+		oldClient := c.c
 		c.c = mcpClient
+		oldClient.Close()
 	}
 }
 
