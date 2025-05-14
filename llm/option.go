@@ -20,7 +20,8 @@ type GenerateOptions struct {
 	StopWords []string `json:"stop_words"`
 	// StreamingFunc is a function to be called for each chunk of a streaming response.
 	// Return an error to stop streaming early.
-	StreamingFunc func(ctx context.Context, chunk []byte) error `json:"-"`
+	StreamingFunc          func(ctx context.Context, chunk []byte) error `json:"-"`
+	ReasoningStreamingFunc func(ctx context.Context, chunk []byte) error `json:"-"`
 	// TopK is the number of tokens to consider for top-k sampling.
 	TopK int `json:"top_k"`
 	// TopP is the cumulative probability for top-p sampling.
@@ -157,6 +158,13 @@ func WithOptions(options GenerateOptions) GenerateOption {
 func WithStreamingFunc(streamingFunc func(ctx context.Context, chunk []byte) error) GenerateOption {
 	return func(o *GenerateOptions) {
 		o.StreamingFunc = streamingFunc
+	}
+}
+
+// WithReasoningStreamingFunc specifies the streaming function for reasoning to use.
+func WithReasoningStreamingFunc(streamingFunc func(ctx context.Context, chunk []byte) error) GenerateOption {
+	return func(o *GenerateOptions) {
+		o.ReasoningStreamingFunc = streamingFunc
 	}
 }
 
