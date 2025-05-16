@@ -81,6 +81,11 @@ func (h *CallbackHandler) HandleStreamingFunc(ctx context.Context, chunk []byte)
 	return nil
 }
 
+func (h *CallbackHandler) HandleReasoningStreamingFunc(ctx context.Context, chunk []byte) error {
+	fmt.Print(string(chunk))
+	return nil
+}
+
 func formatDoc(docs []schema.Document) string {
 	result := ""
 	for i, doc := range docs {

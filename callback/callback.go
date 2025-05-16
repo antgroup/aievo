@@ -20,4 +20,5 @@ type Handler interface {
 	HandleMessageInQueue(ctx context.Context, message *schema.Message)
 	HandleMessageOutQueue(ctx context.Context, message *schema.Message)
 	HandleStreamingFunc(ctx context.Context, chunk []byte) error
+	HandleReasoningStreamingFunc(ctx context.Context, chunk []byte) error
 }

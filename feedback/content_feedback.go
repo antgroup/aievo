@@ -69,7 +69,7 @@ func checkMessages(agent schema.Agent, messages []schema.Message) *FeedbackInfo 
 		if msg.Receiver == "" {
 			return &FeedbackInfo{
 				Type: NotApproved,
-				Msg:  "receiver cannot be empty where message is not END",
+				Msg:  "receiver cannot be empty where message cate is not END",
 			}
 		}
 		if checkReceiver(agent, msg) {

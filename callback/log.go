@@ -69,6 +69,10 @@ func (LogHandler) HandleStreamingFunc(ctx context.Context, chunk []byte) error {
 	return nil
 }
 
+func (LogHandler) HandleReasoningStreamingFunc(ctx context.Context, chunk []byte) error {
+	return nil
+}
+
 func formatDoc(docs []schema.Document) string {
 	result := ""
 	for i, doc := range docs {

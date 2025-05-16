@@ -166,7 +166,11 @@ func (l *LLM) GenerateContent(ctx context.Context, messages []llm.Message, optio
 					recv.Choices[0].Logprobs.Content...)
 			}
 			response.Content += recv.Choices[0].Delta.Content
-			if opts.StreamingFunc != nil {
+			response.ReasoningContent += recv.Choices[0].Delta.ReasoningContent
+			if opts.ReasoningStreamingFunc != nil && recv.Choices[0].Delta.ReasoningContent != "" {
+				_ = opts.ReasoningStreamingFunc(ctx, []byte(recv.Choices[0].Delta.Content))
+			}
+			if opts.StreamingFunc != nil && recv.Choices[0].Delta.Content != "" {
 				_ = opts.StreamingFunc(ctx, []byte(recv.Choices[0].Delta.Content))
 			}
 		}

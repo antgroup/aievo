@@ -100,3 +100,7 @@ func TestJson(t *testing.T) {
 	}
 	fmt.Println(resp)
 }
+
+func TestEnv(t *testing.T) {
+	fmt.Println(os.Environ())
+}
