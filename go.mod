@@ -12,26 +12,33 @@ require (
 	github.com/mark3labs/mcp-go v0.27.0
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/pkg/errors v0.9.1
+	github.com/pkoukk/tiktoken-go v0.1.7
 	github.com/sashabaranov/go-openai v1.40.0
 	github.com/stretchr/testify v1.9.0
 	github.com/thoas/go-funk v0.9.3
 	github.com/tidwall/match v1.1.1
 	github.com/tidwall/pretty v1.2.0
 	go.starlark.net v0.0.0-20240725214946-42030a7cedce
+	gorm.io/driver/mysql v1.5.7
+	gorm.io/gorm v1.26.1
 )
 
 require (
 	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dlclark/regexp2 v1.10.0 // indirect
 	github.com/fogleman/gg v1.3.0 // indirect
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
 	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
