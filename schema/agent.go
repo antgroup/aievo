@@ -22,6 +22,7 @@ type StepAction struct {
 	Action      string `json:"action"`
 	Thought     string `json:"thought"`
 	Input       string `json:"input"`
+	Node        string `json:"node"`
 	Feedback    string `json:"feedback"`
 	Log         string `json:"log"`
 	Observation string `json:"observation"`
@@ -65,7 +66,7 @@ var (
 	ErrMissingPrompt       = errors.New("missing fill in prompt")
 	ErrMissingName         = errors.New("missing agent name")
 	ErrMissingDesc         = errors.New("missing agent desc")
-	ErrMissingSop          = errors.New("missing sop")
+	ErrMissingGraph        = errors.New("missing sop graph")
 	ErrAgentNoReturn       = errors.New("no actions or finish was returned by the agent")
 	ErrNotFinished         = errors.New("agent not finished before max iterations")
 	ErrParsePromptTemplate = errors.New("parse prompt template error")
@@ -82,29 +83,7 @@ func ConvertConstructScratchPad(name, self string, messages []Message, steps []S
 		if strings.EqualFold(sender, name) {
 			sender = self
 		}
-		if message.IsCreative() {
-			if message.MngInfo == nil {
-				continue
-			}
-			created := make([]string, 0, len(message.MngInfo.Create))
-			for _, tmp := range message.MngInfo.Create {
-				created = append(created, tmp.Name)
-			}
-			if len(created) > 0 && len(message.MngInfo.Select) > 0 &&
-				len(message.MngInfo.Remove) > 0 {
-				scratchPad += fmt.Sprintf("(Wather %s): \n", message.Sender)
-			}
-
-			if len(created) > 0 {
-				scratchPad += "create agents: " + strings.Join(created, ",") + "\n"
-			}
-			if len(message.MngInfo.Select) > 0 {
-				scratchPad += "select agents: " + strings.Join(message.MngInfo.Select, ",") + "\n"
-			}
-			if len(message.MngInfo.Remove) > 0 {
-				scratchPad += "remove agents: " + strings.Join(message.MngInfo.Remove, ",") + "\n"
-			}
-		} else {
+		if message.IsMsg() {
 			if message.Condition != "" {
 				scratchPad += fmt.Sprintf("(%s -> %s)(%s): %s\n",
 					sender, receiver, message.Condition, message.Content)
@@ -126,10 +105,6 @@ func ConvertConstructScratchPad(name, self string, messages []Message, steps []S
 			step.Log, step.Feedback)
 
 	}
-	// if len(scratchPad) > 0 {
-	//	scratchPad += "(You)Output: "
-	// }
-
 	return scratchPad
 }
 
