@@ -19,7 +19,7 @@ func TestGraph(t *testing.T) {
       "command": "npx",
       "args": ["jina-mcp-tools"],
       "env": {
-        "JINA_API_KEY": "jina_830629db2d364aaea49fd6ac1d8cb34dqE50M4fSZglM-OXsBDQFRto1tAbL"
+        "JINA_API_KEY": "jina_xxxx"
       }
     },
     "filesystem": {

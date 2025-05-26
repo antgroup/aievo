@@ -201,14 +201,6 @@ func (ba *GraphAgent) Plan(ctx context.Context, messages []schema.Message,
 		inputs["agent_names"] = schema.ConvertAgentNames(ba.env.GetSubscribeAgents(ctx, ba))
 		inputs["agent_descriptions"] = schema.ConvertAgentDescriptions(ba.env.GetSubscribeAgents(ctx, ba))
 	}
-	fmt.Println("current nodes")
-	fmt.Println(inputs["current_nodes"])
-	fmt.Println("next_nodes")
-	fmt.Println(inputs["next_nodes"])
-	fmt.Println("all nodes")
-	fmt.Println(inputs["all_nodes"])
-	fmt.Println("tmp render graph")
-	fmt.Println(ba.Driver.TmpRender())
 
 	p, err := ba.prompt.Format(inputs)
 	if err != nil {
