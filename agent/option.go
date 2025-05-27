@@ -2,6 +2,7 @@ package agent
 
 import (
 	"github.com/antgroup/aievo/callback"
+	"github.com/antgroup/aievo/driver"
 	"github.com/antgroup/aievo/feedback"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/schema"
@@ -32,6 +33,8 @@ type Options struct {
 	FilterMemoryFunc func([]schema.Message) []schema.Message
 	ParseOutputFunc  func(string, *llm.Generation) ([]schema.StepAction, []schema.Message, error)
 	Vars             map[string]string
+	SOPGraph         string
+	Driver           driver.Driver
 
 	MaxIterations int
 }
@@ -123,6 +126,12 @@ func WithVars(k, v string) Option {
 	}
 }
 
+func WithSOPGraph(sop string) Option {
+	return func(opt *Options) {
+		opt.SOPGraph = sop
+	}
+}
+
 func WithFilterMemoryFunc(fun func([]schema.Message) []schema.Message) Option {
 	return func(opt *Options) {
 		opt.FilterMemoryFunc = fun
@@ -135,6 +144,12 @@ func WithParseOutputFunc(fun func(string, *llm.Generation) ([]schema.StepAction,
 	}
 }
 
+func WithDriver(dri driver.Driver) Option {
+	return func(opt *Options) {
+		opt.Driver = dri
+	}
+}
+
 func defaultBaseOptions() []Option {
 	return []Option{
 		WithPrompt(_defaultBasePrompt),
@@ -143,6 +158,18 @@ func defaultBaseOptions() []Option {
 		WithMaxIterations(_defaultMaxIterations),
 		WithFeedbacks(feedback.NewContentFeedback()),
 		WithParseOutputFunc(parseOutput),
+	}
+}
+
+func defaultGraphOptions() []Option {
+	return []Option{
+		WithPrompt(_defaultGraphPrompt),
+		WithInstruction(_defaultGraphInstructions),
+		WithSuffix(_defaultGraphSuffix),
+		WithMaxIterations(_defaultMaxIterations),
+		WithFeedbacks(feedback.NewContentFeedback()),
+		WithParseOutputFunc(parseGraphOutput),
+		WithDriver(driver.NewGraphDriver()),
 	}
 }
 

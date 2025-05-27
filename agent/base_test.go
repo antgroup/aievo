@@ -14,7 +14,6 @@ import (
 	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/tool/calculator"
 	"github.com/antgroup/aievo/tool/mcp"
-	"github.com/goccy/go-graphviz"
 )
 
 func client() llm.LLM {
@@ -94,31 +93,13 @@ func TestConversationAgent(t *testing.T) {
 	fmt.Printf("%+v\n", run.Messages[0])
 }
 
-func TestGoGraphviz(t *testing.T) {
-	path := "test.dot"
-	g, err := graphviz.ParseFile(path)
-	if err != nil {
-		panic(err)
-	}
-	curNode := g.FirstNode()
-	for {
-		if curNode == nil {
-			break
-		}
-		fmt.Println(curNode.Name())
-		fmt.Println(curNode.Get("label"))
-		curNode = g.NextNode(curNode)
-	}
-}
-
 func TestMCPAgent(t *testing.T) {
 	tools, _ := mcp.New(`{
   "mcpServers": {
     "sqlite": {
-      "command": "/Users/tyloafer/.local/bin/uvx",
-      "args": ["mcp-server-sqlite", "--db-path", "/Users/tyloafer/WorkPlace/ali/python-sdk/examples/clients/simple-chatbot/mcp_simple_chatbot/test.db"]
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "./test.db"]
     }
-  }
 }`)
 	base, err := NewBaseAgent(
 		WithLLM(client()),
