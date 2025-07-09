@@ -184,6 +184,15 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 	if err != nil {
 		return nil, nil, nil, 0, err
 	}
+	// print output content
+	//fmt.Printf("LLM Output: %s\n", output.Content)
+	// Clean up any thinking content by removing everything before "</think>"
+	if strings.Contains(output.Content, "</think>") {
+		parts := strings.Split(output.Content, "</think>")
+		if len(parts) > 1 {
+			output.Content = parts[1]
+		}
+	}
 	if ba.callback != nil {
 		ba.callback.HandleLLMEnd(ctx, output)
 	}
