@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -195,6 +196,20 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 	}
 	if ba.callback != nil {
 		ba.callback.HandleLLMEnd(ctx, output)
+	}
+	// 记录输入输出
+	logfile := fmt.Sprintf("eval/log_level_W5_%s.log", time.Now().Format("2006010212"))
+	// Open log file in append mode
+	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		// Just log to stderr if file can't be opened
+		fmt.Fprintf(os.Stderr, "Failed to open log file: %v\n", err)
+	} else {
+		defer f.Close()
+		// Write the prompt and output with a timestamp
+		timestamp := time.Now().Format("2006-01-02 15:04:05")
+		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n",
+			timestamp, p, output.Content)
 	}
 
 	feedbacks := make([]schema.StepFeedback, 0)

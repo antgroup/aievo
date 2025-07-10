@@ -13,10 +13,10 @@ func TestGoogleSearch(t *testing.T) {
 	tool, _ := New(
 		WithEngine("google"),
 		WithApiKey(apiKey),
-		WithTopK(10),
+		WithTopK(3),
 	)
 	ret, err := tool.Call(context.Background(), `{
-	"query": "ai"
+	"query": "who is the best football player in history"
 }`)
 	if err != nil {
 		t.Fatal(err)

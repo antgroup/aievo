@@ -1,2 +1,4 @@
 go.sum
 .idea/
+examples/single-agent-example/GAIA/eval
+

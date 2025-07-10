@@ -1,6 +1,7 @@
 package main
 
 const EngineerPrompt = `You are an AI-assistant.
+## Question Answering Task:
 Given a question, you need to:
 1. Question Analysis: Evaluate if additional information is needed to answer the question. If a web search or file analysis is necessary, outline specific clues or details to be searched for.
 2. File Analysis: If given a file, identify the key sections in the file relevant to the query. Extract and summarize the necessary information from these sections.
@@ -15,44 +16,51 @@ const EngineerDescription = `
 You are a a general AI assistant.
 `
 
-const Workflow = `digraph GAIAWorkflow {
-    rankdir=LR;
-    node [shape=box, style=rounded];
+const Workflow = ``
 
-    // Define nodes
-    UserInput [label="User Input\n(e.g., a question)"];
-    QuestionAnalysis [label="Question Analysis\n(Evaluate if additional information is needed)"];
-    FileAnalysis [label="File Analysis\n(If a file is given, extract relevant information)"];
-    WebSearch [label="Web Search\n(If required, search for information online)"];
-    Summarization [label="Summarization\n(Review search results and summarize findings)"];
-    AnswerGeneration [label="Answer Generation\n(Generate the final answer based on gathered info)"];
-    End [label="Task Complete\n(Return the final answer to the user)"];
+// `digraph GAIAWorkflow {
+//     rankdir=LR;
+//     node [shape=box, style=rounded];
 
-    // Define edges
-    UserInput -> QuestionAnalysis;
-    QuestionAnalysis -> FileAnalysis [label="File is provided"];
-    QuestionAnalysis -> WebSearch [label="Web search is needed"];
-    FileAnalysis -> AnswerGeneration;
-    WebSearch -> Summarization;
-    Summarization -> AnswerGeneration;
-    QuestionAnalysis -> AnswerGeneration [label="No extra info needed"];
-    AnswerGeneration -> End;
-}`
+//     // Define nodes
+//     UserInput [label="User Input\n(e.g., a question)"];
+//     QuestionAnalysis [label="Question Analysis\n(Evaluate if additional information is needed)"];
+//     FileAnalysis [label="File Analysis\n(If a file is given, extract relevant information)"];
+//     WebSearch [label="Web Search\n(If required, search for information online)"];
+//     Summarization [label="Summarization\n(Review search results and summarize findings)"];
+//     AnswerGeneration [label="Answer Generation\n(Generate the final answer based on gathered info)"];
+//     End [label="Task Complete\n(Return the final answer to the user)"];
+
+//     // Define edges
+//     UserInput -> QuestionAnalysis;
+//     QuestionAnalysis -> FileAnalysis [label="File is provided"];
+//     QuestionAnalysis -> WebSearch [label="Web search is needed"];
+//     FileAnalysis -> AnswerGeneration;
+//     WebSearch -> Summarization;
+//     Summarization -> AnswerGeneration;
+//     QuestionAnalysis -> AnswerGeneration [label="No extra info needed"];
+//     AnswerGeneration -> End;
+// }`
+
+// {{if .sop}}
+// This is the SOP for the entire troubleshooting process.
+// ~~~
+// {{.sop}}
+// ~~~
+
+// Dispatch Notes:
+// - The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.
+// {{end}}
 
 const SingleAgentInstructions = `
-{{if .sop}}
-This is the SOP for the entire troubleshooting process.
-~~~
-{{.sop}}
-~~~
-
-Dispatch Notes:
-- The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.
-{{end}}
-
-You have access to the following tools:
+## You have access to the following tools:
 ~~~
 {{.tool_descriptions}}
+~~~
+
+## Previous conversation and your thought:
+~~~~
+{{.history}}
 ~~~
 
 ## Output Format:
@@ -78,3 +86,5 @@ You have access to the following tools:
 
 (You)Output:
 `
+
+const NULLSuffix = ``

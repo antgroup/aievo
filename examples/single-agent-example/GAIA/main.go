@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 
@@ -15,10 +16,9 @@ import (
 	"github.com/antgroup/aievo/llm/openai"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
-
+	"github.com/antgroup/aievo/tool/search"
 	// "github.com/antgroup/aievo/tool/bash"
 	// "github.com/antgroup/aievo/tool/file"
-	"github.com/antgroup/aievo/tool/search"
 )
 
 type GaiaQuestion struct {
@@ -28,22 +28,28 @@ type GaiaQuestion struct {
 	FinalAnswer string `json:"Final answer"`
 	FileName    string `json:"file_name"`
 }
-
-type ModelOutput struct {
-	Thought  string `json:"thought"`
-	Cate     string `json:"cate"`
-	Receiver string `json:"receiver"`
-	Content  string `json:"content"`
-}
-
 type ResultLog struct {
+	ID              int     `json:"id"`
 	TaskID          string  `json:"task_id"`
 	Question        string  `json:"question"`
 	StandardAnswer  string  `json:"standard_answer"`
 	ModelOutput     string  `json:"model_output"`
 	ModelThought    string  `json:"model_thought"`
 	IsCorrect       bool    `json:"is_correct"`
+	TotalCorrect    int     `json:"total_correct"`
+	TotalCount      int     `json:"total_count"`
 	RunningAccuracy float64 `json:"running_accuracy"`
+	Time            string  `json:"time"`
+}
+
+func normalizeAnswer(s string) string {
+	// Convert to lower case
+	lower := strings.ToLower(s)
+	// Remove all spaces
+	noSpaces := strings.ReplaceAll(lower, " ", "")
+	// Remove all punctuation except for semicolons and periods which might be part of the answer
+	reg := regexp.MustCompile(`[^\w\.;]`)
+	return reg.ReplaceAllString(noSpaces, "")
 }
 
 func loadGaiaDataset(filePath string) ([]GaiaQuestion, error) {
@@ -81,13 +87,13 @@ func main() {
 	engineerTools := make([]tool.Tool, 0)
 	// engineerTools = append(engineerTools, fileTools...)
 	searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	search, _ := search.New(
+	searchTool, _ := search.New(
 		search.WithEngine("google"),
 		search.WithApiKey(searchApiKey),
-		search.WithTopK(3),
+		search.WithTopK(5),
 	)
 
-	engineerTools = append(engineerTools, search)
+	engineerTools = append(engineerTools, searchTool)
 
 	engineer, err := agent.NewBaseAgent(
 		agent.WithName("engineer"),
@@ -99,14 +105,16 @@ func main() {
 		agent.WithTools(engineerTools),
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
+		agent.WithSuffix(NULLSuffix),
 	)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	for level := 1; level <= 3; level++ {
+	levels := []int{1}
+	for _, level := range levels {
 		datasetPath := fmt.Sprintf("/Users/liuxiansheng/Agent/aievo/dataset/gaia/level_%d_val_filtered.json", level)
-		fmt.Printf("\n\n\n################## Starting Evaluation for Level %d ##################\n", level)
+		fmt.Printf("\n################## Starting Evaluation for Level %d ##################\n", level)
 		fmt.Printf("Loading dataset from: %s\n", datasetPath)
 
 		questions, err := loadGaiaDataset(datasetPath)
@@ -118,15 +126,16 @@ func main() {
 		var results []ResultLog
 		correctCount := 0
 		totalCount := 0
-		resultsFilename := fmt.Sprintf("evaluation_results_level%d_%s.json", level, time.Now().Format("20060102150405"))
+		resultsFilename := fmt.Sprintf("eval/eval_level%d_W5_%s.json", level, time.Now().Format("20060102150405"))
+		start_time := time.Now()
 
 		for i, q := range questions {
-			if q.FileName != "" {
+			if q.FileName != "" { // 先忽略需要file的问题
 				continue
 			}
 
 			totalCount++
-			fmt.Printf("\n\n\n==================Processing question ID: %d (Level %d)\n", i, level)
+			fmt.Printf("\n==================Processing question ID: %d (Level %d)\n", i, level)
 			gen, err := engineer.Run(context.Background(), []schema.Message{
 				{
 					Type:     schema.MsgTypeMsg,
@@ -140,6 +149,10 @@ func main() {
 				continue
 			}
 
+			// 打印模型输出gen.Message
+			fmt.Printf("Model Thought: %s\n", gen.Messages[0].Thought)
+			fmt.Printf("Model Output Answer: %s\n", gen.Messages[0].Content)
+
 			modelOutputContent := gen.Messages[0].Content
 			isCorrect := false
 
@@ -152,7 +165,10 @@ func main() {
 			// Also remove potential quotes around the answer
 			processedOutput = strings.Trim(processedOutput, "\"")
 
-			if strings.EqualFold(processedOutput, q.FinalAnswer) {
+			normalizedModelOutput := normalizeAnswer(processedOutput)
+			normalizedStandardAnswer := normalizeAnswer(q.FinalAnswer)
+
+			if normalizedModelOutput == normalizedStandardAnswer {
 				isCorrect = true
 				correctCount++
 			}
@@ -163,13 +179,17 @@ func main() {
 			}
 
 			results = append(results, ResultLog{
+				ID:              i,
 				TaskID:          q.TaskID,
 				Question:        q.Question,
 				StandardAnswer:  q.FinalAnswer,
 				ModelOutput:     modelOutputContent,
 				ModelThought:    gen.Messages[0].Thought,
 				IsCorrect:       isCorrect,
+				TotalCorrect:    correctCount,
+				TotalCount:      totalCount,
 				RunningAccuracy: accuracy,
+				Time:            time.Since(start_time).String(),
 			})
 
 			resultsJSON, err := json.MarshalIndent(results, "", "  ")

@@ -48,6 +48,21 @@ func (h *GoogleSearchResultHandler) Handle(result string) (string, error) {
 	for _, data := range googleDatas {
 		output += Title + data.Title + "\n"
 		output += Snippet + data.Snippet + "\n"
+		if len(data.RichSnippet.Bottom.Extensions) > 0 {
+			output += "RichSnippet: "
+			for i, ext := range data.RichSnippet.Bottom.Extensions {
+				if i > 0 {
+					output += ", "
+				}
+				output += ext
+			}
+			output += "\n"
+		}
+		//else {
+		// For debugging: print the raw rich snippet if extensions are empty
+		//rawRichSnippet, _ := json.Marshal(data.RichSnippet)
+		//fmt.Printf("DEBUG: RichSnippet content for '%s': %s\n", data.Title, string(rawRichSnippet))
+		//}
 		output += Link + data.Link + "\n\n"
 	}
 	return output, nil
