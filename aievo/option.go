@@ -145,3 +145,9 @@ func WithWatcher(agent schema.Agent, condition func(message schema.Message) bool
 		opts.watchCondition = condition
 	}
 }
+
+func WithSubMode(mode environment.SubscribeMode) Option {
+	return func(opts *options) {
+		opts.subMode = mode
+	}
+}

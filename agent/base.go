@@ -194,11 +194,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 			output.Content = parts[1]
 		}
 	}
-	if ba.callback != nil {
-		ba.callback.HandleLLMEnd(ctx, output)
-	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_W5_%s.log", time.Now().Format("2006010212"))
+	logfile := fmt.Sprintf("eval/log_level_%s.log", time.Now().Format("2006-0102-15"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -212,6 +209,9 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 			timestamp, p, output.Content)
 	}
 
+	if ba.callback != nil {
+		ba.callback.HandleLLMEnd(ctx, output)
+	}
 	feedbacks := make([]schema.StepFeedback, 0)
 	actions, content, err := ba.parseOutputFunc(ba.name, output)
 	if err != nil {

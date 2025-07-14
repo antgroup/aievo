@@ -77,12 +77,12 @@ func (h *CallbackHandler) HandleMessageOutQueue(ctx context.Context, message *sc
 }
 
 func (h *CallbackHandler) HandleStreamingFunc(ctx context.Context, chunk []byte) error {
-	fmt.Print(string(chunk))
+	//fmt.Print(string(chunk))
 	return nil
 }
 
 func (h *CallbackHandler) HandleReasoningStreamingFunc(ctx context.Context, chunk []byte) error {
-	fmt.Print(string(chunk))
+	//fmt.Print(string(chunk))
 	return nil
 }
 

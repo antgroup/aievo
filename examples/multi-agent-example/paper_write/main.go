@@ -16,7 +16,6 @@ import (
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/tool/arxiv"
-	"github.com/antgroup/aievo/tool/search"
 )
 
 const searchApiKey = "xxx"
@@ -32,11 +31,11 @@ func main() {
 	}
 	// 实例化所需要的Tools
 	// 搜索引擎
-	search, _ := search.New(
-		search.WithEngine("google"),
-		search.WithApiKey(searchApiKey),
-		search.WithTopK(3),
-	)
+	//search, _ := search.New(
+	//	search.WithEngine("google"),
+	//	search.WithApiKey(searchApiKey),
+	//	search.WithTopK(3),
+	//)
 
 	// 论文检索
 	arxiv, _ := arxiv.New(
@@ -64,7 +63,7 @@ func main() {
 		agent.WithPrompt(LROAPrompt),
 		agent.WithInstruction(defaultBaseInstructions),
 		agent.WithLLM(client),
-		agent.WithTools([]tool.Tool{search, arxiv}),
+		agent.WithTools([]tool.Tool{arxiv}),
 		agent.WithCallback(callbackHandler),
 	)
 

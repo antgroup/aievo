@@ -80,10 +80,21 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 				continue
 			}
 			messages := e.LoadMemory(ctx, receiver)
+			if msg.Sender != _defaultSender {
+				// Prepend the initial user prompt to the message history for every agent
+				initialMessage := schema.Message{
+					Type:     schema.MsgTypeMsg,
+					Content:  prompt,
+					Sender:   _defaultSender,
+					Receiver: "All",
+				}
+				messages = append([]schema.Message{initialMessage}, messages...)
+			}
+
 			if e.Callback != nil {
 				e.Callback.HandleAgentStart(ctx, receiver, messages)
 			}
-			gen, err := receiver.Run(ctx, messages, opts...)
+			gen, err := receiver.Run(ctx, messages, opts...) // gen 有 Messages and TotalTokens
 			if err != nil {
 				return "", err
 			}
@@ -96,7 +107,7 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			}
 
 			_ = e.Produce(ctx, gen.Messages...)
-			e.broadcast(gen.Messages...)
+			e.broadcast(gen.Messages...) // 发给watcher
 		}
 	}
 	return "", nil
