@@ -99,7 +99,7 @@ func main() {
 			for _, msg := range msgs {
 				if msg.Sender == "CGA" && msg.Receiver == "OGA" {
 					// 去除换行符
-					strings.ReplaceAll(msg.Content, "\n", " ")
+					msg.Content = strings.ReplaceAll(msg.Content, "\n", " ")
 				}
 				filterMsgs = append(filterMsgs, msg)
 			}

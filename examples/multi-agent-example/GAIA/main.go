@@ -6,19 +6,19 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
 
 	"github.com/antgroup/aievo/agent"
+	"github.com/antgroup/aievo/aievo"
+	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/llm/openai"
+	"github.com/antgroup/aievo/memory"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/tool/search"
-	// "github.com/antgroup/aievo/tool/bash"
-	// "github.com/antgroup/aievo/tool/file"
 )
 
 type GaiaQuestion struct {
@@ -68,6 +68,7 @@ func loadGaiaDataset(filePath string) ([]GaiaQuestion, error) {
 }
 
 func main() {
+	// 大模型实例化
 	client, err := openai.New(
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
 		openai.WithModel(os.Getenv("OPENAI_MODEL")),
@@ -75,40 +76,93 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	workspace, _ := os.Getwd()
-	workspace = filepath.Join(workspace,
-		"examples", "single-agent-example", "GAIA", "workspace")
-	// 文件创建 文件读取 文件修改 文件删除 文件重命名
-	// 文件夹创建 文件夹读取 文件夹删除 文件夹重命名
-	// fileTools, _ := file.GetFileRelatedTools(workspace)  // can be nil
-
-	callbackHandler := &CallbackHandler{}
-
-	engineerTools := make([]tool.Tool, 0)
-	// engineerTools = append(engineerTools, fileTools...)
+	// 实例化所需要的Tools
+	// 搜索引擎
 	searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	searchTool, _ := search.New(
+	search, _ := search.New(
 		search.WithEngine("google"),
 		search.WithApiKey(searchApiKey),
 		search.WithTopK(5),
 	)
 
-	engineerTools = append(engineerTools, searchTool)
+	callbackHandler := &CallbackHandler{}
 
-	engineer, err := agent.NewBaseAgent(
-		agent.WithName("engineer"),
-		agent.WithDesc(EngineerDescription),
-		agent.WithPrompt(EngineerPrompt),
-		agent.WithInstruction(SingleAgentInstructions),
-		agent.WithVars("sop", Workflow),
-		agent.WithVars("workspace", workspace),
-		agent.WithTools(engineerTools),
+	// 实例化Agents
+	//
+	PlanA, _ := agent.NewBaseAgent(
+		agent.WithName("PlanAgent"),
+		agent.WithDesc(PlanADescription),
+		agent.WithPrompt(PlanAPrompt),
+		agent.WithInstruction(defaultBaseInstructions),
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
 	)
+
+	FileA, _ := agent.NewBaseAgent(
+		agent.WithName("FileAgent"),
+		agent.WithDesc(FileADescription),
+		agent.WithPrompt(FileAPrompt),
+		agent.WithInstruction(defaultBaseInstructions),
+		agent.WithLLM(client),
+		agent.WithCallback(callbackHandler),
+		agent.WithSuffix(NULLSuffix),
+	)
+
+	//
+	WebA, _ := agent.NewBaseAgent(
+		agent.WithName("WebAgent"),
+		agent.WithDesc(WebADescription),
+		agent.WithPrompt(WebAPrompt),
+		agent.WithInstruction(defaultBaseInstructions),
+		agent.WithLLM(client),
+		agent.WithTools([]tool.Tool{search}),
+		agent.WithCallback(callbackHandler),
+		agent.WithSuffix(NULLSuffix),
+	)
+
+	// WebSumA, _ := agent.NewBaseAgent(
+	// 	agent.WithName("WebSummaryAgent"),
+	// 	agent.WithDesc(WebSumADescription),
+	// 	agent.WithPrompt(WebSumAPrompt),
+	// 	agent.WithInstruction(defaultEndBaseInstructions),
+	// 	agent.WithLLM(client),
+	// 	agent.WithTools([]tool.Tool{search}),
+	// 	agent.WithCallback(callbackHandler),
+	// )
+
+	AnswerA, _ := agent.NewBaseAgent(
+		agent.WithName("AnswerAgent"),
+		agent.WithDesc(AnswerADescription),
+		agent.WithPrompt(AnswerAPrompt),
+		agent.WithInstruction(defaultEndBaseInstructions),
+		agent.WithLLM(client),
+		agent.WithCallback(callbackHandler),
+		agent.WithSuffix(NULLSuffix),
+	)
+
+	env := environment.NewEnv()
+	env.Memory = memory.NewBufferMemory()
+
+	team := make([]schema.Agent, 0)
+	team = append(team, PlanA, FileA, WebA, AnswerA)
+
+	opts := make([]aievo.Option, 0)
+	opts = append(opts,
+		aievo.WithTeam(team),
+		aievo.WithMaxTurn(20),
+		aievo.WithCallback(callbackHandler),
+		aievo.WithLLM(client),
+		aievo.WithEnvironment(env),
+		aievo.WithTeamLeader(PlanA),
+		aievo.WithSOP(workflow),
+		aievo.WithUserProxy(nil),
+		aievo.WithSubMode(environment.ALLSubMode),
+	)
+
+	evo, err := aievo.NewAIEvo(opts...)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	levels := []int{1}
@@ -126,7 +180,7 @@ func main() {
 		var results []ResultLog
 		correctCount := 0
 		totalCount := 0
-		resultsFilename := fmt.Sprintf("eval/eval_level%d_W5_%s.json", level, time.Now().Format("20060102150405"))
+		resultsFilename := fmt.Sprintf("eval/eval_level%d_%s.json", level, time.Now().Format("20060102150405"))
 		start_time := time.Now()
 
 		for i, q := range questions {
@@ -136,24 +190,17 @@ func main() {
 
 			totalCount++
 			fmt.Printf("\n==================Processing question ID: %d (Level %d)\n", i, level)
-			gen, err := engineer.Run(context.Background(), []schema.Message{
-				{
-					Type:     schema.MsgTypeMsg,
-					Content:  fmt.Sprintf("Question: %s", q.Question),
-					Sender:   "User",
-					Receiver: "engineer",
-				},
-			}, llm.WithTemperature(0.6), llm.WithTopP(0.95))
+			gen, err := evo.Run(context.Background(), fmt.Sprintf("Question: %s", q.Question),
+				llm.WithTemperature(0.6), llm.WithTopP(0.95))
 			if err != nil {
 				log.Printf("Error running engineer for task %s: %v", q.TaskID, err)
 				continue
 			}
 
-			// 打印模型输出gen.Message
-			fmt.Printf("Model Thought: %s\n", gen.Messages[0].Thought)
-			fmt.Printf("Model Output Answer: %s\n", gen.Messages[0].Content)
+			// The return value 'gen' is a string, not a struct.
+			fmt.Printf("Model Output Answer: %s\n", gen)
 
-			modelOutputContent := gen.Messages[0].Content
+			modelOutputContent := gen
 			isCorrect := false
 
 			// Treat modelOutputContent as a plain string.
@@ -185,7 +232,7 @@ func main() {
 				Question:        q.Question,
 				StandardAnswer:  q.FinalAnswer,
 				ModelOutput:     modelOutputContent,
-				ModelThought:    gen.Messages[0].Thought,
+				ModelThought:    "", // Thought is not available in the returned string.
 				IsCorrect:       isCorrect,
 				TotalCorrect:    correctCount,
 				TotalCount:      totalCount,
