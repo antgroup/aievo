@@ -67,24 +67,7 @@ func loadGaiaDataset(filePath string) ([]GaiaQuestion, error) {
 	return questions, nil
 }
 
-func main() {
-	// 大模型实例化
-	client, err := openai.New(
-		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
-		openai.WithModel(os.Getenv("OPENAI_MODEL")),
-		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
-	if err != nil {
-		log.Fatal(err)
-	}
-	// 实例化所需要的Tools
-	// 搜索引擎
-	searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	search, _ := search.New(
-		search.WithEngine("google"),
-		search.WithApiKey(searchApiKey),
-		search.WithTopK(5),
-	)
-
+func createEvo(client llm.LLM, search tool.Tool) (*aievo.AIEvo, error) {
 	callbackHandler := &CallbackHandler{}
 
 	// 实例化Agents
@@ -160,10 +143,26 @@ func main() {
 		aievo.WithSubMode(environment.ALLSubMode),
 	)
 
-	evo, err := aievo.NewAIEvo(opts...)
+	return aievo.NewAIEvo(opts...)
+}
+
+func main() {
+	// 大模型实例化
+	client, err := openai.New(
+		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
+		openai.WithModel(os.Getenv("OPENAI_MODEL")),
+		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
+	// 实例化所需要的Tools
+	// 搜索引擎
+	searchApiKey := os.Getenv("SERPAPI_API_KEY")
+	search, _ := search.New(
+		search.WithEngine("google"),
+		search.WithApiKey(searchApiKey),
+		search.WithTopK(5),
+	)
 
 	levels := []int{1}
 	for _, level := range levels {
@@ -186,6 +185,11 @@ func main() {
 		for i, q := range questions {
 			if q.FileName != "" { // 先忽略需要file的问题
 				continue
+			}
+
+			evo, err := createEvo(client, search)
+			if err != nil {
+				panic(err)
 			}
 
 			totalCount++

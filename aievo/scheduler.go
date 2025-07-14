@@ -80,8 +80,9 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 				continue
 			}
 			messages := e.LoadMemory(ctx, receiver)
+
+			// Prepend the initial user prompt to the message history for every agent
 			if msg.Sender != _defaultSender {
-				// Prepend the initial user prompt to the message history for every agent
 				initialMessage := schema.Message{
 					Type:     schema.MsgTypeMsg,
 					Content:  prompt,

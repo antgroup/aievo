@@ -3,7 +3,9 @@ package search
 import (
 	"context"
 	"fmt"
+	"math"
 	"strings"
+	"time"
 
 	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/utils/json"
@@ -84,13 +86,29 @@ func (t *Tool) Call(_ context.Context, input string) (string, error) {
 		return "json unmarshal error, please try agent", nil
 	}
 
-	if m["query"] == "" {
+	if m["query"] == nil || m["query"].(string) == "" {
 		return "query is required", nil
 	}
 
-	ret, err := t.client.Search(m["query"].(string), t.TopK)
-	if err != nil {
-		return "Query Search Engine Error, Please Try Again", nil
+	var ret string
+	var searchErr error
+
+	// Retry logic with exponential backoff
+	maxRetries := 3
+	baseDelay := 1 * time.Second
+	for i := 0; i < maxRetries; i++ {
+		ret, searchErr = t.client.Search(m["query"].(string), t.TopK)
+		if searchErr == nil {
+			return ret, nil
+		}
+		fmt.Printf("---Search Error (Attempt %d/%d)--- %v\n", i+1, maxRetries, searchErr)
+		if i < maxRetries-1 {
+			delay := baseDelay * time.Duration(math.Pow(2, float64(i)))
+			fmt.Printf("Retrying in %v...\n", delay)
+			time.Sleep(delay)
+		}
 	}
-	return ret, nil
+
+	fmt.Println("---Search Error after all retries---", searchErr)
+	return "Query Search Engine Error, Please Try Again", nil
 }
