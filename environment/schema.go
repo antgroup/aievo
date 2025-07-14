@@ -35,6 +35,7 @@ func NewEnv() *Environment {
 	}
 	e.strategies = map[string]func(ctx context.Context, msg *schema.Message) error{
 		schema.MsgTypeMsg:      e.msgStrategy,
+		schema.MsgTypeEnd:      e.msgStrategy,
 		schema.MsgTypeSOP:      e.sopStrategy,
 		schema.MsgTypeCreative: e.mngInfoStrategy,
 	}
