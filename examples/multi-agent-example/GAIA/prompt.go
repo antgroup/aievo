@@ -1,6 +1,6 @@
 package main
 
-const workflow = `digraph GAIAWorkflow {
+const workflow = `digraph Workflow {
     rankdir=LR;
     node [shape=box, style=rounded];
 
@@ -42,7 +42,7 @@ const WebADescription = `Search the web to find necessary information.`
 
 const WebAPrompt = `
 You are a Web Search Agent.
-You need to use the provided search tool to find necessary information of the given question. 
+You need to use the provided search tool to find necessary information of the user'ss given question. 
 Please generate three specific search queries directly related to the original question. 
 Each query should focus on key terms from the question. Format the output as a comma-separated list.
 Then, review the provided search results and identify and summarize the most relevant information related to the question.
@@ -62,41 +62,40 @@ const AnswerADescription = `Generate the final answer based on gathered informat
 
 const AnswerAPrompt = `
 You are the Answer Generator Agent.
-Based on the analyzed file content and web search results, report your thoughts, and finish your answer with the following template: FINAL ANSWER: {YOUR FINAL ANSWER}. 
+Your exclusive role is to generate the final, conclusive answer for the user's given question.
+Based on the information provided by other agents (like WebAgent or FileAgent), report your thoughts, and finish your answer with the following template: FINAL ANSWER: {YOUR FINAL ANSWER}. 
 YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
 
 const defaultBaseInstructions = `{{if .agent_descriptions}}
-Your name is {{ .name }} in team. Here is other agents in your team:
+### Team Members
+You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team and their functions:
 ~~~
 {{.agent_descriptions}}
 ~~~
-You can ask other agents for help when you think that the problem should not be handled by you, or when you cannot deal with the problem
-Forbidden to forward the task to other agent(who send task to you) without any attempt to complete the task.
-Most Important:
-- other agents in your team is to help you to deal with task,  only when you try to solve task but failed, you can ask other agents for help 
-- provide as much detailed information as possible to other agents in your team when you ask for help
-- As an agent in a team, you should use your tool and knowledge to answer the question from other agents, do not give any suggestion
-- do not dismantling tasks, finish task
-{{end}}
+
+### Task - Handling Rules
+- You can request help from other agents when you believe the problem cannot be handled independently or when you are unable to solve it.
+- It is forbidden to forward the task to the agent who sent the task to you without making any attempt to complete it.
+- When asking for help from other agents in the team, provide as much detailed information as possible.{{end}}
 
 {{if .sop}}
-This is the SOP for the entire troubleshooting process.
+### Standard Operating Procedure (SOP)
+The following is the SOP for the task solving process, represented by a directed graph:
 ~~~
 {{.sop}}
 ~~~
-Dispatch Notes:
-- The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.
-{{end}}
+**Dispatch Notes**:
+- The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.{{end}}
 
 {{if .tool_descriptions}}
+### Available Tools
 You have access to the following tools:
 ~~~
 {{.tool_descriptions}}
-~~~
-{{end}}
+~~~{{end}}
 
-## Output Format:
+### Output Format
 
 1. When you need to assign tasks to other agents or reply to other agents, you must response with json format like below:
 ~~~
@@ -118,31 +117,112 @@ You have access to the following tools:
 }
 ~~~
 
-## Previous conversation history:
-~~~~
+### Previous Conversation History
+~~~
 {{.history}}
 ~~~
 
-(You)Output:
+(You) Output:
 `
 
 const defaultEndBaseInstructions = `{{if .agent_descriptions}}
 {{end}}
-## Output Format:
 
-1. When you have successfully pinpointed the cause of the failure, you must response with json format like below:
+### Output Format:
+You must response with json format like below:
 ~~~
 {
   "thought": "Clearly describe your reasoning process.",
+  "content": "FINAL ANSWER: {your answer}."
   "cate": "END",
   "receiver": "User",
-  "content": "FINAL ANSWER: {your answer}."
 ~~~
 
-## Previous conversation history:
-~~~~
+### Previous conversation history:
+~~~
 {{.history}}
 ~~~
 
-(You)Output:
+(You) Output:
 `
+
+//const defaultBaseInstructions_v1 = `{{if .agent_descriptions}}
+//Your name is {{ .name }} in team. Here is other agents in your team:
+//~~~
+//{{.agent_descriptions}}
+//~~~
+//You can ask other agents for help when you think that the problem should not be handled by you, or when you cannot deal with the problem
+//Forbidden to forward the task to other agent(who send task to you) without any attempt to complete the task.
+//Most Important:
+//- other agents in your team is to help you to deal with task,  only when you try to solve task but failed, you can ask other agents for help
+//- provide as much detailed information as possible to other agents in your team when you ask for help
+//- As an agent in a team, you should use your tool and knowledge to answer the question from other agents, do not give any suggestion
+//- do not dismantling tasks, finish task
+//{{end}}
+//
+//{{if .sop}}
+//This is the SOP for the entire troubleshooting process.
+//~~~
+//{{.sop}}
+//~~~
+//Dispatch Notes:
+//- The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.
+//{{end}}
+//
+//{{if .tool_descriptions}}
+//You have access to the following tools:
+//~~~
+//{{.tool_descriptions}}
+//~~~
+//{{end}}
+//
+//## Output Format:
+//
+//1. When you need to assign tasks to other agents or reply to other agents, you must response with json format like below:
+//~~~
+//{
+//  "thought": "Clearly describe why you think the conversation should send to the receiver agent",
+//  "cate": "MSG",
+//  "receiver": "The name of the agent that transfer task/question to you, receiver must be in one of [{{.agent_names}}]",
+//  "content": "The message for next agent."
+//}
+//~~~
+//
+//2. When you want to use a tool, you must response with json format like below:
+//~~~
+//{
+//	"thought": "you should always think about what to do",
+//	"action": "the action to take, action must be one of [{{.tool_names}}]",
+//	"input": "the input to the action, MUST be json string format like {"xxx": "xxx"}",
+//	"persistence": "the persistence to store the results, Must be bool, only persistence the important information"
+//}
+//~~~
+//
+//## Previous conversation history:
+//~~~~
+//{{.history}}
+//~~~
+//
+//(You)Output:
+//`
+//
+//const defaultEndBaseInstructions_v1 = `{{if .agent_descriptions}}
+//{{end}}
+//## Output Format:
+//
+//1. When you have successfully pinpointed the cause of the failure, you must response with json format like below:
+//~~~
+//{
+//  "thought": "Clearly describe your reasoning process.",
+//  "cate": "END",
+//  "receiver": "User",
+//  "content": "FINAL ANSWER: {your answer}."
+//~~~
+//
+//## Previous conversation history:
+//~~~~
+//{{.history}}
+//~~~
+//
+//(You)Output:
+//`

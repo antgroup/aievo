@@ -179,11 +179,15 @@ func main() {
 		var results []ResultLog
 		correctCount := 0
 		totalCount := 0
-		resultsFilename := fmt.Sprintf("eval/eval_level%d_%s.json", level, time.Now().Format("20060102150405"))
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_%s.json", level, time.Now().Format("20060102150405"))
 		start_time := time.Now()
+		start_id := 0
 
 		for i, q := range questions {
 			if q.FileName != "" { // 先忽略需要file的问题
+				continue
+			}
+			if i < start_id && level < 2 {
 				continue
 			}
 
