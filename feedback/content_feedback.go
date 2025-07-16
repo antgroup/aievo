@@ -22,9 +22,9 @@ func (*ContentFeedback) Feedback(_ context.Context, agent schema.Agent,
 		return fd
 	}
 
-	if fd := checkRepeatCall(steps, actions); fd != nil {
-		return fd
-	}
+	// if fd := checkRepeatCall(steps, actions); fd != nil {
+	// 	return fd
+	// }
 
 	if fd := checkMessages(agent, messages); fd != nil {
 		return fd
