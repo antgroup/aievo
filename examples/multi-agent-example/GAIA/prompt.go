@@ -1,24 +1,12 @@
 package main
 
-const workflow = `digraph Workflow {
-    rankdir=LR;
-    node [shape=box, style=rounded];
-
-    // Define nodes
-    User[label="User Input\n(e.g., a question)"];
-    PlanAgent [label="Question Analysis\n(Evaluate if additional information is needed)"];
-    FileAgent [label="File Analysis\n(If a file is given, extract relevant information)"];
-    WebSearchAgent [label="Web Search\n(If required, search for information online)"];
-    AnswerAgent [label="Answer Generation\n(Generate the final answer based on gathered info)"];
-    End [label="Task Complete\n(Return the final answer to the user)"];
-
-    // Define edges
-    User -> PlanAgent;
-    PlanAgent -> FileAgent [label="File is provided"];
-    PlanAgent -> WebSearchAgent [label="Web search is needed"];
-    FileAgent -> AnswerAgent;
-    WebSearchAgent -> AnswerAgent [label="No extra info needed"];
-    AnswerAgent -> End;
+const workflow = `Workflow {
+    1. User -> PlanAgent;
+    2. PlanAgent -> FileAgent [label="File is provided"];
+    3. PlanAgent -> WebSearchAgent [label="Web search is needed"];
+    4. FileAgent -> AnswerAgent;
+    5. WebSearchAgent -> AnswerAgent [label="No extra info needed"];
+    6. AnswerAgent -> End;
 }`
 
 const NULLSuffix = ``
@@ -49,44 +37,33 @@ Then, review the provided search results and identify and summarize the most rel
 If the information from web search is useless, Please reuse the web search tool to search for more information.
 `
 
-//const WebSumADescription = `网页内容摘要者`
-//
-//const WebSumAPrompt = `
-//Please review the provided search results and identify the most relevant information related to the question.
-//Extract and highlight the key findings, and organize the summarized information in a coherent and logical manner.
-//Ensure the summary is concise and directly addresses the query.
-//If the information from web search is useless, Please reuse the web search tool to search for more information.
-//`
-
 const AnswerADescription = `Generate the final answer based on gathered information.`
 
 const AnswerAPrompt = `
 You are the Answer Generator Agent.
 Your exclusive role is to generate the final, conclusive answer for the user's given question.
-Based on the information provided by other agents (like WebAgent or FileAgent), report your thoughts, and finish your answer with the following template: FINAL ANSWER: {YOUR FINAL ANSWER}. 
+Based on the information provided by other agents (like PlanAgent, WebAgent or FileAgent), report your thoughts, and finish your answer with the following template: FINAL ANSWER: {YOUR FINAL ANSWER}. 
 YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
 
-const defaultBaseInstructions = `{{if .agent_descriptions}}
+const defaultBaseInstructions = `
 ### Team Members
 You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team and their functions:
 ~~~
 {{.agent_descriptions}}
 ~~~
 
-### Task - Handling Rules
-- You can request help from other agents when you believe the problem cannot be handled independently or when you are unable to solve it.
-- It is forbidden to forward the task to the agent who sent the task to you without making any attempt to complete it.
-- When asking for help from other agents in the team, provide as much detailed information as possible.{{end}}
-
-{{if .sop}}
 ### Standard Operating Procedure (SOP)
 The following is the SOP for the task solving process, represented by a directed graph:
 ~~~
 {{.sop}}
 ~~~
-**Dispatch Notes**:
-- The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.{{end}}
+
+### Task - Handling Rules
+- The above SOP are for reference only, and certain nodes can be skipped appropriately during execution.
+- You can request help from other agents when you believe the problem cannot be handled independently or when you are unable to solve it.
+- It is forbidden to forward the task to the agent who sent the task to you without making any attempt to complete it.
+- When asking for help from other agents in the team, provide as much detailed information as possible.
 
 {{if .tool_descriptions}}
 ### Available Tools
@@ -106,7 +83,7 @@ You have access to the following tools:
   "content": "The message for next agent."
 }
 ~~~
-
+{{if .tool_descriptions}}
 2. When you want to use a tool, you must response with json format like below:
 ~~~
 {
@@ -116,13 +93,14 @@ You have access to the following tools:
 	"persistence": "the persistence to store the results, Must be bool, only persistence the important information"
 }
 ~~~
+Please note that the two JSON formats are different. Only one format is selected for output each time.{{end}}
 
 ### Previous Conversation History
 ~~~
 {{.history}}
 ~~~
 
-(You) Output:
+Output:
 `
 
 const defaultEndBaseInstructions = `{{if .agent_descriptions}}
@@ -136,6 +114,7 @@ You must response with json format like below:
   "content": "FINAL ANSWER: {your answer}."
   "cate": "END",
   "receiver": "User",
+}
 ~~~
 
 ### Previous conversation history:
@@ -143,8 +122,29 @@ You must response with json format like below:
 {{.history}}
 ~~~
 
-(You) Output:
+Output:
 `
+
+// const workflow_v1 = `digraph Workflow {
+//     rankdir=LR;
+//     node [shape=box, style=rounded];
+
+//     // Define nodes
+//     User[label="User Input\n(e.g., a question)"];
+//     PlanAgent [label="Question Analysis\n(Evaluate if additional information is needed)"];
+//     FileAgent [label="File Analysis\n(If a file is given, extract relevant information)"];
+//     WebSearchAgent [label="Web Search\n(If required, search for information online)"];
+//     AnswerAgent [label="Answer Generation\n(Generate the final answer based on gathered info)"];
+//     End [label="Task Complete\n(Return the final answer to the user)"];
+
+//     // Define edges
+//     User -> PlanAgent;
+//     PlanAgent -> FileAgent [label="File is provided"];
+//     PlanAgent -> WebSearchAgent [label="Web search is needed"];
+//     FileAgent -> AnswerA6 。gent;
+//     WebSearchAgent -> AnswerAgent [label="No extra info needed"];
+//     AnswerAgent -> End;
+// }`
 
 //const defaultBaseInstructions_v1 = `{{if .agent_descriptions}}
 //Your name is {{ .name }} in team. Here is other agents in your team:

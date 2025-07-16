@@ -164,7 +164,7 @@ func main() {
 		search.WithTopK(5),
 	)
 
-	levels := []int{1}
+	levels := []int{2}
 	for _, level := range levels {
 		datasetPath := fmt.Sprintf("/Users/liuxiansheng/Agent/aievo/dataset/gaia/level_%d_val_filtered.json", level)
 		fmt.Printf("\n################## Starting Evaluation for Level %d ##################\n", level)

@@ -3,4 +3,5 @@ go.sum
 examples/single-agent-example/GAIA/eval
 examples/multi-agent-example/GAIA/eval
 examples/multi-agent-example/paper_write/eval
+*.log
 

@@ -97,11 +97,11 @@ func ConvertConstructScratchPad(name, self string, messages []Message, steps []S
 	for _, step := range steps {
 		if step.Feedback == "" {
 			scratchPad += fmt.Sprintf(
-				"(%s)Thought: %s\n-Action: %s\n-Action Input: %s\n-Observation: %s\n",
+				"(%s)Thought: %s\nAction: %s\nAction Input: %s\nObservation: %s\n",
 				self, step.Thought, step.Action, step.Input, step.Observation)
 			continue
 		}
-		scratchPad += fmt.Sprintf("(You)Output: %s\n(You)Feedback: %s\n",
+		scratchPad += fmt.Sprintf("(me)Output: %s\nFeedback: %s\n",
 			step.Log, step.Feedback)
 
 	}
