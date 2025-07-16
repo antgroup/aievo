@@ -18,7 +18,8 @@ import (
 	"github.com/antgroup/aievo/memory"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
-	"github.com/antgroup/aievo/tool/search"
+	"github.com/antgroup/aievo/tool/calculator"
+	"github.com/antgroup/aievo/tool/mcp"
 )
 
 type GaiaQuestion struct {
@@ -67,7 +68,7 @@ func loadGaiaDataset(filePath string) ([]GaiaQuestion, error) {
 	return questions, nil
 }
 
-func createEvo(client llm.LLM, search tool.Tool) (*aievo.AIEvo, error) {
+func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 	callbackHandler := &CallbackHandler{}
 
 	// 实例化Agents
@@ -99,7 +100,7 @@ func createEvo(client llm.LLM, search tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithPrompt(WebAPrompt),
 		agent.WithInstruction(defaultBaseInstructions),
 		agent.WithLLM(client),
-		agent.WithTools([]tool.Tool{search}),
+		agent.WithTools(ts),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
 	)
@@ -157,12 +158,30 @@ func main() {
 	}
 	// 实例化所需要的Tools
 	// 搜索引擎
-	searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	search, _ := search.New(
-		search.WithEngine("google"),
-		search.WithApiKey(searchApiKey),
-		search.WithTopK(5),
-	)
+	// searchApiKey := os.Getenv("SERPAPI_API_KEY")
+	// search, _ := search.New(
+	// 	search.WithEngine("google"),
+	// 	search.WithApiKey(searchApiKey),
+	// 	search.WithTopK(5),
+	// )
+
+	tools, err := mcp.New(fmt.Sprintf(`
+{
+  "mcpServers": {
+    "mcp-server-firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "%s"
+      }
+    }
+  }
+}
+`, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
+	if err != nil {
+		log.Fatalf("mcp register err: %+v", err)
+	}
+	tools = append(tools, calculator.Calculator{})
 
 	levels := []int{1}
 	for _, level := range levels {
@@ -191,7 +210,7 @@ func main() {
 				continue
 			}
 
-			evo, err := createEvo(client, search)
+			evo, err := createEvo(client, tools)
 			if err != nil {
 				panic(err)
 			}
