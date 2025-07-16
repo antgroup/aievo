@@ -179,7 +179,9 @@ func main() {
 		var results []ResultLog
 		correctCount := 0
 		totalCount := 0
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_%s.json", level, time.Now().Format("20060102150405"))
+		timeStamp := time.Now().Format("20060102150405")
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_%s.json", level, timeStamp)
+		logFilename := fmt.Sprintf("eval/eval_level_%d_%s.log", level, timeStamp)
 		start_time := time.Now()
 		start_id := 0
 
@@ -196,14 +198,21 @@ func main() {
 				panic(err)
 			}
 
-			totalCount++
 			fmt.Printf("\n==================Processing question ID: %d (Level %d)\n", i, level)
 			gen, err := evo.Run(context.Background(), fmt.Sprintf("Question: %s", q.Question),
 				llm.WithTemperature(0.6), llm.WithTopP(0.95))
 			if err != nil {
 				log.Printf("Error running engineer for task %s: %v", q.TaskID, err)
+				// 记录错误信息到log文件
+				logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+				if logErr == nil {
+					defer logFile.Close()
+					logEntry := fmt.Sprintf("-----Level: %d, TaskID: %s\n---Error: %v\n", level, q.TaskID, err)
+					logFile.WriteString(logEntry)
+				}
 				continue
 			}
+			totalCount++
 
 			// The return value 'gen' is a string, not a struct.
 			fmt.Printf("Model Output Answer: %s\n", gen)

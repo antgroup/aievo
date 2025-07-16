@@ -90,25 +90,53 @@ func (t *Tool) Call(_ context.Context, input string) (string, error) {
 		return "query is required", nil
 	}
 
-	var ret string
-	var searchErr error
+	queryString := m["query"].(string)
 
-	// Retry logic with exponential backoff
-	maxRetries := 3
-	baseDelay := 1 * time.Second
-	for i := 0; i < maxRetries; i++ {
-		ret, searchErr = t.client.Search(m["query"].(string), t.TopK)
-		if searchErr == nil {
-			return ret, nil
-		}
-		fmt.Printf("---Search Error (Attempt %d/%d)--- %v\n", i+1, maxRetries, searchErr)
-		if i < maxRetries-1 {
-			delay := baseDelay * time.Duration(math.Pow(2, float64(i)))
-			fmt.Printf("Retrying in %v...\n", delay)
-			time.Sleep(delay)
+	// Split queries by comma and trim spaces
+	queries := strings.Split(queryString, ", ")
+	var trimmedQueries []string
+	for _, query := range queries {
+		trimmed := strings.TrimSpace(query)
+		if trimmed != "" {
+			trimmedQueries = append(trimmedQueries, trimmed)
 		}
 	}
 
-	fmt.Println("---Search Error after all retries---", searchErr)
-	return "Query Search Engine Error, Please Try Again", nil
+	if len(trimmedQueries) == 0 {
+		return "query is required", nil
+	}
+
+	var combinedResults []string
+
+	// Search each query separately
+	for i, query := range trimmedQueries {
+		var ret string
+		var searchErr error
+
+		// Retry logic with exponential backoff for each query
+		maxRetries := 3
+		baseDelay := 1 * time.Second
+		for j := 0; j < maxRetries; j++ {
+			ret, searchErr = t.client.Search(query, t.TopK)
+			if searchErr == nil {
+				break
+			}
+			fmt.Printf("---Search Error for query %d (Attempt %d/%d)--- %v\n", i+1, j+1, maxRetries, searchErr)
+			if j < maxRetries-1 {
+				delay := baseDelay * time.Duration(math.Pow(2, float64(j)))
+				fmt.Printf("Retrying in %v...\n", delay)
+				time.Sleep(delay)
+			}
+		}
+
+		if searchErr != nil {
+			fmt.Printf("---Search Error for query %d after all retries--- %v\n", i+1, searchErr)
+			combinedResults = append(combinedResults, fmt.Sprintf("Search result of query %d: Query Search Engine Error, Please Try Again\n", i+1))
+		} else {
+			combinedResults = append(combinedResults, fmt.Sprintf("Search result of query %d:\n %s", i+1, ret))
+		}
+	}
+
+	// Combine all results
+	return strings.Join(combinedResults, "\n"), nil
 }

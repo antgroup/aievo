@@ -31,7 +31,7 @@ func NewSearch(engine string,
 	resultHandler SerpSearchResultHandler) *Client {
 	// Create the http search
 	httpSearch := &http.Client{
-		Timeout: time.Second * 60,
+		Timeout: time.Second * 120, // Set a timeout of 120 seconds
 	}
 	return &Client{
 		Engine:              engine,
@@ -77,10 +77,8 @@ func (client *Client) Search(input string, topK int) (string, error) {
 // execute HTTP get request and returns http response
 func (client *Client) execute(params map[string]string, path string, output string) (*http.Response, error) {
 	query := url.Values{}
-	if params != nil {
-		for k, v := range params {
-			query.Add(k, v)
-		}
+	for k, v := range params {
+		query.Add(k, v)
 	}
 
 	// api_key

@@ -16,7 +16,7 @@ func TestGoogleSearch(t *testing.T) {
 		WithTopK(3),
 	)
 	ret, err := tool.Call(context.Background(), `{
-	"query": "who is the best football player in history"
+	"query": "the best soccer player in history, American president's wife, the capital of France",
 }`)
 	if err != nil {
 		t.Fatal(err)
