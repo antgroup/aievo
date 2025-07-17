@@ -74,6 +74,11 @@ You have access to the following tools:
 {{.tool_descriptions}}
 ~~~{{end}}
 
+### Previous Conversation History
+~~~
+{{.history}}
+~~~
+
 ### Output Format
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
@@ -93,15 +98,15 @@ When a task requires parallel processing by multiple different agents (i.e., eac
 ~~~
 [
 	{
-	  	"thought": "Clearly describe why you think the conversation should send to the receiver agent",
-	  	"cate": "MSG",
-  	  	"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
+		"thought": "Clearly describe why you think the conversation should send to the receiver agent",
+		"cate": "MSG",
+  		"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
 		"content": "A clear, self-contained, and informative message for the receiver agent." 
 	},
 	{
-	  	"thought": "Clearly describe why you think the conversation should send to the receiver agent",
-	  	"cate": "MSG",
-  	  	"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
+		"thought": "Clearly describe why you think the conversation should send to the receiver agent",
+		"cate": "MSG",
+  		"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
 		"content": "A clear, self-contained, and informative message for the receiver agent." 
 	}
 ]
@@ -118,18 +123,19 @@ When you want to use a tool, you must respond with JSON format like below:
 }
 ~~~
 Please note that the above JSON formats are different. Only one format is selected for output each time.
-DO NOT invoke an agent while using a tool, such as: {"action": "AnswerAgent"}. {{end}}
+DO NOT invoke an agent while using a tool. {{end}}
 
-### Previous Conversation History
-~~~
-{{.history}}
-~~~
 
 Output:
 `
 
 const defaultEndBaseInstructions = `{{if .agent_descriptions}}
 {{end}}
+
+### Previous conversation history:
+~~~
+{{.history}}
+~~~
 
 ### Output Format:
 You must response with json format like below:
@@ -140,11 +146,6 @@ You must response with json format like below:
   "cate": "END",
   "receiver": "User",
 }
-~~~
-
-### Previous conversation history:
-~~~
-{{.history}}
 ~~~
 
 Output:

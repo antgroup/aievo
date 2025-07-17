@@ -370,13 +370,41 @@ func parseAction(content string) (*schema.StepAction, error) {
 
 func parseMessage(name, content string) (*schema.Message, error) {
 	message := &schema.Message{Log: content, Sender: name}
-	if err := json.Unmarshal([]byte(content), message); err != nil {
+
+	// 先解析为map来处理content字段可能是对象的情况
+	var rawMessage map[string]interface{}
+	if err := json.Unmarshal([]byte(content), &rawMessage); err != nil {
 		return nil, err
 	}
 
 	// 检查是否包含必需的 'cate' 字段
-	if message.Type == "" {
+	if _, exists := rawMessage["cate"]; !exists {
 		return nil, errors.New("message content missing required 'cate' field")
+	}
+
+	// 如果content字段是对象，将其序列化为字符串
+	if contentObj, exists := rawMessage["content"]; exists {
+		if contentStr, ok := contentObj.(string); ok {
+			// 如果已经是字符串，保持不变
+			rawMessage["content"] = contentStr
+		} else {
+			// 如果是对象，序列化为JSON字符串
+			contentBytes, err := json.Marshal(contentObj)
+			if err != nil {
+				return nil, fmt.Errorf("failed to serialize content object: %w", err)
+			}
+			rawMessage["content"] = string(contentBytes)
+		}
+	}
+
+	// 重新序列化并解析为Message结构
+	processedBytes, err := json.Marshal(rawMessage)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal processed message: %w", err)
+	}
+
+	if err := json.Unmarshal(processedBytes, message); err != nil {
+		return nil, err
 	}
 
 	return message, nil
@@ -394,6 +422,21 @@ func parseMessageList(name, content string) ([]schema.Message, error) {
 		// 检查每个JSON对象是否包含必需的 'cate' 字段
 		if _, exists := jsonObj["cate"]; !exists {
 			return nil, fmt.Errorf("message at index %d missing required 'cate' field", i)
+		}
+
+		// 如果content字段是对象，将其序列化为字符串
+		if contentObj, exists := jsonObj["content"]; exists {
+			if contentStr, ok := contentObj.(string); ok {
+				// 如果已经是字符串，保持不变
+				jsonObj["content"] = contentStr
+			} else {
+				// 如果是对象，序列化为JSON字符串
+				contentBytes, err := json.Marshal(contentObj)
+				if err != nil {
+					return nil, fmt.Errorf("failed to serialize content object at index %d: %w", i, err)
+				}
+				jsonObj["content"] = string(contentBytes)
+			}
 		}
 
 		// 将每个JSON对象转换回字节数组

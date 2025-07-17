@@ -287,6 +287,7 @@ func main() {
 				log.Fatalf("Failed to write results to file: %v", err)
 			}
 
+			fmt.Printf("Current Correct Count: %d\tTotal Count: %d\n", correctCount, totalCount)
 			fmt.Printf("Current Accuracy for Level %d: %.3f%%\n", level, accuracy*100)
 		}
 

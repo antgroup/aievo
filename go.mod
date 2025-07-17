@@ -18,6 +18,13 @@ require (
 	github.com/tidwall/match v1.1.1
 	github.com/tidwall/pretty v1.2.1
 	go.starlark.net v0.0.0-20250417143717-f57e51f710eb
+	github.com/360EntSecGroup-Skylar/excelize/v2 v2.7.1
+	github.com/PuerkitoBio/goquery v1.8.1
+	github.com/ledongthuc/pdf v0.0.0-20220302134840-0c2507a12d80
+	github.com/russross/blackfriday/v2 v2.1.0
+	github.com/tealeg/xlsx v1.0.5
+	github.com/unidoc/unioffice v1.28.0
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
@@ -49,4 +56,9 @@ require (
 	golang.org/x/text v0.22.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	github.com/richardlehane/mscfb v1.0.4 // indirect
+	github.com/richardlehane/msoleps v1.0.3 // indirect
+	github.com/xuri/efp v0.0.0-20220603152613-6918739fd470 // indirect
+	github.com/xuri/nfp v0.0.0-20220409054826-5e722a1d9e22 // indirect
+	golang.org/x/crypto v0.8.0 // indirect
 )
