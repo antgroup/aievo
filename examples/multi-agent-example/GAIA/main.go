@@ -186,7 +186,7 @@ func main() {
 
 	levels := []int{1}
 	for _, level := range levels {
-		datasetPath := fmt.Sprintf("/Users/liuxiansheng/Agent/aievo/dataset/gaia/level_%d_val_filtered.json", level)
+		datasetPath := fmt.Sprintf("/Users/tyloafer/WorkPlace/src/github.com/antgroup/aievo/dataset/gaia/level_%d_val_filtered.json", level)
 		fmt.Printf("\n################## Starting Evaluation for Level %d ##################\n", level)
 		fmt.Printf("Loading dataset from: %s\n", datasetPath)
 
