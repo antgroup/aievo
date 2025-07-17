@@ -30,11 +30,13 @@ const WebADescription = `Search the web to find necessary information.`
 
 const WebAPrompt = `
 You are a Web Search Agent.
-You need to use the provided search tool to find necessary information of the user'ss given question. 
-Please generate three specific search queries directly related to the original question. 
+You need to use the provided search tool to find necessary information of the user's given question. 
+Please generate at most three specific search queries directly related to the original question. 
 Each query should focus on key terms from the question. Format the output as a comma-separated list.
-Then, review the provided search results and identify and summarize the most relevant information related to the question.
-If the information from web search is useless, Please reuse the web search tool to search for more information.
+Then, review the provided search results (in "Observation") and identify the most relevant information related to the question.
+If the information from web search is useless, Please adjust your queries and reuse the web search tool to search for more information.
+If you already find useful information, please continue to the next step.
+If you receive a "feedback" that indicates an error, please analyze the feedback and adjust your output accordingly.
 `
 
 const AnswerADescription = `Generate the final answer based on gathered information.`
@@ -73,18 +75,40 @@ You have access to the following tools:
 ~~~{{end}}
 
 ### Output Format
+Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
-1. When you need to assign tasks to other agents or reply to other agents, you must response with json format like below:
+##### 1. Delegating to a Single Agent
+When you need to assign tasks or send message to another agent, use a single JSON object like below:
 ~~~
 {
   "thought": "Clearly describe why you think the conversation should send to the receiver agent",
   "cate": "MSG",
-  "receiver": "The name of the agent that transfer task/question to you, receiver must be in one of [{{.agent_names}}]",
-  "content": "The message for next agent."
+  "receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
+  "content": "A clear, self-contained, and informative message for the receiver agent." 
 }
 ~~~
+
+##### 2. Delegating to Multiple Different Agents
+When a task requires parallel processing by multiple different agents (i.e., each message must be addressed to a different receiver), use a JSON array (a list of message objects) like below:
+~~~
+[
+	{
+	  	"thought": "Clearly describe why you think the conversation should send to the receiver agent",
+	  	"cate": "MSG",
+  	  	"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
+		"content": "A clear, self-contained, and informative message for the receiver agent." 
+	},
+	{
+	  	"thought": "Clearly describe why you think the conversation should send to the receiver agent",
+	  	"cate": "MSG",
+  	  	"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
+		"content": "A clear, self-contained, and informative message for the receiver agent." 
+	}
+]
+~~~
 {{if .tool_descriptions}}
-2. When you want to use a tool, you must response with json format like below:
+##### 3. Using a Tool
+When you want to use a tool, you must respond with JSON format like below:
 ~~~
 {
 	"thought": "you should always think about what to do",
@@ -93,7 +117,8 @@ You have access to the following tools:
 	"persistence": "the persistence to store the results, Must be bool, only persistence the important information"
 }
 ~~~
-Please note that the two JSON formats are different. Only one format is selected for output each time.{{end}}
+Please note that the above JSON formats are different. Only one format is selected for output each time.
+DO NOT invoke an agent while using a tool, such as: {"action": "AnswerAgent"}. {{end}}
 
 ### Previous Conversation History
 ~~~

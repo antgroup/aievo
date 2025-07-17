@@ -300,6 +300,20 @@ func parseOutput(name string, output *llm.Generation) ([]schema.StepAction, []sc
 		return nil, nil, errors.New("content is empty")
 	}
 	content = json.TrimJsonString(content)
+
+	// 如果是消息列表
+	if content[0] == '[' && content[len(content)-1] == ']' {
+		messages, err := parseMessageList(name, content)
+		if err != nil {
+			return nil, nil, err
+		}
+		if len(messages) == 0 {
+			return nil, nil, errors.New("no valid messages found")
+		}
+		return nil, messages, nil
+	}
+
+	// 如果是单条消息
 	action, err := parseAction(content)
 	if err != nil {
 		return nil, nil, err
@@ -359,7 +373,45 @@ func parseMessage(name, content string) (*schema.Message, error) {
 	if err := json.Unmarshal([]byte(content), message); err != nil {
 		return nil, err
 	}
+
+	// 检查是否包含必需的 'cate' 字段
+	if message.Type == "" {
+		return nil, errors.New("message content missing required 'cate' field")
+	}
+
 	return message, nil
+}
+
+func parseMessageList(name, content string) ([]schema.Message, error) {
+	// 首先尝试解析为JSON数组
+	var jsonArray []map[string]interface{}
+	if err := json.Unmarshal([]byte(content), &jsonArray); err != nil {
+		return nil, fmt.Errorf("failed to parse content as JSON array: %w", err)
+	}
+
+	messages := make([]schema.Message, 0, len(jsonArray))
+	for i, jsonObj := range jsonArray {
+		// 检查每个JSON对象是否包含必需的 'cate' 字段
+		if _, exists := jsonObj["cate"]; !exists {
+			return nil, fmt.Errorf("message at index %d missing required 'cate' field", i)
+		}
+
+		// 将每个JSON对象转换回字节数组
+		objBytes, err := json.Marshal(jsonObj)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal object at index %d: %w", i, err)
+		}
+
+		// 解析为Message结构
+		message := &schema.Message{Log: string(objBytes), Sender: name}
+		if err := json.Unmarshal(objBytes, message); err != nil {
+			return nil, fmt.Errorf("failed to parse message at index %d: %w", i, err)
+		}
+
+		messages = append(messages, *message)
+	}
+
+	return messages, nil
 }
 
 func (ba *BaseAgent) Name() string {

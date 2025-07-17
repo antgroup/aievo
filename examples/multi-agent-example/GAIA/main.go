@@ -18,8 +18,8 @@ import (
 	"github.com/antgroup/aievo/memory"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
-	"github.com/antgroup/aievo/tool/calculator"
-	"github.com/antgroup/aievo/tool/mcp"
+	"github.com/antgroup/aievo/tool/search"
+	// "github.com/antgroup/aievo/tool/mcp"
 )
 
 type GaiaQuestion struct {
@@ -158,32 +158,33 @@ func main() {
 	}
 	// 实例化所需要的Tools
 	// 搜索引擎
-	// searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	// search, _ := search.New(
-	// 	search.WithEngine("google"),
-	// 	search.WithApiKey(searchApiKey),
-	// 	search.WithTopK(5),
-	// )
+	searchApiKey := os.Getenv("SERPAPI_API_KEY")
+	search, _ := search.New(
+		search.WithEngine("google"),
+		search.WithApiKey(searchApiKey),
+		search.WithTopK(5),
+	)
+	tools := []tool.Tool{search}
 
-	tools, err := mcp.New(fmt.Sprintf(`
-{
-  "mcpServers": {
-    "mcp-server-firecrawl": {
-      "command": "npx",
-      "args": ["-y", "firecrawl-mcp"],
-      "env": {
-        "FIRECRAWL_API_KEY": "%s"
-      }
-    }
-  }
-}
-`, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
-	if err != nil {
-		log.Fatalf("mcp register err: %+v", err)
-	}
-	tools = append(tools, calculator.Calculator{})
+	//	tools, err := mcp.New(fmt.Sprintf(`
+	//{
+	//  "mcpServers": {
+	//    "mcp-server-firecrawl": {
+	//      "command": "npx",
+	//      "args": ["-y", "firecrawl-mcp"],
+	//      "env": {
+	//        "FIRECRAWL_API_KEY": "%s"
+	//      }
+	//    }
+	//  }
+	//}
+	//`, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
+	//	if err != nil {
+	//		log.Fatalf("mcp register err: %+v", err)
+	//	}
+	//tools = append(tools, calculator.Calculator{})
 
-	levels := []int{2}
+	levels := []int{1}
 	for _, level := range levels {
 		datasetPath := fmt.Sprintf("/Users/liuxiansheng/Agent/aievo/dataset/gaia/level_%d_val_filtered.json", level)
 		fmt.Printf("\n################## Starting Evaluation for Level %d ##################\n", level)
@@ -226,7 +227,7 @@ func main() {
 				logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 				if logErr == nil {
 					defer logFile.Close()
-					logEntry := fmt.Sprintf("-----Level: %d, TaskID: %s\n---Error: %v\n", level, q.TaskID, err)
+					logEntry := fmt.Sprintf("-----Level: %d, ID: %d, TaskID: %s\n---Question:%s\n---Error: %v\n", level, i, q.TaskID, q.Question, err)
 					logFile.WriteString(logEntry)
 				}
 				continue
