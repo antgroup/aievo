@@ -85,6 +85,12 @@ func (r *PDFReader) Parse(filePath string) (string, error) {
 type DOCXReader struct{}
 
 func (r *DOCXReader) Parse(filePath string) (string, error) {
+	txtFilePath := strings.TrimSuffix(filePath, filepath.Ext(filePath)) + ".txt"
+	if _, err := os.Stat(txtFilePath); err == nil {
+		txtReader := &TXTReader{}
+		return txtReader.Parse(txtFilePath)
+	}
+
 	log.Printf("Reading DOCX file from %s", filePath)
 
 	// 使用 unidoc/unioffice 库打开文档
@@ -437,6 +443,12 @@ func removeDuplicates(words []string) []string {
 type PPTXReader struct{}
 
 func (r *PPTXReader) Parse(filePath string) (string, error) {
+	txtFilePath := strings.TrimSuffix(filePath, filepath.Ext(filePath)) + ".txt"
+	if _, err := os.Stat(txtFilePath); err == nil {
+		txtReader := &TXTReader{}
+		return txtReader.Parse(txtFilePath)
+	}
+
 	log.Printf("Reading PowerPoint file from %s", filePath)
 	pres, err := presentation.Open(filePath)
 	if err != nil {
