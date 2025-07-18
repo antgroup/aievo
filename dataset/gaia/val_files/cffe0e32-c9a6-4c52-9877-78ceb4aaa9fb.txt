@@ -1,0 +1,59 @@
+Employees
+
+Harry
+Rebecca
+Georgette
+Micah
+Perry
+Tyson
+Lucy
+Jun
+Sara
+ Miguel
+ Fred
+ Alex
+
+Gift Assignments
+
+Giftee  Recipient
+Harry  Miguel
+Rebecca  Micah
+Georgette  Lucy
+Micah  Jun
+Perry  Georgette
+Tyson  Fred
+Lucy  Alex
+Jun  Harry
+Sara  Perry
+Fred  Rebecca
+Miguel  Sara
+Alex  Tyson
+
+Profiles
+
+Harry: Fishing, Camping, Wine
+Rebecca: Cars, Dogs, Chocolate
+Georgette: Yoga, Cooking, Green Energy
+Micah: Knitting, Rainy Weather, Books
+Perry: Old Movies, Rats, Journaling
+Tyson: Historical Fiction Novels, Biking, Parakeets
+Lucy: Coffee, Physics, Board Games 
+Jun: Woodworking, Barbecue, JavaScript
+Sara: Tabletop RPGs, Spas, Music
+Miguel: Astronomy, Decorative Washi Tape, Ketchup
+Fred: Chemistry, Perl, Cats
+Alex: Surfing, Audrey Hepburn, Manga
+
+Gifts:
+
+Galileo Galilei biography
+Fishing reel
+Raku programming guide
+Chisel set
+Custom dice
+“War and Peace” American film copy
+Yarn
+“One Piece” graphic novel
+“War and Peace” novel
+Starbucks gift card
+Foam exercise mat
