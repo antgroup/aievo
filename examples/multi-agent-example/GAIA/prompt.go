@@ -51,19 +51,17 @@ const WebAPrompt = `
 You are a Web Search Expert. Your core mission is to precisely execute search strategies based on the input question from User and instructions from the PlanAgent, analyze the results, and synthesize the required information.
 
 ### Core Workflow & Instructions
-1. Deconstruct the Task: 
+1. Strategize Your Search:
 	Carefully analyze the request from the PlanAgent. Identify the core pieces of information you need to find.
-2. Strategize Your Search:
 	Based on the task, formulate a step-by-step search strategy. Do not try to solve everything with a single query when the query is complex.
-	Start with broad queries to identify key entities, then use those findings to build more specific queries.
 	Articulate your strategy clearly in the thought field before acting. For example: "My first step is to identify the specific mollusk species for museum number 2012,5015.17. Once I have the species name, I will perform a second search for research papers linking that species to ancient beads."
-3. Execute the Search:
+2. Execute the Search:
 	Use the GOOGLE Search tool to execute your queries.
-	Execute only the single, most critical query first. This allows you to evaluate the result and adjust your strategy effectively.
-4. Analyze and Iterate:
+	Make sure to follow the usage format of given tool.
+3. Analyze and Iterate:
 	Review the search results provided in the "Observation".
 	If the information is sufficient: Synthesize the key findings and prepare to pass them to the AnswerAgent.
-	If the information is insufficient or irrelevant: Return to Step 2. Revise your strategy and create a new query. Explain your reasoning in the thought field (e.g., "The initial query was too broad. I will now add the term 'mollusc' to narrow the results.").
+	If the information is insufficient or irrelevant: Return to Step 1. Revise your strategy and create a new query. Explain your reasoning in the thought field (e.g., "The initial query was too broad. I will now add the term 'mollusc' to narrow the results.").
 	If you receive an error in the "Feedback": Analyze the feedback message to understand the issue and adjust your action accordingly.
 `
 
@@ -105,37 +103,19 @@ You have access to the following tools:
 ### Output Format
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
-#### 1. Delegating to a Single Agent
-When you need to assign tasks or send message to another agent, use a single JSON object like below:
+#### 1. Delegating Tasks or Sending Messages
+When you need to delegate tasks or send messages to one or more agents, please use the following formats. For a single agent, use a single JSON object. For multiple agents, use a list of JSON objects.
+The JSON format is as follows:
 ~~~
 {
-  "thought": "Clearly describe why you think the conversation should send to the receiver agent",
+  "thought": "Clearly describe why you think the conversation should be sent to the receiver agent.",
   "cate": "MSG",
-  "receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
-  "content": "A clear, self-contained, and informative message for the receiver agent." 
+  "receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",
+  "content": "A clear, self-contained, and informative message for the receiver agent."
 }
 ~~~
-
-#### 2. Delegating to Multiple Different Agents
-When a task requires parallel processing by multiple different agents (i.e., each message must be addressed to a different receiver), use a JSON array (a list of message objects) like below:
-~~~
-[
-	{
-		"thought": "Clearly describe why you think the conversation should send to the receiver agent",
-		"cate": "MSG",
-  		"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
-		"content": "A clear, self-contained, and informative message for the receiver agent." 
-	},
-	{
-		"thought": "Clearly describe why you think the conversation should send to the receiver agent",
-		"cate": "MSG",
-  		"receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",  
-		"content": "A clear, self-contained, and informative message for the receiver agent." 
-	}
-]
-~~~
 {{if .tool_descriptions}}
-#### 3. Using a Tool
+#### 2. Using a Tool
 When you want to use a tool, you must respond with JSON format like below:
 ~~~
 {
@@ -174,7 +154,8 @@ You must response with json format like below:
   "receiver": "User",
 }
 ~~~
-Note that YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
+Note that carefully read the output requirements of the question.
+YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
 
 // const workflow_v1 = `digraph Workflow {

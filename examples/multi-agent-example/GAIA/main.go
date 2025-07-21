@@ -18,8 +18,8 @@ import (
 	"github.com/antgroup/aievo/memory"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
-	// "github.com/antgroup/aievo/tool/search"
-	"github.com/antgroup/aievo/tool/mcp"
+	"github.com/antgroup/aievo/tool/search"
+	// "github.com/antgroup/aievo/tool/mcp"
 )
 
 type GaiaQuestion struct {
@@ -30,17 +30,18 @@ type GaiaQuestion struct {
 	FileName    string `json:"file_name"`
 }
 type ResultLog struct {
-	ID              int     `json:"id"`
-	TaskID          string  `json:"task_id"`
-	Question        string  `json:"question"`
-	StandardAnswer  string  `json:"standard_answer"`
-	ModelOutput     string  `json:"model_output"`
-	ModelThought    string  `json:"model_thought"`
-	IsCorrect       bool    `json:"is_correct"`
-	TotalCorrect    int     `json:"total_correct"`
-	TotalCount      int     `json:"total_count"`
-	RunningAccuracy float64 `json:"running_accuracy"`
-	Time            string  `json:"time"`
+	ID                   int              `json:"id"`
+	TaskID               string           `json:"task_id"`
+	Question             string           `json:"question"`
+	StandardAnswer       string           `json:"standard_answer"`
+	ModelOutput          string           `json:"model_output"`
+	ModelThought         string           `json:"model_thought"`
+	CommunicationHistory []schema.Message `json:"communication_history"`
+	IsCorrect            bool             `json:"is_correct"`
+	TotalCorrect         int              `json:"total_correct"`
+	TotalCount           int              `json:"total_count"`
+	RunningAccuracy      float64          `json:"running_accuracy"`
+	Time                 string           `json:"time"`
 }
 
 func normalizeAnswer(s string) string {
@@ -148,30 +149,30 @@ func main() {
 	}
 	// 实例化所需要的Tools
 	// 搜索引擎
-	// searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	// search, _ := search.New(
-	// 	search.WithEngine("google"),
-	// 	search.WithApiKey(searchApiKey),
-	// 	search.WithTopK(5),
-	// )
-	// tools := []tool.Tool{search}
+	searchApiKey := os.Getenv("SERPAPI_API_KEY")
+	search, _ := search.New(
+		search.WithEngine("google"),
+		search.WithApiKey(searchApiKey),
+		search.WithTopK(5),
+	)
+	tools := []tool.Tool{search}
 
-	tools, err := mcp.New(fmt.Sprintf(`
-	{
-	"mcpServers": {
-	  "mcp-server-firecrawl": {
-	    "command": "npx",
-	    "args": ["-y", "firecrawl-mcp"],
-	    "env": {
-	      "FIRECRAWL_API_KEY": "%s"
-	    }
-	  }
-	}
-	}
-	`, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
-	if err != nil {
-		log.Fatalf("mcp register err: %+v", err)
-	}
+	// tools, err := mcp.New(fmt.Sprintf(`
+	// {
+	// "mcpServers": {
+	//   "mcp-server-firecrawl": {
+	//     "command": "npx",
+	//     "args": ["-y", "firecrawl-mcp"],
+	//     "env": {
+	//       "FIRECRAWL_API_KEY": "%s"
+	//     }
+	//   }
+	// }
+	// }
+	// `, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
+	// if err != nil {
+	// 	log.Fatalf("mcp register err: %+v", err)
+	// }
 
 	levels := []int{1}
 	for _, level := range levels {
@@ -236,6 +237,11 @@ func main() {
 			// The return value 'gen' is a string, not a struct.
 			fmt.Printf("Model Output Answer: %s\n", gen)
 
+			var communicationHistory []schema.Message
+			if buffer, ok := evo.Environment.Memory.(*memory.Buffer); ok {
+				communicationHistory = buffer.Messages
+			}
+
 			modelOutputContent := gen
 			isCorrect := false
 
@@ -263,17 +269,17 @@ func main() {
 			fmt.Printf("Is correct?     %t\n", isCorrect)
 
 			results = append(results, ResultLog{
-				ID:              i,
-				TaskID:          q.TaskID,
-				Question:        q.Question,
-				StandardAnswer:  q.FinalAnswer,
-				ModelOutput:     modelOutputContent,
-				ModelThought:    "", // Thought is not available in the returned string.
-				IsCorrect:       isCorrect,
-				TotalCorrect:    correctCount,
-				TotalCount:      totalCount,
-				RunningAccuracy: accuracy,
-				Time:            time.Since(start_time).String(),
+				ID:                   i,
+				TaskID:               q.TaskID,
+				Question:             q.Question,
+				StandardAnswer:       q.FinalAnswer,
+				ModelOutput:          modelOutputContent,
+				CommunicationHistory: communicationHistory,
+				IsCorrect:            isCorrect,
+				TotalCorrect:         correctCount,
+				TotalCount:           totalCount,
+				RunningAccuracy:      accuracy,
+				Time:                 time.Since(start_time).String(),
 			})
 
 			resultsJSON, err := json.MarshalIndent(results, "", "  ")
