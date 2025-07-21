@@ -1,0 +1,72 @@
+[
+    {
+        "task_id": "7619a514-5fa8-43ef-9143-83b66a43d7a4",
+        "Question": "According to github, when was Regression added to the oldest closed numpy.polynomial issue that has the Regression label in MM/DD/YY?",
+        "Level": 2,
+        "Final answer": "04/15/18",
+        "file_name": "",
+        "Annotator Metadata": {
+            "Steps": "1. Searched \"numpy github\" on Google search.\n2. Opened the NumPy GitHub page.\n3. Clicked \"Issues\" in the repo tabs.\n4. Clicked \"Closed\" on the filter bar.\n5. Set the filter to the \"numpy.polynomial\" label.\n6. Set the filter to the \"06 - Regression\" label.\n7. Opened the oldest Regression post.\n8. Scrolled down to find when the Regression label was added (Apr 15, 2018).\n9. Converted to MM/DD/YY (04/15/18).",
+            "Number of steps": "9",
+            "How long did this take?": "10 minutes",
+            "Tools": "1. Web browser\n2. Search engine",
+            "Number of tools": "2"
+        }
+    },
+    {
+        "task_id": "db4fd70a-2d37-40ea-873f-9433dc5e301f",
+        "Question": "As of May 2023, how many stops are between South Station and Windsor Gardens on MBTA’s Franklin-Foxboro line (not included)?",
+        "Level": 2,
+        "Final answer": "10",
+        "file_name": "",
+        "Annotator Metadata": {
+            "Steps": "1. Search the web for “MBTA Franklin Foxboro line”.\n2. Click on top result, on the MBTA website.\n3. Scroll down on the list of stops, and count the current stops between South Station and Windsor Gardens.\n4. Click the “Schedule & Maps” tab to view a map of the route.\n5. Examine the map to confirm that the order of stops is the same as on the listing of stops.\n6. Return to web search.\n7. Click on Wikipedia article for Franklin line.\n8. Read the article to check whether any stops were added or removed since the date given in the question.\n9. Search the web for “MBTA Franklin Foxboro Line changes”.\n10. Click News tab.\n11. Click article about rail schedule changes.\n12. Confirm that none of the changes affect the answer to the question.",
+            "Number of steps": "12",
+            "How long did this take?": "5-10 minutes",
+            "Tools": "1. Search engine\n2. Web browser",
+            "Number of tools": "2"
+        }
+    },
+    {
+        "task_id": "7cc4acfa-63fd-4acc-a1a1-e8e529e0a97f",
+        "Question": "The attached spreadsheet contains the sales of menu items for a regional fast-food chain. Which city had the greater total sales: Wharvton or Algrimand?",
+        "Level": 2,
+        "Final answer": "Wharvton",
+        "file_name": "7cc4acfa-63fd-4acc-a1a1-e8e529e0a97f.xlsx",
+        "Annotator Metadata": {
+            "Steps": "1. Open the attached file.\n2. Locate the rows representing Wharvton and Algrimand.\n3. Write functions to sum each relevant row.\n4. Compare the sums.",
+            "Number of steps": "4",
+            "How long did this take?": "5 minutes",
+            "Tools": "1. Excel\n2. Calculator",
+            "Number of tools": "2"
+        }
+    },
+    {
+        "task_id": "65638e28-7f37-4fa7-b7b9-8c19bb609879",
+        "Question": "The book with the doi 10.1353/book.24372 concerns a certain neurologist. According to chapter 2 of the book, what author influenced this neurologist’s belief in “endopsychic myths”? Give the last name only.",
+        "Level": 2,
+        "Final answer": "Kleinpaul",
+        "file_name": "",
+        "Annotator Metadata": {
+            "Steps": "1. Search the web for 10.1353/book.24372.\n2. Click link to read the book.\n3. Click link for the second chapter.\n4. Ctrl-F for “endopsychic” to find a relevant passage.\n5. Read the passage to find the author the question is asking about, Kleinpaul.",
+            "Number of steps": "5",
+            "How long did this take?": "5 minutes",
+            "Tools": "1. Search engine\n2. Web browser\n3. PDF viewer",
+            "Number of tools": "3"
+        }
+    },
+    {
+        "task_id": "0b260a57-3f3a-4405-9f29-6d7a1012dbfb",
+        "Question": "On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+        "Level": 2,
+        "Final answer": "0.269",
+        "file_name": "",
+        "Annotator Metadata": {
+            "Steps": "1. Searched \"ScienceDirect\" on Google.\n2. Opened the ScienceDirect website.\n3. Clicked on the top listed domain in the Life Science section on the main page (Agricultural and Biological Sciences).\n4. Clicked on \"Reference works\" in the filters.\n5. Noted the number at the top.\n6. Subtracted the number that had 2023 or later as a date.\n7. Changed the domain to the following one and noted the number.\n8. Repeated step 6 for all Life Science domains.\n9. Calculated the sample standard deviation (16.195678435929).\n10. Went back to the home page.\n11. Repeated steps 3-9 for Health Science (15.926916420534).\n12. Subtracted 16.195678435929 - 15.926916420534.\n13. Rounded to the third decimal place.",
+            "Number of steps": "13",
+            "How long did this take?": "15 minutes",
+            "Tools": "1. Web browser\n2. Search engine\n3. Calculator",
+            "Number of tools": "3"
+        }
+    }
+]

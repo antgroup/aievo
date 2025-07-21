@@ -162,6 +162,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 	}
 
 	inputs["name"] = ba.name
+	inputs["description"] = ba.desc
 	inputs["role"] = ba.role
 	inputs["history"] = schema.ConvertConstructScratchPad(ba.name, "me", messages, steps)
 	inputs["current"] = time.Now().Format("2006-01-02 15:04:05")
@@ -172,7 +173,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		inputs["sop"] = ba.env.SOP()
 	}
 
-	if ba.name == "FileAgent" {
+	if strings.Contains(ba.name, "File") || strings.Contains(ba.name, "file") {
 		// Extract the question from the first message
 		question := messages[0].Content
 		// If the question contains a filename, extract it

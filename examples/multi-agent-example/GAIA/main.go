@@ -138,6 +138,106 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 	return aievo.NewAIEvo(opts...)
 }
 
+type SOP struct {
+	ID      int           `json:"id"`
+	Team    []string      `json:"team"`
+	SOP     string        `json:"sop"`
+	Details []AgentDetail `json:"details"`
+}
+
+type AgentDetail struct {
+	Name           string `json:"name"`
+	Responsibility string `json:"responsibility"`
+	Reponsibility  string `json:"reponsibility"` // Typo in the JSON file
+	Instruction    string `json:"instruction"`
+}
+
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AIEvo, error) {
+	sopFile, err := os.ReadFile(sopPath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read SOP file: %w", err)
+	}
+
+	var sops []SOP
+	if err := json.Unmarshal(sopFile, &sops); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal SOP JSON: %w", err)
+	}
+
+	if len(sops) == 0 {
+		return nil, fmt.Errorf("no SOPs found in the JSON file")
+	}
+
+	selectedSOP := sops[1]
+
+	callbackHandler := &CallbackHandler{}
+	agentsMap := make(map[string]schema.Agent)
+	var team []schema.Agent
+
+	for _, agentDetail := range selectedSOP.Details {
+		desc := agentDetail.Responsibility
+		if desc == "" {
+			desc = agentDetail.Reponsibility
+		}
+
+		agentOpts := []agent.Option{
+			agent.WithName(agentDetail.Name),
+			agent.WithDesc(desc),
+			agent.WithPrompt(desc),
+			agent.WithRole(agentDetail.Instruction),
+			agent.WithLLM(client),
+			agent.WithCallback(callbackHandler),
+		}
+
+		if strings.Contains(agentDetail.Name, "Web") || strings.Contains(agentDetail.Name, "web") {
+			agentOpts = append(agentOpts, agent.WithTools(ts))
+		}
+
+		if strings.Contains(agentDetail.Name, "File") || strings.Contains(agentDetail.Name, "file") {
+			agentOpts = append(agentOpts, agent.WithSuffix(FileSuffix))
+		} else {
+			agentOpts = append(agentOpts, agent.WithSuffix(NULLSuffix))
+		}
+
+		// Check if this is the last agent in the team
+		var instructionsToUse string
+		if len(team)+1 == len(selectedSOP.Details) {
+			instructionsToUse = defaultEndBaseInstructions
+		} else {
+			instructionsToUse = NewBaseInstructions
+		}
+		agentOpts = append(agentOpts, agent.WithInstruction(instructionsToUse))
+
+		newAgent, err := agent.NewBaseAgent(agentOpts...)
+		if err != nil {
+			return nil, fmt.Errorf("failed to create agent %s: %w", agentDetail.Name, err)
+		}
+		agentsMap[agentDetail.Name] = newAgent
+		team = append(team, newAgent)
+	}
+
+	env := environment.NewEnv()
+	env.Memory = memory.NewBufferMemory()
+
+	var teamLeader schema.Agent
+	if len(selectedSOP.Team) > 0 {
+		teamLeader = agentsMap[selectedSOP.Team[0]]
+	}
+
+	opts := []aievo.Option{
+		aievo.WithTeam(team),
+		aievo.WithMaxTurn(20),
+		aievo.WithCallback(callbackHandler),
+		aievo.WithLLM(client),
+		aievo.WithEnvironment(env),
+		aievo.WithTeamLeader(teamLeader),
+		aievo.WithSOP(selectedSOP.SOP),
+		aievo.WithUserProxy(nil),
+		aievo.WithSubMode(environment.ALLSubMode),
+	}
+
+	return aievo.NewAIEvo(opts...)
+}
+
 func main() {
 	// 大模型实例化
 	client, err := openai.New(
@@ -174,9 +274,21 @@ func main() {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
 
-	levels := []int{1}
+	eval := 0
+	var levels []int
+	if eval > 0 {
+		levels = []int{1, 2, 3}
+	} else {
+		levels = []int{0}
+	}
+
 	for _, level := range levels {
-		datasetPath := fmt.Sprintf("../../../dataset/gaia/level_%d_val_filtered.json", level)
+		datasetPath := ""
+		if level == 0 {
+			datasetPath = "../../../dataset/gaia/train.json"
+		} else {
+			datasetPath = fmt.Sprintf("../../../dataset/gaia/level_%d_val_new.json", level)
+		}
 		fmt.Printf("\n################## Starting Evaluation for Level %d ##################\n", level)
 		fmt.Printf("Loading dataset from: %s\n", datasetPath)
 
@@ -207,7 +319,15 @@ func main() {
 			//	break
 			//}
 
-			evo, err := createEvo(client, tools)
+			fromsop := true
+			var evo *aievo.AIEvo
+			var err error
+			if fromsop {
+				evo, err = createEvoFromSOP(client, tools, "SOP/v1.json")
+			} else {
+				evo, err = createEvo(client, tools)
+			}
+
 			if err != nil {
 				panic(err)
 			}
