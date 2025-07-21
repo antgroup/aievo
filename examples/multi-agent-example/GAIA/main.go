@@ -18,8 +18,8 @@ import (
 	"github.com/antgroup/aievo/memory"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
-	"github.com/antgroup/aievo/tool/search"
-	// "github.com/antgroup/aievo/tool/mcp"
+	// "github.com/antgroup/aievo/tool/search"
+	"github.com/antgroup/aievo/tool/mcp"
 )
 
 type GaiaQuestion struct {
@@ -90,7 +90,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithInstruction(defaultBaseInstructions),
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
-		agent.WithSuffix(NULLSuffix),
+		agent.WithSuffix(FileSuffix),
 	)
 
 	//
@@ -104,16 +104,6 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
 	)
-
-	// WebSumA, _ := agent.NewBaseAgent(
-	// 	agent.WithName("WebSummaryAgent"),
-	// 	agent.WithDesc(WebSumADescription),
-	// 	agent.WithPrompt(WebSumAPrompt),
-	// 	agent.WithInstruction(defaultEndBaseInstructions),
-	// 	agent.WithLLM(client),
-	// 	agent.WithTools([]tool.Tool{search}),
-	// 	agent.WithCallback(callbackHandler),
-	// )
 
 	AnswerA, _ := agent.NewBaseAgent(
 		agent.WithName("AnswerAgent"),
@@ -158,31 +148,30 @@ func main() {
 	}
 	// 实例化所需要的Tools
 	// 搜索引擎
-	searchApiKey := os.Getenv("SERPAPI_API_KEY")
-	search, _ := search.New(
-		search.WithEngine("google"),
-		search.WithApiKey(searchApiKey),
-		search.WithTopK(5),
-	)
-	tools := []tool.Tool{search}
+	// searchApiKey := os.Getenv("SERPAPI_API_KEY")
+	// search, _ := search.New(
+	// 	search.WithEngine("google"),
+	// 	search.WithApiKey(searchApiKey),
+	// 	search.WithTopK(5),
+	// )
+	// tools := []tool.Tool{search}
 
-	//	tools, err := mcp.New(fmt.Sprintf(`
-	//{
-	//  "mcpServers": {
-	//    "mcp-server-firecrawl": {
-	//      "command": "npx",
-	//      "args": ["-y", "firecrawl-mcp"],
-	//      "env": {
-	//        "FIRECRAWL_API_KEY": "%s"
-	//      }
-	//    }
-	//  }
-	//}
-	//`, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
-	//	if err != nil {
-	//		log.Fatalf("mcp register err: %+v", err)
-	//	}
-	//tools = append(tools, calculator.Calculator{})
+	tools, err := mcp.New(fmt.Sprintf(`
+	{
+	"mcpServers": {
+	  "mcp-server-firecrawl": {
+	    "command": "npx",
+	    "args": ["-y", "firecrawl-mcp"],
+	    "env": {
+	      "FIRECRAWL_API_KEY": "%s"
+	    }
+	  }
+	}
+	}
+	`, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
+	if err != nil {
+		log.Fatalf("mcp register err: %+v", err)
+	}
 
 	levels := []int{1}
 	for _, level := range levels {
@@ -204,14 +193,18 @@ func main() {
 		logFilename := fmt.Sprintf("eval/eval_level_%d_%s.log", level, timeStamp)
 		start_time := time.Now()
 		start_id := 0
+		//end_id := len(questions)
 
 		for i, q := range questions {
-			if q.FileName != "" { // 先忽略需要file的问题
-				continue
-			}
+			// if q.FileName != "" { // 先忽略需要file的问题
+			// 	continue
+			// }
 			if i < start_id && level < 2 {
 				continue
 			}
+			//if i >= end_id {
+			//	break
+			//}
 
 			evo, err := createEvo(client, tools)
 			if err != nil {
@@ -219,7 +212,14 @@ func main() {
 			}
 
 			fmt.Printf("\n==================Processing question ID: %d (Level %d)\n", i, level)
-			gen, err := evo.Run(context.Background(), fmt.Sprintf("Question: %s", q.Question),
+			var question string
+			if q.FileName != "" {
+				question = fmt.Sprintf("Question: %s\nFILENAME:%s", q.Question, q.FileName)
+			} else {
+				question = fmt.Sprintf("Question: %s", q.Question)
+			}
+			totalCount++
+			gen, err := evo.Run(context.Background(), question,
 				llm.WithTemperature(0.6), llm.WithTopP(0.95))
 			if err != nil {
 				log.Printf("Error running engineer for task %s: %v", q.TaskID, err)
@@ -232,7 +232,6 @@ func main() {
 				}
 				continue
 			}
-			totalCount++
 
 			// The return value 'gen' is a string, not a struct.
 			fmt.Printf("Model Output Answer: %s\n", gen)

@@ -9,7 +9,15 @@ const workflow = `Workflow {
     6. AnswerAgent -> End;
 }`
 
-const NULLSuffix = ``
+const NULLSuffix = `
+Output:
+`
+const FileSuffix = `
+File Content: 
+{{.file}}
+
+Output:
+`
 
 const PlanADescription = `Analyse the given question and evaluate necessary information.`
 
@@ -21,8 +29,8 @@ Given a question, you need to evaluate if additional information is needed to an
 const FileADescription = "Analyse the input file to extract useful information."
 
 const FileAPrompt = `
-You are a File Analysis Agent.
-Given a file, you need to identify the key sections in the file relevant to the query. 
+You are a File analysis expert.
+Given a file, you need to identify the key sections in the file relevant to the user's question. 
 Extract and summarize the necessary information from these sections.
 `
 
@@ -93,10 +101,6 @@ You have access to the following tools:
 {{.tool_descriptions}}
 ~~~{{end}}
 
-### Current Task: Conversation History
-~~~
-{{.history}}
-~~~
 
 ### Output Format
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
@@ -145,7 +149,11 @@ Please note that the above JSON formats are different. Only one format is select
 DO NOT invoke an agent while using a tool. {{end}}
 
 
-Output:
+### Current Task: Conversation History
+~~~
+{{.history}}
+~~~
+
 `
 
 const defaultEndBaseInstructions = `{{if .agent_descriptions}}
@@ -167,8 +175,6 @@ You must response with json format like below:
 }
 ~~~
 Note that YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
-
-Output:
 `
 
 // const workflow_v1 = `digraph Workflow {

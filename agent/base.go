@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -14,6 +15,7 @@ import (
 	"github.com/antgroup/aievo/prompt"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
+	"github.com/antgroup/aievo/tool/filereaders"
 	"github.com/antgroup/aievo/utils/json"
 )
 
@@ -168,6 +170,32 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		inputs["agent_names"] = schema.ConvertAgentNames(ba.env.GetSubscribeAgents(ctx, ba))
 		inputs["agent_descriptions"] = schema.ConvertAgentDescriptions(ba.env.GetSubscribeAgents(ctx, ba))
 		inputs["sop"] = ba.env.SOP()
+	}
+
+	if ba.name == "FileAgent" {
+		// Extract the question from the first message
+		question := messages[0].Content
+		// If the question contains a filename, extract it
+		if strings.Contains(question, "FILENAME:") {
+			parts := strings.Split(question, "FILENAME:")
+			filename := strings.TrimSpace(parts[1])
+			// Extract until next whitespace or end of string
+			if idx := strings.Index(filename, " "); idx > 0 {
+				filename = filename[:idx]
+			}
+			// Construct the full file path using relative path
+			fullPath := filepath.Join("../../../dataset", "gaia", "val_files", filename)
+			// Create file reader and read the file
+			reader := filereaders.NewGeneralReader()
+			fileContent, err := reader.Read("read file content", fullPath)
+			if err != nil {
+				inputs["file"] = fmt.Sprintf("Error reading file %s: %v", filename, err)
+			} else {
+				inputs["file"] = fileContent
+			}
+		} else {
+			inputs["file"] = "No file provided"
+		}
 	}
 
 	p, err := ba.prompt.Format(inputs)

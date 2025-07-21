@@ -45,6 +45,9 @@ func convertMCPTool2Tool(c *client.Client, ts []mcp.Tool) []tool.Tool {
 	tools := make([]tool.Tool, 0, len(ts))
 
 	for _, t := range ts {
+		if t.Name == "firecrawl_scrape" || t.Name == "firecrawl_generate_llmstxt" || t.Name == "firecrawl_deep_research" || t.Name == "firecrawl_extract"  || t.Name == "firecrawl_check_crawl_status"  || t.Name == "firecrawl_crawl"  || t.Name == "firecrawl_map" {
+			continue
+		}
 		marshal, _ := json.Marshal(t.InputSchema)
 		ct := &Tool{
 			client:     c,
@@ -66,10 +69,10 @@ func (t Tool) Name() string {
 // Description returns a description for the tool.
 func (t Tool) Description() string {
 	desc := t.desc
-	if t.properties != nil {
-		marshal, _ := json.Marshal(t.properties)
-		desc += "\nthis is input schema for this tool:\n" + string(marshal)
-	}
+	// if t.properties != nil {
+	// 	marshal, _ := json.Marshal(t.properties)
+	// 	desc += "\nthis is input schema for this tool:\n" + string(marshal)
+	// }
 	return desc
 
 }
@@ -82,7 +85,11 @@ func (t Tool) Call(ctx context.Context, input string) (string, error) {
 		return "failed to call tool, err: " + err.Error(), nil
 	}
 	marshal, _ := json.Marshal(result)
-	return string(marshal), nil
+	ret := string(marshal)
+	if len(ret) > 2000 {
+		ret = ret[:2000]
+	}
+	return ret, nil
 }
 
 func (t Tool) Schema() *tool.PropertiesSchema {

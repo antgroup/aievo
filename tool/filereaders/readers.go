@@ -1,4 +1,4 @@
-package main
+package filereaders
 
 import (
 	"archive/zip"
@@ -30,13 +30,18 @@ type Reader interface {
 
 // TXTReader handles plain text files
 type TXTReader struct{}
-
 func (r *TXTReader) Parse(filePath string) (string, error) {
-	log.Printf("Reading TXT file from %s", filePath)
+	//log.Printf("Reading TXT file from %s", filePath)
 	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", fmt.Errorf("error reading file: %w", err)
 	}
+	
+	// Limit content to 20000 characters if it's longer
+	if len(content) > 20000 {
+		return string(content[:20000]), nil
+	}
+	
 	return string(content), nil
 }
 
@@ -673,7 +678,8 @@ func (gr *GeneralReader) Read(task, filePath string) (string, error) {
 	return result.String(), nil
 }
 
-// Example usage
+// Example usage - commented out since this is now a library package
+/*
 func main() {
 	reader := NewGeneralReader()
 	filePath := "../../dataset/gaia/val_files/a3fbeb63-0e8c-4a11-bff6-0e3b484c3e9c.pptx"
@@ -685,3 +691,4 @@ func main() {
 
 	fmt.Println(content)
 }
+*/
