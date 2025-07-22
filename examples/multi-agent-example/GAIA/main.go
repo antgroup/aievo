@@ -139,7 +139,6 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 }
 
 type SOP struct {
-	ID      int           `json:"id"`
 	Team    []string      `json:"team"`
 	SOP     string        `json:"sop"`
 	Details []AgentDetail `json:"details"`
@@ -148,26 +147,41 @@ type SOP struct {
 type AgentDetail struct {
 	Name           string `json:"name"`
 	Responsibility string `json:"responsibility"`
-	Reponsibility  string `json:"reponsibility"` // Typo in the JSON file
 	Instruction    string `json:"instruction"`
 }
 
+// SOPFile defines the structure of the generated SOP JSON file.
+type SOPFile struct {
+	Question string `json:"question"`
+	Analysis string `json:"analysis"`
+	SOPs     []SOP  `json:"sops"`
+}
+
 func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AIEvo, error) {
-	sopFile, err := os.ReadFile(sopPath)
+	sopFileBytes, err := os.ReadFile(sopPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read SOP file: %w", err)
 	}
 
+	// Try to unmarshal into the new SOPFile structure first.
+	var sopFile SOPFile
 	var sops []SOP
-	if err := json.Unmarshal(sopFile, &sops); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal SOP JSON: %w", err)
+	if err := json.Unmarshal(sopFileBytes, &sopFile); err == nil && len(sopFile.SOPs) > 0 {
+		sops = sopFile.SOPs
+		log.Printf("Successfully loaded SOP from new file format (question: %s)", sopFile.Question)
+	} else {
+		// Fallback to the old format (an array of SOPs)
+		if err := json.Unmarshal(sopFileBytes, &sops); err != nil {
+			return nil, fmt.Errorf("failed to unmarshal SOP JSON in either new or old format: %w", err)
+		}
+		log.Println("Successfully loaded SOP from old file format.")
 	}
 
 	if len(sops) == 0 {
 		return nil, fmt.Errorf("no SOPs found in the JSON file")
 	}
 
-	selectedSOP := sops[3]
+	selectedSOP := sops[len(sops)-1] // Get the last SOP as the selected one
 
 	callbackHandler := &CallbackHandler{}
 	agentsMap := make(map[string]schema.Agent)
@@ -175,9 +189,6 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AI
 
 	for _, agentDetail := range selectedSOP.Details {
 		desc := agentDetail.Responsibility
-		if desc == "" {
-			desc = agentDetail.Reponsibility
-		}
 
 		agentOpts := []agent.Option{
 			agent.WithName(agentDetail.Name),
@@ -295,39 +306,29 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 	if len(gen.Messages) == 0 || gen.Messages[0].Content == "" {
 		return "", fmt.Errorf("LLM returned an empty response")
 	}
-	responseText := gen.Messages[0].Content
 
-	// 5. Extract the JSON from the response
-	re := regexp.MustCompile("(?s)```json\n(.*?)\n```")
-	matches := re.FindStringSubmatch(responseText)
-	var sopJSON string
-	if len(matches) >= 2 {
-		sopJSON = matches[1]
-	} else {
-		log.Printf("Could not find JSON in markdown block, attempting to parse entire response.")
-		if strings.Contains(responseText, "{") {
-			jsonStartIndex := strings.Index(responseText, "{")
-			jsonEndIndex := strings.LastIndex(responseText, "}")
-			if jsonStartIndex != -1 && jsonEndIndex != -1 && jsonEndIndex > jsonStartIndex {
-				sopJSON = responseText[jsonStartIndex : jsonEndIndex+1]
-			} else {
-				return "", fmt.Errorf("no valid JSON object found in LLM response: %s", responseText)
-			}
-		} else {
-			return "", fmt.Errorf("no JSON object found in LLM response: %s", responseText)
-		}
-	}
+	agentResponse := gen.Messages[0]
+	log.Printf("SOP Generator Thought: %s", agentResponse.Thought)
+
+	// The actual SOP is in the 'Content' field.
+	sopJSON := string(agentResponse.Content)
 
 	// 6. Validate and save the new SOP
 	var newSop SOP
 	if err := json.Unmarshal([]byte(sopJSON), &newSop); err != nil {
-		return "", fmt.Errorf("failed to unmarshal generated SOP JSON: %w. Response was: %s", err, sopJSON)
+		return "", fmt.Errorf("failed to unmarshal generated SOP JSON from content field: %w. SOP JSON was: %s", err, sopJSON)
 	}
 
-	newSopList := []SOP{newSop}
-	fileContent, err := json.MarshalIndent(newSopList, "", "  ")
+	// Create the new file structure
+	outputFileContent := SOPFile{
+		Question: userQuestion,
+		Analysis: agentResponse.Thought,
+		SOPs:     []SOP{newSop},
+	}
+
+	fileContent, err := json.MarshalIndent(outputFileContent, "", "  ")
 	if err != nil {
-		return "", fmt.Errorf("failed to marshal new SOP for saving: %w", err)
+		return "", fmt.Errorf("failed to marshal new SOP file content: %w", err)
 	}
 
 	if err := os.WriteFile(newSopOutputPath, fileContent, 0644); err != nil {
@@ -419,26 +420,32 @@ func main() {
 			//	break
 			//}
 
+			var question string
+			if q.FileName != "" {
+				question = fmt.Sprintf("Question: %s\nFILENAME:%s", q.Question, q.FileName)
+			} else {
+				question = fmt.Sprintf("Question: %s", q.Question)
+			}
+
 			fromsop := true
 			var evo *aievo.AIEvo
 			var err error
 
-			sopPath := "SOP/v1.json"
-			generateNewSOP := true // Set to true to enable generation
-			if generateNewSOP {
-				newSopPath := fmt.Sprintf("SOP/generated_sop_level%d_q%d.json", level, i)
-				generatedPath, err := generateSOP(client, q.Question, "SOP/v1.json", newSopPath)
-				if err != nil {
-					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-					// Fallback to default SOP if generation fails
-					sopPath = "SOP/v1.json"
-				} else {
-					sopPath = generatedPath
-					log.Printf("Using generated SOP: %s", sopPath)
-				}
-			}
-
 			if fromsop {
+				sopPath := "SOP/v1.json"
+				generateNewSOP := true // Set to true to enable generation
+				if generateNewSOP {
+					newSopPath := fmt.Sprintf("SOP/gen_sop_v0_L%d_q%d.json", level, i)
+					generatedPath, err := generateSOP(client, question, "SOP/v1.json", newSopPath)
+					if err != nil {
+						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+						// Fallback to default SOP if generation fails
+						sopPath = "SOP/v1.json"
+					} else {
+						sopPath = generatedPath
+						log.Printf("Using generated SOP: %s", sopPath)
+					}
+				}
 				evo, err = createEvoFromSOP(client, tools, sopPath)
 			} else {
 				evo, err = createEvo(client, tools)
@@ -449,12 +456,6 @@ func main() {
 			}
 
 			fmt.Printf("\n==================Processing question ID: %d (Level %d)\n", i, level)
-			var question string
-			if q.FileName != "" {
-				question = fmt.Sprintf("Question: %s\nFILENAME:%s", q.Question, q.FileName)
-			} else {
-				question = fmt.Sprintf("Question: %s", q.Question)
-			}
 			totalCount++
 			gen, err := evo.Run(context.Background(), question,
 				llm.WithTemperature(0.6), llm.WithTopP(0.95))

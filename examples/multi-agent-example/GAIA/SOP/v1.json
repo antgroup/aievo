@@ -1,6 +1,5 @@
 [
     {
-        "id": 0,
         "team": ["Planner", "Summarizer"],
         "sop": "**Workflow:**\n1. User -> Planner;\n2. Planner -> Summarizer;\n3. Summarizer -> End.\n\n**Description:**\nFirst, the Planner analyzes the user's request and generates a step-by-step plan to solve the question, including task decomposition. Second, the Summarizer receives this detailed plan and executes it by writing the final, structured answer for the user.",
         "details": [
@@ -11,35 +10,33 @@
             },
             {
                 "name": "Summarizer",
-                "reponsibility": "You are the final Answer Agent. Your core mission is to generate a clear, accurate, and comprehensive answer for the user.",
+                "responsibility": "You are the final Answer Agent. Your core mission is to generate a clear, accurate, and comprehensive answer for the user.",
                 "instruction": "Carefully follow the step-by-step plan and outline provided by the Planner. Use the provided structure and key points to write a final response that is coherent, comprehensive, and directly addresses all parts of the user's original question."
             }
         ]
     },
     {
-        "id": 1,
         "team": ["Planner", "WebSearcher", "Summarizer"],
         "sop": "**Workflow:**\n1. User -> Planner;\n2. Planner -> WebSearcher;\n3. WebSearcher -> Summarizer;\n4. Summarizer -> End.\n\n**Description:**\n1. First, the Planner analyzes the user's query and creates a strategic search plan.\n2. Second, the WebSearcher receives the plan and executes it by gathering the necessary information from the web.\n3. Finally, the Summarizer receives the data from the WebSearcher and synthesizes it into the final answer for the user.",        
         "details": [
             {
                 "name": "Planner",
-                "reponsibility": "You are a strategic Planner. Your primary role is to analyze the user's question and formulate a clear, step-by-step plan for the web search. ",
+                "responsibility": "You are a strategic Planner. Your primary role is to analyze the user's question and formulate a clear, step-by-step plan for the web search. ",
                 "instruction": "Break down complex questions into smaller, logical sub-tasks. For each step, define the specific information that need to be searched to effectively answer the user's query. The output of your plan will be a clear set of instructions for the WebSearcher to follow."
             },
             {
                 "name": "WebSearcher",
-                "reponsibility": "You are an expert Web Searcher. Your mission is to execute the search according to the search strategy provided by the Planner. Your goal is to gather accurate and relevant information from the web to answer the user's question.",
+                "responsibility": "You are an expert Web Searcher. Your mission is to execute the search according to the search strategy provided by the Planner. Your goal is to gather accurate and relevant information from the web to answer the user's question.",
                 "instruction": "1. Strategize Your Search:\nCarefully analyze the request from the PlanAgent. Identify the core pieces of information you need to find. Based on the task, formulate a step-by-step search strategy. Do not try to solve everything with a single query when the query is complex.\n2. Execute the Search:\nUse the GOOGLE Search tool to execute the search. Make sure to follow the usage format of given tool. Each query should focus on key terms from the question. Format the query content as a comma-separated list. \n3. Analyze and Iterate: Review the search results provided in the `Observation`.If the information is sufficient: Synthesize the key findings and prepare to pass them to the AnswerAgent. If the information is insufficient or irrelevant: Return to Step 1. Revise your strategy and create a new query. If you receive an error in the `Feedback`: Analyze the feedback message to understand the issue and adjust your action accordingly."
             },
             {
                 "name": "Summarizer",
-                "reponsibility": "You are the final Answer Agent. Your core mission is to generate a clear, accurate, and comprehensive answer for the user.",
+                "responsibility": "You are the final Answer Agent. Your core mission is to generate a clear, accurate, and comprehensive answer for the user.",
                 "instruction": "Synthesize all the information and data provided by the WebSearcher. Ensure the final response directly addresses all parts of the user's original question, is well-organized, and easy to understand."
             }
         ]
     },
     {
-        "id": 2,
         "team": ["Planner", "FileAnalyzer", "Summarizer"],
         "sop": "**Workflow:**\n1. User -> Planner;\n2. Planner -> FileAnalyzer;\n3. FileAnalyzer -> Summarizer;\n4. Summarizer -> End.\n\n**Description:**\n1. First, the Planner analyzes the user's query and creates a strategic analysis plan for the provided file.\n2. Second, the FileAnalyzer receives the plan and executes it by extracting the necessary information from the file.\n3. Finally, the Summarizer receives the extracted data from the FileAnalyzer and synthesizes it into the final answer for the user.",
         "details": [
