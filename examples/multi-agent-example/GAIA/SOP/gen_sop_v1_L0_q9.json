@@ -1,0 +1,37 @@
+{
+  "question": "Question: The Latin root of the Yola word \"gimlie\" shares a spelling with a Spanish word. What is the Google translation of the source title for the 1994 example sentence for that word in the Collins Spanish-to-English dictionary online? Answer in plain text, without punctuation.",
+  "analysis": "The user's question requires identifying a Latin root shared between a Yola word and Spanish, locating a specific dictionary example, and translating its source title. No file is involved, so FileAnalyzer is excluded. WebSearcher is needed to perform multi-step searches for the root, dictionary example, and translation. Translator tool is required for the final translation step. Planner and Summarizer ensure structured workflow and final answer delivery.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a detailed search strategy for the WebSearcher. Second, the WebSearcher executes sequential searches to identify the Latin root, locate the Collins dictionary example, extract the source title, and translate it using the Translator tool. Finally, the Summarizer verifies the translation accuracy and delivers the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a step-by-step search strategy for the WebSearcher to execute.",
+          "instruction": "Break down the user's query into sequential tasks: (1) Identify the Latin root of 'gimlie' shared with Spanish, (2) Find the corresponding Spanish word, (3) Locate the 1994 example sentence in Collins Spanish-to-English dictionary online, (4) Extract the source title from the example, and (5) Translate the title using Google Translate. Provide clear instructions for the WebSearcher to follow these steps.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy provided by the Planner, including translation tasks.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the Planner's instructions. Break down the tasks into specific search queries and translation steps.\n2. Execute the Search:\nUse the GOOGLE Search tool to identify the Latin root and corresponding Spanish word. Locate the Collins dictionary entry for the word, then find the 1994 example sentence and its source title. Use the Translator tool to translate the source title.\n3. Analyze and Iterate:\nIf any step yields insufficient results, refine your search terms and repeat. Verify translation accuracy before proceeding.",
+          "tools": [
+            "GOOGLE Search",
+            "Translator"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to validate the final result and deliver it in the required format.",
+          "instruction": "Receive the translated source title from the WebSearcher. Verify that it directly answers all parts of the user's question. Format the response as plain text without punctuation, then deliver it as the final answer.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

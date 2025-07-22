@@ -407,8 +407,19 @@ func parseMessage(name, content string) (*schema.Message, error) {
 	}
 
 	// 检查是否包含必需的 'cate' 字段
-	if _, exists := rawMessage["cate"]; !exists {
+	if cateValue, exists := rawMessage["cate"]; !exists {
 		return nil, errors.New("message content missing required 'cate' field")
+	} else {
+		if cateStr, ok := cateValue.(string); ok {
+			if cateStr != "MSG" && cateStr != "Msg" && cateStr != "msg" && cateStr != "end" && cateStr != "End" && cateStr != "END" {
+				rawMessage["cate"] = "MSG"
+				if _, receiverExists := rawMessage["receiver"]; !receiverExists {
+					return nil, errors.New("field 'receiver' is required")
+				}
+			}
+		} else {
+			return nil, errors.New("'cate' field must be a string")
+		}
 	}
 
 	// 如果content字段是对象，将其序列化为字符串
@@ -449,8 +460,19 @@ func parseMessageList(name, content string) ([]schema.Message, error) {
 	messages := make([]schema.Message, 0, len(jsonArray))
 	for i, jsonObj := range jsonArray {
 		// 检查每个JSON对象是否包含必需的 'cate' 字段
-		if _, exists := jsonObj["cate"]; !exists {
+		if cateValue, exists := jsonObj["cate"]; !exists {
 			return nil, fmt.Errorf("message at index %d missing required 'cate' field", i)
+		} else {
+			if cateStr, ok := cateValue.(string); ok {
+				if cateStr != "MSG" && cateStr != "END" {
+					jsonObj["cate"] = "MSG"
+					if _, receiverExists := jsonObj["receiver"]; !receiverExists {
+						return nil, fmt.Errorf("field 'receiver' is required for message at index %d when 'cate' is not 'MSG' or 'END'", i)
+					}
+				}
+			} else {
+				return nil, fmt.Errorf("'cate' field must be a string for message at index %d", i)
+			}
 		}
 
 		// 如果content字段是对象，将其序列化为字符串

@@ -1,0 +1,36 @@
+{
+  "question": "Question: Who nominated the only Featured Article on English Wikipedia about a dinosaur that was promoted in November 2016?",
+  "analysis": "The question requires identifying the nominator of a specific Wikipedia Featured Article about a dinosaur promoted in November 2016. This involves two key steps: (1) locating the exact article via historical Wikipedia data, and (2) tracing its nomination details. Since this requires external historical data and no files are provided, the team includes a Planner to strategize, a WebSearcher to execute sequential searches (first to identify the article, then its nominator), and a Summarizer to synthesize results. No FileAnalyzer is needed.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the query and creates a step-by-step search strategy to identify (1) the specific dinosaur-related Featured Article promoted in November 2016 on English Wikipedia and (2) its nominator. Second, the WebSearcher executes this plan via sequential web searches, iterating as needed to refine results. Finally, the Summarizer integrates the findings into a precise answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to decompose the user's query into a sequential search strategy for the WebSearcher to execute.",
+          "instruction": "Break the user's question into two logical steps: (1) Identify the dinosaur-related Featured Article promoted in November 2016 on English Wikipedia, and (2) Locate the name of its nominator. Provide clear, sequential instructions for the WebSearcher to follow these steps using web searches.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the Planner's sequential search strategy to locate precise historical Wikipedia data.",
+          "instruction": "1. Follow the Planner's step-by-step instructions to identify the target article:\n   - First, search for 'Wikipedia Featured Article November 2016 dinosaur' to locate the article title.\n   - Next, search for the article's nomination page (e.g., 'Talk:ArticleName') to find the nominator's username.\n2. Use the GOOGLE Search tool iteratively, refining queries if initial results are unclear. For example, if the first search returns multiple candidates, add terms like 'promoted 2016' or 'featured history' to narrow results.\n3. Extract and verify the nominator's name from the article's discussion or version history.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to synthesize the web search results into a concise, accurate answer.",
+          "instruction": "Receive the WebSearcher's findings, including the article title and nominator name. Verify consistency between the two (e.g., ensure the nominator matches the article's history). Construct a single-sentence answer directly addressing the user's question.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

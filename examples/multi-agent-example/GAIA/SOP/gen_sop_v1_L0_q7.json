@@ -1,0 +1,45 @@
+{
+  "question": "Question: On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "analysis": "The user's question requires statistical analysis of data from ScienceDirect, involving specific numerical computation (standard deviations to 3 decimal places) and comparison between domains. This necessitates a web search to gather up-to-date data and a dedicated agent for statistical calculations. The workflow involves planning the search and analysis strategy, retrieving data, performing computations, and synthesizing the final answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "DataAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e DataAnalyzer;\nDataAnalyzer -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner creates a search strategy for ScienceDirect data retrieval and defines statistical analysis requirements.\n2. The WebSearcher gathers raw data about Reference Works in Life Science domains and Health Sciences from 2022.\n3. The DataAnalyzer computes sample standard deviations for both groups and calculates their difference with 3 decimal precision.\n4. The Summarizer presents the final numerical result and methodology explanation to the user.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's statistical query and create a two-phase strategy: first for targeted data collection from ScienceDirect, second for precise statistical analysis.",
+          "instruction": "1. Parse the user's request for statistical comparison (standard deviations of Reference Works).\n2. Create a detailed search plan specifying: required data points (Life Science domains vs Health Sciences, 2022 data), source (ScienceDirect), and required metadata.\n3. Define analysis requirements: sample standard deviation formula, precision (3 decimal places), and comparison method.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher specialized in academic databases. Your mission is to execute the Planner's strategy to gather precise 2022 data from ScienceDirect about Reference Works across specified domains.",
+          "instruction": "1. Use the Planner's defined search parameters to query ScienceDirect.\n2. Prioritize peer-reviewed articles, meta-analyses, or official reports containing 2022 statistics.\n3. Extract structured data: domain classifications, counts of Reference Works, and any pre-calculated statistical measures.\n4. Verify data provenance and timestamp to ensure 2022 relevance.\n5. Format findings as a structured dataset for the DataAnalyzer.",
+          "tools": [
+            "SCIENCE DIRECT Search"
+          ]
+        },
+        {
+          "name": "DataAnalyzer",
+          "responsibility": "You are a statistical analysis expert. Your mission is to perform precise calculations on the retrieved data to determine the exact difference in standard deviations as specified.",
+          "instruction": "1. Validate the WebSearcher's dataset completeness and domain classifications.\n2. Calculate sample standard deviation (s) for both groups using the formula: s = √[Σ(xᵢ−x̄)²/(n−1)].\n3. Compute the difference (Δ) between both standard deviations: Δ = s_LifeSciences − s_HealthSciences.\n4. Round the result to exactly three decimal places using standard numerical rounding rules.\n5. Document all calculation steps and intermediate values for verification.",
+          "tools": [
+            "Statistical Calculator"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to present complex statistical findings in a clear, user-friendly format while maintaining numerical precision.",
+          "instruction": "1. Receive and verify the DataAnalyzer's calculation results.\n2. Construct a response that includes: the computed standard deviations for each domain, their exact difference, and rounding methodology.\n3. Provide context about the statistical significance of the difference.\n4. Include source citations from the WebSearcher's findings.\n5. Format all numerical values with explicit decimal precision (e.g., '0.123').",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

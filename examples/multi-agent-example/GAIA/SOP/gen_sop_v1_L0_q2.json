@@ -1,0 +1,36 @@
+{
+  "question": "Question: In Nature journal's Scientific Reports conference proceedings from 2012, in the article that did not mention plasmons or plasmonics, what nano-compound is studied? Don't use the prefix nano in your answer if there is one.",
+  "analysis": "The user's question requires searching for a specific article in a 2012 conference proceeding of Nature's Scientific Reports that excludes mentions of plasmons/plasmonics and identifies a nano-compound. Since no file is provided, the FileAnalyzer is unnecessary. The WebSearcher is required to locate the article and extract the relevant information. The Planner orchestrates the search strategy, and the Summarizer synthesizes the findings.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a search strategy for the WebSearcher. The WebSearcher executes the plan to locate the 2012 Nature Scientific Reports conference proceeding article that excludes plasmon-related terms and identifies the nano-compound. The Summarizer then synthesizes the findings into a concise answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a clear, step-by-step search strategy for the WebSearcher to locate the specific article and extract the nano-compound.",
+          "instruction": "Based on the user's query, formulate a detailed search strategy for the WebSearcher. This includes defining keywords (e.g., 'Nature Scientific Reports 2012 conference proceeding plasmon NOT plasmonics nano-compound'), specifying exclusion criteria for plasmon-related terms, and outlining steps to identify the correct article and its studied compound.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy provided by the Planner to locate the article and extract the nano-compound.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the Planner's instructions. Identify core search terms (e.g., 'Nature Scientific Reports 2012 conference proceeding nano-compound plasmon NOT plasmonics'). Formulate a step-by-step search plan using GOOGLE Search to locate the article.\n2. Execute the Search:\nUse the GOOGLE Search tool with comma-separated queries (e.g., 'Nature Scientific Reports 2012 conference proceeding', 'plasmon NOT plasmonics', 'nano-compound study'). Review results to filter articles mentioning plasmons/plasmonics.\n3. Analyze and Iterate:\nIf results are insufficient, refine search terms and repeat. If the correct article is found, extract the nano-compound studied. Ensure the answer excludes the 'nano' prefix if present.\n4. Return findings to the Summarizer.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to construct a clear, accurate answer based on the WebSearcher's findings.",
+          "instruction": "Review the WebSearcher's results to confirm the article meets the criteria (2012 Nature Scientific Reports conference proceeding, excludes plasmons/plasmonics, nano-compound identified). Format the answer to exclude the 'nano' prefix if present and directly address the user's query.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

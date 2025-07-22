@@ -145,9 +145,10 @@ type SOP struct {
 }
 
 type AgentDetail struct {
-	Name           string `json:"name"`
-	Responsibility string `json:"responsibility"`
-	Instruction    string `json:"instruction"`
+	Name           string   `json:"name"`
+	Responsibility string   `json:"responsibility"`
+	Instruction    string   `json:"instruction"`
+	Tools          []string `json:"tools"`
 }
 
 // SOPFile defines the structure of the generated SOP JSON file.
@@ -212,7 +213,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AI
 		// Check if this is the last agent in the team
 		var instructionsToUse string
 		if len(team)+1 == len(selectedSOP.Details) {
-			instructionsToUse = defaultEndBaseInstructions
+			instructionsToUse = NewEndBaseInstructions
 		} else {
 			instructionsToUse = NewBaseInstructions
 		}
@@ -435,7 +436,7 @@ func main() {
 				sopPath := "SOP/v1.json"
 				generateNewSOP := true // Set to true to enable generation
 				if generateNewSOP {
-					newSopPath := fmt.Sprintf("SOP/gen_sop_v0_L%d_q%d.json", level, i)
+					newSopPath := fmt.Sprintf("SOP/gen_sop_v1_L%d_q%d.json", level, i)
 					generatedPath, err := generateSOP(client, question, "SOP/v1.json", newSopPath)
 					if err != nil {
 						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)

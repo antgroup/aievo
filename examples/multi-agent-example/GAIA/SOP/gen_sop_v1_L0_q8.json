@@ -1,0 +1,45 @@
+{
+  "question": "Question: What is the average number of pre-2020 works on the open researcher and contributor identification pages of the people whose identification is in this file?\nFILENAME:bec74516-02fc-48dc-b202-55e78d0e17cf.jsonld",
+  "analysis": "The user's question requires analyzing a JSON-LD file to extract researcher identifiers (ORCID IDs) and calculating the average number of pre-2020 works listed on their ORCID pages. This necessitates a FileAnalyzer to parse the JSON-LD file, a WebSearcher to retrieve ORCID page data via web searches, and a Summarizer to compute the average. The Planner coordinates the workflow.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer;\nPlanner -\u003e WebSearcher;\nFileAnalyzer -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner analyzes the query and creates plans for file analysis and web research.\n2. The FileAnalyzer extracts ORCID identifiers from the JSON-LD file.\n3. The WebSearcher uses ORCID IDs to search for each researcher's ORCID page, collects their pre-2020 works via web searches, and counts them.\n4. The Summarizer calculates the average number of pre-2020 works across all researchers and returns the final result.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Analyze the user's question and create strategic plans for file analysis and web research.",
+          "instruction": "Based on the query, generate two plans: one for extracting ORCID IDs from the JSON-LD file (for FileAnalyzer) and another for searching ORCID pages to collect pre-2020 works (for WebSearcher).",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "Extract ORCID identifiers from the provided JSON-LD file.",
+          "instruction": "Parse the JSON-LD file to identify and extract all ORCID identifiers. Format them as a list and forward to the WebSearcher.",
+          "tools": [
+            "File Reader"
+          ]
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Search ORCID pages for pre-2020 works and count them.",
+          "instruction": "1. Use the ORCID IDs from the FileAnalyzer to locate each researcher's ORCID page via web search.\n2. For each ORCID page, extract the list of works with publication dates before 2020.\n3. Count the number of such works per researcher and forward all counts to the Summarizer.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Calculate the average number of pre-2020 works across researchers.",
+          "instruction": "1. Collect all work counts from the WebSearcher.\n2. Compute the average by dividing the total count of pre-2020 works by the number of researchers.\n3. Return the final average as the user's answer.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

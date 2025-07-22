@@ -11,6 +11,7 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
+  - "tools": A list of tools that the agent can use to perform its tasks.
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
@@ -30,7 +31,7 @@ Your entire response MUST be in a single JSON object with the following format. 
 ~~~
 {
   "cate": "end"
-  "thought": "Your analysis of need of the user's question and the reasoning for the chosen team and workflow.",
+  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
   "content": { ... the complete SOP JSON object goes here ... },
 }
 ~~~
@@ -84,6 +85,26 @@ DO NOT invoke an agent while using a tool. {{end}}
 ~~~
 {{.history}}
 ~~~
+`
+
+const NewEndBaseInstructions = `
+### Current Task & Conversation History:
+~~~
+{{.history}}
+~~~
+
+### Output Format:
+You must response with json format like below:
+~~~
+{
+  "thought": "Clearly describe your reasoning process.",
+  "content": "FINAL ANSWER: {YOUR FINAL ANSWER}."
+  "cate": "END",
+  "receiver": "User",
+}
+~~~
+Note that carefully read the output requirements of the question.
+YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
 
 const workflow = `Workflow {

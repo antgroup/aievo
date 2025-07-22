@@ -115,17 +115,17 @@
         }
     },
     {
-        "task_id": "9e1fc53b-46ff-49a1-9d05-9e6faac34cc5",
-        "Question": "A 5-man group made up of one tank, one healer, and three DPS is doing a dungeon that was just released in World of Warcraft. Two are plate wearers and two are cloth wearers. At the final boss, both the tank and the healer are casting holy spells. Ice and fire are being used, each one by a different DPS. A bear from the group is attacking the boss. Metamorphosis is cast. The Kilt of the Forgotten One drops as loot, but no one can use it. If all classes were using their class abilities and all classes are unique, what are the five classes in the group in alphabetical order separated by commas?",
+        "task_id": "bec74516-02fc-48dc-b202-55e78d0e17cf",
+        "Question": "What is the average number of pre-2020 works on the open researcher and contributor identification pages of the people whose identification is in this file?",
         "Level": 3,
-        "Final answer": "Death Knight, Hunter, Paladin, Priest, Warlock",
-        "file_name": "",
+        "Final answer": "26.4",
+        "file_name": "bec74516-02fc-48dc-b202-55e78d0e17cf.jsonld",
         "Annotator Metadata": {
-            "Steps": "1. Searched \"WoW classes\" on Google.\n2. Opened \"https://worldofwarcraft.blizzard.com/en-us/game/classes\".\n3. Made an alphabetical list of all WoW classes: Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, Shaman, Warlock, and Warrior.\n4. Opened each page and noted the armor type: Death Knight (plate), Demon Hunter (leather), Druid (leather), Evoker (mail), Hunter (mail), Mage (cloth), Monk (leather), Paladin (plate), Priest (cloth), Rogue (leather), Shaman (mail), Warlock (cloth), and Warrior (plate).\n5. Looked up \"Kilt of the Forgotten One\" on Google.\n6. Opened https://www.wowhead.com/wotlk/item=37616/kilt-of-the-forgotten-one.\n7. Noted that it is leather, and none of the classes can use it, so the remaining classes are: Death Knight (plate), Evoker (mail), Hunter (mail), Mage (cloth), Paladin (plate), Priest (cloth), Shaman (mail), Warlock (cloth), and Warrior (plate).\n8. Noted that it was added in Wrath of the Lich King, so if the dungeon is newly released, the era is the Wrath of the Lich King expansion.\n9. Searched \"Wrath of the Lich King class abilities\" on Google.\n10. Opened https://www.wowhead.com/wotlk/spells/abilities.\n11. Sorted by class and noted that Evokers, Demon Hunters, and Monks did not exist yet, so the remaining classes are: Death Knight (plate), Hunter (mail), Mage (cloth), Paladin (plate), Priest (cloth), Shaman (mail), Warlock (cloth), and Warrior (plate).\n12. Checked which classes use Holy school abilities, Paladin (plate) and Priest (cloth), so they must be in the group as tank and healer.\n13. Checked which classes use ice (Frost) and fire abilities, Death Knight (plate), Mage (cloth), Shaman (mail), and Warlock (cloth).\n14. There can only be one other plate class, so it must be Death Knight or Warrior, and one other cloth class, so it must be Mage or Warlock.\n15. Metamorphosis is a Warlock ability in Wrath of the Lich King, so it must be the other cloth class, and the group so far is Paladin, Priest, Warlock, plate DPS, and other DPS, with remaining options of Death Knight (plate), Hunter (mail), Mage (cloth), Shaman (mail), and Warrior (plate).\n16. There cannot be another cloth class, so the remaining options are Death Knight (plate), Hunter (mail), Shaman (mail), and Warrior (plate).\n17. There is a bear attacking the boss and there is no Druid to shapeshift into a bear, so it must be a Hunter's pet, making the group Paladin, Priest, Warlock, Hunter, and plate DPS, with remaining options of Death Knight (plate), Hunter (mail), Mage (cloth), Shaman (mail), and Warrior (plate).\n18. The last class is plate, leaving only Death Knight and Warrior.\n19. Hunters and Warlocks can both cast Fire abilities but cannot cast Frost abilities, so the last DPS must cast ice (Frost) abilities, making the last DPS a Frost Death Knight since Warriors have no Frost abilities.\n20. Order the group alphabetically: Death Knight, Hunter, Paladin, Priest, Warlock.",
-            "Number of steps": "20",
-            "How long did this take?": "20 minutes",
-            "Tools": "1. Web browser\n2. Search engine",
-            "Number of tools": "2"
+        "Steps": "1. Opened the JSONLD file.\n2. Opened each ORCID ID.\n3. Counted the works from pre-2022.\n4. Took the average: (54 + 61 + 1 + 16 + 0) / 5 = 132 / 5 = 26.4.",
+        "Number of steps": "4",
+        "How long did this take?": "15 minutes",
+        "Tools": "1. Web browser\n2. Search engine\n3. Calculator\n4. JSONLD file access",
+        "Number of tools": "4"
         }
     },
     {
