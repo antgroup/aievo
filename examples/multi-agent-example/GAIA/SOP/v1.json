@@ -19,7 +19,7 @@
     {
         "id": 1,
         "team": ["Planner", "WebSearcher", "Summarizer"],
-        "sop": "**Workflow:**\n1. User -> Planner;\n2. Planner -> WebSearcher;\n3. WebSearcher -> Summarizer;\n4. Summarizer -> End.\n\n**Description:**\n1. First, the Planner analyzes the user's query and creates a strategic search plan.\n2.  Second, the WebSearcher receives the plan and executes it by gathering the necessary information from the web.\n3. Finally, the Summarizer receives the data from the WebSearcher and synthesizes it into the final answer for the user.",        
+        "sop": "**Workflow:**\n1. User -> Planner;\n2. Planner -> WebSearcher;\n3. WebSearcher -> Summarizer;\n4. Summarizer -> End.\n\n**Description:**\n1. First, the Planner analyzes the user's query and creates a strategic search plan.\n2. Second, the WebSearcher receives the plan and executes it by gathering the necessary information from the web.\n3. Finally, the Summarizer receives the data from the WebSearcher and synthesizes it into the final answer for the user.",        
         "details": [
             {
                 "name": "Planner",

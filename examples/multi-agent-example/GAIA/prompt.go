@@ -1,5 +1,31 @@
 package main
 
+const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+
+The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+
+You must follow the structure of the provided template exactly. The main components of the SOP are:
+- "id": A unique identifier for the SOP. You should set this to 0.
+- "team": A list of agent names that will be part of the team.
+- "sop": A description of the workflow, showing how agents interact with each other.
+- "details": A list of objects, where each object defines an agent with:
+  - "name": The agent's name (must match a name in the "team" list).
+  - "responsibility": A concise description of the agent's main role and purpose.
+  - "instruction": A detailed, step-by-step guide on how the agent should perform its task.
+
+Here is a template for you to follow:
+--- TEMPLATE START ---
+%s
+--- TEMPLATE END ---
+
+Now, based on the following user question, generate a new SOP in JSON format. The generated JSON should be enclosed in a JSON markdown code block. For example:
+` + "```json" + `
+{ ... }
+` + "```" + `
+
+User Question: "%s"
+`
+
 const NewBaseInstructions = `
 ### Team Members & Collaboration
 You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team [{{.agent_names}}].

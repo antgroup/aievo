@@ -167,7 +167,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AI
 		return nil, fmt.Errorf("no SOPs found in the JSON file")
 	}
 
-	selectedSOP := sops[1]
+	selectedSOP := sops[3]
 
 	callbackHandler := &CallbackHandler{}
 	agentsMap := make(map[string]schema.Agent)
@@ -236,6 +236,106 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AI
 	}
 
 	return aievo.NewAIEvo(opts...)
+}
+
+func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath string) (string, error) {
+	log.Println("Starting SOP generation...")
+
+	// 1. Load the SOP template
+	sopFile, err := os.ReadFile(sopTemplatePath)
+	if err != nil {
+		return "", fmt.Errorf("failed to read SOP template file: %w", err)
+	}
+
+	var sops []SOP
+	if err := json.Unmarshal(sopFile, &sops); err != nil {
+		return "", fmt.Errorf("failed to unmarshal SOP template JSON: %w", err)
+	}
+	if len(sops) == 0 {
+		return "", fmt.Errorf("no SOPs found in the template file")
+	}
+	templateSOP := sops[len(sops)-1] // Get the last one as template
+
+	templateBytes, err := json.MarshalIndent(templateSOP, "", "  ")
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal SOP template to string: %w", err)
+	}
+	templateString := string(templateBytes)
+
+	// 2. Create the prompt
+	prompt := fmt.Sprintf(SOPGeneratorPrompt, templateString, userQuestion)
+
+	// 3. Create a temporary agent to generate the SOP
+	sopGenerator, err := agent.NewBaseAgent(
+		agent.WithName("SOPGenerator"),
+		agent.WithDesc("A specialized agent that generates a Standard Operating Procedure (SOP) for a multi-agent system based on a user's question and a template."),
+		agent.WithPrompt(prompt),
+		agent.WithLLM(client),
+		agent.WithInstruction(""),
+		agent.WithSuffix(NULLSuffix), // Use a null suffix
+	)
+	if err != nil {
+		return "", fmt.Errorf("failed to create SOPGenerator agent: %w", err)
+	}
+
+	// 4. Call LLM to generate the new SOP by running the agent
+	log.Println("Calling LLM to generate new SOP...")
+	gen, err := sopGenerator.Run(context.Background(), []schema.Message{
+		{
+			Type:     schema.MsgTypeMsg,
+			Content:  "You are an expert in designing multi-agent systems.",
+			Sender:   "User",
+			Receiver: "SOPGenerator",
+		},
+	}, llm.WithTemperature(0.6))
+	if err != nil {
+		return "", fmt.Errorf("SOPGenerator agent run failed: %w", err)
+	}
+
+	if len(gen.Messages) == 0 || gen.Messages[0].Content == "" {
+		return "", fmt.Errorf("LLM returned an empty response")
+	}
+	responseText := gen.Messages[0].Content
+
+	// 5. Extract the JSON from the response
+	re := regexp.MustCompile("(?s)```json\n(.*?)\n```")
+	matches := re.FindStringSubmatch(responseText)
+	var sopJSON string
+	if len(matches) >= 2 {
+		sopJSON = matches[1]
+	} else {
+		log.Printf("Could not find JSON in markdown block, attempting to parse entire response.")
+		if strings.Contains(responseText, "{") {
+			jsonStartIndex := strings.Index(responseText, "{")
+			jsonEndIndex := strings.LastIndex(responseText, "}")
+			if jsonStartIndex != -1 && jsonEndIndex != -1 && jsonEndIndex > jsonStartIndex {
+				sopJSON = responseText[jsonStartIndex : jsonEndIndex+1]
+			} else {
+				return "", fmt.Errorf("no valid JSON object found in LLM response: %s", responseText)
+			}
+		} else {
+			return "", fmt.Errorf("no JSON object found in LLM response: %s", responseText)
+		}
+	}
+
+	// 6. Validate and save the new SOP
+	var newSop SOP
+	if err := json.Unmarshal([]byte(sopJSON), &newSop); err != nil {
+		return "", fmt.Errorf("failed to unmarshal generated SOP JSON: %w. Response was: %s", err, sopJSON)
+	}
+
+	newSopList := []SOP{newSop}
+	fileContent, err := json.MarshalIndent(newSopList, "", "  ")
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal new SOP for saving: %w", err)
+	}
+
+	if err := os.WriteFile(newSopOutputPath, fileContent, 0644); err != nil {
+		return "", fmt.Errorf("failed to write new SOP to file: %w", err)
+	}
+
+	log.Printf("Successfully generated and saved new SOP to %s", newSopOutputPath)
+	return newSopOutputPath, nil
 }
 
 func main() {
@@ -322,8 +422,24 @@ func main() {
 			fromsop := true
 			var evo *aievo.AIEvo
 			var err error
+
+			sopPath := "SOP/v1.json"
+			generateNewSOP := true // Set to true to enable generation
+			if generateNewSOP {
+				newSopPath := fmt.Sprintf("SOP/generated_sop_level%d_q%d.json", level, i)
+				generatedPath, err := generateSOP(client, q.Question, "SOP/v1.json", newSopPath)
+				if err != nil {
+					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+					// Fallback to default SOP if generation fails
+					sopPath = "SOP/v1.json"
+				} else {
+					sopPath = generatedPath
+					log.Printf("Using generated SOP: %s", sopPath)
+				}
+			}
+
 			if fromsop {
-				evo, err = createEvoFromSOP(client, tools, "SOP/v1.json")
+				evo, err = createEvoFromSOP(client, tools, sopPath)
 			} else {
 				evo, err = createEvo(client, tools)
 			}
