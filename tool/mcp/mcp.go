@@ -44,8 +44,8 @@ func New(schema string) ([]tool.Tool, error) {
 func convertMCPTool2Tool(c *client.Client, ts []mcp.Tool) []tool.Tool {
 	tools := make([]tool.Tool, 0, len(ts))
 
-	for _, t := range ts {
-		if t.Name == "firecrawl_scrape" || t.Name == "firecrawl_generate_llmstxt" || t.Name == "firecrawl_deep_research" || t.Name == "firecrawl_extract"  || t.Name == "firecrawl_check_crawl_status"  || t.Name == "firecrawl_crawl"  || t.Name == "firecrawl_map" {
+	for _, t := range ts {  // t.Name == "firecrawl_scrape" ||
+		if  t.Name == "firecrawl_generate_llmstxt" || t.Name == "firecrawl_deep_research" || t.Name == "firecrawl_extract"  || t.Name == "firecrawl_check_crawl_status"  || t.Name == "firecrawl_crawl"  || t.Name == "firecrawl_map" {
 			continue
 		}
 		marshal, _ := json.Marshal(t.InputSchema)

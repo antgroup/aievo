@@ -96,10 +96,15 @@ func (ba *BaseAgent) Run(ctx context.Context,
 	messages []schema.Message, opts ...llm.GenerateOption) (*schema.Generation, error) {
 	steps := make([]schema.StepAction, 0)
 	tokens := 0
+	totalFeedbacks := 0
 	if ba.filterMemoryFunc != nil {
 		messages = ba.filterMemoryFunc(messages)
 	}
 	for i := 0; i < ba.MaxIterations; i++ {
+		if totalFeedbacks > 5 {
+			steps = make([]schema.StepAction, 0) // 清空steps
+			totalFeedbacks = 0                   // 重置feedback计数器
+		}
 		feedbacks, actions, msgs, cost, err := ba.Plan(
 			ctx, messages, steps, opts...)
 		if err != nil {
@@ -117,6 +122,7 @@ func (ba *BaseAgent) Run(ctx context.Context,
 
 		tokens += cost
 		if len(feedbacks) != 0 {
+			totalFeedbacks += len(feedbacks)
 			for _, msg := range msgs {
 				steps = append(steps, schema.StepAction{
 					Feedback: fd,
@@ -236,6 +242,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		timestamp := time.Now().Format("2006-01-02 15:04:05")
 		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n",
 			timestamp, p, output.Content)
+		// fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n", inputs["history"], ba.name, output.Content)
 	}
 
 	if ba.callback != nil {

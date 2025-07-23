@@ -380,15 +380,15 @@ func main() {
 	//   }
 	// }
 	// }
-	// `, "fc-a31dbc4a572145faa888bd8d3f45fa71"))
+	// `, "fc-33002eb0435d4ea69c39d6d8ac79204e"))  //"fc-a31dbc4a572145faa888bd8d3f45fa71"))
 	// if err != nil {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
 
-	eval := 0
+	eval := 1
 	var levels []int
 	if eval > 0 {
-		levels = []int{2}
+		levels = []int{1,3}
 	} else {
 		levels = []int{0}
 	}
@@ -443,7 +443,7 @@ func main() {
 
 			if fromsop {
 				sopPath := "SOP/v1.json"
-				generateNewSOP := false // Set to true to enable generation
+				generateNewSOP := true // Set to true to enable generation
 				if generateNewSOP {
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					// Set writeToFile to true if you want to save the generated SOP.
