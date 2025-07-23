@@ -66,7 +66,6 @@
         ]
     },
     {
-        "id": 3,
         "team": ["Planner", "FileAnalyzer", "WebSearcher", "Summarizer"],
         "sop": "**Workflow:**\nUser -> Planner;\nPlanner -> FileAnalyzer\nPlanner -> WebSearcher\nFileAnalyzer -> Summarizer\nWebSearcher -> Summarizer\nSummarizer -> End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates two distinct strategic plans: one for file analysis and one for web searching. Second, the FileAnalyzer and WebSearcher execute their respective plans in parallel. Finally, the Summarizer receives and synthesizes the data from both sources to construct the final, comprehensive answer for the user.",
         "details": [

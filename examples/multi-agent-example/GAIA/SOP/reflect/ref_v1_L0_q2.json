@@ -1,0 +1,27 @@
+{
+  "agent_guidance": [
+    {
+      "agent_name": "Planner",
+      "feedback": "The search strategy was too permissive, allowing inclusion of articles with partial plasmon-related content. The exclusion criteria should have been more rigorously defined.",
+      "revised_instruction": "Formulate a search strategy that explicitly requires checking full-text content for exclusion terms and mandates analysis of multiple candidate articles to ensure compliance with all user constraints."
+    },
+    {
+      "agent_name": "WebSearcher",
+      "feedback": "The search execution stopped at the first plausible result without sufficient validation. The identified compound did not meet the criteria of being from a conference proceeding or fully excluding plasmon-related terms.",
+      "revised_instruction": "Execute a multi-stage search process: 1) Identify all 2012 conference proceeding articles, 2) Systematically filter using both title/abstract and full-text checks for exclusion terms, 3) Extract compounds only from fully compliant articles, and 4) Return multiple candidates for validation."
+    }
+  ],
+  "failure_reason": "The team failed to locate the correct article due to inadequate search filters and lack of cross-verification. The identified compound 'sheets' did not meet the criteria specified in the user's question.",
+  "sop_critique": {
+    "suggestions": [
+      "Add explicit instructions to check full-text content for exclusion terms",
+      "Require the WebSearcher to analyze multiple candidate articles",
+      "Implement a validation step where the Summarizer cross-checks results against all user constraints"
+    ],
+    "weaknesses": [
+      "The Planner's search strategy did not enforce strict exclusion of both 'plasmon' and 'plasmonics' across full text (not just titles/abstracts)",
+      "The WebSearcher relied on a single result without iterating through multiple articles to confirm compliance",
+      "No verification step was included to validate the final answer against the original criteria"
+    ]
+  }
+}

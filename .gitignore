@@ -4,6 +4,7 @@ examples/single-agent-example/GAIA/eval
 examples/multi-agent-example/GAIA/eval
 examples/multi-agent-example/GAIA/eval_wofile
 examples/multi-agent-example/GAIA/eval_onlyfile
+examples/multi-agent-example/GAIA/SOP/val_sop
 examples/multi-agent-example/paper_write/eval
 *.log
 myread.py

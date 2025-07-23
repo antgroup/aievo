@@ -58,6 +58,7 @@ func (t *Tool) Description() string {
 	return fmt.Sprintf(`A wrapper around %s Search.
 Useful for when you need to answer questions about current events, 
 the input must be json schema: {"query": "The search query string"}`, strings.ToUpper(t.Engine)) + `
+Separate different queries with commas.
 Example Input: {"query": "current US president, capital of Canada"}`
 }
 

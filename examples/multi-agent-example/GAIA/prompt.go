@@ -53,6 +53,11 @@ You have access to the following tools:
 {{.tool_descriptions}}
 ~~~{{end}}
 
+### Current Task: Conversation History
+~~~
+{{.history}}
+~~~
+
 ### Output Format
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
@@ -80,11 +85,6 @@ When you want to use a tool, you must respond with JSON format like below:
 ~~~
 Please note that the above JSON formats are different. Only one format is selected for output each time.
 DO NOT invoke an agent while using a tool. {{end}}
-
-### Current Task: Conversation History
-~~~
-{{.history}}
-~~~
 `
 
 const NewEndBaseInstructions = `

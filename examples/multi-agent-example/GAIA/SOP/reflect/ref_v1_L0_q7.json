@@ -1,0 +1,29 @@
+{
+  "agent_guidance": [
+    {
+      "agent_name": "Planner",
+      "feedback": "Failed to anticipate access restrictions during strategy design. Should have prioritized ScienceDirect API integration requirements in the initial plan.",
+      "revised_instruction": "1. Identify data accessibility requirements during parsing (public vs. institutional access). 2. Specify ScienceDirect API endpoints and authentication protocols in search strategy. 3. Include fallback methodology if primary data source is inaccessible."
+    },
+    {
+      "agent_name": "WebSearcher",
+      "feedback": "Relied too heavily on Google-based public searches without executing the domain-specific taxonomy validation steps outlined in the SOP.",
+      "revised_instruction": "1. Prioritize ScienceDirect's API documentation review to identify relevant endpoints. 2. Implement domain-specific filters immediately after accessing ScienceDirect's interface. 3. Document taxonomy metadata structure before requesting numerical data."
+    }
+  ],
+  "failure_reason": "Inability to access ScienceDirect's structured datasets due to reliance on public search tools instead of institutional/database queries, despite explicit requirements for internal ScienceDirect API access.",
+  "sop_critique": {
+    "suggestions": [
+      "Add a 'Data Accessibility Checker' role to verify source permissions early",
+      "Implement iterative search validation with domain-specific test queries",
+      "Include institutional access protocols in the WebSearcher's tool specifications",
+      "Create parallel data collection tracks for public vs. restricted sources"
+    ],
+    "weaknesses": [
+      "No contingency plan for inaccessible paywalled/proprietary data",
+      "Overly broad initial search strategy without domain-specific filters",
+      "Lack of verification step to confirm data availability before analysis phase",
+      "Unclear escalation path for tool limitations (e.g., API access requests)"
+    ]
+  }
+}

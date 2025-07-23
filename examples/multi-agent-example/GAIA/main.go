@@ -158,31 +158,37 @@ type SOPFile struct {
 	SOPs     []SOP  `json:"sops"`
 }
 
-func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AIEvo, error) {
-	sopFileBytes, err := os.ReadFile(sopPath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read SOP file: %w", err)
-	}
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) (*aievo.AIEvo, error) {
+	var selectedSOP SOP
 
-	// Try to unmarshal into the new SOPFile structure first.
-	var sopFile SOPFile
-	var sops []SOP
-	if err := json.Unmarshal(sopFileBytes, &sopFile); err == nil && len(sopFile.SOPs) > 0 {
-		sops = sopFile.SOPs
-		log.Printf("Successfully loaded SOP from new file format (question: %s)", sopFile.Question)
+	if sop != nil {
+		selectedSOP = *sop
+		log.Println("Successfully loaded SOP from parameter.")
 	} else {
-		// Fallback to the old format (an array of SOPs)
-		if err := json.Unmarshal(sopFileBytes, &sops); err != nil {
-			return nil, fmt.Errorf("failed to unmarshal SOP JSON in either new or old format: %w", err)
+		sopFileBytes, err := os.ReadFile(sopPath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to read SOP file: %w", err)
 		}
-		log.Println("Successfully loaded SOP from old file format.")
-	}
 
-	if len(sops) == 0 {
-		return nil, fmt.Errorf("no SOPs found in the JSON file")
-	}
+		// Try to unmarshal into the new SOPFile structure first.
+		var sopFile SOPFile
+		var sops []SOP
+		if err := json.Unmarshal(sopFileBytes, &sopFile); err == nil && len(sopFile.SOPs) > 0 {
+			sops = sopFile.SOPs
+			log.Printf("Successfully loaded SOP from new file format (question: %s)", sopFile.Question)
+		} else {
+			// Fallback to the old format (an array of SOPs)
+			if err := json.Unmarshal(sopFileBytes, &sops); err != nil {
+				return nil, fmt.Errorf("failed to unmarshal SOP JSON in either new or old format: %w", err)
+			}
+			log.Println("Successfully loaded SOP from old file format.")
+		}
 
-	selectedSOP := sops[len(sops)-1] // Get the last SOP as the selected one
+		if len(sops) == 0 {
+			return nil, fmt.Errorf("no SOPs found in the JSON file")
+		}
+		selectedSOP = sops[len(sops)-1] // Get the last SOP as the selected one
+	}
 
 	callbackHandler := &CallbackHandler{}
 	agentsMap := make(map[string]schema.Agent)
@@ -250,27 +256,27 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string) (*aievo.AI
 	return aievo.NewAIEvo(opts...)
 }
 
-func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath string) (string, error) {
+func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath string, writeToFile bool) (*SOP, error) {
 	log.Println("Starting SOP generation...")
 
 	// 1. Load the SOP template
 	sopFile, err := os.ReadFile(sopTemplatePath)
 	if err != nil {
-		return "", fmt.Errorf("failed to read SOP template file: %w", err)
+		return nil, fmt.Errorf("failed to read SOP template file: %w", err)
 	}
 
 	var sops []SOP
 	if err := json.Unmarshal(sopFile, &sops); err != nil {
-		return "", fmt.Errorf("failed to unmarshal SOP template JSON: %w", err)
+		return nil, fmt.Errorf("failed to unmarshal SOP template JSON: %w", err)
 	}
 	if len(sops) == 0 {
-		return "", fmt.Errorf("no SOPs found in the template file")
+		return nil, fmt.Errorf("no SOPs found in the template file")
 	}
 	templateSOP := sops[len(sops)-1] // Get the last one as template
 
 	templateBytes, err := json.MarshalIndent(templateSOP, "", "  ")
 	if err != nil {
-		return "", fmt.Errorf("failed to marshal SOP template to string: %w", err)
+		return nil, fmt.Errorf("failed to marshal SOP template to string: %w", err)
 	}
 	templateString := string(templateBytes)
 
@@ -287,7 +293,7 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		agent.WithSuffix(NULLSuffix), // Use a null suffix
 	)
 	if err != nil {
-		return "", fmt.Errorf("failed to create SOPGenerator agent: %w", err)
+		return nil, fmt.Errorf("failed to create SOPGenerator agent: %w", err)
 	}
 
 	// 4. Call LLM to generate the new SOP by running the agent
@@ -301,11 +307,11 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		},
 	}, llm.WithTemperature(0.6))
 	if err != nil {
-		return "", fmt.Errorf("SOPGenerator agent run failed: %w", err)
+		return nil, fmt.Errorf("SOPGenerator agent run failed: %w", err)
 	}
 
 	if len(gen.Messages) == 0 || gen.Messages[0].Content == "" {
-		return "", fmt.Errorf("LLM returned an empty response")
+		return nil, fmt.Errorf("LLM returned an empty response")
 	}
 
 	agentResponse := gen.Messages[0]
@@ -314,30 +320,33 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 	// The actual SOP is in the 'Content' field.
 	sopJSON := string(agentResponse.Content)
 
-	// 6. Validate and save the new SOP
+	// 6. Validate the new SOP
 	var newSop SOP
 	if err := json.Unmarshal([]byte(sopJSON), &newSop); err != nil {
-		return "", fmt.Errorf("failed to unmarshal generated SOP JSON from content field: %w. SOP JSON was: %s", err, sopJSON)
+		return nil, fmt.Errorf("failed to unmarshal generated SOP JSON from content field: %w. SOP JSON was: %s", err, sopJSON)
 	}
 
-	// Create the new file structure
-	outputFileContent := SOPFile{
-		Question: userQuestion,
-		Analysis: agentResponse.Thought,
-		SOPs:     []SOP{newSop},
+	// 7. Save the new SOP to file if requested
+	if writeToFile {
+		// Create the new file structure
+		outputFileContent := SOPFile{
+			Question: userQuestion,
+			Analysis: agentResponse.Thought,
+			SOPs:     []SOP{newSop},
+		}
+
+		fileContent, err := json.MarshalIndent(outputFileContent, "", "  ")
+		if err != nil {
+			return &newSop, fmt.Errorf("failed to marshal new SOP file content: %w", err)
+		}
+
+		if err := os.WriteFile(newSopOutputPath, fileContent, 0644); err != nil {
+			return &newSop, fmt.Errorf("failed to write new SOP to file: %w", err)
+		}
+		log.Printf("Successfully generated and saved new SOP to %s", newSopOutputPath)
 	}
 
-	fileContent, err := json.MarshalIndent(outputFileContent, "", "  ")
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal new SOP file content: %w", err)
-	}
-
-	if err := os.WriteFile(newSopOutputPath, fileContent, 0644); err != nil {
-		return "", fmt.Errorf("failed to write new SOP to file: %w", err)
-	}
-
-	log.Printf("Successfully generated and saved new SOP to %s", newSopOutputPath)
-	return newSopOutputPath, nil
+	return &newSop, nil
 }
 
 func main() {
@@ -376,10 +385,10 @@ func main() {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
 
-	eval := 0
+	eval := 1
 	var levels []int
 	if eval > 0 {
-		levels = []int{1, 2, 3}
+		levels = []int{2}
 	} else {
 		levels = []int{0}
 	}
@@ -436,18 +445,27 @@ func main() {
 				sopPath := "SOP/v1.json"
 				generateNewSOP := true // Set to true to enable generation
 				if generateNewSOP {
-					newSopPath := fmt.Sprintf("SOP/gen_sop_v1_L%d_q%d.json", level, i)
-					generatedPath, err := generateSOP(client, question, "SOP/v1.json", newSopPath)
+					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
+					// Set writeToFile to true if you want to save the generated SOP.
+					writeToFile := false
+					generatedSOP, err := generateSOP(client, question, "SOP/v1.json", newSopPath, writeToFile)
 					if err != nil {
 						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 						// Fallback to default SOP if generation fails
-						sopPath = "SOP/v1.json"
+						evo, err = createEvoFromSOP(client, tools, sopPath, nil)
+						if err != nil {
+							panic(err)
+						}
 					} else {
-						sopPath = generatedPath
-						log.Printf("Using generated SOP: %s", sopPath)
+						log.Printf("Using generated SOP for question %d", i)
+						evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
+						if err != nil {
+							panic(err)
+						}
 					}
+				} else {
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
 				}
-				evo, err = createEvoFromSOP(client, tools, sopPath)
 			} else {
 				evo, err = createEvo(client, tools)
 			}
