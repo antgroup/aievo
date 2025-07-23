@@ -1,0 +1,36 @@
+{
+  "question": "Question: An office held a Secret Santa gift exchange where each of its twelve employees was assigned one other employee in the group to present with a gift. Each employee filled out a profile including three likes or hobbies. On the day of the gift exchange, only eleven gifts were given, each one specific to one of the recipient's interests. Based on the information in the document, who did not give a gift?\nFILENAME:cffe0e32-c9a6-4c52-9877-78ceb4aaa9fb.docx",
+  "analysis": "The question requires analyzing a document to determine which employee did not give a gift in a Secret Santa exchange. Since the document (FILENAME provided) contains the necessary data (employee profiles and gift details), a FileAnalyzer is essential. The Planner creates a strategy for extracting relevant information, and the Summarizer synthesizes findings to identify the missing gift. No external search is needed as all data is in the provided file.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer;\nFileAnalyzer -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a plan for the FileAnalyzer to extract employee profiles and gift details from the document. Next, the FileAnalyzer executes this plan to gather structured data. Finally, the Summarizer processes this data to deduce which employee's gift was missing (based on unmet recipient interests) and identifies the corresponding giver.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Create a detailed plan for the FileAnalyzer to extract employee profiles and gift-related information from the document.",
+          "instruction": "Analyze the user's query and generate a step-by-step instruction for the FileAnalyzer to: 1) Extract all employee profiles (names and their listed likes/hobbies). 2) Identify any explicit or implicit details about the 11 gifts given, including recipient names or interests. 3) Document the Secret Santa assignment structure if mentioned.",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "Extract and organize key data from the document to support the deduction process.",
+          "instruction": "1) Parse the document to extract employee names, their listed likes/hobbies, and any references to gift assignments or recipients. 2) Create a structured dataset mapping employees to their assigned recipients (if available) and note which recipient interests were fulfilled by the 11 gifts. 3) Highlight inconsistencies or missing links between gifts and recipient profiles.",
+          "tools": [
+            "File Reader"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Deduce the missing gift giver by analyzing the extracted data.",
+          "instruction": "1) Cross-reference the list of employees' likes/hobbies with the 11 gifts to identify which recipient’s interests were not fulfilled. 2) Trace this missing recipient to their assigned giver using the Secret Santa assignment structure (if available in the data). If no explicit assignments exist, infer the missing giver by analyzing the gift-to-recipient mapping. 3) Present the final answer with clear reasoning.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

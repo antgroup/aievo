@@ -1,0 +1,51 @@
+{
+  "question": "Question: On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "analysis": "The user's question requires statistical analysis of data from ScienceDirect, involving specific numerical computation (standard deviations to 3 decimal places) and comparison between domains. This necessitates a web search to gather up-to-date data and a dedicated agent for statistical calculations. The workflow involves planning the search and analysis strategy, retrieving data, performing computations, and synthesizing the final answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner/WebSearcher",
+        "DataValidator",
+        "DataAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner/WebSearcher \u003c-\u003e DataValidator -\u003e DataAnalyzer -\u003e Summarizer\n\n**Description:**\n1. The Planner/WebSearcher creates and executes multi-path data acquisition strategies (public search, institutional API access, and collaboration requests) simultaneously.\n2. DataValidator performs continuous quality assessment against predefined thresholds (domain specificity, temporal relevance, structural completeness).\n3. If data fails validation, Planner/WebSearcher iterates search strategies with adjusted prioritization.\n4. Valid data flows to DataAnalyzer for statistical computations with documented precision controls.\n5. Summarizer delivers results with access methodology transparency and statistical interpretation.",
+      "details": [
+        {
+          "name": "Planner/WebSearcher",
+          "responsibility": "Unified strategic planner and execution agent for data acquisition, combining adaptive strategy development with parallelized access method implementation.",
+          "instruction": "1. Parse user requirements for statistical parameters and domain definitions.\n2. Simultaneously implement three access pathways: \n   a. Public ScienceDirect search with advanced filters\n   b. Institutional API access requests with authentication protocols\n   c. Academic collaboration channels for restricted datasets\n3. Dynamically reallocate resources based on access success metrics.\n4. Maintain metadata logs tracking data provenance across all channels.\n5. Coordinate with DataValidator for real-time quality feedback.",
+          "tools": [
+            "SCIENCE DIRECT API",
+            "Institutional Access Portal",
+            "Academic Collaboration Network"
+          ]
+        },
+        {
+          "name": "DataValidator",
+          "responsibility": "Gatekeeper ensuring dataset fitness for statistical analysis through explicit quality criteria validation.",
+          "instruction": "1. Apply predefined quality thresholds: \n   a. Temporal accuracy (2022 publications ±6 months)\n   b. Domain classification precision (MeSH/NLM standards)\n   c. Complete numerical datasets (no missing values)\n   d. Structured format compatibility (JSON/CSV with metadata)\n2. Generate validation reports with failure diagnostics.\n3. Trigger Planner/WebSearcher strategy iteration when thresholds unmet.\n4. Create sanitized datasets for analysis with version control.",
+          "tools": [
+            "Data Quality Checker",
+            "Metadata Validator"
+          ]
+        },
+        {
+          "name": "DataAnalyzer",
+          "responsibility": "Precision statistical computation with documented numerical stability controls.",
+          "instruction": "1. Implement Welford's algorithm for numerically stable standard deviation calculation.\n2. Apply Bessel's correction (n-1) for sample standard deviation.\n3. Track floating-point precision errors through calculation chain.\n4. Use decimal arithmetic library for exact 3-decimal rounding.\n5. Generate reproducibility package with raw calculations and intermediate states.",
+          "tools": [
+            "Arbitrary Precision Calculator",
+            "Statistical Algorithm Library"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Communication of technical findings with contextual interpretation and methodological transparency.",
+          "instruction": "1. Construct response with layered detail: \n   a. Executive summary (Δ value with 3 decimals)\n   b. Methodology transparency (access channels used)\n   c. Statistical interpretation (effect size context)\n   d. Data limitations disclaimer\n2. Visualize comparison with precision-appropriate charts.\n3. Include API access metadata for replicability.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

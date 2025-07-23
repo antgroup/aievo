@@ -2,26 +2,28 @@
   "agent_guidance": [
     {
       "agent_name": "Planner",
-      "feedback": "The Planner did not specify a reliable method for accessing ORCID data, leaving the WebSearcher to use inefficient web searches. It should have prioritized structured API access.",
-      "revised_instruction": "Generate a plan that explicitly directs the WebSearcher to use ORCID's API for structured data retrieval, including steps for authentication and work filtering by publication year."
+      "feedback": "Failed to account for ORCID's structured data requirements by allowing general web search tools as the primary data source. Needed to specify API-based access requirements.",
+      "revised_instruction": "Include explicit instructions to use ORCID API endpoints or structured data parsing methods when accessing researcher profiles, and mandate validation checks for retrieved data."
     },
     {
       "agent_name": "WebSearcher",
-      "feedback": "The WebSearcher defaulted to zero counts when failing to retrieve data, rather than flagging errors or retrying with alternative methods like API queries.",
-      "revised_instruction": "Use the ORCID API Client tool to fetch works for each ORCID ID, filter them by publication year \u003c 2020, and return explicit error codes if data cannot be retrieved, rather than assuming zero values."
+      "feedback": "Used general web search tools to access ORCID data without implementing structured data extraction or API calls, leading to complete data retrieval failure.",
+      "revised_instruction": "Access ORCID profiles through their official API or structured data endpoints, extract works section data programmatically, filter by publication year \u003c2020, and implement error handling for missing/protected data."
     }
   ],
-  "failure_reason": "The WebSearcher failed to extract valid pre-2020 works data from ORCID pages because it relied on general web searches (via GOOGLE Search) instead of directly querying ORCID's structured API. This led to default zero values being assumed for all researchers.",
+  "failure_reason": "The WebSearcher failed to extract valid pre-2020 work data from ORCID pages due to reliance on general web search tools instead of ORCID-specific data retrieval methods, resulting in all-zero counts that skewed the final average.",
   "sop_critique": {
     "suggestions": [
-      "Integrate an ORCID API Client tool into the WebSearcher's toolkit to directly query researcher works data.",
-      "Add a verification step where the Planner or a dedicated Validator agent cross-checks a subset of WebSearcher results for accuracy.",
-      "Clarify date filtering requirements in the WebSearcher's instructions to ensure alignment with the user's pre-2020 specification."
+      "Add an ORCID API integration step for reliable data extraction",
+      "Implement data validation checks after web searches",
+      "Specify structured parsing requirements for ORCID page sections",
+      "Include retry mechanisms for failed ORCID page accesses"
     ],
     "weaknesses": [
-      "The SOP did not specify direct access to ORCID's API for structured data retrieval, relying instead on error-prone web searches.",
-      "No validation step was included to verify the accuracy of the WebSearcher's results before passing them to the Summarizer.",
-      "The WebSearcher's responsibility to filter pre-2020 works was ambiguously defined, leaving room for inconsistent interpretation of date ranges (e.g., pre-2020 vs. pre-2022)."
+      "Lack of ORCID API integration for structured data retrieval",
+      "No validation mechanism to verify the accuracy of web-scraped ORCID data",
+      "Overly broad web search instructions that didn't account for ORCID's specific data structure",
+      "Insufficient error handling for failed ORCID page accesses"
     ]
   }
 }

@@ -1,0 +1,38 @@
+{
+  "question": "Question: In Nature journal's Scientific Reports conference proceedings from 2012, in the article that did not mention plasmons or plasmonics, what nano-compound is studied? Don't use the prefix nano in your answer if there is one.",
+  "analysis": "The user's query requires rigorous multi-stage validation to ensure exclusion criteria compliance and compound accuracy. The revised SOP incorporates full-text verification, systematic section scanning, and cross-database corroboration to prevent superficial screening failures.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. Planner formulates a three-phase strategy: initial keyword filtering, secondary content scanning, and tertiary full-text validation.\n2. WebSearcher executes boolean searches, accesses full-text content via multiple databases, and systematically verifies exclusion criteria across all sections.\n3. Summarizer cross-validates findings against exclusion terms, checks supplementary materials, and ensures proper compound naming.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Design a robust three-phase search strategy to ensure comprehensive filtering and validation.",
+          "instruction": "Create a detailed plan with three phases: (1) Initial filtering using precise boolean operators ('Nature Scientific Reports 2012 conference proceeding', 'nano-compound', 'plasmon* NOT plasmonics'), (2) Secondary screening of content sections (abstract, methodology, results), and (3) Full-text validation including supplementary materials. Specify requirements for cross-database corroboration.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Execute multi-source full-text verification while enforcing strict exclusion criteria.",
+          "instruction": "1. Execute boolean searches across GOOGLE Scholar and academic databases (PubMed, IEEE Xplore) using: 'Nature Scientific Reports 2012 conference proceeding', 'plasmon* NOT plasmonics', 'nano-compound'.\n2. For candidate articles, access full-text content and systematically scan methodology/results sections for exclusion terms.\n3. Verify absence of plasmon-related mentions in supplementary materials.\n4. Extract compound name while removing 'nano' prefix if present.\n5. Cross-reference findings with multiple databases to ensure consistency.",
+          "tools": [
+            "GOOGLE Search",
+            "PubMed Database Access",
+            "IEEE Xplore Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Provide final validation and precise answer formatting.",
+          "instruction": "1. Verify that WebSearcher's findings meet all criteria: (a) 2012 Nature Scientific Reports conference article, (b) No plasmon/plasmonics mentions in full-text/supplementary materials, and (c) Valid nano-compound identified.\n2. Cross-check compound name against methodology sections and supplementary data.\n3. Format response by removing 'nano' prefix (if applicable) and directly answering the query with evidence-based confidence.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "question": "Question: Who nominated the only Featured Article on English Wikipedia about a dinosaur that was promoted in November 2016?",
+  "analysis": "The question requires identifying the nominator of a specific Wikipedia Featured Article about a dinosaur promoted in November 2016. This involves two key steps: (1) locating the exact article via historical Wikipedia data, and (2) tracing its nomination details. Since this requires external historical data and no files are provided, the team includes a Planner to strategize, a WebSearcher to execute sequential searches (first to identify the article, then its nominator), and a Summarizer to synthesize results. No FileAnalyzer is needed.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner creates a step-by-step plan that includes verifying the article's promotion date via Wikipedia's Featured Article archive and checking its Talk page for the nomination thread. Second, the WebSearcher follows this plan to directly access primary sources, first confirming the article's promotion in November 2016 and then extracting the nominator's username from the Talk page's nomination section. Finally, the Summarizer validates the consistency between the article and the nominator's name from primary sources before finalizing the answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to decompose the user's query into a sequential search strategy for the WebSearcher to execute, explicitly requiring validation through Wikipedia's primary sources.",
+          "instruction": "Break the user's question into two logical steps: (1) Identify the dinosaur-related Featured Article promoted in November 2016 on English Wikipedia by consulting Wikipedia's Featured Article archive, and (2) Navigate directly to the article's Wikipedia Talk page, locate the nomination section for November 2016, and extract the nominator's username from the archived discussion. Provide clear, sequential instructions for the WebSearcher to follow these steps using web searches that prioritize primary sources like Wikipedia's archives and Talk pages.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the Planner's sequential search strategy to locate precise historical Wikipedia data, with strict validation against primary sources.",
+          "instruction": "1. Follow the Planner's step-by-step instructions to identify the target article:\n   - First, search for 'Wikipedia Featured Article November 2016 dinosaur' to locate the article title, cross-referencing Wikipedia's Featured Article archive (https://en.wikipedia.org/wiki/Portal:Featured_content/Current_announcements) to confirm the promotion date.\n   - Next, directly visit the article's Wikipedia Talk page (e.g., 'https://en.wikipedia.org/wiki/Talk:ArticleName') to locate the nomination thread dated November 2016, and extract the nominator's username from the archived discussion.\n2. Use the GOOGLE Search tool iteratively, ensuring that primary sources like Wikipedia's Featured Archive and Talk pages are accessed directly. For example, if the first search returns multiple candidates, use exact phrases like 'Featured Article November 2016' or 'Talk:ArticleName nominations' to narrow results.\n3. Cross-check the nominator's name with the article's nomination records in the Talk page to ensure accuracy.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to synthesize the web search results into a concise, accurate answer, with explicit verification that the facts are sourced from Wikipedia's primary records.",
+          "instruction": "Receive the WebSearcher's findings, including the article title and nominator name. Verify consistency by cross-checking that the article was indeed promoted in November 2016 (via Wikipedia's Featured Archive) and that the nominator's username is sourced from the article's Wikipedia Talk page nomination section. Construct a single-sentence answer directly addressing the user's question with confidence in the primary source validation.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

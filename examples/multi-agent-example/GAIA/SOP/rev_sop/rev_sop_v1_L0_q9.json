@@ -1,0 +1,38 @@
+{
+  "question": "Question: The Latin root of the Yola word \"gimlie\" shares a spelling with a Spanish word. What is the Google translation of the source title for the 1994 example sentence for that word in the Collins Spanish-to-English dictionary online? Answer in plain text, without punctuation.",
+  "analysis": "The user's question requires identifying a Latin root shared between a Yola word and Spanish, locating a specific dictionary example, and translating its source title. No file is involved, so FileAnalyzer is excluded. WebSearcher is needed to perform multi-step searches for the root, dictionary example, and translation. Translator tool is required for the final translation step. Planner and Summarizer ensure structured workflow and final answer delivery.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher \u003c-\u003e Planner (feedback loop);\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a detailed search strategy with mandatory verification steps. The WebSearcher executes searches with cross-referencing requirements, iterating with the Planner if critical assumptions fail validation. The Summarizer performs final verification of both linguistic accuracy and source authenticity before delivering the answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a step-by-step search strategy for the WebSearcher to execute, with built-in verification mechanisms.",
+          "instruction": "Break down the user's query into sequential tasks: (1) Identify the Latin root of 'gimlie' using etymological databases, (2) Verify its presence in Spanish through linguistic resources, (3) Locate the corresponding Spanish word in Collins dictionary, (4) Find the 1994 example sentence and its source title, (5) Translate the title using Google Translate. Include explicit checks for root validity and source date accuracy. Provide WebSearcher with contingency instructions for handling discrepancies.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy with rigorous verification of critical assumptions and source materials.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the Planner's instructions. Break down tasks into specific queries using GOOGLE Search and Etymological Databases.\n2. Execute the Search:\n- Verify Latin root in Yola and Spanish via etymological resources\n- Cross-reference Collins dictionary entries across multiple platforms\n- Confirm 1994 example sentence's existence through archive.org or official Collins sources\n- Use Translator tool for final translation\n3. Mandatory Validation:\nIf Latin root verification fails or source date discrepancy persists, return to Planner for strategy revision. Require at least two independent dictionary references for example confirmation.",
+          "tools": [
+            "GOOGLE Search",
+            "Translator",
+            "Internet Archive (archive.org)"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to validate the final result against all original requirements and deliver it in the specified format.",
+          "instruction": "Receive the translated source title from the WebSearcher. Verify: (1) Latin root validity confirmed by etymological sources, (2) Example sentence's 1994 date verified through cross-referencing, (3) Translation accuracy. Format response as plain text without punctuation, ensuring all question components are addressed.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -135,6 +135,77 @@ func performReflection(client llm.LLM, sopContent string, history []schema.Messa
 	return nil
 }
 
+func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []byte, outputPath string) error {
+	log.Printf("Performing revision for SOP: %s", outputPath)
+
+	// The reflection content is already a JSON string.
+	reflectionContent := string(reflectionBytes)
+	originalSopContent := string(originalSopBytes)
+
+	prompt := fmt.Sprintf(RevisionPrompt,
+		originalSopContent,
+		reflectionContent,
+	)
+
+	reviserAgent, err := agent.NewBaseAgent(
+		agent.WithName("ReviserAgent"),
+		agent.WithDesc("An agent that revises a Standard Operating Procedure based on reflection of a past failure."),
+		agent.WithPrompt(prompt),
+		agent.WithLLM(client),
+		agent.WithInstruction(""),
+		agent.WithSuffix(""), // Use a null suffix
+	)
+	if err != nil {
+		return fmt.Errorf("failed to create ReviserAgent: %w", err)
+	}
+
+	log.Println("Calling LLM for revision...")
+	gen, err := reviserAgent.Run(context.Background(), []schema.Message{
+		{
+			Type:    schema.MsgTypeMsg,
+			Content: "You are an expert multi-agent system designer.",
+		},
+	}, llm.WithTemperature(0.6))
+	if err != nil {
+		return fmt.Errorf("ReviserAgent run failed: %w", err)
+	}
+
+	if len(gen.Messages) == 0 || gen.Messages[0].Content == "" {
+		return fmt.Errorf("LLM returned an empty response for revision")
+	}
+
+	revisedSopJSON := gen.Messages[0].Content
+
+	// The output should be a SOPFile structure, let's validate and format it.
+	var sopFile SOPFile
+	if err := json.Unmarshal([]byte(revisedSopJSON), &sopFile); err != nil {
+		// Fallback: maybe it just returned the SOP array
+		var sops []SOP
+		if err2 := json.Unmarshal([]byte(revisedSopJSON), &sops); err2 != nil {
+			return fmt.Errorf("failed to unmarshal revised SOP JSON from agent response, content was:\n%s\nError: %w", revisedSopJSON, err)
+		}
+		// If fallback is successful, wrap it in SOPFile
+		var originalSopFile SOPFile
+		_ = json.Unmarshal(originalSopBytes, &originalSopFile)
+		sopFile.Question = originalSopFile.Question
+		sopFile.Analysis = gen.Messages[0].Thought
+		sopFile.SOPs = sops
+	}
+
+	// Pretty print the full JSON structure for saving
+	prettyJSON, err := json.MarshalIndent(sopFile, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal pretty revised SOP JSON: %w", err)
+	}
+
+	if err := os.WriteFile(outputPath, prettyJSON, 0644); err != nil {
+		return fmt.Errorf("failed to write revised SOP to file %s: %w", outputPath, err)
+	}
+
+	log.Printf("Successfully wrote revised SOP to %s", outputPath)
+	return nil
+}
+
 func main() {
 	// 大模型实例化
 	client, err := openai.New(
@@ -145,10 +216,19 @@ func main() {
 		log.Fatalf("Failed to create OpenAI client: %v", err)
 	}
 
-	evalLogPath := "../../eval/eval_level_0_sopv1_20250722155317.json"
-	trainDataPath := "../../../../../dataset/gaia/train.json"
-	sopDir := "../"
-	reflectionOutDir := "./"
+	evalLogPath := "../eval/eval_level_0_sopv1_20250722155317.json"
+	trainDataPath := "../../../../dataset/gaia/train.json"
+	sopDir := "./gen_sop/"
+	reflectionOutDir := "./reflect/"
+	revisionOutDir := "./rev_sop/" // Revised SOPs will be in the same dir as revise.go
+
+	// Ensure output directories exist
+	if err := os.MkdirAll(reflectionOutDir, 0755); err != nil {
+		log.Fatalf("Failed to create reflection directory: %v", err)
+	}
+	if err := os.MkdirAll(revisionOutDir, 0755); err != nil {
+		log.Fatalf("Failed to create revision directory: %v", err)
+	}
 
 	var results []ResultLog
 	if err := loadFile(evalLogPath, &results); err != nil {
@@ -166,29 +246,50 @@ func main() {
 	}
 
 	for _, result := range results {
-		if !result.IsCorrect {
-			log.Printf("Found failed task ID: %s (Question Index: %d)", result.TaskID, result.ID)
+		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1_L0_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1_L0_q%d.json", result.ID))
 
-			question, ok := questionsByTaskID[result.TaskID]
-			if !ok {
-				log.Printf("Warning: Could not find question data for task ID %s. Skipping.", result.TaskID)
-				continue
+		sopBytes, err := os.ReadFile(sopPath)
+		if err != nil {
+			log.Printf("Warning: Could not read original SOP file %s. Skipping. Error: %v", sopPath, err)
+			continue
+		}
+
+		if result.IsCorrect {
+			log.Printf("Task %s was successful. Copying original SOP to %s", result.TaskID, revisedSopPath)
+			if err := os.WriteFile(revisedSopPath, sopBytes, 0644); err != nil {
+				log.Printf("ERROR: Failed to copy successful SOP for task %s: %v", result.TaskID, err)
 			}
+			continue
+		}
 
-			sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1_L0_q%d.json", result.ID))
-			sopBytes, err := os.ReadFile(sopPath)
-			if err != nil {
-				log.Printf("Warning: Could not read SOP file %s for failed task. Skipping. Error: %v", sopPath, err)
-				continue
-			}
+		// If the task failed, perform reflection and revision
+		log.Printf("Found failed task ID: %s (Question Index: %d)", result.TaskID, result.ID)
 
-			reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1_L0_q%d.json", result.ID))
+		question, ok := questionsByTaskID[result.TaskID]
+		if !ok {
+			log.Printf("Warning: Could not find question data for task ID %s. Skipping.", result.TaskID)
+			continue
+		}
 
-			if err := performReflection(client, string(sopBytes), result.CommunicationHistory, question, reflectionOutputPath); err != nil {
-				log.Printf("ERROR: Failed to perform reflection for task %s: %v", result.TaskID, err)
-			}
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1_L0_q%d.json", result.ID))
+
+		if err := performReflection(client, string(sopBytes), result.CommunicationHistory, question, reflectionOutputPath); err != nil {
+			log.Printf("ERROR: Failed to perform reflection for task %s: %v", result.TaskID, err)
+			continue // Skip revision if reflection fails
+		}
+
+		// Now, read the reflection file and perform revision
+		reflectionBytes, err := os.ReadFile(reflectionOutputPath)
+		if err != nil {
+			log.Printf("ERROR: Failed to read reflection file %s for revision. Skipping. Error: %v", reflectionOutputPath, err)
+			continue
+		}
+
+		if err := performRevision(client, sopBytes, reflectionBytes, revisedSopPath); err != nil {
+			log.Printf("ERROR: Failed to perform revision for task %s: %v", result.TaskID, err)
 		}
 	}
 
-	log.Println("Reflection process finished.")
+	log.Println("Revision process finished.")
 }

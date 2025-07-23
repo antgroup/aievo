@@ -1,0 +1,59 @@
+{
+  "question": "Question: What is the average number of pre-2020 works on the open researcher and contributor identification pages of the people whose identification is in this file?\nFILENAME:bec74516-02fc-48dc-b202-55e78d0e17cf.jsonld",
+  "analysis": "The user's question requires analyzing a JSON-LD file to extract researcher identifiers (ORCID IDs) and calculating the average number of pre-2020 works listed on their ORCID pages. This necessitates a FileAnalyzer to parse the JSON-LD file, an ORCID API-integrated WebSearcher to retrieve structured ORCID data, a Validator to ensure data quality, and a Summarizer to compute the average. The Planner coordinates the workflow with explicit API requirements.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "WebSearcher",
+        "Validator",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer;\nPlanner -\u003e WebSearcher;\nFileAnalyzer -\u003e WebSearcher;\nWebSearcher -\u003e Validator;\nValidator -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner analyzes the query and creates strategic plans with explicit ORCID API requirements.\n2. The FileAnalyzer extracts ORCID identifiers from the JSON-LD file.\n3. The WebSearcher uses ORCID API to retrieve structured researcher data and extract pre-2020 works.\n4. The Validator confirms data quality and handles missing/invalid entries.\n5. The Summarizer calculates the average number of pre-2020 works across validated researchers and returns the final result.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Analyze the user's question and create strategic plans with structured data requirements.",
+          "instruction": "Generate two plans: one for extracting ORCID IDs from the JSON-LD file (for FileAnalyzer) and another specifying ORCID API integration for structured data retrieval (for WebSearcher). Include validation requirements and error handling protocols.",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "Extract ORCID identifiers from the provided JSON-LD file.",
+          "instruction": "Parse the JSON-LD file to identify and extract all ORCID identifiers using standardized JSON-LD parsing methods. Format them as a list with validation checksums and forward to the WebSearcher.",
+          "tools": [
+            "File Reader",
+            "JSON-LD Parser"
+          ]
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Access ORCID profiles via API to extract structured pre-2020 works data.",
+          "instruction": "1. Use ORCID API endpoints to access each researcher's profile using validated ORCID IDs.\n2. Programmatically extract the works section data in structured format (JSON/BibTeX).\n3. Filter works by publication year \u003c2020 using standardized date parsing.\n4. Record counts per researcher and forward to Validator.\n5. Implement 3 retry attempts with exponential backoff for failed API requests.",
+          "tools": [
+            "ORCID API Integration",
+            "Date Parser"
+          ]
+        },
+        {
+          "name": "Validator",
+          "responsibility": "Verify data quality and handle missing/invalid entries.",
+          "instruction": "1. Cross-check API response validity using ORCID schema definitions.\n2. Flag records with missing data, access errors, or format inconsistencies.\n3. Apply imputation rules for missing values (e.g., mark as N/A).\n4. Generate validation report for Summarizer with confidence metrics.",
+          "tools": [
+            "Schema Validator",
+            "Error Tracker"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Calculate the average number of pre-2020 works across validated researchers.",
+          "instruction": "1. Collect validated work counts and error reports from Validator.\n2. Compute weighted average accounting for confidence metrics.\n3. Generate final report with statistical confidence intervals.\n4. Return results with data source provenance information.",
+          "tools": [
+            "Statistical Calculator"
+          ]
+        }
+      ]
+    }
+  ]
+}

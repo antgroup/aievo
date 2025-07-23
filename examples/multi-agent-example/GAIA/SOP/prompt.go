@@ -52,3 +52,34 @@ Your output must follow the JSON format below. Do not add any text outside the J
 }
 `
 )
+
+const (
+	RevisionPrompt = `You are an expert multi-agent system designer.
+Your task is to revise a Standard Operating Procedure (SOP) based on a critical reflection of a past failure.
+
+You will be given the original SOP and a detailed analysis of why it failed. Your goal is to produce a new, improved SOP that addresses these failures and is more robust for similar tasks in the future.
+
+**1. Original SOP:**
+%s
+
+**2. Reflection on Failure:**
+%s
+
+**Your Task:**
+
+Generate a new SOP in the exact same JSON format as the original. The new SOP should incorporate the lessons from the reflection.
+- You may need to add, remove, or redefine agent roles.
+- You may refine the workflow (the "sop" field).
+- You must provide clearer, more precise instructions for each agent in the "details" section.
+- Ensure the "tools" for each agent are appropriate and sufficient.
+
+Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
+~~~
+{
+  "cate": "end"
+  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
+  "content": { ... the complete SOP JSON object goes here ... },
+}
+~~~
+`
+)

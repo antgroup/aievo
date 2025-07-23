@@ -385,7 +385,7 @@ func main() {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
 
-	eval := 1
+	eval := 0
 	var levels []int
 	if eval > 0 {
 		levels = []int{2}
@@ -443,7 +443,7 @@ func main() {
 
 			if fromsop {
 				sopPath := "SOP/v1.json"
-				generateNewSOP := true // Set to true to enable generation
+				generateNewSOP := false // Set to true to enable generation
 				if generateNewSOP {
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					// Set writeToFile to true if you want to save the generated SOP.
@@ -464,6 +464,9 @@ func main() {
 						}
 					}
 				} else {
+					if eval == 0 {
+						sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1_L%d_q%d.json", level, i)
+					}
 					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
 				}
 			} else {

@@ -1,0 +1,41 @@
+{
+  "question": "Question: As of May 2023, how many stops are between South Station and Windsor Gardens on MBTA’s Franklin-Foxboro line (not included)?",
+  "analysis": "The user requires verified, time-sensitive MBTA route data. This revised SOP ensures robust data acquisition through multi-source validation, explicit date filtering, and contingency pathways when primary sources fail, directly addressing previous failure modes.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner -\u003e WebSearcher -\u003e Summarizer -\u003e End\n\n**Description:**\nFirst, the Planner creates a search strategy requiring primary MBTA sources AND mandatory alternative data pathways. The WebSearcher executes a tiered search (official site → cached PDFs → transit archives → news verification) and provides raw data to the Summarizer. The Summarizer cross-checks stop sequences across all available sources, validates May 2023 compliance, and rejects answers if data conflicts or gaps exist. If verification fails, the Summarizer triggers a feedback loop to WebSearcher for additional data collection.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Design a search strategy that explicitly requires multi-source verification for MBTA route data.",
+          "instruction": "Create a search plan that includes: 1) Primary MBTA website as first priority, 2) Secondary sources (cached PDFs, Wayback Machine archives), 3) Tertiary third-party transit repositories (e.g., MassDOT, local transit blogs), 4) Explicit date filtering for May 2023 updates, and 5) Clear instructions that answer generation must be blocked until at least two independent sources confirm the stop sequence.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Execute search strategy using tiered verification methods and provide structured source metadata.",
+          "instruction": "1. First, access the official MBTA Franklin-Foxboro route page (https://www.mbta.com/schedules/CR-Franklin-Foxboro). If inaccessible: \n   a) Search GOOGLE for 'Franklin-Foxboro schedule filetype:pdf' to find cached PDFs\n   b) Query Wayback Machine (archive.org) for May 2023 archived versions\n   c) Locate local transit news articles confirming route changes\n2. For each source, extract: \n   a) Complete stop sequence\n   b) Documented date of schedule\n   c) Source URL/identifier\n3. Deliver all raw data to the Summarizer with source reliability ratings (primary \u003e secondary \u003e tertiary).",
+          "tools": [
+            "GOOGLE Search",
+            "Archive.org Wayback Machine access",
+            "PDF metadata parser"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Construct answers only when data from independent sources converges, with explicit date validation.",
+          "instruction": "1. Reject answer generation unless at least two independent sources (e.g., MBTA site AND official PDF) confirm identical stop sequences\n2. Cross-check positions of South Station and Windsor Gardens across all available datasets\n3. Count intermediate stops only between confirmed positions\n4. Validate that all sources explicitly reference May 2023 operations (not historical schedules)\n5. If source conflicts exist: \n   a) Flag discrepancies to WebSearcher\n   b) Request targeted searches to resolve conflicts\n6. Final answer must include source citations and date verification confirmation.",
+          "tools": [
+            "Source comparison matrix",
+            "Date metadata validator"
+          ]
+        }
+      ]
+    }
+  ]
+}

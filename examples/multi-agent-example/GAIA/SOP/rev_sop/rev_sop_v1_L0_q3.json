@@ -1,0 +1,36 @@
+{
+  "question": "Question: According to github, when was Regression added to the oldest closed numpy.polynomial issue that has the Regression label in MM/DD/YY?",
+  "analysis": "The user's question requires precise GitHub issue timeline data. The revised SOP mandates direct GitHub API integration for accurate label history retrieval, replaces Google Search with GitHub-native queries, and adds validation steps to distinguish label addition dates from closure metadata.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nThe Planner formulates a GitHub-specific search strategy using advanced syntax (e.g., 'is:closed label:Regression label:numpy.polynomial sort:created:asc'). The WebSearcher executes this via GITHUB API, prioritizing direct access to the issue's timeline/events endpoint to extract the Regression label's earliest addition date. The Summarizer cross-checks this date against the full timeline metadata before final formatting.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Create a GitHub-centric search plan with explicit label timeline requirements.",
+          "instruction": "Generate a search strategy using GitHub's advanced search syntax (e.g., 'is:closed label:Regression label:numpy.polynomial sort:created:asc'). Explicitly require extracting the Regression label's addition date from the issue's timeline/events section, not the closure date. Include steps to verify label history uniqueness.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Execute GitHub API queries to retrieve issue timelines and validate label history.",
+          "instruction": "1. Execute GitHub API Query: Use 'GET /repos/numpy/numpy/issues' with parameters 'labels=Regression,numpy.polynomial' and 'sort=created' to find the oldest closed issue. 2. Access Timeline: Fetch the issue's timeline/events via 'GET /repos/numpy/numpy/issues/{issue_id}/timeline'. 3. Extract Label Date: Parse timeline for the earliest 'labeled' event with 'Regression' and record its date. 4. Validate Source: Confirm this date precedes the issue's closure date and matches label history.",
+          "tools": [
+            "GITHUB API"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Cross-validate label timeline data and format the final answer.",
+          "instruction": "1. Verify that the provided label date originates from the timeline's 'labeled' event, not closure metadata. 2. Cross-check against full timeline events to ensure no earlier 'Regression' label additions exist. 3. Convert the confirmed date to MM/DD/YY format and return it as the definitive answer.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

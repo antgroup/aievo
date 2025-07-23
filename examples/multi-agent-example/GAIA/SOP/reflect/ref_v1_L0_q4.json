@@ -2,33 +2,33 @@
   "agent_guidance": [
     {
       "agent_name": "Planner",
-      "feedback": "The search strategy was too narrowly focused on the MBTA website, ignoring alternative sources critical for validation when primary access fails.",
-      "revised_instruction": "Create a search plan that includes: 1) Primary MBTA sources, 2) Cached PDF schedules, 3) Third-party transit databases, 4) News articles about route changes, and 5) Explicit prioritization of May 2023-dated resources."
+      "feedback": "The search strategy did not account for scenarios where the MBTA website might be inaccessible. Alternative sources (e.g., cached PDFs, news articles about route changes) should have been specified in the initial plan.",
+      "revised_instruction": "Create a search plan that includes: 1) Primary MBTA sources, 2) Backup cached schedules or PDFs, 3) Third-party verified transit data repositories, and 4) Explicit checks for May 2023 operational updates."
     },
     {
       "agent_name": "WebSearcher",
-      "feedback": "Failed to adapt when primary source access was blocked; did not exploit alternative data repositories or historical archives.",
-      "revised_instruction": "1. Prioritize MBTA’s official site but immediately pivot to cached PDFs (e.g., Wayback Machine) if access fails. 2. Query third-party transit sites (e.g., Wikipedia, transit apps) for stop sequences. 3. Search news articles for route modifications effective May 2023."
+      "feedback": "Failed to extract data from the MBTA page but did not attempt alternative methods (e.g., cached versions, PDF downloads, or news sources). The response to the Summarizer lacked actionable data.",
+      "revised_instruction": "If the primary MBTA page is inaccessible: 1) Search for cached PDF schedules using 'filetype:pdf' filters, 2) Check news articles for route changes, 3) Extract stop sequences from archived versions of the MBTA site via the Wayback Machine, and 4) Provide the Summarizer with all available partial data for analysis."
     },
     {
       "agent_name": "Summarizer",
-      "feedback": "Generated an answer without confirming data accuracy across multiple sources, leading to speculative results.",
-      "revised_instruction": "1. Cross-reference stop sequences from at least two independent sources (e.g., MBTA site + cached PDF). 2. Reject incomplete/contradictory data until resolved. 3. Explicitly validate May 2023 relevance by checking for recent service advisories or announcements."
+      "feedback": "Generated an answer based on assumptions about typical commuter rail routes without verifying the actual stop sequence from authoritative sources. Did not confirm whether the data reflected May 2023 changes.",
+      "revised_instruction": "1) Reject incomplete or inferred data; 2) Cross-check stop sequences from multiple sources (e.g., MBTA site, PDF schedules, news articles); 3) Explicitly validate that all stops are listed in the correct order and reflect May 2023 operations before finalizing the count."
     }
   ],
-  "failure_reason": "The system failed because the WebSearcher could not extract stop data from the primary MBTA website, and the Summarizer inferred an answer without validating against alternative or cached sources.",
+  "failure_reason": "The inability to access the official MBTA route map combined with the Summarizer's reliance on inferred stop sequences without cross-checking alternative sources or cached data led to an incorrect answer.",
   "sop_critique": {
     "suggestions": [
-      "Add a fallback step for the WebSearcher to query archived/cached versions of MBTA schedules",
-      "Include explicit instructions for the WebSearcher to check third-party transit resources (e.g., Wikipedia, local transit forums)",
-      "Require the Summarizer to reconcile stop sequences from at least two independent sources",
-      "Introduce a verification step where the Planner re-checks the WebSearcher’s data quality before summarization"
+      "Add a step for the WebSearcher to prioritize cached PDF schedules or third-party verified sources if the official site is inaccessible",
+      "Include explicit validation checks for date compliance in the Summarizer's instructions",
+      "Introduce a cross-verification step between the WebSearcher and Summarizer to confirm data integrity",
+      "Clarify that inferred assumptions about stop sequences are unacceptable without source confirmation"
     ],
     "weaknesses": [
-      "No contingency plan for inaccessible primary sources (e.g., MBTA website failures)",
-      "Lack of explicit instructions to check cached PDF schedules or third-party transit databases",
-      "Summarizer’s role did not include cross-verifying stop sequences across multiple sources",
-      "Over-reliance on a single workflow path without iterative validation steps"
+      "No contingency plan for inaccessible primary sources (e.g., MBTA website downtime)",
+      "Lack of explicit instructions to verify data freshness (May 2023 compliance)",
+      "Over-reliance on a single data source without fallback mechanisms",
+      "Unclear responsibility for validating the completeness of extracted stop sequences"
     ]
   }
 }
