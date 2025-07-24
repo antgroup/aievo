@@ -1,0 +1,27 @@
+{
+  "agent_guidance": [
+    {
+      "agent_name": "Planner",
+      "feedback": "The search strategy prioritized keyword matching over contextual analysis. It should have emphasized material-specific terminology and systematic article verification.",
+      "revised_instruction": "Create a search strategy that first identifies all 2012 conference proceeding articles, then systematically checks each article's content (via available snippets) for exclusion criteria and compound identification, using both 'nano-compound' and specific material terminology."
+    },
+    {
+      "agent_name": "WebSearcher",
+      "feedback": "Focused on domain-wide searches rather than targeted analysis of specific articles. Missed opportunities to extract information from article snippets through contextual clues.",
+      "revised_instruction": "1. First retrieve the complete list of 2012 conference proceeding articles. 2. For each article, perform targeted searches using its title plus exclusion terms. 3. Analyze snippets for contextual clues about studied materials when full text access is unavailable. 4. Prioritize articles where exclusion criteria are explicitly satisfied."
+    }
+  ],
+  "failure_reason": "Ineffective filtering of articles due to rigid keyword matching and failure to systematically analyze individual 2012 conference proceeding articles for exclusion criteria and compound identification.",
+  "sop_critique": {
+    "suggestions": [
+      "Add a step requiring the WebSearcher to manually inspect all 2012 conference proceeding articles",
+      "Implement a two-phase search: first identify valid articles, then analyze content",
+      "Define material-specific terminology alternatives for exclusion criteria"
+    ],
+    "weaknesses": [
+      "Planner's search strategy relied on imprecise keywords ('nano-compound') rather than material-specific terminology",
+      "No step for iterative manual verification of individual article content through available snippets",
+      "Summarizer lacked actionable criteria to infer results from incomplete data"
+    ]
+  }
+}

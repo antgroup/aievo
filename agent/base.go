@@ -240,8 +240,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		defer f.Close()
 		// 记录每次的输入与输出
 		timestamp := time.Now().Format("2006-01-02 15:04:05")
-		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n",
-			timestamp, p, output.Content)
+		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n", timestamp, p, output.Content)
 
 		// 只记录上一条历史和模型输出
 		// var historyLog string
@@ -258,7 +257,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		// 		historyLog = fmt.Sprintf("Feedback: %s", lastStep.Feedback)
 		// 	}
 		// }
-		// fmt.Fprintf(f, "History:\n%s\nOutput of %s:\n%s\n\n",
+		// fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n",
 		// 	historyLog, ba.name, output.Content)
 	}
 

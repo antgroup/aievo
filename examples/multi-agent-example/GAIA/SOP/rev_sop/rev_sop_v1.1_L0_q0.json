@@ -1,0 +1,45 @@
+{
+  "question": "Question: Who nominated the only Featured Article on English Wikipedia about a dinosaur that was promoted in November 2016?",
+  "analysis": "The question requires multi-step verification of historical Wikipedia data. The failure analysis revealed insufficient cross-referencing between nomination archives and primary sources. The revised SOP adds a Validator agent to enforce source triangulation, while sharpening search instructions to target specific evidence trails.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Validator",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Validator;\nValidator -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. Planner creates a search strategy with explicit verification milestones\n2. WebSearcher executes targeted searches using precise Wikipedia terminology\n3. Validator cross-checks nomination details across three sources (nomination archive, talk page history, featured log)\n4. Summarizer constructs a validated answer with timestamp alignment",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to create a search strategy with built-in verification checkpoints for the WebSearcher and Validator to execute.",
+          "instruction": "Break the user's question into three phases:\n1) Identify the target article using 'Wikipedia Featured Article November 2016 dinosaur' and verify through 'Wikipedia:Featured log/November 2016'\n2) Locate nomination details using 'Wikipedia featured article nomination discussion [Article Title]'\n3) Mandate cross-source validation between nomination archive, talk page history, and featured log\nProvide search templates with specific terminology for Wikipedia administrative pages",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the Planner's strategy while documenting source URLs for subsequent validation.",
+          "instruction": "1. First search phase:\n   - Use 'Wikipedia Featured Article November 2016 dinosaur' to identify candidate articles\n   - Confirm through 'Wikipedia:Featured log November 2016' entries\n2. Second search phase:\n   - Search 'Wikipedia featured article nomination discussion [Article Title]' to locate nomination threads\n   - Extract nominator username and timestamp from nomination archive\n3. Document all source URLs for Validator's cross-checking",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Validator",
+          "responsibility": "You are a dedicated Validator. Your core mission is to verify the WebSearcher's findings through source triangulation.",
+          "instruction": "1. Cross-reference three independent sources:\n   - Nomination archive: Confirm username and timestamp match\n   - Article talk page history: Search 'Talk:ArticleName history' for nomination discussion\n   - Featured log: Verify 'Wikipedia:Featured log/November 2016' entry alignment\n2. Flag discrepancies if:\n   - Nominator username differs between sources\n   - Timestamps don't match November 2016 window\n   - Article title varies across references\n3. Request additional searches if inconsistencies arise",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your mission is to synthesize validated findings into a precise response with source attribution.",
+          "instruction": "1. Receive WebSearcher's findings and Validator's confirmation\n2. Construct a single-sentence answer including:\n   - Article title\n   - Nominator's username\n   - Verification of November 2016 promotion\n3. Include source URLs from WebSearcher's documentation\n4. Reject synthesis if Validator flags discrepancies",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/antgroup/aievo/agent"
 	"github.com/antgroup/aievo/llm"
@@ -56,6 +57,15 @@ type AgentDetail struct {
 	Tools          []string `json:"tools"`
 }
 
+// ReflectionInput holds the data needed for the reflection prompt.
+type ReflectionInput struct {
+	Question             string `json:"question"`
+	SOP                  string `json:"sop"`
+	CommunicationHistory string `json:"communication_history"`
+	FinalAnswer          string `json:"final_answer"`
+	ExpertAnalysis       string `json:"expert_analysis"`
+}
+
 // loadFile unmarshals a JSON file into the given interface
 func loadFile(path string, v interface{}) error {
 	bytes, err := os.ReadFile(path)
@@ -68,20 +78,15 @@ func loadFile(path string, v interface{}) error {
 	return nil
 }
 
-func performReflection(client llm.LLM, sopContent string, history []schema.Message, question GaiaQuestion, outputPath string) error {
+func performReflection(client llm.LLM, sopContent string, historyString string, question GaiaQuestion, outputPath string) error {
 	log.Printf("Performing reflection for task: %s", question.TaskID)
-
-	historyBytes, err := json.MarshalIndent(history, "", "  ")
-	if err != nil {
-		return fmt.Errorf("failed to marshal communication history: %w", err)
-	}
 
 	prompt := fmt.Sprintf(ReflectionPrompt,
 		question.Question,
-		sopContent,
-		string(historyBytes),
 		question.FinalAnswer,
 		question.AnnotatorMetadata.Steps,
+		sopContent,
+		historyString,
 	)
 
 	reflectorAgent, err := agent.NewBaseAgent(
@@ -207,6 +212,17 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 }
 
 func main() {
+	// --- CONFIGURATION ---
+	// historySourceFlag: 0 for reading from eval log, 1 for reading from raw log file
+	historySourceFlag := 1
+	evalLogPath := "../eval/eval_level_0_sopv1_20250724114517.json"
+	rawHistoryLogPath := "../eval/log_output_2025-0724.log" // New log file path
+	trainDataPath := "../../../../dataset/gaia/train.json"
+	sopDir := "./gen_sop/"
+	reflectionOutDir := "./reflect/"
+	revisionOutDir := "./rev_sop/"
+	// --- END CONFIGURATION ---
+
 	// 大模型实例化
 	client, err := openai.New(
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
@@ -215,12 +231,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to create OpenAI client: %v", err)
 	}
-
-	evalLogPath := "../eval/eval_level_0_sopv1_20250722155317.json"
-	trainDataPath := "../../../../dataset/gaia/train.json"
-	sopDir := "./gen_sop/"
-	reflectionOutDir := "./reflect/"
-	revisionOutDir := "./rev_sop/" // Revised SOPs will be in the same dir as revise.go
 
 	// Ensure output directories exist
 	if err := os.MkdirAll(reflectionOutDir, 0755); err != nil {
@@ -245,9 +255,45 @@ func main() {
 		questionsByTaskID[q.TaskID] = q
 	}
 
-	for _, result := range results {
+	// --- History Loading Logic ---
+	historyStrings := make([]string, len(results))
+	if historySourceFlag == 1 {
+		log.Printf("Loading communication history from raw log file: %s", rawHistoryLogPath)
+		logBytes, err := os.ReadFile(rawHistoryLogPath)
+		if err != nil {
+			log.Fatalf("Failed to read raw history log file: %v", err)
+		}
+		logContent := string(logBytes)
+		// Split by the specified delimiter
+		splitHistories := strings.Split(logContent, "History: (User")
+		if len(splitHistories) < 2 {
+			log.Fatalf("Raw log file does not contain the expected delimiter 'History: (User'")
+		}
+		// The first element before the first split is usually empty or irrelevant, so we skip it.
+		rawHistories := splitHistories[1:]
+		if len(rawHistories) != len(results) {
+			log.Fatalf("Mismatch in history count: expected %d, but got %d from raw log file", len(results), len(rawHistories))
+		}
+		for i, h := range rawHistories {
+			// Re-add the delimiter that was removed by splitting
+			historyStrings[i] = "History: (User" + h
+		}
+		log.Println("Successfully loaded and parsed history from raw log file.")
+	} else {
+		log.Println("Loading communication history from eval log file.")
+		for i, result := range results {
+			historyBytes, err := json.MarshalIndent(result.CommunicationHistory, "", "  ")
+			if err != nil {
+				log.Fatalf("Failed to marshal communication history for task %s: %v", result.TaskID, err)
+			}
+			historyStrings[i] = string(historyBytes)
+		}
+	}
+	// --- End History Loading Logic ---
+
+	for i, result := range results {
 		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1_L0_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1_L0_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.1_L0_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -272,9 +318,12 @@ func main() {
 			continue
 		}
 
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1_L0_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.1_L0_q%d.json", result.ID))
 
-		if err := performReflection(client, string(sopBytes), result.CommunicationHistory, question, reflectionOutputPath); err != nil {
+		// Use the pre-processed history string
+		historyString := historyStrings[i]
+
+		if err := performReflection(client, string(sopBytes), historyString, question, reflectionOutputPath); err != nil {
 			log.Printf("ERROR: Failed to perform reflection for task %s: %v", result.TaskID, err)
 			continue // Skip revision if reflection fails
 		}

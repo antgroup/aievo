@@ -1,0 +1,39 @@
+{
+  "question": "On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "analysis": "The user's question requires direct extraction of domain-specific Reference Work counts from ScienceDirect's filtered web pages, followed by comparative statistical analysis. Success depends on precise website navigation to locate filterable data sources rather than relying on pre-aggregated statistics, with additional validation safeguards against incomplete data.",
+  "sops": [
+    {
+      "team": [
+        "Planner/WebSearcher",
+        "DataAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner/WebSearcher -\u003e DataAnalyzer -\u003e Summarizer -\u003e End\n\n**Description:**\n1. The Planner/WebSearcher creates a ScienceDirect navigation strategy and directly extracts domain-specific Reference Work counts using URL pattern targeting.\n2. The DataAnalyzer validates raw data sufficiency before computing standard deviations and their difference.\n3. The Summarizer verifies data completeness and presents the statistical results with source documentation.",
+      "details": [
+        {
+          "name": "Planner/WebSearcher",
+          "responsibility": "Combined role responsible for both designing ScienceDirect's navigation strategy and executing manual data extraction from domain-specific filtered pages.",
+          "instruction": "1. Analyze ScienceDirect's website structure to identify Life Science and Health Sciences domain URLs with Reference Work filters.\n2. For each domain, construct URLs with '/reference-works' path and 'year=2022' parameter patterns.\n3. Extract numerical counts from filtered results pages (minimum 3 pages per domain to verify consistency).\n4. Document exact URL paths and timestamped page versions for data provenance.\n5. Format raw counts as a structured dataset with domain labels and source URLs.",
+          "tools": [
+            "SCIENCE DIRECT Search",
+            "Google Search"
+          ]
+        },
+        {
+          "name": "DataAnalyzer",
+          "responsibility": "Statistical expert responsible for validating raw data integrity and performing precise standard deviation calculations.",
+          "instruction": "1. Verify raw dataset completeness (minimum 5 domains represented, ≥3 data points per domain).\n2. Calculate sample standard deviation (s) for each domain using: s = √[Σ(xᵢ−x̄)²/(n−1)].\n3. Compute Δ = s_LifeSciences − s_HealthSciences with floating-point precision beyond 10⁻⁴.\n4. Round final difference to exactly 3 decimal places using IEEE 754 standard rounding.\n5. Generate calculation logs for audit trail.",
+          "tools": [
+            "Statistical Calculator"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Final validation and presentation agent ensuring data integrity and clear communication of results.",
+          "instruction": "1. Cross-check source URLs with raw counts to verify data traceability.\n2. Confirm minimum dataset requirements met before accepting analytical results.\n3. Format final answer as: 'Δ = s₁ − s₂ = X.XXX' with domain-specific standard deviations.\n4. Include source citations using ScienceDirect's permanent URL patterns.\n5. Add statistical interpretation of the difference's magnitude.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

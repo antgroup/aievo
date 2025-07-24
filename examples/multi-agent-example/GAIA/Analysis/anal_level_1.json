@@ -1,0 +1,242 @@
+[
+  {
+    "id": 0,
+    "task_id": "5d0080cb-90d7-4712-bc33-848150e917d3",
+    "question": "What was the volume in m^3 of the fish bag that was calculated in the University of Leicester paper \"Can Hiccup Supply Enough Fish to Maintain a Dragon’s Diet?\"",
+    "analysis": "The user is asking for a specific volume value from a research paper titled 'Can Hiccup Supply Enough Fish to Maintain a Dragon’s Diet?' Since the paper is not provided, accessing it requires external retrieval via a WebSearcher agent. Once located, a FileAnalyzer agent would parse the document to extract the calculated fish bag volume (m³) from the relevant section. No additional tools are needed if the paper explicitly states the value."
+  },
+  {
+    "id": 1,
+    "task_id": "e1fc63a2-da7a-432f-be78-7c4a95598703",
+    "question": "If Eliud Kipchoge could maintain his record-making marathon pace indefinitely, how many thousand hours would it take him to run the distance between the Earth and the Moon its closest approach? Please use the minimum perigee value on the Wikipedia page for the Moon when carrying out your calculation. Round your result to the nearest 1000 hours and do not use any comma separators if necessary.",
+    "analysis": "The user's question requires retrieving specific real-time data from external sources (minimum Earth-Moon distance from Wikipedia and Eliud Kipchoge's marathon pace) and performing a mathematical calculation. A WebSearch agent is needed to fetch the current perigee value and the athlete's record-making pace. A DataProcessor agent is required to compute the distance-time relationship using the retrieved values and round the result as specified."
+  },
+  {
+    "id": 2,
+    "task_id": "11af4e1a-5f45-467d-9aeb-46f4bb0bf034",
+    "question": "How many more blocks (also denoted as layers) in BERT base encoder than the encoder from the architecture proposed in Attention is All You Need?",
+    "analysis": "The user is asking for a comparison of the number of layers between BERT base encoder and the encoder in the original Transformer architecture. This requires knowledge of the specific configurations of both models. The BERT base encoder typically has 12 layers, while the Transformer encoder from 'Attention is All You Need' uses 6 layers. To ensure accuracy, a WebSearch agent could confirm these specifications, but the answer can be derived from existing knowledge. No file analysis is needed here."
+  },
+  {
+    "id": 3,
+    "task_id": "dc28cf18-6431-458b-83ef-64b3ce566c10",
+    "question": "My family reunion is this week, and I was assigned the mashed potatoes to bring. The attendees include my married mother and father, my twin brother and his family, my aunt and her family, my grandma and her brother, her brother's daughter, and his daughter's family. All the adults but me have been married, and no one is divorced or remarried, but my grandpa and my grandma's sister-in-law passed away last year. All living spouses are attending. My brother has two children that are still kids, my aunt has one six-year-old, and my grandma's brother's daughter has three kids under 12. I figure each adult will eat about 1.5 potatoes of mashed potatoes and each kid will eat about 1/2 a potato of mashed potatoes, except my second cousins don't eat carbs. The average potato is about half a pound, and potatoes are sold in 5-pound bags. How many whole bags of potatoes do I need? Just give the number.",
+    "analysis": "The user's question requires calculating the number of potato bags needed based on family attendance and consumption rates. All necessary data is provided in the question, including family relationships, adult/child counts, and dietary restrictions. The solution involves parsing the family structure, categorizing attendees into adults and children, applying consumption rates (1.5 potatoes per adult, 0.5 per child), and converting total potatoes to pounds and then to 5-pound bags. No external data or file analysis is required, as the problem is self-contained."
+  },
+  {
+    "id": 4,
+    "task_id": "c365c1c7-a3db-4d5e-a9a1-66f56eae7865",
+    "question": "Of the cities within the United States where U.S. presidents were born, which two are the farthest apart from the westernmost to the easternmost going east, giving the city names only? Give them to me in alphabetical order, in a comma-separated list",
+    "analysis": "The question requires identifying U.S. cities where presidents were born and determining the westernmost and easternmost locations. This involves retrieving historical data (presidential birthplaces) and geographical coordinates. A WebSearch agent is needed to gather the list of U.S. presidents and their birthplaces, followed by a Geolocation API or DataProcessor to extract longitude values. The final step involves comparing longitudes to find the farthest pair and formatting the result alphabetically."
+  },
+  {
+    "id": 5,
+    "task_id": "7bd855d8-463d-4ed5-93ca-5fe35145f733",
+    "question": "The attached Excel file contains the sales of menu items for a local fast-food chain. What were the total sales that the chain made from food (not including drinks)? Express your answer in USD with two decimal places.",
+    "analysis": "The user's question requires processing an Excel file to calculate total food sales by excluding drinks. The FileAnalyzer agent is necessary to parse the Excel file (7bd855d8-463d-4ed5-93ca-5fe35145f733.xlsx), extract sales data, filter out drink items, and compute the sum of food sales. The result must be formatted to two decimal places in USD."
+  },
+  {
+    "id": 6,
+    "task_id": "2d83110e-a098-4ebb-9987-066c06fa42d0",
+    "question": ".rewsna eht sa \"tfel\" drow eht fo etisoppo eht etirw ,ecnetnes siht dnatsrednu uoy fI",
+    "analysis": "The user's question is written in reverse. By reversing the text, the question asks to write the opposite of the word 'left', which is 'right'. No external data retrieval or file analysis is required."
+  },
+  {
+    "id": 7,
+    "task_id": "389793a7-ca17-4e82-81cb-2b3a2391b4b9",
+    "question": "You are a telecommunications engineer who wants to build cell phone towers on a stretch of road. In the reference file is a layout of the road and nearby houses. Each dash, \"-\", is a marker indicating a mile. Each capital H indicates a house located next to a mile marker, appearing above or below the stretch of road. Each cell phone tower can cover houses located next to the road within a 4-mile radius. Find the minimum number of cell phone towers needed to cover all houses next to the road. Your answer should be a positive numerical integer value.",
+    "analysis": "The user's problem requires analyzing a text file to determine the positions of houses along a road and compute the minimum number of cell phone towers needed to cover all houses. A FileAnalyzer agent is necessary to parse the layout and extract house positions. A DataProcessor agent would then apply a greedy algorithm to determine the optimal tower placement, ensuring all houses are within a 4-mile radius of at least one tower."
+  },
+  {
+    "id": 8,
+    "task_id": "6f37996b-2ac7-44b0-8e68-6d28256631b4",
+    "question": "Given this table defining * on the set S = {a, b, c, d, e}\n\n|*|a|b|c|d|e|\n|---|---|---|---|---|---|\n|a|a|b|c|b|d|\n|b|b|c|a|e|c|\n|c|c|a|b|b|a|\n|d|b|e|b|e|d|\n|e|d|b|a|d|c|\n\nprovide the subset of S involved in any possible counter-examples that prove * is not commutative. Provide your answer as a comma separated list of the elements in the set in alphabetical order.",
+    "analysis": "To determine if the operation * is commutative, we need to check if x*y equals y*x for all pairs in the set S. The provided table defines all possible * operations between elements in S. By systematically comparing entries in the table (e.g., checking x*y vs. y*x for all distinct pairs), we can identify any discrepancies that violate commutativity. This task involves parsing the table data and comparing corresponding values to find non-commutative pairs. The involved elements in these pairs form the subset to be identified."
+  },
+  {
+    "id": 9,
+    "task_id": "dc22a632-937f-4e6a-b72f-ba0ff3f5ff97",
+    "question": "What was the complete title of the book in which two James Beard Award winners recommended the restaurant where Ali Khan enjoyed a New Mexican staple in his cost-conscious TV show that started in 2015? Write the numbers in plain text if there are some in the title.",
+    "analysis": "This question requires multiple steps of information retrieval. First, identify Ali Khan's TV show (started in 2015) and the New Mexican staple dish restaurant he visited. Then, determine which book features recommendations from two James Beard Award winners that include this restaurant. A WebSearch agent is needed to locate the restaurant from Ali Khan's show, cross-reference James Beard Award winners associated with that restaurant, and finally identify the specific book title containing these recommendations."
+  },
+  {
+    "id": 10,
+    "task_id": "ec09fa32-d03f-4bf8-84b0-1f16922c3ae4",
+    "question": "Here's a fun riddle that I think you'll enjoy.\n\nYou have been selected to play the final round of the hit new game show \"Pick That Ping-Pong\". In this round, you will be competing for a large cash prize. Your job will be to pick one of several different numbered ping-pong balls, and then the game will commence. The host describes how the game works.\n\nA device consisting of a winding clear ramp and a series of pistons controls the outcome of the game. The ramp feeds balls onto a platform. The platform has room for three ping-pong balls at a time. The three balls on the platform are each aligned with one of three pistons. At each stage of the game, one of the three pistons will randomly fire, ejecting the ball it strikes. If the piston ejects the ball in the first position on the platform the balls in the second and third position on the platform each advance one space, and the next ball on the ramp advances to the third position. If the piston ejects the ball in the second position, the ball in the first position is released and rolls away, the ball in the third position advances two spaces to occupy the first position, and the next two balls on the ramp advance to occupy the second and third positions on the platform. If the piston ejects the ball in the third position, the ball in the first position is released and rolls away, the ball in the second position advances one space to occupy the first position, and the next two balls on the ramp advance to occupy the second and third positions on the platform.\n\nThe ramp begins with 100 numbered ping-pong balls, arranged in ascending order from 1 to 100. The host activates the machine and the first three balls, numbered 1, 2, and 3, advance to the platform. Before the random firing of the pistons begins, you are asked which of the 100 balls you would like to pick. If your pick is ejected by one of the pistons, you win the grand prize, $10,000.\n\nWhich ball should you choose to maximize your odds of winning the big prize? Please provide your answer as the number of the ball selected.",
+    "analysis": "The riddle requires logical reasoning and probability analysis to determine which ball has the highest chance of being ejected by a piston. No external data or file processing is needed, as the problem is self-contained and relies on mathematical deduction. The solution involves modeling the platform dynamics and calculating probabilities based on piston firing patterns, which does not require tools like WebSearch or FileAnalyzer."
+  },
+  {
+    "id": 11,
+    "task_id": "935e2cff-ae78-4218-b3f5-115589b19dae",
+    "question": "In the year 2022, and before December, what does \"R\" stand for in the three core policies of the type of content that was violated in the public logs on the Legume Wikipedia page?",
+    "analysis": "The user is asking about the meaning of 'R' in the context of Wikipedia content violation policies related to the Legume page's public logs before December 2022. This requires accessing historical Wikipedia data/logs and understanding specific policy abbreviations. The WebSearch agent would retrieve relevant Wikipedia policies and public logs, while a DataExtractor would parse the specific policies and their abbreviations."
+  },
+  {
+    "id": 12,
+    "task_id": "4b6bb5f7-f634-410e-815d-e673ab7f8632",
+    "question": "In Series 9, Episode 11 of Doctor Who, the Doctor is trapped inside an ever-shifting maze. What is this location called in the official script for the episode? Give the setting exactly as it appears in the first scene heading.",
+    "analysis": "The user is asking for a specific location name from a Doctor Who episode's official script, requiring precise extraction from a script document. Since the user did not provide a local file, a WebSearch agent is needed to locate the official script or transcript for Series 9, Episode 11. Once retrieved, a ScriptParser agent would extract the first scene heading to identify the exact setting name as written in the script."
+  },
+  {
+    "id": 13,
+    "task_id": "bda648d7-d618-4883-88f4-3466eabd860e",
+    "question": "Where were the Vietnamese specimens described by Kuznetzov in Nedoshivina's 2010 paper eventually deposited? Just give me the city name without abbreviations.",
+    "analysis": "The question requires locating specific information from a 2010 academic paper by Nedoshivina, focusing on the deposition location of Vietnamese specimens analyzed by Kuznetzov. Since the paper is not provided as a local file, a WebSearch agent is necessary to retrieve the paper's content (e.g., via academic databases or repositories). A DataExtractor agent would then parse the text to identify the deposition details of the specimens. No file analysis is required here."
+  },
+  {
+    "id": 14,
+    "task_id": "50ec8903-b81f-4257-9450-1085afd2c319",
+    "question": "A standard Rubik’s cube has been broken into cubes making up its sides. The cubes are jumbled, and one is removed. There are 6 cubes with one colored face, 12 edge cubes with two colored faces, and 8 corner cubes with three colored faces. All blue cubes have been found. All cubes directly left, right, above, and below the orange center cube have been found, along with the center cube. The green corners have all been found, along with all green that borders yellow. For all orange cubes found, the opposite face’s cubes have been found. The removed cube has two colors on its faces. What are they? Answer using a comma separated list, with the colors ordered alphabetically.",
+    "analysis": "The user's question involves deducing the missing edge piece of a Rubik's cube based on constraints about found pieces. The solution requires logical reasoning and understanding of Rubik's cube structure, including color adjacency and standard color opposites (e.g., orange-red, blue-green, white-yellow). The missing edge must have two colors not excluded by the constraints (not blue, not orange, not green-yellow, etc.). By eliminating accounted edges and applying the given rules, the missing edge is determined to be white-green."
+  },
+  {
+    "id": 15,
+    "task_id": "d0633230-7067-47a9-9dbf-ee11e0a2cdd6",
+    "question": "In the Scikit-Learn July 2017 changelog, what other predictor base command received a bug fix? Just give the name, not a path.",
+    "analysis": "The user is asking for a specific detail from the Scikit-Learn July 2017 changelog, which requires accessing historical documentation or release notes. A WebSearcher agent is needed to locate the official Scikit-Learn changelog for July 2017 (e.g., on GitHub, ReadTheDocs, or PyPI). Once retrieved, a DataExtractor agent can parse the document to identify the predictor base command that received a bug fix. No file is provided, so external search is necessary."
+  },
+  {
+    "id": 16,
+    "task_id": "3f57289b-8c60-48be-bd80-01f8099ca449",
+    "question": "How many at bats did the Yankee with the most walks in the 1977 regular season have that same season?",
+    "analysis": "The question requires retrieving historical baseball statistics for the 1977 New York Yankees, specifically identifying the player with the most walks ('base on balls' or BB) and then finding their at-bats (AB) for the same season. This necessitates accessing a sports statistics database or API (e.g., Baseball-Reference, Fangraphs) to obtain player-specific regular-season stats. A WebSearch agent would first locate the 1977 Yankees roster sorted by walks, identify the leader, and then a DataExtractor agent would pull the corresponding at-bats for that player."
+  },
+  {
+    "id": 17,
+    "task_id": "f918266a-b3e0-4914-865d-4faa564f1aef",
+    "question": "What is the final numeric output from the attached Python code?",
+    "analysis": "The user is asking for the final numeric output of a Python script. To determine this, a FileAnalyzer agent is required to parse and execute the provided Python file (f918266a-b3e0-4914-865d-4faa564f1aef.py) to run the code and capture its output. No external search or additional tools are needed as the solution depends solely on analyzing the provided file."
+  },
+  {
+    "id": 18,
+    "task_id": "b816bfce-3d80-4913-a07d-69b752ce6377",
+    "question": "In Emily Midkiff's June 2014 article in a journal named for the one of Hreidmar's sons that guarded his house, what word was quoted from two different authors in distaste for the nature of dragon depictions?",
+    "analysis": "The question requires identifying a specific journal named after a Norse mythological figure (Hreidmar's son associated with guarding), locating Emily Midkiff's 2014 article in that journal, and extracting a quoted word from two authors regarding dragon depictions. A WebSearch agent is needed to determine the journal's name (likely 'Fafnir' or related to Fafnir, a son of Hreidmar associated with guarding) and locate the article. A DataExtractor agent would then parse the article's content to identify the quoted term from multiple authors expressing distaste for dragon portrayals."
+  },
+  {
+    "id": 19,
+    "task_id": "a3fbeb63-0e8c-4a11-bff6-0e3b484c3e9c",
+    "question": "How many slides in this PowerPoint presentation mention crustaceans?",
+    "analysis": "The user needs to determine how many slides in a provided PowerPoint presentation mention 'crustaceans'. This requires analyzing the content of a local .pptx file. A FileAnalyzer agent capable of parsing PowerPoint slides and extracting text content is necessary to identify slides containing the keyword 'crustaceans'. No external search is required as the data is entirely contained within the provided file."
+  },
+  {
+    "id": 20,
+    "task_id": "5a0c1adf-205e-4841-a666-7c3ef95def9d",
+    "question": "What is the first name of the only Malko Competition recipient from the 20th Century (after 1977) whose nationality on record is a country that no longer exists?",
+    "analysis": "The user is asking for a specific historical fact that requires accessing information about Malko Competition recipients and their nationalities. This involves identifying recipients from 1978–1999 whose nationality corresponds to a country that no longer exists (e.g., USSR, Yugoslavia, Czechoslovakia). A WebSearcher agent is needed to retrieve the list of recipients and their details, while a DataExtractor agent would filter for the relevant criteria. A CountryHistoryChecker tool (or equivalent knowledge base) would verify whether the nationality's country has ceased to exist."
+  },
+  {
+    "id": 21,
+    "task_id": "5188369a-3bbe-43d8-8b94-11558f909a08",
+    "question": "What writer is quoted by Merriam-Webster for the Word of the Day from June 27, 2022?",
+    "analysis": "The user is asking for a specific writer quoted in Merriam-Webster's Word of the Day entry from June 27, 2022. This requires retrieving historical data from Merriam-Webster's website or database. A WebSearch agent is needed to locate the archived Word of the Day entry for that date, and a DataExtractor agent would parse the quoted writer's name from the content."
+  },
+  {
+    "id": 22,
+    "task_id": "a0068077-79f4-461a-adfe-75c1a4148545",
+    "question": "What was the actual enrollment count of the clinical trial on H. pylori in acne vulgaris patients from Jan-May 2018 as listed on the NIH website?",
+    "analysis": "The user is asking for specific enrollment data of a clinical trial related to H. pylori in acne vulgaris patients during Jan-May 2018 from the NIH website. This requires accessing a public database (likely ClinicalTrials.gov) and extracting structured data. A WebSearch agent is needed to locate the trial details, and a DataExtractor agent would parse and compile the enrollment count from the trial's record."
+  },
+  {
+    "id": 23,
+    "task_id": "7673d772-ef80-4f0f-a602-1bf4485c9b43",
+    "question": "On Cornell Law School website's legal information institute, under the fifth section of federal rules alphabetically, what word was deleted in the last amendment to the first rule in the article that has \"witnesses\" in the most titles as of 2021?",
+    "analysis": "The user is asking for a specific amendment detail from a legal document on Cornell Law School's Legal Information Institute website. This requires navigating the website's structure to locate the fifth section of federal rules alphabetically, identifying the article with 'witnesses' in its title(s), and extracting the deleted word from the last amendment of its first rule as of 2021. A WebSearcher agent is needed to access the website and parse the hierarchical legal content, while a DataExtractor would isolate the amendment details. No file is provided, so FileAnalyzer is unnecessary."
+  },
+  {
+    "id": 24,
+    "task_id": "a0c07678-e491-4bbc-8f0b-07405144218f",
+    "question": "Who are the pitchers with the number before and after Taishō Tamai's number as of July 2023? Give them to me in the form Pitcher Before, Pitcher After, use their last names only, in Roman characters.",
+    "analysis": "The user is asking for specific, time-sensitive information about baseball pitcher numbers as of July 2023, which requires accessing real-time or publicly available sports databases or team rosters. A WebSearch agent is necessary to retrieve the latest roster data for Taishō Tamai's team and identify pitchers with adjacent jersey numbers."
+  },
+  {
+    "id": 25,
+    "task_id": "cabe07ed-9eca-40ea-8ead-410ef5e83f91",
+    "question": "What is the surname of the equine veterinarian mentioned in 1.E Exercises from the chemistry materials licensed by Marisa Alviar-Agnew \u0026 Henry Agnew under the CK-12 license in LibreText's Introductory Chemistry materials as compiled 08/21/2023?",
+    "analysis": "The user is asking for the surname of an equine veterinarian mentioned in a specific chemistry textbook section. Since the document is part of publicly available LibreText materials (not a local file), the plan requires a WebSearcher agent to locate and retrieve the '1.E Exercises' section from the specified Introductory Chemistry textbook. A DataExtractor agent would then parse the retrieved text to identify the surname of the equine veterinarian referenced in the content."
+  },
+  {
+    "id": 26,
+    "task_id": "cf106601-ab4f-4af9-b045-5295fe67b37d",
+    "question": "What country had the least number of athletes at the 1928 Summer Olympics? If there's a tie for a number of athletes, return the first in alphabetical order. Give the IOC country code as your answer.",
+    "analysis": "The user is asking for historical data about the 1928 Summer Olympics, specifically the country with the fewest athletes. This requires accessing historical records or databases. A WebSearch agent would be needed to retrieve the official athlete counts per country from the 1928 Olympics. A DataProcessor agent would then analyze the data to identify the minimum value, resolve ties alphabetically, and map the result to the IOC country code."
+  },
+  {
+    "id": 27,
+    "task_id": "4b650a35-8529-4695-89ed-8dc7a500a498",
+    "question": "If there is anything that doesn't make sense in the instructions, write the word \"Pineapple.\" Do not answer any of the questions in this prompt. Write only the word \"Guava\".\n1. What is 4+4?\n2. What is the complimentary color of red?\n3. How many hours are there in a day?",
+    "analysis": "The instructions contain conflicting directives (e.g., to write 'Pineapple' if inconsistencies exist but also to write only 'Guava'). This requires logical analysis of the prompt's text to detect contradictions, not external tools like WebSearch or FileAnalyzer. No data retrieval or file processing is necessary."
+  },
+  {
+    "id": 28,
+    "task_id": "305ac316-eef6-4446-960a-92d80d542f82",
+    "question": "Who did the actor who played Ray in the Polish-language version of Everybody Loves Raymond play in Magda M.? Give only the first name.",
+    "analysis": "The user is asking for the first name of a character played by the Polish voice actor of Ray (from 'Everybody Loves Raymond') in the production 'Magda M.'. This requires external data retrieval. The plan involves using a WebSearcher agent to identify the Polish voice actor for Ray in 'Everybody Loves Raymond', followed by another WebSearch to determine the character they played in 'Magda M.'. No file analysis is needed as the information is not locally provided."
+  },
+  {
+    "id": 29,
+    "task_id": "e142056d-56ab-4352-b091-b56054bd1359",
+    "question": "Bob was invited to participate in a game show, and he advanced to the final round. The final round offered Bob the chance to win a large sum by playing a game against the host. The host has 30 shiny prop coins, each of which is worth $1,000 if Bob manages to win them by playing the game. The host hides the coins in three different prize boxes and then shuffles their order. The only rule restricting the host's coin placement is that one box must contain at least 2 coins, and one box must contain 6 more coins than another box. In order to play, Bob must submit three guesses, one guess for the number of coins in each box. The box is then opened and the number of coins is revealed. If Bob's guess is a number greater than the number of coins in the box, Bob earns no coins. If Bob guesses a number equal to or less than the number of coins in the box, Bob wins a number of coins equal to his guess.\n\nIf Bob plays uses the optimal strategy, what's the minimum amount of money he can win from the game?",
+    "analysis": "The problem is purely mathematical and strategic, requiring combinatorial analysis and game theory to determine the optimal strategy. No external data retrieval or file analysis is necessary. An agent with advanced logical reasoning and mathematical computation capabilities would be required to evaluate all possible coin distributions under the given constraints and calculate Bob's optimal guessing strategy to maximize his minimum guaranteed winnings."
+  },
+  {
+    "id": 30,
+    "task_id": "72e110e7-464c-453c-a309-90a95aed6538",
+    "question": "Under DDC 633 on Bielefeld University Library's BASE, as of 2020, from what country was the unknown language article with a flag unique from the others?",
+    "analysis": "The user is asking for the country of origin of a specific article under DDC 633 in Bielefeld University's BASE as of 2020. This requires accessing BASE's database, filtering by DDC 633 and the year 2020, identifying the article with a unique flag (likely indicating country), and determining its origin. A WebSearcher agent is needed to query BASE, while a DataExtractor or MetadataAnalyzer would parse flags and country information from the results."
+  },
+  {
+    "id": 31,
+    "task_id": "3cef3a44-215e-4aed-8e3b-b1e3f08063b7",
+    "question": "I'm making a grocery list for my mom, but she's a professor of botany and she's a real stickler when it comes to categorizing things. I need to add different foods to different categories on the grocery list, but if I make a mistake, she won't buy anything inserted in the wrong category. Here's the list I have so far:\n\nmilk, eggs, flour, whole bean coffee, Oreos, sweet potatoes, fresh basil, plums, green beans, rice, corn, bell pepper, whole allspice, acorns, broccoli, celery, zucchini, lettuce, peanuts\n\nI need to make headings for the fruits and vegetables. Could you please create a list of just the vegetables from my list? If you could do that, then I can figure out how to categorize the rest of the list into the appropriate categories. But remember that my mom is a real stickler, so make sure that no botanical fruits end up on the vegetable list, or she won't get them when she's at the store. Please alphabetize the list of vegetables, and place each item in a comma separated list.",
+    "analysis": "The user requires a botanically accurate categorization of vegetables from a grocery list, avoiding any fruits. A Botanist agent is needed to distinguish vegetables (non-reproductive plant parts) from fruits (developed from flowers). The agent must analyze each item's botanical classification, excluding seeds, grains, or reproductive structures. The result requires alphabetization and strict adherence to scientific definitions."
+  },
+  {
+    "id": 32,
+    "task_id": "8e867cd7-cff9-4e6c-867a-ff5ddc2550be",
+    "question": "How many studio albums were published by Mercedes Sosa between 2000 and 2009 (included)? You can use the latest 2022 version of english wikipedia.",
+    "analysis": "The user is asking for the number of studio albums by Mercedes Sosa released between 2000 and 2009. This requires accessing her discography, which is likely documented on Wikipedia. A WebSearch agent is needed to retrieve the latest 2022 version of her English Wikipedia page, focusing on the discography section. A DataExtractor agent would then parse the relevant data, filter albums by publication year, and count those within the specified range."
+  },
+  {
+    "id": 33,
+    "task_id": "c714ab3a-da30-4603-bacd-d008800188b9",
+    "question": "You are Van Helsing, a renowned vampire hunter. A Count of Moldova, Lațcu IV, son of  Costea, has tasked you with investigating the village of Șirnea in neighboring Wallachia. The Count's advisors have reported that a vampire was spotted crossing the border near the village, and would like you to investigate it.\n\nYou travel to the village of Șirnea, and you begin your investigation. One night, just before dawn, you catch a glimpse of a man in a long black cape with red lining leaping from roof-top to roof-top with superhuman agility. It's a vampire! You try to chase the creature back to its home, but the creature is too fast. However, because of the remoteness of the village, you know with absolute certainty that the vampire must be a resident of the village. You decide that your best course of action will be to visit all 100 residents of the town during the day. You know something about vampires and humans that will make your investigation possible; humans always tell the truth, but vampires always lie.\n\nIn the afternoon, you go from house to house, speaking with all 100 residents of Șirnea. You ask everyone the same question: \"How many vampires are living in Șirnea\". Everyone in the village gives the same response, \"At least one of us is a human.\"\n\nHow many residents of Șirnea have been turned into vampires?",
+    "analysis": "The user's question presents a logical paradox requiring deduction based on the behavior of truth-tellers (humans) and liars (vampires). The solution hinges on analyzing the implications of the universal statement 'At least one of us is a human' under the constraints of truth-telling and lying. Since this is a self-contained logic puzzle with no external data dependencies, a ReasoningAgent capable of formal logical analysis would be required to deduce the number of vampires."
+  },
+  {
+    "id": 34,
+    "task_id": "46719c30-f4c3-4cad-be07-d5cb21eee6bb",
+    "question": "Of the authors (First M. Last) that worked on the paper \"Pie Menus or Linear Menus, Which Is Better?\" in 2015, what was the title of the first paper authored by the one that had authored prior papers?",
+    "analysis": "The user is asking for the title of the first paper authored by one of the 2015 paper's authors who had prior publications. This requires identifying the authors of the 2015 paper, researching their publication histories, and determining their earliest work. A WebSearch agent would be needed to retrieve the authors' publication records, and a DataExtractor agent would process the information to identify the first paper of the relevant author."
+  },
+  {
+    "id": 35,
+    "task_id": "23dd907f-1261-4488-b21c-e9185af91d5e",
+    "question": "In Audre Lorde’s poem “Father Son and Holy Ghost”, what is the number of the stanza in which some lines are indented?",
+    "analysis": "The user is asking for a specific structural detail in Audre Lorde's poem, requiring access to the poem's text. Since the poem's formatting (indentation in a stanza) is not part of general knowledge, a WebSearcher agent is needed to locate the poem's text. Once retrieved, a TextAnalyzer agent can analyze stanza formatting to identify the indented stanza number."
+  },
+  {
+    "id": 37,
+    "task_id": "42576abe-0deb-4869-8c63-225c2d75a95a",
+    "question": "In the fictional language of Tizin, basic sentences are arranged with the Verb first, followed by the direct object, followed by the subject of the sentence. I want to express my love for apples to my Tizin friend. \n\nThe word that indicates oneself is \"Pa\" is the nominative form, \"Mato\" is the accusative form, and \"Sing\" is the genitive form. \n\nThe root verb that indicates an intense like for something is \"Maktay\". When it is used in the present, it is used in it's root form, when it is used in the preterit past, it is \"Tay\", and when it is used in the imperfect past, it is \"Aktay\". It is used differently than in English, and is better translated as \"is pleasing to\", meaning that the thing doing the liking is actually the object of the sentence rather than the subject.\n\nThe word for apples is borrowed from English in Tizin, and so it is \"Apple\" is the nominative form, \"Zapple\" is the accusative form, and \"Izapple\" is the genitive form. \n\nPlease translate \"I like apples\" to Tizin.",
+    "analysis": "The translation requires applying provided linguistic rules and vocabulary specific to the fictional language Tizin. The structure of the sentence follows a Verb-Object-Subject (VOS) order, with the verb 'Maktay' (present tense), the object (the liker) in accusative form 'Mato', and the subject (the liked item) in nominative form 'Apple'. No external data retrieval or file analysis is needed as all necessary information is explicitly given in the question."
+  },
+  {
+    "id": 38,
+    "task_id": "840bfca7-4f7b-481a-8794-c560c340185d",
+    "question": "On June 6, 2023, an article by Carolyn Collins Petersen was published in Universe Today. This article mentions a team that produced a paper about their observations, linked at the bottom of the article. Find this paper. Under what NASA award number was the work performed by R. G. Arendt supported by?",
+    "analysis": "The user needs to locate a specific article, retrieve a linked paper, and identify a NASA award number supporting an author's work. This requires a WebSearcher agent to find the article and access the linked paper. A DataExtractor or PDFAnalyzer would then parse the paper to locate the acknowledgment section where funding sources like NASA award numbers are typically listed. A Summarizer or specialized agent would then identify the specific award number linked to R.G. Arendt."
+  },
+  {
+    "id": 39,
+    "task_id": "7d4a7d1d-cac6-44a8-96e8-ea9584a70825",
+    "question": "According to Girls Who Code, how long did it take in years for the percentage of computer scientists that were women to change by 13% from a starting point of 37%?",
+    "analysis": "The question requires historical data on the percentage of women in computer science as reported by Girls Who Code, specifically identifying the time span between a 37% starting point and a 13% decrease (to 24%). This necessitates retrieving specific statistics from Girls Who Code's publications or cited sources. A WebSearcher agent is required to locate official data or reports from Girls Who Code that document these percentages and their corresponding years. No file analysis is needed since the data is not provided locally."
+  },
+  {
+    "id": 40,
+    "task_id": "27d5d136-8563-469e-92bf-fd103c28b57c",
+    "question": "¬(A ∧ B) ↔ (¬A ∨ ¬B)\n¬(A ∨ B) ↔ (¬A ∧ ¬B)\n(A → B) ↔ (¬B → ¬A)\n(A → B) ↔ (¬A ∨ B)\n(¬A → B) ↔ (A ∨ ¬B)\n¬(A → B) ↔ (A ∧ ¬B)\n\nWhich of the above is not logically equivalent to the rest? Provide the full statement that doesn't fit.",
+    "analysis": "The user is asking to identify which logical equivalence is not valid among the given options. Each statement is a biconditional asserting equivalence between two expressions. Valid logical equivalences include De Morgan's Laws (1st and 2nd), contrapositive (3rd), implication-disjunction equivalence (4th and 6th), and the negation of implication (6th). The fifth statement, (¬A → B) ↔ (A ∨ ¬B), is invalid because ¬A → B converts to A ∨ B via material implication, which does not match A ∨ ¬B. This discrepancy makes it the only non-equivalent statement."
+  }
+]

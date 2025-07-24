@@ -1,0 +1,27 @@
+{
+  "agent_guidance": [
+    {
+      "agent_name": "Planner",
+      "feedback": "Failed to specify targeted search strategies for accessing ORCID pages or extracting works. Instructions were too vague for the WebSearcher to execute effectively.",
+      "revised_instruction": "Provide explicit search templates: 'For each ORCID ID {ORCID_ID}, search 'site:orcid.org https://orcid.org/{ORCID_ID} publications before 2020' and extract work counts from the ORCID page content or linked publications.'"
+    },
+    {
+      "agent_name": "WebSearcher",
+      "feedback": "Used generic queries that returned irrelevant snippets instead of targeting ORCID pages directly. Did not systematically parse ORCID-specific work sections or handle pagination.",
+      "revised_instruction": "For each ORCID ID {ORCID_ID}, first locate the ORCID page by searching 'site:orcid.org https://orcid.org/{ORCID_ID}'. Once located, search for 'publications before 2020' on that page, count visible works, and note if results are incomplete."
+    }
+  ],
+  "failure_reason": "The WebSearcher could not accurately extract pre-2020 work counts from ORCID pages due to reliance on Google search snippets that lacked detailed work listings and failed to resolve one ORCID ID after multiple retries. The Summarizer incorrectly excluded an unresolved ORCID and miscalculated the average.",
+  "sop_critique": {
+    "suggestions": [
+      "Add explicit instructions for constructing direct ORCID URLs (e.g., 'https://orcid.org/{ORCID_ID}') and searching for works using structured queries like 'site:orcid.org publications before 2020'.",
+      "Include a retry limit (e.g., 3 attempts) for unresolved ORCIDs, with a fallback to proceed with remaining valid data.",
+      "Introduce a verification step where the Planner cross-checks a subset of WebSearcher's outputs for consistency."
+    ],
+    "weaknesses": [
+      "The SOP lacked a clear method for accessing ORCID pages directly or extracting work data from them using only Google search.",
+      "No error-handling mechanism was defined for ORCIDs that could not be retrieved after repeated attempts.",
+      "The workflow did not include a validation step to cross-check WebSearcher's counts for accuracy before summarization."
+    ]
+  }
+}

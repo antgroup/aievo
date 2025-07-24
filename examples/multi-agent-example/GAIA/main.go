@@ -208,6 +208,13 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 
 		if strings.Contains(agentDetail.Name, "Web") || strings.Contains(agentDetail.Name, "web") {
 			agentOpts = append(agentOpts, agent.WithTools(ts))
+		} else {
+			for _, toolName := range agentDetail.Tools {
+				if strings.EqualFold(toolName, "Google search") {
+					agentOpts = append(agentOpts, agent.WithTools(ts))
+					break
+				}
+			}
 		}
 
 		if strings.Contains(agentDetail.Name, "File") || strings.Contains(agentDetail.Name, "file") {
@@ -470,7 +477,8 @@ func main() {
 					}
 				} else {
 					if eval == 0 {
-						sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1_L%d_q%d.json", level, i)
+						sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.1_L0_q%d.json", i)
+						//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					}
 					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
 				}

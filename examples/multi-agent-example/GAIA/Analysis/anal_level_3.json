@@ -1,0 +1,98 @@
+[
+  {
+    "id": 0,
+    "task_id": "384d0dd8-e8a4-4cfe-963c-d37f256e7662",
+    "question": "In the NCATS PubChem compound database for Food Additive Status classification, find the compound that has a molecular weight of 100 g/mol or less, 6 heavy atoms, 1 or fewer hydrogen bond acceptors, and a complexity between 10 and 15. Of the shared gene-chemical co-occurrences between its two possible enzyme transformations, what is the PubChem CID of the heaviest by molecular weight?",
+    "analysis": "The user's query requires querying the NCATS PubChem database with specific molecular filters and analyzing enzyme transformation data. A WebSearch agent is needed to access PubChem's public database and retrieve compounds matching the criteria (molecular weight ≤100 g/mol, 6 heavy atoms, ≤1 H-bond acceptor, complexity 10-15). A DataProcessor agent would then identify the compound, extract its enzyme transformation co-occurrences, and determine the heaviest PubChem CID by molecular weight. No local file analysis is required."
+  },
+  {
+    "id": 1,
+    "task_id": "50f58759-7bd6-406f-9b0d-5692beb2a926",
+    "question": "How many times was a Twitter/X post cited as a reference on the english Wikipedia pages for each day of August in the last June 2023 versions of the pages?",
+    "analysis": "The user is asking for a count of Twitter/X citations on English Wikipedia pages as of June 2023, aggregated by each day in August. This requires accessing historical Wikipedia data (June 2023 versions) to extract references, identify Twitter citations, and potentially link them to tweet dates. A WebSearcher agent would retrieve the Wikipedia page versions, a DataExtractor would parse references, and a TwitterAPI agent might resolve tweet dates for August aggregation."
+  },
+  {
+    "id": 2,
+    "task_id": "5f982798-16b9-4051-ab57-cfc7ebdb2a91",
+    "question": "I read a paper about multiwavelength observations of fast radio bursts back in March 2021 on Arxiv, and it had a fascinating diagram of an X-ray time profile. There was a similar burst-1 diagram in another paper from one of the same authors about fast radio bursts back in July 2020, but I can't recall what the difference in seconds in the measured time span was. How many more seconds did one measure than the other? Just give the number.",
+    "analysis": "The user is asking for the difference in measured time spans between two X-ray time profile diagrams from two different papers on Arxiv. This requires locating both papers via WebSearch, extracting the time spans from the diagrams, and computing the numerical difference. A WebSearcher agent is needed to retrieve the papers, and a DataExtractor or FileAnalyzer would parse the diagrams to obtain the specific time spans for comparison."
+  },
+  {
+    "id": 3,
+    "task_id": "851e570a-e3de-4d84-bcfa-cc85578baa59",
+    "question": "I thought we could try a fun word puzzle together :)\n\nI've got a Boggle board here:\n\nABRL\nEITE\nIONS\nFPEI\n\nI'd like to know the longest word that can be generated from the board. Please find the longest English language word that can be generated from this board. If more than one word of the same length exists at the maximum word length, please report the longest word that comes first, alphabetically. Oh, and I know that there might be different wordlists available for Boggle, so let's please just use the words_alpha dictionary found at https://github.com/dwyl/english-words as the dictionary for our game.",
+    "analysis": "The user's question involves solving a Boggle puzzle using a specific dictionary. This requires accessing the online dictionary (words_alpha) via WebSearch and employing a BoggleSolver agent to process the board, generate valid words, and determine the longest one alphabetically. The BoggleSolver must handle path generation, dictionary checking, and sorting criteria."
+  },
+  {
+    "id": 4,
+    "task_id": "676e5e31-a554-4acc-9286-b60d90a92d26",
+    "question": "In July 2, 1959 United States standards for grades of processed fruits, vegetables, and certain other products listed as dehydrated, consider the items in the \"dried and dehydrated section\" specifically marked as dehydrated along with any items in the Frozen/Chilled section that contain the whole name of the item, but not if they're marked Chilled. As of August 2023, what is the percentage (to the nearest percent) of those standards that have been superseded by a new version since the date given in the 1959 standards?",
+    "analysis": "The user is asking for a percentage of 1959 U.S. standards that have been superseded as of August 2023. This requires retrieving the original list of standards from 1959 documents, cross-referencing their current status (superseded or not) using official standards databases, and calculating the percentage. A WebSearcher agent is needed to locate both historical and current standards data, while a DataProcessor agent would compute the percentage. No file analysis is required since the question relies on external standards documentation."
+  },
+  {
+    "id": 5,
+    "task_id": "9e1fc53b-46ff-49a1-9d05-9e6faac34cc5",
+    "question": "A 5-man group made up of one tank, one healer, and three DPS is doing a dungeon that was just released in World of Warcraft. Two are plate wearers and two are cloth wearers. At the final boss, both the tank and the healer are casting holy spells. Ice and fire are being used, each one by a different DPS. A bear from the group is attacking the boss. Metamorphosis is cast. The Kilt of the Forgotten One drops as loot, but no one can use it. If all classes were using their class abilities and all classes are unique, what are the five classes in the group in alphabetical order separated by commas?",
+    "analysis": "The question requires logical deduction based on World of Warcraft class roles, armor types, and abilities. The solution involves analyzing clues about roles (tank/healer/DPS), armor types (plate/cloth), spell usage (holy, ice, fire, Metamorphosis), and loot restrictions (Kilt of the Forgotten One). A WebSearch agent is necessary to confirm class-specific details (e.g., which class uses Metamorphosis, armor types per class, and item class restrictions). A LogicSolver agent would process the constraints to deduce the valid class combination."
+  },
+  {
+    "id": 6,
+    "task_id": "3da89939-209c-4086-8520-7eb734e6b4ef",
+    "question": "I was referencing each of the tables in the file from papers that were cited by the \"Trans fatty acid contents in chocolates and chocolate wafers in Turkey\" paper. I lost my own reference sheet and need to know which of the papers each table came from. The file may not use the full table caption. If the references in the\"Trans fatty acid\" paper bibliography were numbered starting with 1, give me the numbers in the order that they would be used to fill the cells in the Excel file from top to bottom, as a comma separated list.",
+    "analysis": "The user needs to map tables in an Excel file back to numbered references in the 'Trans fatty acid' paper. This requires analyzing the Excel file to identify partial table captions or identifiers, then cross-referencing these with the original paper's bibliography to determine corresponding reference numbers. A FileAnalyzer is needed to parse the Excel file's structure and content. If the bibliography of the 'Trans fatty acid' paper is not provided, a WebSearch agent may be required to retrieve it for mapping. However, since the user implies the references are numbered in the original paper's bibliography (not provided in the query), the primary tool is FileAnalyzer to extract table details, followed by logical inference to link tables to reference numbers based on available data."
+  },
+  {
+    "id": 7,
+    "task_id": "de9887f5-ead8-4727-876f-5a4078f8598c",
+    "question": "What integer-rounded percentage of the total length of the harlequin shrimp recorded in Omar Valencfia-Mendez 2017 paper was the sea star fed to the same type of shrimp in G. Curt Fiedler's 2002 paper?",
+    "analysis": "The user is asking for a calculated percentage based on specific data from two academic papers. Since the data is not publicly accessible or pre-known, a WebSearch agent is required to locate and extract the relevant measurements (total length of harlequin shrimp in Omar Valencfia-Mendez 2017 and sea star length in G. Curt Fiedler 2002). A DataExtractor agent would parse the numerical values, and a Calculator agent would compute the percentage and round it to the nearest integer. No file analysis is needed as no local file is provided."
+  },
+  {
+    "id": 8,
+    "task_id": "c526d8d6-5987-4da9-b24c-83466fa172f3",
+    "question": "In the NIH translation of the original 1913 Michaelis-Menten Paper, what is the velocity of a reaction to four decimal places using the final equation in the paper based on the information for Reaction 7 in the Excel file?",
+    "analysis": "The user requires extracting specific parameters (e.g., substrate concentration, Vmax, Km) from an Excel file (Reaction 7) and applying the Michaelis-Menten equation derived in the NIH translation of the 1913 paper to calculate reaction velocity. A FileAnalyzer agent is needed to parse the Excel file and retrieve the numerical inputs. A DataProcessor agent would then implement the final equation from the paper to compute the velocity to four decimal places, ensuring precision and adherence to the formula's historical context."
+  },
+  {
+    "id": 9,
+    "task_id": "da52d699-e8d2-4dc5-9191-a2199e0b6a9b",
+    "question": "The attached spreadsheet contains a list of books I read in the year 2022. What is the title of the book that I read the slowest, using the rate of words per day?",
+    "analysis": "The user needs to determine the slowest-read book based on words per day using data from an Excel spreadsheet. A FileAnalyzer agent is required to parse the 'da52d699-e8d2-4dc5-9191-a2199e0b6a9b.xlsx' file, extract book titles, word counts, and reading durations (or start/end dates to calculate days). A DataProcessor agent would then compute the words-per-day rate for each book and identify the slowest one. No external search is needed as all data is local."
+  },
+  {
+    "id": 10,
+    "task_id": "8d46b8d6-b38a-47ff-ac74-cda14cf2d19b",
+    "question": "What percentage of the total penguin population according to the upper estimates on english Wikipedia at the end of 2012 is made up by the penguins in this file that don't live on Dream Island or have beaks longer than 42mm? Round to the nearest five decimal places.",
+    "analysis": "The user's question requires integrating data from Wikipedia and a CSV file. A WebSearch agent is needed to retrieve the upper estimate of the total penguin population from English Wikipedia as of 2012. A FileAnalyzer will parse the provided CSV to extract penguin data, filtering those not living on Dream Island and with beak lengths ≤42mm. A DataProcessor will calculate the percentage by comparing the filtered CSV data to the total population, ensuring rounding to five decimal places."
+  },
+  {
+    "id": 11,
+    "task_id": "56db2318-640f-477a-a82f-bc93ad13e882",
+    "question": "The following numbers function similarly to ISBN 13 numbers, however, their validation methods are slightly different. Rather than using alternate weights of 1 and 3, the checksum digit is calculated with an alternate weight of 1 and some other positive integer less than 10. Otherwise, the checksum digit is calculated as expected. Unfortunately, there is an error in the data. Two adjacent columns have been transposed. These errored columns do not involve the final column or one of the first three columns. Using this information, please provide all potential solutions with the unknown weight and the smaller index of the two errored columns (assume we start our indexing at 0 and ignore hyphens). Give your answer in the form x, y where x is the weight and y is the smaller index of the two transposed columns.\n\n978-354181391-9\n978-946669746-1\n978-398036139-6\n978-447656680-4\n978-279586664-7\n978-595073693-3\n978-976647652-6\n978-591178125-5\n978-728465924-5\n978-414825155-9",
+    "analysis": "The problem requires analyzing a list of ISBN-like numbers to determine an unknown weight and transposed column index. Each ISBN has two adjacent digits swapped (excluding the first three and last columns). The solution involves validating each ISBN after swapping potential positions and applying varying weights. A DataProcessor agent is essential to compute checksums, test all possible weight and index combinations, and identify valid solutions across all ISBNs."
+  },
+  {
+    "id": 12,
+    "task_id": "9b54f9d9-35ee-4a14-b62f-d130ea00317f",
+    "question": "Which of the text elements under CATEGORIES in the XML would contain the one food in the spreadsheet that does not appear a second time under a different name?",
+    "analysis": "The question requires analyzing an XML file to identify text elements under CATEGORIES and cross-referencing these with a spreadsheet listing foods. A FileAnalyzer is needed to parse both the XML (to extract CATEGORIES and their text elements) and the spreadsheet (to list foods and their occurrences). A DataProcessor agent would then compare the data to determine which food appears only once without being grouped under a different name within the same category hierarchy."
+  },
+  {
+    "id": 13,
+    "task_id": "e961a717-6b25-4175-8a68-874d28190ee4",
+    "question": "According to wikipedia, how many Asian countries still have a monarchy and access to the sea in 2021?",
+    "analysis": "The user is asking for a specific count of Asian countries meeting two criteria: monarchy governance and sea access as of 2021. This requires accessing up-to-date geographical and political information. A WebSearcher agent is needed to retrieve the list of Asian monarchies from reliable sources like Wikipedia, while a DataFilter agent would cross-verify sea access for these countries. No file analysis is required."
+  },
+  {
+    "id": 14,
+    "task_id": "72c06643-a2fa-4186-aa5c-9ec33ae9b445",
+    "question": "What is the volume in milliliters of a system comprised of 0.312 kg Freon-12 refrigerant when placed at the bottom of the Marianas Trench and allowed to stabilize at the Trench's peak temperature, rounded to the nearest mL? Provide your answer as just an integer value.",
+    "analysis": "The question requires determining the volume of Freon-12 under extreme pressure and temperature conditions at the Mariana Trench's depth. This necessitates accessing specialized thermodynamic data or density tables for Freon-12 at high pressure and low temperature via a WebSearcher agent. A DataProcessor agent would then calculate the volume using the formula (volume = mass/density), converting units appropriately and rounding to the nearest milliliter."
+  },
+  {
+    "id": 15,
+    "task_id": "983bba7c-c092-455f-b6c9-7857003d48fc",
+    "question": "What animals that were mentioned in both Ilias Lagkouvardos's and Olga Tapia's papers on the alvei species of the genus named for Copenhagen outside the bibliographies were also present in the 2021 article cited on the alvei species' Wikipedia page about a multicenter, randomized, double-blind study?",
+    "analysis": "The question requires cross-referencing multiple sources: identifying animals mentioned in two specific researchers' papers on the alvei species (excluding bibliographies), retrieving a 2021 article cited on the alvei species' Wikipedia page about a clinical study, and comparing the animal lists. A WebSearcher agent is needed to access the researchers' papers, the Wikipedia page, and the 2021 article. A DataExtractor agent will parse the papers and study to list animals, while a DataProcessor agent will compare the datasets. Excluding bibliographies adds complexity to text parsing."
+  }
+]

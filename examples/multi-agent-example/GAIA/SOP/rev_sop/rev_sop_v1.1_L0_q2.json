@@ -1,0 +1,37 @@
+{
+  "question": "Question: In Nature journal's Scientific Reports conference proceedings from 2012, in the article that did not mention plasmons or plasmonics, what nano-compound is studied? Don't use the prefix nano in your answer if there is one.",
+  "analysis": "The task requires systematic verification of 2012 conference articles through material-specific terminology analysis. The revised SOP adds explicit validation steps and prioritizes contextual snippet analysis over keyword matching.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Answer Verifier"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner -\u003e WebSearcher -\u003e Answer Verifier -\u003e End.\n\n**Description:**\n1. Planner develops a material-specific search strategy\n2. WebSearcher executes two-phase search and systematic article verification\n3. Answer Verifier validates findings against exclusion criteria and formats response",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Create a material-focused search strategy with systematic verification steps",
+          "instruction": "1. Identify material-specific terminology alternatives for 'nano-compound' (e.g., graphene, quantum dots, metal oxides)\n2. Develop search phases: first to list all 2012 conference articles, second to verify exclusion criteria\n3. Specify snippet analysis requirements for content verification\n4. Define explicit validation checkpoints for ambiguous cases",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Execute two-phase search with systematic article verification",
+          "instruction": "1. **Phase 1 - Article Listing:**\n   - Search 'Nature Scientific Reports 2012 conference proceeding' to get complete article list\n   - Create spreadsheet of all articles with titles and DOIs\n\n2. **Phase 2 - Systematic Verification:**\n   - For each article:\n     a. Search title+abstract for exclusion terms ('plasmon','plasmonics')\n     b. If excluded, move to next article\n     c. If valid, analyze available snippets for material-specific terminology\n     d. Extract compound name while removing 'nano' prefix\n\n3. Prioritize articles with explicit material characterization data in snippets\n4. Document verification process for audit trail",
+          "tools": [
+            "GOOGLE Search",
+            "Google Scholar"
+          ]
+        },
+        {
+          "name": "Answer Verifier",
+          "responsibility": "Validate findings and construct final answer",
+          "instruction": "1. Cross-check WebSearcher's findings against:\n   - Conference proceeding authenticity\n   - Complete exclusion of plasmon-related terms\n   - Valid material-specific compound identification\n\n2. If multiple valid articles exist:\n   - Prioritize based on compound characterization detail\n   - Consolidate findings or identify discrepancies\n\n3. Format final answer without 'nano' prefix\n4. Document confidence level based on available evidence",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

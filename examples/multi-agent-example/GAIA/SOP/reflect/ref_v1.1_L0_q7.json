@@ -1,0 +1,27 @@
+{
+  "agent_guidance": [
+    {
+      "agent_name": "Planner",
+      "feedback": "The search strategy focused too heavily on finding existing analytics reports rather than planning how to extract data manually from ScienceDirect's interface. The required metadata definition was too vague about needing domain-specific counts rather than proxy metrics.",
+      "revised_instruction": "1. Create a two-phase strategy: First, define precise ScienceDirect navigation steps to extract Reference Work counts per domain. Second, specify statistical analysis requirements. 2. Prioritize website structure analysis over report discovery in search strategy."
+    },
+    {
+      "agent_name": "WebSearcher",
+      "feedback": "Searches focused on finding aggregated statistics rather than locating the specific ScienceDirect pages where Reference Work counts could be manually extracted. Failed to use search terms that would lead to domain-specific pages with filterable Reference Work data.",
+      "revised_instruction": "1. Use Google Search to identify ScienceDirect's Life Science/Health Science domain pages. 2. For each domain, search for URLs containing '/reference-works' filters with 2022 date ranges. 3. Extract numerical counts directly from filtered results pages rather than seeking pre-aggregated statistics."
+    }
+  ],
+  "failure_reason": "Inability to access ScienceDirect's domain-specific Reference Work counts through Google Search due to over-reliance on finding pre-existing aggregated statistics and insufficient focus on replicating the manual website navigation steps required to extract this data.",
+  "sop_critique": {
+    "suggestions": [
+      "Add explicit instructions for the WebSearcher to simulate human navigation of ScienceDirect's domain structure",
+      "Include a validation step where the Summarizer confirms raw data completeness before analysis begins",
+      "Simplify the team structure by merging Planner/WebSearcher roles for tasks requiring website navigation rather than dataset discovery"
+    ],
+    "weaknesses": [
+      "The SOP assumed pre-existing aggregated datasets would be findable via search, rather than requiring manual extraction from ScienceDirect's domain pages",
+      "No verification step was included to confirm whether the WebSearcher had successfully located the required numerical counts before proceeding to analysis",
+      "The workflow didn't account for ScienceDirect's website structure requiring domain-by-domain navigation to access Reference Work filters"
+    ]
+  }
+}
