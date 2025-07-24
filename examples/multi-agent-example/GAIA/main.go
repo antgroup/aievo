@@ -385,10 +385,10 @@ func main() {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
 
-	eval := 1
+	eval := 0 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{1,3}
+		levels = []int{2}
 	} else {
 		levels = []int{0}
 	}
@@ -440,10 +440,15 @@ func main() {
 			fromsop := true
 			var evo *aievo.AIEvo
 			var err error
+			var generateNewSOP bool
 
 			if fromsop {
 				sopPath := "SOP/v1.json"
-				generateNewSOP := true // Set to true to enable generation
+				if eval == 0 {
+					generateNewSOP = false //
+				} else {
+					generateNewSOP = true // For eval set, true to enable generation
+				}
 				if generateNewSOP {
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					// Set writeToFile to true if you want to save the generated SOP.
@@ -490,7 +495,7 @@ func main() {
 					logEntry := fmt.Sprintf("-----Level: %d, ID: %d, TaskID: %s\n---Question:%s\n---Error: %v\n", level, i, q.TaskID, q.Question, err)
 					logFile.WriteString(logEntry)
 				}
-				continue
+				gen = "NULL"
 			}
 
 			// The return value 'gen' is a string, not a struct.

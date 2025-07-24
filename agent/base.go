@@ -238,11 +238,28 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		fmt.Fprintf(os.Stderr, "Failed to open log file: %v\n", err)
 	} else {
 		defer f.Close()
-		// Write the prompt and output with a timestamp
+		// 记录每次的输入与输出
 		timestamp := time.Now().Format("2006-01-02 15:04:05")
 		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n",
 			timestamp, p, output.Content)
-		// fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n", inputs["history"], ba.name, output.Content)
+
+		// 只记录上一条历史和模型输出
+		// var historyLog string
+		// if len(steps) == 0 {
+		// 	var sb strings.Builder
+		// 	msg := messages[len(messages)-1]
+		// 	sb.WriteString(fmt.Sprintf("(%s -> %s): %s\n", msg.Sender, msg.Receiver, msg.Content))
+		// 	historyLog = sb.String()
+		// } else {
+		// 	lastStep := steps[len(steps)-1]
+		// 	if lastStep.Observation != "" {
+		// 		historyLog = fmt.Sprintf("Observation: %s", lastStep.Observation)
+		// 	} else {
+		// 		historyLog = fmt.Sprintf("Feedback: %s", lastStep.Feedback)
+		// 	}
+		// }
+		// fmt.Fprintf(f, "History:\n%s\nOutput of %s:\n%s\n\n",
+		// 	historyLog, ba.name, output.Content)
 	}
 
 	if ba.callback != nil {
