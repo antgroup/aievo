@@ -266,29 +266,55 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath string, writeToFile bool) (*SOP, error) {
 	log.Println("Starting SOP generation...")
 
-	// 1. Load the SOP template
-	sopFile, err := os.ReadFile(sopTemplatePath)
+	// 1. Load the SOP template file
+	sopFileBytes, err := os.ReadFile(sopTemplatePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read SOP template file: %w", err)
 	}
 
-	var sops []SOP
-	if err := json.Unmarshal(sopFile, &sops); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal SOP template JSON: %w", err)
-	}
-	if len(sops) == 0 {
-		return nil, fmt.Errorf("no SOPs found in the template file")
-	}
-	templateSOP := sops[len(sops)-1] // Get the last one as template
+	var prompt string
 
-	templateBytes, err := json.MarshalIndent(templateSOP, "", "  ")
-	if err != nil {
-		return nil, fmt.Errorf("failed to marshal SOP template to string: %w", err)
-	}
-	templateString := string(templateBytes)
+	// 2. Detect file format and prepare the prompt
+	var sopFile SOPFile
+	// Try to unmarshal into the new SOPFile structure first.
+	if err := json.Unmarshal(sopFileBytes, &sopFile); err == nil && len(sopFile.SOPs) > 0 {
+		log.Printf("Detected RAG-style SOP template from: %s", sopTemplatePath)
 
-	// 2. Create the prompt
-	prompt := fmt.Sprintf(SOPGeneratorPrompt, templateString, userQuestion)
+		// Extract example data for the RAG prompt
+		exampleQuestion := sopFile.Question
+		exampleAnalysis := sopFile.Analysis
+		exampleSOP := sopFile.SOPs[len(sopFile.SOPs)-1]
+
+		exampleSOPBytes, err := json.MarshalIndent(exampleSOP, "", "  ")
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal example SOP to string: %w", err)
+		}
+		exampleSOPString := string(exampleSOPBytes)
+
+		// Use the RAG prompt with the extracted examples
+		prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
+
+	} else {
+		log.Printf("Detected standard SOP template from: %s", sopTemplatePath)
+		// Fallback to the old format (an array of SOPs)
+		var sops []SOP
+		if err := json.Unmarshal(sopFileBytes, &sops); err != nil {
+			return nil, fmt.Errorf("failed to unmarshal SOP JSON in either new or old format: %w", err)
+		}
+		if len(sops) == 0 {
+			return nil, fmt.Errorf("no SOPs found in the template file")
+		}
+		templateSOP := sops[len(sops)-1] // Get the last one as template
+
+		templateBytes, err := json.MarshalIndent(templateSOP, "", "  ")
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal SOP template to string: %w", err)
+		}
+		templateString := string(templateBytes)
+
+		// Use the standard prompt
+		prompt = fmt.Sprintf(SOPGeneratorPrompt, templateString, userQuestion)
+	}
 
 	// 3. Create a temporary agent to generate the SOP
 	sopGenerator, err := agent.NewBaseAgent(
@@ -354,6 +380,38 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 	}
 
 	return &newSop, nil
+}
+
+// retrieveSOPFile retrieves the top SOP filename from the retrieval results.
+func retrieveSOPFile(level int, questionID int) (string, error) {
+	retrievalPath := fmt.Sprintf("Analysis/retri_results_level_%d.json", level)
+	retrievalFile, err := os.ReadFile(retrievalPath)
+	if err != nil {
+		return "", fmt.Errorf("failed to read retrieval file %s: %w", retrievalPath, err)
+	}
+
+	type RetrievalResult struct {
+		WeightedSimilarity []string `json:"weighted_similarity"`
+	}
+	type RetrievalEntry struct {
+		ID               int             `json:"id"`
+		RetrievalResults RetrievalResult `json:"retrieval_results"`
+	}
+	var retrievalData []RetrievalEntry
+	if err := json.Unmarshal(retrievalFile, &retrievalData); err != nil {
+		return "", fmt.Errorf("failed to parse retrieval file %s: %w", retrievalPath, err)
+	}
+
+	for _, entry := range retrievalData {
+		if entry.ID == questionID {
+			if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
+				return entry.RetrievalResults.WeightedSimilarity[0], nil
+			}
+			return "", fmt.Errorf("found entry for question ID %d, but weighted_similarity is empty", questionID)
+		}
+	}
+
+	return "", fmt.Errorf("could not find entry for question ID %d in %s", questionID, retrievalPath)
 }
 
 func main() {
@@ -456,11 +514,22 @@ func main() {
 				} else {
 					generateNewSOP = true // For eval set, true to enable generation
 				}
-				if generateNewSOP {
+				if generateNewSOP { // 评估集：LLM生成SOP
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					// Set writeToFile to true if you want to save the generated SOP.
 					writeToFile := false
-					generatedSOP, err := generateSOP(client, question, "SOP/v1.json", newSopPath, writeToFile)
+					rag := true
+					if rag { // RAG模式：从检索SOP作为引导生成SOP
+						retrievedSopFile, err := retrieveSOPFile(level, i)
+						if err != nil {
+							log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
+						} else {
+							retrievedSopPath := fmt.Sprintf("SOP/gen_sop/%s", retrievedSopFile)
+							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
+							sopPath = retrievedSopPath
+						}
+					} // 依据通用模板 / rag 生成SOP
+					generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
 					if err != nil {
 						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 						// Fallback to default SOP if generation fails
@@ -475,14 +544,14 @@ func main() {
 							panic(err)
 						}
 					}
-				} else {
+				} else { // 训练集：不生成SOP，直接使用已有的SOP
 					if eval == 0 {
 						sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.2.1_L0_q%d.json", i)
 						//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					}
 					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
 				}
-			} else {
+			} else { // 手动构建团队
 				evo, err = createEvo(client, tools)
 			}
 

@@ -11,3 +11,4 @@ examples/multi-agent-example/paper_write/eval
 *.log
 myread.py
 process_files.py
+examples/multi-agent-example/GAIA/Analysis/embedding/
