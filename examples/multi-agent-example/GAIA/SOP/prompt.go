@@ -29,7 +29,6 @@ Your output must follow the JSON format below. Do not add any text outside the J
 
 **Output Format (JSON):**
 {
-  "cate": "end",
   "thought": "Your analysis of the root cause of failure. Analyze the entire process, from planning to execution, and summarize the primary reason for the failure here.",
   "content": {
     "failure_reason": "A concise summary of the primary reason for the failure.",
@@ -49,7 +48,8 @@ Your output must follow the JSON format below. Do not add any text outside the J
         "revised_instruction": "..."
       }
     ]
-  }
+  },
+  "cate": "end"
 }
 `
 )
@@ -77,9 +77,9 @@ Generate a new SOP in the exact same JSON format as the original. The new SOP sh
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
 {
-  "cate": "end"
   "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
   "content": { ... the complete SOP JSON object goes here ... },
+  "cate": "end"
 }
 ~~~
 `

@@ -392,10 +392,10 @@ func main() {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
 
-	eval := 0 // 0 for training, 1 for evaluation
+	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{2}
+		levels = []int{1, 2, 3}
 	} else {
 		levels = []int{0}
 	}
@@ -477,7 +477,7 @@ func main() {
 					}
 				} else {
 					if eval == 0 {
-						sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.1_L0_q%d.json", i)
+						sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.2.1_L0_q%d.json", i)
 						//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					}
 					evo, err = createEvoFromSOP(client, tools, sopPath, nil)

@@ -243,22 +243,22 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n", timestamp, p, output.Content)
 
 		// 只记录上一条历史和模型输出
-		// var historyLog string
-		// if len(steps) == 0 {
-		// 	var sb strings.Builder
-		// 	msg := messages[len(messages)-1]
-		// 	sb.WriteString(fmt.Sprintf("(%s -> %s): %s\n", msg.Sender, msg.Receiver, msg.Content))
-		// 	historyLog = sb.String()
-		// } else {
-		// 	lastStep := steps[len(steps)-1]
-		// 	if lastStep.Observation != "" {
-		// 		historyLog = fmt.Sprintf("Observation: %s", lastStep.Observation)
-		// 	} else {
-		// 		historyLog = fmt.Sprintf("Feedback: %s", lastStep.Feedback)
-		// 	}
-		// }
-		// fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n",
-		// 	historyLog, ba.name, output.Content)
+		//var historyLog string
+		//if len(steps) == 0 {
+		//	var sb strings.Builder
+		//	msg := messages[len(messages)-1]
+		//	sb.WriteString(fmt.Sprintf("(%s -> %s): %s\n", msg.Sender, msg.Receiver, msg.Content))
+		//	historyLog = sb.String()
+		//} else {
+		//	lastStep := steps[len(steps)-1]
+		//	if lastStep.Observation != "" {
+		//		historyLog = fmt.Sprintf("Observation: %s", lastStep.Observation)
+		//	} else {
+		//		historyLog = fmt.Sprintf("Feedback: %s", lastStep.Feedback)
+		//	}
+		//}
+		//fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n",
+		//	historyLog, ba.name, output.Content)
 	}
 
 	if ba.callback != nil {
