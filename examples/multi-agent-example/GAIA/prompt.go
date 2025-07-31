@@ -11,7 +11,7 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks.
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
@@ -21,6 +21,7 @@ Here is a template for you to follow:
 Now, analyze the following user question to determine the necessary agents and workflow.
 For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
 If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
+If the question requires complex web operations, such as clicking or entering information, consider using a "WebBrowser" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Based on your analysis, generate a response in the specified JSON format.
@@ -30,9 +31,49 @@ User "%s"
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
 {
-  "cate": "end"
   "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
   "content": { ... the complete SOP JSON object goes here ... },
+  "cate": "end"
+}
+~~~
+`
+
+const SOPGeneratorPrompt_train = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+
+The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+
+You must follow the structure of the provided template exactly. The main components of the SOP are:
+- "team": A list of agent names that will be part of the team.
+- "sop": A description of the workflow, showing how agents interact with each other.
+- "details": A list of objects, where each object defines an agent with:
+  - "name": The agent's name (must match a name in the "team" list).
+  - "responsibility": A concise description of the agent's main role and purpose.
+  - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
+
+Here is a template for you to follow:
+--- TEMPLATE START ---
+%s
+--- TEMPLATE END ---
+
+Now, analyze the following user question to determine the necessary agents and workflow.
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
+If the question requires complex web operations, such as clicking or entering information, consider using a "WebBrowser" agent.
+Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
+
+Based on your analysis, generate a response in the specified JSON format.
+
+User "%s"
+Human-Annotated Steps to Solve (for reference): 
+%s
+
+Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
+~~~
+{
+  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
+  "content": { ... the complete SOP JSON object goes here ... },
+  "cate": "end"
 }
 ~~~
 `
@@ -48,11 +89,12 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
 
 Now, analyze the following user question to determine the necessary agents and workflow.
 For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
 If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
+If the question requires complex web operations, such as clicking or entering information, consider using a "WebBrowser" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
@@ -74,7 +116,6 @@ Output:
 }
 
 User: "%s"
-Output:
 `
 
 const NewBaseInstructions = `
@@ -128,6 +169,9 @@ DO NOT invoke an agent while using a tool. {{end}}
 `
 
 const NewEndBaseInstructions = `
+### Instructions
+{{.role}}
+
 ### Current Task & Conversation History:
 ~~~
 {{.history}}

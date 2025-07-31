@@ -1,0 +1,45 @@
+{
+  "question": "Question: Who nominated the only Featured Article on English Wikipedia about a dinosaur that was promoted in November 2016?",
+  "analysis": "The user's question requires identifying a specific Wikipedia article about a dinosaur promoted as a Featured Article in November 2016 and finding its nominator. This involves two key steps: (1) searching for the correct article using historical Wikipedia data, and (2) navigating to the article's page to extract nomination details. Since the task requires both web search and interactive browsing (e.g., clicking links to access nomination history), a WebSearcher (for initial search) and WebBrowser (for page navigation) are necessary. The Planner and Summarizer ensure structured workflow and final synthesis.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "WebBrowser",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e WebBrowser;\nWebBrowser -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a two-phase strategy: (1) locate the dinosaur-related Featured Article promoted in November 2016 via web search, and (2) extract nomination details from the article's Wikipedia page. The WebSearcher identifies the correct article (e.g., Giganotosaurus) using historical data. The WebBrowser navigates to the article's page and retrieves nomination metadata. Finally, the Summarizer synthesizes the results into a final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to analyze the user's query and design a two-phase strategy: first to identify the target Wikipedia article, then to extract nomination details.",
+          "instruction": "Break the user's question into actionable steps. Phase 1: Define search terms for the WebSearcher to locate the dinosaur-related Featured Article promoted in November 2016. Phase 2: Instruct the WebBrowser to navigate to the article's page and extract nomination metadata (e.g., talk page history). Provide clear, step-by-step plans for both agents.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to identify the dinosaur-related Featured Article promoted on Wikipedia in November 2016.",
+          "instruction": "1. Strategize Your Search:\nUse the Planner's instructions to formulate queries like 'Wikipedia Featured Articles November 2016 dinosaur' or 'Giganotosaurus Wikipedia nomination history'. Prioritize results from Wikipedia archives or historical records.\n2. Execute the Search:\nUse the GOOGLE Search tool to execute queries. Format each query as a comma-separated list of keywords. Iterate until the correct article (e.g., Giganotosaurus) is confirmed.\n3. Analyze Results:\nExtract the article name and relevant URLs (e.g., Wikipedia talk page links) for the WebBrowser.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "WebBrowser",
+          "responsibility": "You are a Web Navigation Specialist. Your mission is to access the target Wikipedia page and extract nomination details.",
+          "instruction": "1. Navigate to the URL provided by the WebSearcher (e.g., Giganotosaurus Wikipedia page or its talk page).\n2. Locate nomination metadata: Check sections like 'Featured Article Review' or 'Talk Page History' for phrases like 'nominated by' or 'nomination discussion'.\n3. Extract the nominator's username and any contextual details (e.g., date, discussion summary).\n4. Format findings for the Summarizer.",
+          "tools": [
+            "Web Browser"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your mission is to synthesize the article name and nominator details into a concise response.",
+          "instruction": "Combine the dinosaur article name (e.g., Giganotosaurus) and the nominator's username from the WebBrowser's output. Construct a single, precise answer to the user's question, ensuring all details (e.g., November 2016 promotion) are explicitly addressed.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "question": "Question: On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "analysis": "The user's question requires accessing ScienceDirect's website to collect domain-specific Reference Works data, performing statistical calculations, and comparing results. The WebBrowser agent is essential for navigating the website and extracting dynamic data. The CalculationAgent handles standard deviation calculations and numerical operations, while the Planner and Summarizer orchestrate the workflow and finalize the answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebBrowser",
+        "CalculationAgent",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebBrowser (Life Sciences);\nPlanner -\u003e WebBrowser (Health Sciences);\nWebBrowser (Life Sciences) -\u003e CalculationAgent;\nWebBrowser (Health Sciences) -\u003e CalculationAgent;\nCalculationAgent -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. Planner creates execution plans for Life Sciences and Health Sciences data collection.\n2. WebBrowser navigates ScienceDirect to extract Reference Works counts for both domains, filtering out 2023+ entries.\n3. CalculationAgent computes sample standard deviations, finds the difference, and rounds to 3 decimal places.\n4. Summarizer delivers the final numerical answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Design parallel web navigation strategies for Life Sciences and Health Sciences domains.",
+          "instruction": "1. Identify ScienceDirect's URL structure for domain-specific Reference Works.\n2. Create two detailed navigation plans:\n   a. Life Sciences domains data collection path\n   b. Health Sciences domain data collection path\n3. Specify filtering criteria (exclude 2023+ publications).\n4. Define standard deviation calculation requirements.",
+          "tools": []
+        },
+        {
+          "name": "WebBrowser",
+          "responsibility": "Extract Reference Works counts from ScienceDirect for assigned domains.",
+          "instruction": "1. Access ScienceDirect via GOOGLE Search.\n2. For each domain:\n   a. Navigate to domain page\n   b. Apply 'Reference Works' filter\n   c. Record total count\n   d. Filter by publication year \u003c2022\n   e. Record adjusted count\n3. Repeat for all Life Sciences and Health Sciences domains.\n4. Return raw data tables to CalculationAgent.",
+          "tools": [
+            "Web Browser"
+          ]
+        },
+        {
+          "name": "CalculationAgent",
+          "responsibility": "Perform statistical analysis and numerical operations.",
+          "instruction": "1. For each domain category:\n   a. Calculate sample mean of adjusted counts\n   b. Compute squared deviations from mean\n   c. Sum squared deviations\n   d. Divide by (n-1) and take square root\n2. Subtract Health Sciences std dev from Life Sciences std dev.\n3. Round result to three decimal places using standard rounding rules.",
+          "tools": []
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Present final numerical comparison in specified format.",
+          "instruction": "1. Receive rounded difference value from CalculationAgent.\n2. Format answer as: \"The difference in sample standard deviations is X.XXX (Life Sciences - Health Sciences).\"\n3. Include calculation methodology in technical notes.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

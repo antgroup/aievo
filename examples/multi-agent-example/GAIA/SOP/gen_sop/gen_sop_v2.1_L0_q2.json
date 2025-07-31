@@ -1,0 +1,45 @@
+{
+  "question": "Question: In Nature journal's Scientific Reports conference proceedings from 2012, in the article that did not mention plasmons or plasmonics, what nano-compound is studied? Don't use the prefix nano in your answer if there is one.",
+  "analysis": "The user's question requires searching for specific academic articles in a journal's conference proceedings, filtering by year, and analyzing content for keyword exclusion. The task involves web navigation (e.g., filtering, opening links) and content analysis, which necessitates a Planner to strategize, a WebSearcher for initial discovery, a WebBrowser for interactive site navigation, and a Summarizer to finalize the answer. No file analysis is required, so the FileAnalyzer is omitted.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "WebBrowser",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e WebBrowser;\nWebBrowser -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the query and creates a strategic plan for the WebSearcher to locate the Nature Scientific Reports website. Second, the WebSearcher performs a Google search to identify the journal's URL. Third, the WebBrowser agent navigates the website to filter 2012 conference proceedings, opens each article, checks for exclusion of 'plasmon'/'plasmonic', and extracts the nano-compound (without the 'nano' prefix). Finally, the Summarizer synthesizes the findings to provide the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to create a step-by-step strategy for the WebSearcher and WebBrowser agents to locate and analyze the required journal articles.",
+          "instruction": "1. Break the user's query into actionable steps: locate the Nature Scientific Reports website, filter 2012 conference proceedings, and identify articles excluding 'plasmon'/'plasmonic'.\n2. Define the WebSearcher's task to find the journal's URL via Google search.\n3. Define the WebBrowser's task: navigate the URL, filter articles by year, open each one, check for keyword exclusion, and extract the nano-compound (omitting the 'nano' prefix).\nEnsure instructions are clear and sequential.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to locate the Nature Scientific Reports website via Google search.",
+          "instruction": "1. Search Google for 'Nature Scientific Reports journal official website' to identify the correct URL.\n2. Verify the URL points to the journal's main page (e.g., https://www.nature.com/srep/).\n3. Return the URL to the Planner or WebBrowser agent for further processing.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "WebBrowser",
+          "responsibility": "You are an expert Web Browser agent. Your mission is to navigate the journal's website, filter articles, and extract the required nano-compound.",
+          "instruction": "1. Navigate to the URL provided by the WebSearcher.\n2. Click 'Explore Content' \u003e 'Research Articles' to access the article database.\n3. Apply filters: select 'Conference Proceedings' and set the year to 2012.\n4. For each article in the filtered list:\n   a. Open the article link.\n   b. Search the article text for 'plasmon' or 'plasmonic'.\n   c. If neither term is found, extract the nano-compound studied (remove the prefix 'nano' if present).\n5. Return the identified compound to the Summarizer.",
+          "tools": [
+            "Web Browser"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to deliver a concise, accurate answer based on the WebBrowser's findings.",
+          "instruction": "1. Receive the nano-compound name from the WebBrowser agent.\n2. Ensure the answer excludes the 'nano' prefix (e.g., 'silver' instead of 'nano-silver').\n3. Present the final answer clearly and directly.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

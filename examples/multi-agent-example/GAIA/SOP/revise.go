@@ -215,10 +215,10 @@ func main() {
 	// --- CONFIGURATION ---
 	// historySourceFlag: 0 for reading from eval log, 1 for reading from raw log file
 	historySourceFlag := 1
-	evalLogPath := "../eval/eval_level_0_rev1.2_20250724192437.json"
-	rawHistoryLogPath := "../eval/log_output_rev1.2_2025-0724.log" // New log file path
+	evalLogPath := "../eval/eval_level_0_sopv2.1_20250731112035.json"
+	rawHistoryLogPath := "../eval/log_output_2.1_2025-0731.log" // New log file path
 	trainDataPath := "../../../../dataset/gaia/train.json"
-	sopDir := "./rev_sop/"
+	sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
 	// --- END CONFIGURATION ---
@@ -292,8 +292,8 @@ func main() {
 	// --- End History Loading Logic ---
 
 	for i, result := range results {
-		sopPath := filepath.Join(sopDir, fmt.Sprintf("rev_sop_v1.2_L0_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.2.1_L0_q%d.json", result.ID))
+		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v2.1_L0_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v2.1_L0_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -301,13 +301,13 @@ func main() {
 			continue
 		}
 
-		// if result.IsCorrect {
-		// 	log.Printf("Task %s was successful. Copying original SOP to %s", result.TaskID, revisedSopPath)
-		// 	if err := os.WriteFile(revisedSopPath, sopBytes, 0644); err != nil {
-		// 		log.Printf("ERROR: Failed to copy successful SOP for task %s: %v", result.TaskID, err)
-		// 	}
-		// 	continue
-		// }
+		if result.IsCorrect {
+			log.Printf("Task %s was successful. Copying original SOP to %s", result.TaskID, revisedSopPath)
+			if err := os.WriteFile(revisedSopPath, sopBytes, 0644); err != nil {
+				log.Printf("ERROR: Failed to copy successful SOP for task %s: %v", result.TaskID, err)
+			}
+			continue
+		}
 
 		// If the task failed, perform reflection and revision
 		log.Printf("Found failed task ID: %s (Question Index: %d)", result.TaskID, result.ID)
@@ -318,7 +318,7 @@ func main() {
 			continue
 		}
 
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.2.1_L0_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v2.1_L0_q%d.json", result.ID))
 
 		// Use the pre-processed history string
 		historyString := historyStrings[i]

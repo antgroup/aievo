@@ -43,9 +43,37 @@ func New(schema string) ([]tool.Tool, error) {
 
 func convertMCPTool2Tool(c *client.Client, ts []mcp.Tool) []tool.Tool {
 	tools := make([]tool.Tool, 0, len(ts))
+	// Filter out tools that are not relevant or not needed
+	ignoredTools := map[string]struct{}{
+		"firecrawl_scrape":             {},
+		"firecrawl_generate_llmstxt":   {},
+		"firecrawl_deep_research":      {},
+		"firecrawl_extract":            {},
+		"firecrawl_check_crawl_status": {},
+		"firecrawl_crawl":              {},
+		"firecrawl_map":                {},
+		"browser_close":                {},
+		"browser_resize":               {},
+		"browser_console_messages":     {},
+		"browser_handle_dialog":        {},
+		"browser_evaluate":             {},
+		"browser_file_upload":          {},
+		"browser_install":              {},
+		"browser_press_key":            {},
+		"browser_network_requests":     {},
+		"browser_take_screenshot":      {},
+		"browser_drag":                 {},
+		"browser_hover":                {},
+		"browser_select_option":        {},
+		"browser_tab_list":             {},
+		"browser_tab_new":              {},
+		"browser_tab_select":           {},
+		"browser_tab_close":            {},
+		"browser_wait_for":             {},
+	}
 
-	for _, t := range ts {  // t.Name == "firecrawl_scrape" ||
-		if  t.Name == "firecrawl_generate_llmstxt" || t.Name == "firecrawl_deep_research" || t.Name == "firecrawl_extract"  || t.Name == "firecrawl_check_crawl_status"  || t.Name == "firecrawl_crawl"  || t.Name == "firecrawl_map" {
+	for _, t := range ts {
+		if _, ok := ignoredTools[t.Name]; ok {
 			continue
 		}
 		marshal, _ := json.Marshal(t.InputSchema)
@@ -69,10 +97,10 @@ func (t Tool) Name() string {
 // Description returns a description for the tool.
 func (t Tool) Description() string {
 	desc := t.desc
-	// if t.properties != nil {
-	// 	marshal, _ := json.Marshal(t.properties)
-	// 	desc += "\nthis is input schema for this tool:\n" + string(marshal)
-	// }
+	if t.properties != nil {
+		marshal, _ := json.Marshal(t.properties)
+		desc += "\nthis is input schema for this tool:\n" + string(marshal)
+	}
 	return desc
 
 }

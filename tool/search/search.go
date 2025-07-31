@@ -54,12 +54,12 @@ func (t *Tool) Name() string {
 }
 
 func (t *Tool) Description() string {
-	// bytes, _ := json.Marshal(t.Schema())
+	bytes, _ := json.Marshal(t.Schema())
 	return fmt.Sprintf(`A wrapper around %s Search.
-Useful for when you need to answer questions about current events, 
-the input must be json schema: {"query": "The search query string"}`, strings.ToUpper(t.Engine)) + `
+Useful for when you need to answer questions about current events.
 Separate different queries with commas.
-Example Input: {"query": "current US president, capital of Canada"}`
+The input must be json schema: %s
+Example Input: {"query": "current US president, capital of Canada"}`, strings.ToUpper(t.Engine), string(bytes))
 }
 
 func (t *Tool) Schema() *tool.PropertiesSchema {

@@ -1,0 +1,45 @@
+{
+  "question": "Question: The Latin root of the Yola word \"gimlie\" shares a spelling with a Spanish word. What is the Google translation of the source title for the 1994 example sentence for that word in the Collins Spanish-to-English dictionary online? Answer in plain text, without punctuation.",
+  "analysis": "The user's question requires multiple steps involving web searches and navigating specific websites. First, the Latin root 'caminata' is found via Wiktionary using a web search. Next, the Collins dictionary entry for 'caminata' must be accessed to locate the 1994 example's source title. Finally, translating that title requires another search. The WebBrowser agent is necessary to interact with web pages (e.g., scrolling to specific examples), while the WebSearcher handles Google searches. The Planner coordinates the strategy, and the Summarizer compiles the final answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "WebBrowser",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher (search 'Yola gimlie');\nWebSearcher -\u003e WebBrowser (open wiktionary link);\nWebBrowser -\u003e Planner (extract Latin root 'caminata');\nPlanner -\u003e WebSearcher (search 'Collins Spanish-to-English dictionary caminata');\nWebSearcher -\u003e WebBrowser (open Collins URL);\nWebBrowser -\u003e Planner (extract 1994 example source title);\nPlanner -\u003e WebSearcher (search translation of source title);\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the query and creates a step-by-step plan. The WebSearcher identifies the Latin root 'caminata' via a search, and the WebBrowser navigates to Wiktionary to confirm it. Next, the WebSearcher locates the Collins dictionary entry for 'caminata', and the WebBrowser extracts the 1994 example's source title. Finally, the WebSearcher retrieves the Google translation of the title, and the Summarizer combines all findings into the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and orchestrate a multi-step information gathering strategy by creating clear, step-by-step plans for the WebSearcher and WebBrowser agents.",
+          "instruction": "Based on the user's query, create a sequential plan for the WebSearcher and WebBrowser agents. First, identify the need to find the Latin root of 'gimlie' via web search and webpage navigation. Next, outline the steps to locate the Collins dictionary entry and extract the 1994 example's source title. Finally, plan the retrieval of the Google translation for the title and synthesize the information into a final answer.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy provided by the Planner to gather relevant external information using Google Search.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the request from the Planner. Identify the core pieces of information needed. Formulate a step-by-step search strategy. Do not attempt to solve complex queries with a single search.\n2. Execute the Search:\nUse the GOOGLE Search tool to perform searches as instructed. Format each query appropriately and focus on key terms. \n3. Analyze and Iterate:\nReview the search results. If the information is sufficient, proceed. If not, revise your strategy and perform additional searches. Handle errors by adjusting queries accordingly.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "WebBrowser",
+          "responsibility": "You are a Web Navigation Specialist. Your task is to access specific URLs provided by the WebSearcher and extract targeted information from web pages.",
+          "instruction": "1. Access the URL provided by the Planner.\n2. Navigate the webpage to locate the required information (e.g., Latin root, example sentences).\n3. Extract and summarize the relevant details (e.g., 'caminata' root, source title 'El Mundo del Siglo Veintiuno').\n4. Return the extracted information to the Planner for further processing.",
+          "tools": [
+            "Web Browser"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to construct a clear, accurate, and comprehensive answer by integrating information from multiple sources.",
+          "instruction": "You will receive sequential data from the WebSearcher and WebBrowser agents. First, note the Latin root 'caminata' from the Wiktionary page. Next, record the source title 'El Mundo del Siglo Veintiuno' from the Collins dictionary. Finally, incorporate the Google translation of this title. Synthesize these findings into a single, coherent response that directly answers the user's original question.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
