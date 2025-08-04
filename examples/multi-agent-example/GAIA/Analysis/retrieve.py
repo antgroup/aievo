@@ -2,31 +2,34 @@ import json
 import os
 import numpy as np
 import torch
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, util
+from FlagEmbedding import BGEM3FlagModel
 
 
-def create_query_embeddings():
+def create_query_embeddings(model_name='qwen'):
     """
     This function processes JSON files containing questions and analyses,
-    encoif __name__ == "__main__":
-
-    # create_query_embeddings()
-    # create_repo_embeddings()
-    retrieve_and_rank()them using a pre-trained SentenceTransformer model, and saves
-    the embeddings to disk.
+    encodes them using a pre-trained model, and saves the embeddings to disk.
+    :param model_name: The model to use for encoding ('qwen' or 'bge').
     """
     # Create embedding directory if it doesn't exist
-    if not os.path.exists("embedding"):
-        os.makedirs("embedding")
+    embedding_dir = f"embedding_{model_name}"
+    if not os.path.exists(embedding_dir):
+        os.makedirs(embedding_dir)
 
     # Load the sentence transformer model
-    model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
+    if model_name == 'qwen':
+        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
+    elif model_name == 'bge':
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+    else:
+        raise ValueError("Unsupported model_name. Choose 'qwen' or 'bge'.")
 
     # List of files to process
     files_to_process = ["anal_level_1.json", "anal_level_2.json", "anal_level_3.json"]
 
     for filename in files_to_process:
-        print(f"Processing {filename}...")
+        print(f"Processing {filename} with {model_name} model...")
         
         # Load the JSON data
         with open(filename, 'r') as f:
@@ -38,42 +41,54 @@ def create_query_embeddings():
         
         # Encode the questions and analyses
         print("Encoding questions...")
-        question_embeddings = model.encode(questions, prompt_name="query")
-        
-        print("Encoding analyses...")
-        analysis_embeddings = model.encode(analyses)
-        
+        if model_name == 'qwen':
+            question_embeddings = model.encode(questions, prompt_name="query")
+            print("Encoding analyses...")
+            analysis_embeddings = model.encode(analyses)
+        else: # bge
+            output_qs = model.encode(questions, return_dense=True, return_sparse=False, return_colbert_vecs=True)
+            question_embeddings = output_qs['colbert_vecs']
+            print("Encoding analyses...")
+            output_as = model.encode(analyses, return_dense=True, return_sparse=False, return_colbert_vecs=True)
+            analysis_embeddings = output_as['colbert_vecs']
+
         # Get the base name of the file
         base_name = os.path.splitext(filename)[0][5:]
         
         # Save the embeddings
-        question_embedding_file = os.path.join("embedding", f"{base_name}_qs_emb.npy")
-        analysis_embedding_file = os.path.join("embedding", f"{base_name}_as_emb.npy")
+        question_embedding_file = os.path.join(embedding_dir, f"{base_name}_qs_emb.npy")
+        analysis_embedding_file = os.path.join(embedding_dir, f"{base_name}_as_emb.npy")
         
         print(f"Saving question embeddings to {question_embedding_file}...")
-        np.save(question_embedding_file, question_embeddings)
+        np.save(question_embedding_file, question_embeddings, allow_pickle=True)
         
         print(f"Saving analysis embeddings to {analysis_embedding_file}...")
-        np.save(analysis_embedding_file, analysis_embeddings)
+        np.save(analysis_embedding_file, analysis_embeddings, allow_pickle=True)
         
         print(f"Finished processing {filename}.")
 
     print("All files processed and embeddings saved.")
 
 
-def create_repo_embeddings():
+def create_repo_embeddings(model_name='qwen'):
     """
     This function reads all JSON files from the SOP generation directory,
     extracts questions and analyses, encodes them, and saves the embeddings
     into two aggregated files.
+    :param model_name: The model to use for encoding ('qwen' or 'bge').
     """
     # Create embedding directory if it doesn't exist
-    embedding_dir = "embedding"
+    embedding_dir = f"embedding_{model_name}"
     if not os.path.exists(embedding_dir):
         os.makedirs(embedding_dir)
 
     # Load the sentence transformer model
-    model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
+    if model_name == 'qwen':
+        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
+    elif model_name == 'bge':
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+    else:
+        raise ValueError("Unsupported model_name. Choose 'qwen' or 'bge'.")
 
     # Path to the SOP generation directory
     sop_dir = "../SOP/gen_sop"
@@ -115,42 +130,46 @@ def create_repo_embeddings():
         return
 
     # Encode all questions and analyses
-    print("Encoding all questions...")
-    question_embeddings = model.encode(all_questions, prompt_name="query")
-    
-    print("Encoding all analyses...")
-    analysis_embeddings = model.encode(all_analyses)
-    
+    print(f"Encoding all questions with {model_name} model...")
+    if model_name == 'qwen':
+        question_embeddings = model.encode(all_questions, prompt_name="query")
+        print("Encoding all analyses...")
+        analysis_embeddings = model.encode(all_analyses)
+    else: # bge
+        output_qs = model.encode(all_questions, return_dense=True, return_sparse=False, return_colbert_vecs=True)
+        question_embeddings = output_qs['colbert_vecs']
+        print("Encoding all analyses...")
+        output_as = model.encode(all_analyses, return_dense=True, return_sparse=False, return_colbert_vecs=True)
+        analysis_embeddings = output_as['colbert_vecs']
+
     # Save the aggregated embeddings
     question_embedding_file = os.path.join(embedding_dir, "repo_qs_emb.npy")
     analysis_embedding_file = os.path.join(embedding_dir, "repo_as_emb.npy")
     
     print(f"Saving all question embeddings to {question_embedding_file}...")
-    np.save(question_embedding_file, question_embeddings)
+    np.save(question_embedding_file, question_embeddings, allow_pickle=True)
     
     print(f"Saving all analysis embeddings to {analysis_embedding_file}...")
-    np.save(analysis_embedding_file, analysis_embeddings)
+    np.save(analysis_embedding_file, analysis_embeddings, allow_pickle=True)
 
     print("All SOP files processed and aggregated embeddings saved.")
 
-def retrieve_and_rank():
+def retrieve_and_rank(model_name='qwen'):
     """
     Performs retrieval based on similarity metrics between query and repo embeddings.
     For each query, it finds the top 3 most similar repo items based on three different strategies
     and saves the results to JSON files.
+    :param model_name: The model used for embeddings ('qwen' or 'bge').
     """
-    print("Starting retrieval and ranking process...")
+    print(f"Starting retrieval and ranking process for {model_name} model...")
     
-    # Load the sentence transformer model for similarity calculation
-    model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
-    
-    embedding_dir = "embedding"
+    embedding_dir = f"embedding_{model_name}"
     sop_dir = "../SOP/gen_sop"
 
     # Load repository embeddings and IDs
     try:
-        repo_qs_emb = np.load(os.path.join(embedding_dir, "repo_qs_emb.npy"))
-        repo_as_emb = np.load(os.path.join(embedding_dir, "repo_as_emb.npy"))
+        repo_qs_emb = np.load(os.path.join(embedding_dir, "repo_qs_emb.npy"), allow_pickle=True)
+        repo_as_emb = np.load(os.path.join(embedding_dir, "repo_as_emb.npy"), allow_pickle=True)
         
         # The IDs are the filenames from the SOP directory
         repo_ids = sorted([f for f in os.listdir(sop_dir) if f.endswith('.json')])
@@ -159,8 +178,12 @@ def retrieve_and_rank():
             print("Warning: Mismatch between number of repo IDs and embeddings. Check for changes in SOP directory.")
 
     except FileNotFoundError:
-        print("Error: Repository embeddings not found. Please run 'create_repo_embeddings' first.")
+        print(f"Error: Repository embeddings not found. Please run 'create_repo_embeddings(model_name=\"{model_name}\")' first.")
         return
+
+    # Load model for bge similarity calculation
+    if model_name == 'bge':
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
 
     # Process each level
     for level in [1, 2, 3]:
@@ -169,27 +192,38 @@ def retrieve_and_rank():
         
         try:
             # Load query embeddings for the current level
-            query_qs_emb = np.load(os.path.join(embedding_dir, f"level_{level}_qs_emb.npy"))
-            query_as_emb = np.load(os.path.join(embedding_dir, f"level_{level}_as_emb.npy"))
+            query_qs_emb = np.load(os.path.join(embedding_dir, f"level_{level}_qs_emb.npy"), allow_pickle=True)
+            query_as_emb = np.load(os.path.join(embedding_dir, f"level_{level}_as_emb.npy"), allow_pickle=True)
             
             # Load original query data to have a reference
             with open(f"anal_level_{level}.json", 'r') as f:
                 queries_data = json.load(f)
 
         except FileNotFoundError:
-            print(f"Error: Embeddings or data file for level {level} not found. Please run 'create_query_embeddings' first.")
+            print(f"Error: Embeddings or data file for level {level} not found. Please run 'create_query_embeddings(model_name=\"{model_name}\")' first.")
             continue
 
         # Calculate similarities
-        # Shape: (num_queries, num_repo_items)
-        sim_qs = model.similarity(query_qs_emb, repo_qs_emb)
-        sim_as = model.similarity(query_as_emb, repo_as_emb)
-        
-        # Ensure tensors are on the CPU for numpy operations
-        if isinstance(sim_qs, torch.Tensor):
-            sim_qs = sim_qs.cpu().numpy()
-        if isinstance(sim_as, torch.Tensor):
-            sim_as = sim_as.cpu().numpy()
+        if model_name == 'qwen':
+            # Shape: (num_queries, num_repo_items)
+            sim_qs = util.cos_sim(query_qs_emb, repo_qs_emb)
+            sim_as = util.cos_sim(query_as_emb, repo_as_emb)
+            
+            # Ensure tensors are on the CPU for numpy operations
+            if isinstance(sim_qs, torch.Tensor):
+                sim_qs = sim_qs.cpu().numpy()
+            if isinstance(sim_as, torch.Tensor):
+                sim_as = sim_as.cpu().numpy()
+        else: # bge
+            num_queries = len(query_qs_emb)
+            num_repos = len(repo_qs_emb)
+            sim_qs = np.zeros((num_queries, num_repos))
+            sim_as = np.zeros((num_queries, num_repos))
+            print("Calculating BGE similarities...")
+            for i in range(num_queries):
+                for j in range(num_repos):
+                    sim_qs[i, j] = model.colbert_score(query_qs_emb[i], repo_qs_emb[j])
+                    sim_as[i, j] = model.colbert_score(query_as_emb[i], repo_as_emb[j])
         
         # Combined similarity
         sim_combined = 0.5 * sim_qs + 0.5 * sim_as
@@ -220,7 +254,7 @@ def retrieve_and_rank():
             })
 
         # Save results for the level to a JSON file
-        output_filename = f"retri_results_level_{level}.json"
+        output_filename = f"retri_results_level_{level}_{model_name}.json"
         with open(output_filename, 'w') as f:
             json.dump(level_results, f, indent=4)
             
@@ -229,7 +263,10 @@ def retrieve_and_rank():
     print("\nAll levels processed. Retrieval and ranking complete.")
 
 if __name__ == "__main__":
+    
+    # Set the model to use: 'qwen' or 'bge'
+    model_to_use = 'bge' 
 
-    # create_query_embeddings()
-    # create_repo_embeddings()
-    retrieve_and_rank()
+    create_query_embeddings(model_name=model_to_use)
+    create_repo_embeddings(model_name=model_to_use)
+    retrieve_and_rank(model_name=model_to_use)

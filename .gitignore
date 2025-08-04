@@ -10,3 +10,4 @@ examples/multi-agent-example/paper_write/eval
 myread.py
 process_files.py
 examples/multi-agent-example/GAIA/Analysis/embedding/
+examples/multi-agent-example/GAIA/Analysis/embedding_bge

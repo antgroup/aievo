@@ -1,0 +1,338 @@
+[
+    {
+        "id": 0,
+        "query_question": "In the NCATS PubChem compound database for Food Additive Status classification, find the compound that has a molecular weight of 100 g/mol or less, 6 heavy atoms, 1 or fewer hydrogen bond acceptors, and a complexity between 10 and 15. Of the shared gene-chemical co-occurrences between its two possible enzyme transformations, what is the PubChem CID of the heaviest by molecular weight?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "query_question": "How many times was a Twitter/X post cited as a reference on the english Wikipedia pages for each day of August in the last June 2023 versions of the pages?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "query_question": "I read a paper about multiwavelength observations of fast radio bursts back in March 2021 on Arxiv, and it had a fascinating diagram of an X-ray time profile. There was a similar burst-1 diagram in another paper from one of the same authors about fast radio bursts back in July 2020, but I can't recall what the difference in seconds in the measured time span was. How many more seconds did one measure than the other? Just give the number.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json"
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "query_question": "I thought we could try a fun word puzzle together :)\n\nI've got a Boggle board here:\n\nABRL\nEITE\nIONS\nFPEI\n\nI'd like to know the longest word that can be generated from the board. Please find the longest English language word that can be generated from this board. If more than one word of the same length exists at the maximum word length, please report the longest word that comes first, alphabetically. Oh, and I know that there might be different wordlists available for Boggle, so let's please just use the words_alpha dictionary found at https://github.com/dwyl/english-words as the dictionary for our game.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "query_question": "In July 2, 1959 United States standards for grades of processed fruits, vegetables, and certain other products listed as dehydrated, consider the items in the \"dried and dehydrated section\" specifically marked as dehydrated along with any items in the Frozen/Chilled section that contain the whole name of the item, but not if they're marked Chilled. As of August 2023, what is the percentage (to the nearest percent) of those standards that have been superseded by a new version since the date given in the 1959 standards?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json"
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "query_question": "A 5-man group made up of one tank, one healer, and three DPS is doing a dungeon that was just released in World of Warcraft. Two are plate wearers and two are cloth wearers. At the final boss, both the tank and the healer are casting holy spells. Ice and fire are being used, each one by a different DPS. A bear from the group is attacking the boss. Metamorphosis is cast. The Kilt of the Forgotten One drops as loot, but no one can use it. If all classes were using their class abilities and all classes are unique, what are the five classes in the group in alphabetical order separated by commas?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "query_question": "I was referencing each of the tables in the file from papers that were cited by the \"Trans fatty acid contents in chocolates and chocolate wafers in Turkey\" paper. I lost my own reference sheet and need to know which of the papers each table came from. The file may not use the full table caption. If the references in the\"Trans fatty acid\" paper bibliography were numbered starting with 1, give me the numbers in the order that they would be used to fill the cells in the Excel file from top to bottom, as a comma separated list.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "query_question": "What integer-rounded percentage of the total length of the harlequin shrimp recorded in Omar Valencfia-Mendez 2017 paper was the sea star fed to the same type of shrimp in G. Curt Fiedler's 2002 paper?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json"
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "query_question": "In the NIH translation of the original 1913 Michaelis-Menten Paper, what is the velocity of a reaction to four decimal places using the final equation in the paper based on the information for Reaction 7 in the Excel file?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "query_question": "The attached spreadsheet contains a list of books I read in the year 2022. What is the title of the book that I read the slowest, using the rate of words per day?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 10,
+        "query_question": "What percentage of the total penguin population according to the upper estimates on english Wikipedia at the end of 2012 is made up by the penguins in this file that don't live on Dream Island or have beaks longer than 42mm? Round to the nearest five decimal places.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "query_question": "The following numbers function similarly to ISBN 13 numbers, however, their validation methods are slightly different. Rather than using alternate weights of 1 and 3, the checksum digit is calculated with an alternate weight of 1 and some other positive integer less than 10. Otherwise, the checksum digit is calculated as expected. Unfortunately, there is an error in the data. Two adjacent columns have been transposed. These errored columns do not involve the final column or one of the first three columns. Using this information, please provide all potential solutions with the unknown weight and the smaller index of the two errored columns (assume we start our indexing at 0 and ignore hyphens). Give your answer in the form x, y where x is the weight and y is the smaller index of the two transposed columns.\n\n978-354181391-9\n978-946669746-1\n978-398036139-6\n978-447656680-4\n978-279586664-7\n978-595073693-3\n978-976647652-6\n978-591178125-5\n978-728465924-5\n978-414825155-9",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "query_question": "Which of the text elements under CATEGORIES in the XML would contain the one food in the spreadsheet that does not appear a second time under a different name?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q1.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "query_question": "According to wikipedia, how many Asian countries still have a monarchy and access to the sea in 2021?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "query_question": "What is the volume in milliliters of a system comprised of 0.312 kg Freon-12 refrigerant when placed at the bottom of the Marianas Trench and allowed to stabilize at the Trench's peak temperature, rounded to the nearest mL? Provide your answer as just an integer value.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q7.json"
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "query_question": "What animals that were mentioned in both Ilias Lagkouvardos's and Olga Tapia's papers on the alvei species of the genus named for Copenhagen outside the bibliographies were also present in the 2021 article cited on the alvei species' Wikipedia page about a multicenter, randomized, double-blind study?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json"
+            ]
+        }
+    }
+]
