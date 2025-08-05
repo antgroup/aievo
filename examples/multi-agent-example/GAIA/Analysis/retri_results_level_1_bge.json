@@ -1,0 +1,842 @@
+[
+    {
+        "id": 0,
+        "query_question": "What was the volume in m^3 of the fish bag that was calculated in the University of Leicester paper \"Can Hiccup Supply Enough Fish to Maintain a Dragon\u2019s Diet?\"",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "query_question": "If Eliud Kipchoge could maintain his record-making marathon pace indefinitely, how many thousand hours would it take him to run the distance between the Earth and the Moon its closest approach? Please use the minimum perigee value on the Wikipedia page for the Moon when carrying out your calculation. Round your result to the nearest 1000 hours and do not use any comma separators if necessary.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "query_question": "How many more blocks (also denoted as layers) in BERT base encoder than the encoder from the architecture proposed in Attention is All You Need?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q1.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q1.json"
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "query_question": "My family reunion is this week, and I was assigned the mashed potatoes to bring. The attendees include my married mother and father, my twin brother and his family, my aunt and her family, my grandma and her brother, her brother's daughter, and his daughter's family. All the adults but me have been married, and no one is divorced or remarried, but my grandpa and my grandma's sister-in-law passed away last year. All living spouses are attending. My brother has two children that are still kids, my aunt has one six-year-old, and my grandma's brother's daughter has three kids under 12. I figure each adult will eat about 1.5 potatoes of mashed potatoes and each kid will eat about 1/2 a potato of mashed potatoes, except my second cousins don't eat carbs. The average potato is about half a pound, and potatoes are sold in 5-pound bags. How many whole bags of potatoes do I need? Just give the number.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "query_question": "Of the cities within the United States where U.S. presidents were born, which two are the farthest apart from the westernmost to the easternmost going east, giving the city names only? Give them to me in alphabetical order, in a comma-separated list",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "query_question": "The attached Excel file contains the sales of menu items for a local fast-food chain. What were the total sales that the chain made from food (not including drinks)? Express your answer in USD with two decimal places.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "query_question": ".rewsna eht sa \"tfel\" drow eht fo etisoppo eht etirw ,ecnetnes siht dnatsrednu uoy fI",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "query_question": "You are a telecommunications engineer who wants to build cell phone towers on a stretch of road. In the reference file is a layout of the road and nearby houses. Each dash, \"-\", is a marker indicating a mile. Each capital H indicates a house located next to a mile marker, appearing above or below the stretch of road. Each cell phone tower can cover houses located next to the road within a 4-mile radius. Find the minimum number of cell phone towers needed to cover all houses next to the road. Your answer should be a positive numerical integer value.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "query_question": "Given this table defining * on the set S = {a, b, c, d, e}\n\n|*|a|b|c|d|e|\n|---|---|---|---|---|---|\n|a|a|b|c|b|d|\n|b|b|c|a|e|c|\n|c|c|a|b|b|a|\n|d|b|e|b|e|d|\n|e|d|b|a|d|c|\n\nprovide the subset of S involved in any possible counter-examples that prove * is not commutative. Provide your answer as a comma separated list of the elements in the set in alphabetical order.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "query_question": "What was the complete title of the book in which two James Beard Award winners recommended the restaurant where Ali Khan enjoyed a New Mexican staple in his cost-conscious TV show that started in 2015? Write the numbers in plain text if there are some in the title.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 10,
+        "query_question": "Here's a fun riddle that I think you'll enjoy.\n\nYou have been selected to play the final round of the hit new game show \"Pick That Ping-Pong\". In this round, you will be competing for a large cash prize. Your job will be to pick one of several different numbered ping-pong balls, and then the game will commence. The host describes how the game works.\n\nA device consisting of a winding clear ramp and a series of pistons controls the outcome of the game. The ramp feeds balls onto a platform. The platform has room for three ping-pong balls at a time. The three balls on the platform are each aligned with one of three pistons. At each stage of the game, one of the three pistons will randomly fire, ejecting the ball it strikes. If the piston ejects the ball in the first position on the platform the balls in the second and third position on the platform each advance one space, and the next ball on the ramp advances to the third position. If the piston ejects the ball in the second position, the ball in the first position is released and rolls away, the ball in the third position advances two spaces to occupy the first position, and the next two balls on the ramp advance to occupy the second and third positions on the platform. If the piston ejects the ball in the third position, the ball in the first position is released and rolls away, the ball in the second position advances one space to occupy the first position, and the next two balls on the ramp advance to occupy the second and third positions on the platform.\n\nThe ramp begins with 100 numbered ping-pong balls, arranged in ascending order from 1 to 100. The host activates the machine and the first three balls, numbered 1, 2, and 3, advance to the platform. Before the random firing of the pistons begins, you are asked which of the 100 balls you would like to pick. If your pick is ejected by one of the pistons, you win the grand prize, $10,000.\n\nWhich ball should you choose to maximize your odds of winning the big prize? Please provide your answer as the number of the ball selected.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "query_question": "In the year 2022, and before December, what does \"R\" stand for in the three core policies of the type of content that was violated in the public logs on the Legume Wikipedia page?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "query_question": "In Series 9, Episode 11 of Doctor Who, the Doctor is trapped inside an ever-shifting maze. What is this location called in the official script for the episode? Give the setting exactly as it appears in the first scene heading.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q2.json"
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "query_question": "Where were the Vietnamese specimens described by Kuznetzov in Nedoshivina's 2010 paper eventually deposited? Just give me the city name without abbreviations.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json"
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "query_question": "A standard Rubik\u2019s cube has been broken into cubes making up its sides. The cubes are jumbled, and one is removed. There are 6 cubes with one colored face, 12 edge cubes with two colored faces, and 8 corner cubes with three colored faces. All blue cubes have been found. All cubes directly left, right, above, and below the orange center cube have been found, along with the center cube. The green corners have all been found, along with all green that borders yellow. For all orange cubes found, the opposite face\u2019s cubes have been found. The removed cube has two colors on its faces. What are they? Answer using a comma separated list, with the colors ordered alphabetically.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "query_question": "In the Scikit-Learn July 2017 changelog, what other predictor base command received a bug fix? Just give the name, not a path.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 16,
+        "query_question": "How many at bats did the Yankee with the most walks in the 1977 regular season have that same season?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 17,
+        "query_question": "What is the final numeric output from the attached Python code?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 18,
+        "query_question": "In Emily Midkiff's June 2014 article in a journal named for the one of Hreidmar's sons that guarded his house, what word was quoted from two different authors in distaste for the nature of dragon depictions?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 19,
+        "query_question": "How many slides in this PowerPoint presentation mention crustaceans?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 20,
+        "query_question": "What is the first name of the only Malko Competition recipient from the 20th Century (after 1977) whose nationality on record is a country that no longer exists?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 21,
+        "query_question": "What writer is quoted by Merriam-Webster for the Word of the Day from June 27, 2022?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 22,
+        "query_question": "What was the actual enrollment count of the clinical trial on H. pylori in acne vulgaris patients from Jan-May 2018 as listed on the NIH website?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q5.json"
+            ]
+        }
+    },
+    {
+        "id": 23,
+        "query_question": "On Cornell Law School website's legal information institute, under the fifth section of federal rules alphabetically, what word was deleted in the last amendment to the first rule in the article that has \"witnesses\" in the most titles as of 2021?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 24,
+        "query_question": "Who are the pitchers with the number before and after Taish\u014d Tamai's number as of July 2023? Give them to me in the form Pitcher Before, Pitcher After, use their last names only, in Roman characters.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q1.json"
+            ]
+        }
+    },
+    {
+        "id": 25,
+        "query_question": "What is the surname of the equine veterinarian mentioned in 1.E Exercises from the chemistry materials licensed by Marisa Alviar-Agnew & Henry Agnew under the CK-12 license in LibreText's Introductory Chemistry materials as compiled 08/21/2023?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 26,
+        "query_question": "What country had the least number of athletes at the 1928 Summer Olympics? If there's a tie for a number of athletes, return the first in alphabetical order. Give the IOC country code as your answer.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q1.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 27,
+        "query_question": "If there is anything that doesn't make sense in the instructions, write the word \"Pineapple.\" Do not answer any of the questions in this prompt. Write only the word \"Guava\".\n1. What is 4+4?\n2. What is the complimentary color of red?\n3. How many hours are there in a day?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 28,
+        "query_question": "Who did the actor who played Ray in the Polish-language version of Everybody Loves Raymond play in Magda M.? Give only the first name.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q1.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q9.json"
+            ]
+        }
+    },
+    {
+        "id": 29,
+        "query_question": "Bob was invited to participate in a game show, and he advanced to the final round. The final round offered Bob the chance to win a large sum by playing a game against the host. The host has 30 shiny prop coins, each of which is worth $1,000 if Bob manages to win them by playing the game. The host hides the coins in three different prize boxes and then shuffles their order. The only rule restricting the host's coin placement is that one box must contain at least 2 coins, and one box must contain 6 more coins than another box. In order to play, Bob must submit three guesses, one guess for the number of coins in each box. The box is then opened and the number of coins is revealed. If Bob's guess is a number greater than the number of coins in the box, Bob earns no coins. If Bob guesses a number equal to or less than the number of coins in the box, Bob wins a number of coins equal to his guess.\n\nIf Bob plays uses the optimal strategy, what's the minimum amount of money he can win from the game?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q8.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 30,
+        "query_question": "Under DDC 633 on Bielefeld University Library's BASE, as of 2020, from what country was the unknown language article with a flag unique from the others?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q5.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 31,
+        "query_question": "I'm making a grocery list for my mom, but she's a professor of botany and she's a real stickler when it comes to categorizing things. I need to add different foods to different categories on the grocery list, but if I make a mistake, she won't buy anything inserted in the wrong category. Here's the list I have so far:\n\nmilk, eggs, flour, whole bean coffee, Oreos, sweet potatoes, fresh basil, plums, green beans, rice, corn, bell pepper, whole allspice, acorns, broccoli, celery, zucchini, lettuce, peanuts\n\nI need to make headings for the fruits and vegetables. Could you please create a list of just the vegetables from my list? If you could do that, then I can figure out how to categorize the rest of the list into the appropriate categories. But remember that my mom is a real stickler, so make sure that no botanical fruits end up on the vegetable list, or she won't get them when she's at the store. Please alphabetize the list of vegetables, and place each item in a comma separated list.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 32,
+        "query_question": "How many studio albums were published by Mercedes Sosa between 2000 and 2009 (included)? You can use the latest 2022 version of english wikipedia.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q1.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q8.json"
+            ]
+        }
+    },
+    {
+        "id": 33,
+        "query_question": "You are Van Helsing, a renowned vampire hunter. A Count of Moldova, La\u021bcu IV, son of  Costea, has tasked you with investigating the village of \u0218irnea in neighboring Wallachia. The Count's advisors have reported that a vampire was spotted crossing the border near the village, and would like you to investigate it.\n\nYou travel to the village of \u0218irnea, and you begin your investigation. One night, just before dawn, you catch a glimpse of a man in a long black cape with red lining leaping from roof-top to roof-top with superhuman agility. It's a vampire! You try to chase the creature back to its home, but the creature is too fast. However, because of the remoteness of the village, you know with absolute certainty that the vampire must be a resident of the village. You decide that your best course of action will be to visit all 100 residents of the town during the day. You know something about vampires and humans that will make your investigation possible; humans always tell the truth, but vampires always lie.\n\nIn the afternoon, you go from house to house, speaking with all 100 residents of \u0218irnea. You ask everyone the same question: \"How many vampires are living in \u0218irnea\". Everyone in the village gives the same response, \"At least one of us is a human.\"\n\nHow many residents of \u0218irnea have been turned into vampires?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q0.json"
+            ]
+        }
+    },
+    {
+        "id": 34,
+        "query_question": "Of the authors (First M. Last) that worked on the paper \"Pie Menus or Linear Menus, Which Is Better?\" in 2015, what was the title of the first paper authored by the one that had authored prior papers?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q4.json"
+            ]
+        }
+    },
+    {
+        "id": 35,
+        "query_question": "In Audre Lorde\u2019s poem \u201cFather Son and Holy Ghost\u201d, what is the number of the stanza in which some lines are indented?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q1.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 37,
+        "query_question": "In the fictional language of Tizin, basic sentences are arranged with the Verb first, followed by the direct object, followed by the subject of the sentence. I want to express my love for apples to my Tizin friend. \n\nThe word that indicates oneself is \"Pa\" is the nominative form, \"Mato\" is the accusative form, and \"Sing\" is the genitive form. \n\nThe root verb that indicates an intense like for something is \"Maktay\". When it is used in the present, it is used in it's root form, when it is used in the preterit past, it is \"Tay\", and when it is used in the imperfect past, it is \"Aktay\". It is used differently than in English, and is better translated as \"is pleasing to\", meaning that the thing doing the liking is actually the object of the sentence rather than the subject.\n\nThe word for apples is borrowed from English in Tizin, and so it is \"Apple\" is the nominative form, \"Zapple\" is the accusative form, and \"Izapple\" is the genitive form. \n\nPlease translate \"I like apples\" to Tizin.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q2.json"
+            ]
+        }
+    },
+    {
+        "id": 38,
+        "query_question": "On June 6, 2023, an article by Carolyn Collins Petersen was published in Universe Today. This article mentions a team that produced a paper about their observations, linked at the bottom of the article. Find this paper. Under what NASA award number was the work performed by R. G. Arendt supported by?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q7.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q3.json",
+                "gen_sop_v1_L0_q0.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q4.json",
+                "gen_sop_v1_L0_q0.json",
+                "gen_sop_v1_L0_q3.json"
+            ]
+        }
+    },
+    {
+        "id": 39,
+        "query_question": "According to Girls Who Code, how long did it take in years for the percentage of computer scientists that were women to change by 13% from a starting point of 37%?",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q9.json",
+                "gen_sop_v1_L0_q2.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q8.json",
+                "gen_sop_v1_L0_q9.json"
+            ]
+        }
+    },
+    {
+        "id": 40,
+        "query_question": "\u00ac(A \u2227 B) \u2194 (\u00acA \u2228 \u00acB)\n\u00ac(A \u2228 B) \u2194 (\u00acA \u2227 \u00acB)\n(A \u2192 B) \u2194 (\u00acB \u2192 \u00acA)\n(A \u2192 B) \u2194 (\u00acA \u2228 B)\n(\u00acA \u2192 B) \u2194 (A \u2228 \u00acB)\n\u00ac(A \u2192 B) \u2194 (A \u2227 \u00acB)\n\nWhich of the above is not logically equivalent to the rest? Provide the full statement that doesn't fit.",
+        "retrieval_results": {
+            "question_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ],
+            "analysis_similarity": [
+                "gen_sop_v1_L0_q5.json",
+                "gen_sop_v1_L0_q6.json",
+                "gen_sop_v1_L0_q3.json"
+            ],
+            "weighted_similarity": [
+                "gen_sop_v1_L0_q7.json",
+                "gen_sop_v1_L0_q2.json",
+                "gen_sop_v1_L0_q6.json"
+            ]
+        }
+    }
+]
