@@ -107,11 +107,14 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 				return "", fmt.Errorf("generating messages is nil for agent %s", msg.Receiver)
 			}
 
-			_ = e.Produce(ctx, gen.Messages...)
+			err = e.Produce(ctx, gen.Messages...)
+			if err != nil {
+				return "", err
+			}
 			e.broadcast(gen.Messages...) // 发给watcher
 		}
 	}
-	return "", nil
+	return "", fmt.Errorf("unexpected end")
 }
 
 func (e *AIEvo) broadcast(messages ...schema.Message) {

@@ -152,7 +152,7 @@ type SOP struct {
 
 type AgentDetail struct {
 	Name           string   `json:"name"`
-	Responsibility string   `json:"responsibility"`
+	Responsibility string   `json:"responsibility"`   // v3: role
 	Instruction    string   `json:"instruction"`
 	Tools          []string `json:"tools"`
 }
@@ -323,7 +323,7 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		templateString := string(templateBytes)
 
 		// Use the standard prompt
-		prompt = fmt.Sprintf(SOPGeneratorPrompt, templateString, userQuestion)
+		prompt = fmt.Sprintf(SOPGeneratorPrompt, templateString, userQuestion)  // pmt_v3
 	}
 
 	// 3. Create a temporary agent to generate the SOP
@@ -597,6 +597,12 @@ func main() {
 	}
 	tools = append(tools, browser...)
 
+	//arxiv, _ := arxiv.New(
+	//	arxiv.WithTopk(5),
+	//	arxiv.WithUserAgent("aievo/1.0"),
+	//)
+	//tools = append(tools, arxiv)
+
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
@@ -625,8 +631,8 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_%s.json", level, timeStamp)
-		logFilename := fmt.Sprintf("eval/eval_level_%d_%s.log", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_wrag2.1_%s.json", level, timeStamp)
+		logFilename := fmt.Sprintf("eval/eval_level_%d_wrag2.1_%s.log", level, timeStamp)
 		start_time := time.Now()
 		start_id := 0
 		//end_id := len(questions)
@@ -665,7 +671,7 @@ func main() {
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					// Set writeToFile to true if you want to save the generated SOP.
 					writeToFile := false
-					rag := true
+					rag := true 
 					if rag { // RAG模式：从检索SOP作为引导生成SOP
 						retrievedSopFile, err := retrieveSOPFile(level, i)
 						if err != nil {
@@ -673,7 +679,7 @@ func main() {
 						} else {
 							questionNumber := string(retrievedSopFile[len(retrievedSopFile)-6])
 							retrievedSopFile = fmt.Sprintf("gen_sop_v2.1_L0_q%s.json", questionNumber)
-							
+
 							retrievedSopPath := fmt.Sprintf("SOP/gen_sop/%s", retrievedSopFile)
 							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 							sopPath = retrievedSopPath
@@ -736,7 +742,7 @@ func main() {
 				logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 				if logErr == nil {
 					defer logFile.Close()
-					logEntry := fmt.Sprintf("-----Level: %d, ID: %d, TaskID: %s\n---Question:%s\n---Error: %v\n", level, i, q.TaskID, q.Question, err)
+					logEntry := fmt.Sprintf("-----Level: %d, ID: %d, TaskID: %s\n---Question:%s\n---Error: %v\n\n", level, i, q.TaskID, q.Question, err)
 					logFile.WriteString(logEntry)
 				}
 				gen = "NULL"

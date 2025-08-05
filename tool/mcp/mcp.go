@@ -114,8 +114,8 @@ func (t Tool) Call(ctx context.Context, input string) (string, error) {
 	}
 	marshal, _ := json.Marshal(result)
 	ret := string(marshal)
-	if len(ret) > 2000 {
-		ret = ret[:2000]
+	if len(ret) > 5000 {
+		ret = ret[:5000]
 	}
 	return ret, nil
 }

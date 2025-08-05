@@ -1,5 +1,42 @@
 package main
 
+const SOPGeneratorPrompt_v3 = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+
+The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+
+You must follow the structure of the provided template exactly. The main components of the SOP are:
+- "team": A list of agent names that will be part of the team.
+- "sop": A description of the workflow, showing how agents interact with each other.
+- "details": A list of objects, where each object defines an agent with:
+  - "name": The agent's name (must match a name in the "team" list).
+  - "role": A concise description of the agent's main role and mission.
+  - "instruction": This includes two parts: one is a general instruction unrelated to the task (refer to the content provided in the template); the other is a detailed instruction related to the current task to guide its completion. DO NOT specify the output format for agent.
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
+
+Here is a template for you to follow:
+--- TEMPLATE START ---
+%s
+--- TEMPLATE END ---
+
+Now, analyze the following user question to determine the necessary agents and workflow.
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
+Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
+
+Based on your analysis, generate a response in the specified JSON format.
+
+User "%s"
+
+Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
+~~~
+{
+  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
+  "content": { ... the complete SOP JSON object goes here ... },
+  "cate": "end"
+}
+~~~
+`
+
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
 
 The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
@@ -20,8 +57,7 @@ Here is a template for you to follow:
 
 Now, analyze the following user question to determine the necessary agents and workflow.
 For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
-If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
-If the question requires complex web operations, such as clicking or entering information, consider using a "WebBrowser" agent.
+If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Based on your analysis, generate a response in the specified JSON format.
@@ -106,7 +142,7 @@ Your entire response MUST be in a single JSON object with the following format. 
 }
 ~~~
 
-**Exammple:**
+**Example:**
 User: "%s"
 Output:
 {
@@ -165,7 +201,8 @@ When you want to use a tool, you must respond with JSON format like below:
 }
 ~~~
 Please note that the above JSON formats are different. Only one format is selected for output each time.
-DO NOT invoke an agent while using a tool. {{end}}
+DO NOT invoke an agent while using a tool. 
+DO NOT try to click the element which is outside of the viewport of the web browser.{{end}}
 `
 
 const NewEndBaseInstructions = `
@@ -187,7 +224,7 @@ You must response with json format like below:
   "receiver": "User",
 }
 ~~~
-Note that carefully read the output requirements of the question.
+Please carefully read the requirements of the question, and strictly follow the answer output requirements below:
 YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
 

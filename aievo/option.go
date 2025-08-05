@@ -16,7 +16,7 @@ var (
 
 const (
 	_defaultMaxTurn  = 20
-	_defaultMaxToken = 20 * 4096
+	_defaultMaxToken = 200 * 4096
 )
 
 type options struct {
