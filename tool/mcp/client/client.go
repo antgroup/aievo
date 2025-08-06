@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/url"
 	"time"
 
 	"github.com/mark3labs/mcp-go/client"
@@ -61,8 +60,7 @@ func (c *Client) initStdioClient(ctx context.Context) (client.MCPClient, error) 
 }
 
 func (c *Client) initSSEClient(ctx context.Context) (client.MCPClient, error) {
-	path, _ := url.JoinPath(c.param.Url, "/sse")
-	mc, err := client.NewSSEMCPClient(path)
+	mc, err := client.NewSSEMCPClient(c.param.Url)
 	if err != nil {
 		log.Printf("failed to initialize SSE client: %v", err)
 		return nil, err
