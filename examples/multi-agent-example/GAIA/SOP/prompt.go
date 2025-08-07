@@ -38,12 +38,12 @@ Your output must follow the JSON format below. Do not add any text outside the J
     },
     "agent_guidance": [
       {
-        "agent_name": "Name of the first agent (e.g., Planner)",
+        "agent_name": "Name of the first agent (e.g., WebSearcher)",
         "feedback": "Specific feedback for this agent. What did it do wrong? How could it have performed better?",
         "revised_instruction": "A revised 'instruction' for this agent that would guide it to perform better on this specific task. This should be a direct, actionable instruction."
       },
       {
-        "agent_name": "Name of the second agent (e.g., WebSearcher)",
+        "agent_name": "Name of the second agent (e.g., Summarizer)",
         "feedback": "...",
         "revised_instruction": "..."
       }

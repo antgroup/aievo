@@ -1,6 +1,6 @@
 package main
 
-const SOPGeneratorPrompt_v3 = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+const SOPGeneratorPrompt_v4 = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
 
 The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
 
@@ -11,7 +11,7 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "role": A concise description of the agent's main role and mission.
   - "instruction": This includes two parts: one is a general instruction unrelated to the task (refer to the content provided in the template); the other is a detailed instruction related to the current task to guide its completion. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
@@ -48,7 +48,7 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
@@ -85,7 +85,7 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
@@ -95,7 +95,6 @@ Here is a template for you to follow:
 Now, analyze the following user question to determine the necessary agents and workflow.
 For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
 If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
-If the question requires complex web operations, such as clicking or entering information, consider using a "WebBrowser" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Based on your analysis, generate a response in the specified JSON format.
@@ -125,12 +124,11 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "Web Browser", "File Reader"].
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
 
 Now, analyze the following user question to determine the necessary agents and workflow.
 For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
 If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
-If the question requires complex web operations, such as clicking or entering information, consider using a "WebBrowser" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:

@@ -41,17 +41,18 @@ func (e *AIEvo) Watch(ctx context.Context, _ string, opts ...llm.GenerateOption)
 		e.WatchChanDone = make(chan struct{})
 		go func() {
 			for message := range e.WatchChan {
-				if e.WatchCondition != nil && !e.WatchCondition(message) {
+				if e.WatchCondition != nil && !e.WatchCondition(message, e.Memory) {
 					e.WatchChanDone <- struct{}{}
 					continue
 				}
 				generation, err := e.Watcher.Run(ctx,
 					e.LoadMemory(ctx, e.Watcher), opts...)
-				e.WatchChanDone <- struct{}{}
 				if err != nil {
+					e.WatchChanDone <- struct{}{}
 					continue
 				}
 				_ = e.Produce(ctx, generation.Messages...)
+				e.WatchChanDone <- struct{}{}
 			}
 		}()
 	}
@@ -82,7 +83,7 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			messages := e.LoadMemory(ctx, receiver)
 
 			// Prepend the initial user prompt to the message history for every agent
-			if msg.Sender != _defaultSender {
+			if messages[0].Sender != _defaultSender {
 				initialMessage := schema.Message{
 					Type:     schema.MsgTypeMsg,
 					Content:  prompt,

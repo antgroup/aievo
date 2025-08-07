@@ -139,6 +139,26 @@ When there is no player to be remove from game, your Answer must be json format 
 }
 
 `
+
+// _defaultWatchPrompt_v2 = `Now you are playing the Werewolf game. 
+// Your goal is to choose one player to remove from the game.
+// Based on the game conversation history, you need to choose the last player who send message to God, and remove him/her from the game.
+// If there is no player to be removed, you should do nothing, i.e, return an empty replace list.
+// `
+
+// _defaultWatchInstructions_v2 = `
+// Survival players in the game:
+// ~~~
+// {{.agent_descriptions}}
+// ~~~
+
+// Your Answer must be json format like:
+// {
+// 	"thought": "carefully analyze the conversation history of God and confirm the players who need to be eliminated in this game.",
+//     "replace": ["AGENT NAME"],
+// }
+// `
+
 	_defaultWatchSuffix = `
 Game conversation history:
 {{.history}}

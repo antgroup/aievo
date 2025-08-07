@@ -8,7 +8,7 @@ import (
 func TestWikipedia(t *testing.T) {
 	t.Parallel()
 	tool, _ := New()
-	result, err := tool.Call(context.Background(), "ai")
+	result, err := tool.Call(context.Background(), "{\"query\": \"ai\"")
 	if err != nil {
 		t.Fatal(err)
 	}

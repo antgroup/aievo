@@ -13,7 +13,7 @@ type Environment struct {
 	SopExpert      schema.Agent
 	Planner        schema.Agent
 	Watcher        schema.Agent
-	WatchCondition func(message schema.Message) bool
+	WatchCondition func(message schema.Message, memory schema.Memory) bool
 	WatchChan      chan schema.Message
 	WatchChanDone  chan struct{}
 	Memory         schema.Memory

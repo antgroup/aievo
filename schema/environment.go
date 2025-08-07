@@ -33,6 +33,8 @@ type Memory interface {
 	Save(ctx context.Context, msg Message) error
 	// Clear memory contents.
 	Clear(ctx context.Context) error
+
+	RemoveMessagesByAgents(ctx context.Context, agents []string) error
 }
 
 const (
@@ -55,6 +57,7 @@ type MngInfo struct {
 	} `json:"create"`
 	Select []string `json:"select"`
 	Remove []string `json:"remove"`
+	Replace []string `json:"replace"`
 }
 
 type Subscribe struct {

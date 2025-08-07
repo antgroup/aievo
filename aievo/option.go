@@ -33,7 +33,7 @@ type options struct {
 	sopExpert      schema.Agent
 	planner        schema.Agent
 	watcher        schema.Agent
-	watchCondition func(message schema.Message) bool
+    watchCondition func(message schema.Message, memory schema.Memory) bool
 
 	sop string
 }
@@ -139,7 +139,7 @@ func WithSopExpert(agent schema.Agent) Option {
 	}
 }
 
-func WithWatcher(agent schema.Agent, condition func(message schema.Message) bool) Option {
+func WithWatcher(agent schema.Agent, condition func(message schema.Message, memory schema.Memory) bool) Option {
 	return func(opts *options) {
 		opts.watcher = agent
 		opts.watchCondition = condition

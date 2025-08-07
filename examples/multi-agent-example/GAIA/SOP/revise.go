@@ -215,8 +215,8 @@ func main() {
 	// --- CONFIGURATION ---
 	// historySourceFlag: 0 for reading from eval log, 1 for reading from raw log file
 	historySourceFlag := 1
-	evalLogPath := "../eval/eval_level_0_sopv2.1_20250731112035.json"
-	rawHistoryLogPath := "../eval/log_output_2.1_2025-0731.log" // New log file path
+	evalLogPath := "../eval/eval_level_0_v3_20250805102200.json"
+	rawHistoryLogPath := "../eval/log_output_v3_2025-0805.log" // New log file path
 	trainDataPath := "../../../../dataset/gaia/train.json"
 	sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
@@ -292,8 +292,8 @@ func main() {
 	// --- End History Loading Logic ---
 
 	for i, result := range results {
-		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v2.1_L0_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v2.1_L0_q%d.json", result.ID))
+		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_L0_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1_L0_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -318,7 +318,7 @@ func main() {
 			continue
 		}
 
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v2.1_L0_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v3.1_L0_q%d.json", result.ID))
 
 		// Use the pre-processed history string
 		historyString := historyStrings[i]

@@ -50,6 +50,10 @@ func (LogHandler) HandleMessageInQueue(ctx context.Context, message *schema.Mess
 			fmt.Println("(Watcher)Remove:", message.MngInfo.Remove)
 			return
 		}
+		if message.MngInfo != nil && len(message.MngInfo.Replace) != 0 {
+			fmt.Println("(Watcher)Replace:", message.MngInfo.Replace)
+			return
+		}
 		fmt.Println("(Watcher): Do Nothing")
 		return
 	}

@@ -37,6 +37,10 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 	if msg.MngInfo.Remove != nil {
 		e.Team.RemoveMembers(msg.MngInfo.Remove)
 	}
+	if msg.MngInfo.Replace != nil {
+		// Just clear the memory of the replaced agent.
+		e.Memory.RemoveMessagesByAgents(ctx, msg.MngInfo.Replace)
+	}
 	_ = e.Memory.Save(ctx, *msg)
 	return nil
 }

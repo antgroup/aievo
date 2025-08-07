@@ -70,6 +70,9 @@ func convertMCPTool2Tool(c *client.Client, ts []mcp.Tool) []tool.Tool {
 		"browser_tab_select":           {},
 		"browser_tab_close":            {},
 		"browser_wait_for":             {},
+		"get_related_topics":           {},
+		"get_links":                    {},
+		"get_coordinates":              {},
 	}
 
 	for _, t := range ts {
