@@ -1,40 +1,44 @@
 package main
 
-const SOPGeneratorPrompt_v4 = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+const WatchPrompt = `
+You are the "Watcher", a specialized supervisory agent within a multi-agent LLM system. The system's purpose is to leverage multiple agents working in collaboration to address the user's question. 
+Your primary role is to closely oversee the outputs of all participating agents, safeguarding the system’s overall integrity, coherence, and efficiency.
+Based on the agents’ conversation history and, where available, their tool usage history, your core responsibility is to detect any agent exhibiting abnormal behavior and determine whether it should be removed and replaced.
+`
 
-The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+const WatchInstructions = `
+## Key Abnormalities to Detect:
+You must be vigilant based on the following critical error conditions:
+1. Irrelevant or Nonsensical Output: The agent produces content that is off-topic, or entirely unrelated to its assigned task.
+2. Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns without contributing new information.
+3. Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow. This includes acting out of turn, failing to produce the expected output format, or usurping the role of another agent in a way that disrupts the collaborative process.
+4. Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
 
-You must follow the structure of the provided template exactly. The main components of the SOP are:
-- "team": A list of agent names that will be part of the team.
-- "sop": A description of the workflow, showing how agents interact with each other.
-- "details": A list of objects, where each object defines an agent with:
-  - "name": The agent's name (must match a name in the "team" list).
-  - "role": A concise description of the agent's main role and mission.
-  - "instruction": This includes two parts: one is a general instruction unrelated to the task (refer to the content provided in the template); the other is a detailed instruction related to the current task to guide its completion. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+Note that these conditions are not exhaustive, and you should use your judgment to identify any other abnormal behaviors that may arise.
+Additionally, if an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
 
-Here is a template for you to follow:
---- TEMPLATE START ---
-%s
---- TEMPLATE END ---
+## Operational Workflow:
+The multi-agent system you are currently monitoring operates based on the following workflow:
+~~~
+{{.sop}}
+~~~
 
-Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
-If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
-Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
-
-Based on your analysis, generate a response in the specified JSON format.
-
-User "%s"
-
-Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
+## Response Format:
+Your response must always be a JSON object like below:
 ~~~
 {
-  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
-  "content": { ... the complete SOP JSON object goes here ... },
-  "cate": "end"
+  "thought": "carefully analyze the agents conversation history and confirm the agent who needs to be replaced.",
+  "replace": ["AGENT NAME"],
 }
 ~~~
+If you conclude that all agents are functioning correctly and no replacement is needed, you must return an empty list in the "replace" field ("replace": []).
+`
+
+const WatchSuffix = `
+## Agents Conversation History for Analysis:
+{{.history}}
+
+Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response. Begin!
 `
 
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
@@ -125,6 +129,50 @@ You must follow the structure of the provided template exactly. The main compone
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
   - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+
+Now, analyze the following user question to determine the necessary agents and workflow.
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
+Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
+
+Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
+~~~
+{
+  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
+  "content": { ... the complete SOP JSON object goes here ... },
+  "cate": "end"
+}
+~~~
+
+**Example:**
+User: "%s"
+Output:
+{
+  "thought": %s,
+  "content": %s,
+  "cate": "end"
+}
+
+User: "%s"
+`
+
+const SOPGeneratorPrompt_temp_rag = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+
+The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+
+You must follow the structure of the provided template exactly. The main components of the SOP are:
+- "team": A list of agent names that will be part of the team.
+- "sop": A description of the workflow, showing how agents interact with each other.
+- "details": A list of objects, where each object defines an agent with:
+  - "name": The agent's name (must match a name in the "team" list).
+  - "responsibility": A concise description of the agent's main role and purpose.
+  - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+
+Here is a template for you to follow:
+--- TEMPLATE START ---
+%s
+--- TEMPLATE END ---
 
 Now, analyze the following user question to determine the necessary agents and workflow.
 For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
@@ -483,3 +531,40 @@ YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma sepa
 //
 //(You)Output:
 //`
+
+const SOPGeneratorPrompt_v4 = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+
+The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+
+You must follow the structure of the provided template exactly. The main components of the SOP are:
+- "team": A list of agent names that will be part of the team.
+- "sop": A description of the workflow, showing how agents interact with each other.
+- "details": A list of objects, where each object defines an agent with:
+  - "name": The agent's name (must match a name in the "team" list).
+  - "role": A concise description of the agent's main role and mission.
+  - "instruction": This includes two parts: one is a general instruction unrelated to the task (refer to the content provided in the template); the other is a detailed instruction related to the current task to guide its completion. DO NOT specify the output format for agent.
+  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+
+Here is a template for you to follow:
+--- TEMPLATE START ---
+%s
+--- TEMPLATE END ---
+
+Now, analyze the following user question to determine the necessary agents and workflow.
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
+Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
+
+Based on your analysis, generate a response in the specified JSON format.
+
+User "%s"
+
+Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
+~~~
+{
+  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
+  "content": { ... the complete SOP JSON object goes here ... },
+  "cate": "end"
+}
+~~~
+`

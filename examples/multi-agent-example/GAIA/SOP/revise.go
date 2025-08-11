@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -119,21 +120,19 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 	agentResponse := gen.Messages[0]
 	log.Printf("Reflector Agent Thought: %s", agentResponse.Thought)
 
-	// The agent's response content is expected to be a JSON string.
-	// We need to unmarshal it to pretty-print it.
-	var reflectionOutput interface{}
-	if err := json.Unmarshal([]byte(agentResponse.Content), &reflectionOutput); err != nil {
-		return fmt.Errorf("failed to unmarshal reflection JSON from agent response, content was:\n%s\nError: %w", agentResponse.Content, err)
-	}
-
-	// Pretty print the full JSON structure for saving
-	prettyJSON, err := json.MarshalIndent(reflectionOutput, "", "  ")
-	if err != nil {
-		return fmt.Errorf("failed to marshal pretty reflection JSON: %w", err)
-	}
-
-	if err := os.WriteFile(outputPath, prettyJSON, 0644); err != nil {
-		return fmt.Errorf("failed to write reflection to file %s: %w", outputPath, err)
+	// To preserve the original order of fields, we should not unmarshal and then marshal.
+	// Instead, we can just "indent" the raw JSON string we received.
+	var prettyJSON bytes.Buffer
+	if err := json.Indent(&prettyJSON, []byte(agentResponse.Content), "", "  "); err != nil {
+		// If indenting fails, it might not be valid JSON. Fallback to writing raw content.
+		log.Printf("Could not format JSON, writing raw content. Error: %v", err)
+		if err := os.WriteFile(outputPath, []byte(agentResponse.Content), 0644); err != nil {
+			return fmt.Errorf("failed to write raw reflection to file %s: %w", outputPath, err)
+		}
+	} else {
+		if err := os.WriteFile(outputPath, prettyJSON.Bytes(), 0644); err != nil {
+			return fmt.Errorf("failed to write formatted reflection to file %s: %w", outputPath, err)
+		}
 	}
 
 	log.Printf("Successfully wrote reflection to %s -------------", outputPath)
@@ -215,8 +214,8 @@ func main() {
 	// --- CONFIGURATION ---
 	// historySourceFlag: 0 for reading from eval log, 1 for reading from raw log file
 	historySourceFlag := 1
-	evalLogPath := "../eval/eval_level_0_v3_20250805102200.json"
-	rawHistoryLogPath := "../eval/log_output_v3_2025-0805.log" // New log file path
+	evalLogPath := "../eval/eval_level_0_sopv5_20250808152837.json"
+	rawHistoryLogPath := "../eval/log_output_sopv5_2025-0808.log" // New log file path
 	trainDataPath := "../../../../dataset/gaia/train.json"
 	sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
@@ -292,8 +291,8 @@ func main() {
 	// --- End History Loading Logic ---
 
 	for i, result := range results {
-		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_L0_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1_L0_q%d.json", result.ID))
+		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v5_L0_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v5.1_L0_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -318,7 +317,7 @@ func main() {
 			continue
 		}
 
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v3.1_L0_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v5.1_L0_q%d.json", result.ID))
 
 		// Use the pre-processed history string
 		historyString := historyStrings[i]

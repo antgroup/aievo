@@ -21,6 +21,8 @@ type Environment interface {
 	LoadMemory(ctx context.Context, receiver Agent) []Message
 
 	GetSubscribeAgents(_ context.Context, subscribed Agent) []Agent
+
+    WatchActionTaken(ctx context.Context, agentName string, steps []StepAction) string
 }
 
 // Memory is the interface for memory in chains.

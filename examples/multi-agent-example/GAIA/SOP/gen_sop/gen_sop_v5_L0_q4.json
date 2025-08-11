@@ -1,0 +1,36 @@
+{
+  "question": "Question: As of May 2023, how many stops are between South Station and Windsor Gardens on MBTA’s Franklin-Foxboro line (not included)?",
+  "analysis": "The user's question requires up-to-date information about MBTA's Franklin-Foxboro line stops and potential schedule changes as of May 2023. This necessitates web research to access current MBTA data, maps, and news about line modifications. Since no file is involved, the FileAnalyzer is omitted. The Planner creates a search strategy, the WebSearcher retrieves and verifies data from authoritative sources (MBTA website, Wikipedia, news), and the Summarizer consolidates findings to count the stops accurately.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher\nWebSearcher -\u003e Summarizer\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a detailed search strategy to locate MBTA's Franklin-Foxboro line stops and schedule changes. Second, the WebSearcher executes the strategy by gathering relevant data from the MBTA website, maps, Wikipedia, and news articles. Finally, the Summarizer cross-references all sources to confirm the stop count between South Station and Windsor Gardens (excluding both) and provides the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Create a clear, actionable search strategy to locate MBTA Franklin-Foxboro line stops and schedule change information as of May 2023.",
+          "instruction": "1. Identify core requirements: Franklin-Foxboro line stops list, map visualization, and schedule change records up to May 2023.\n2. Develop a prioritized search plan: Start with official MBTA sources, then verify with Wikipedia and news articles.\n3. Define validation steps to ensure consistency between stop listings, maps, and change logs.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Execute the search strategy to gather and validate MBTA Franklin-Foxboro line data from multiple authoritative sources.",
+          "instruction": "1. Search for 'MBTA Franklin Foxboro line stops list' and visit the official MBTA website to extract the full stop list.\n2. Access the 'Schedule \u0026 Maps' tab to verify stop order visually.\n3. Search 'Franklin line Wikipedia' and extract historical/stops data.\n4. Search 'MBTA Franklin Foxboro Line changes 2023' and review news articles for modifications.\n5. Cross-reference all sources to confirm stop count consistency and absence of recent changes.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Synthesize verified web search results into a definitive count of stops between South Station and Windsor Gardens (excluding both) as of May 2023.",
+          "instruction": "1. Review stop lists and maps from MBTA website and Wikipedia.\n2. Count the number of stops strictly between South Station and Windsor Gardens.\n3. Verify no recent schedule changes affect the count.\n4. Report the final number as the answer.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "question": "Question: An office held a Secret Santa gift exchange where each of its twelve employees was assigned one other employee in the group to present with a gift. Each employee filled out a profile including three likes or hobbies. On the day of the gift exchange, only eleven gifts were given, each one specific to one of the recipient's interests. Based on the information in the document, who did not give a gift?\nFILENAME:cffe0e32-c9a6-4c52-9877-78ceb4aaa9fb.docx",
+  "analysis": "The user's question requires analyzing a document to determine who did not give a gift in a Secret Santa exchange. The problem involves parsing employee profiles, gift assignments, and recipient interests from the provided file. Since all necessary information is contained within the document and no external data is required, the WebSearcher agent is unnecessary. The workflow focuses on file analysis to match gifts with recipients' interests and identify the missing gift giver.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer\nFileAnalyzer -\u003e Summarizer\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a strategic plan for the FileAnalyzer to extract and process data from the document. The FileAnalyzer executes the plan by parsing employee profiles, gift assignments, and recipient interests. Finally, the Summarizer synthesizes the findings to identify the employee who did not give a gift.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a clear strategy for the FileAnalyzer to extract and process data from the document.",
+          "instruction": "Based on the user's query, create a step-by-step plan for the FileAnalyzer to extract: 1) employee profiles (names, likes/hobbies), 2) gift assignments (which gift corresponds to which recipient), and 3) the list of employees who gave/received gifts. Ensure the plan includes logical deduction steps to identify the missing gift giver.",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "You are a File Analysis expert. Your mission is to execute the analysis plan from the Planner by extracting key information from the provided file.",
+          "instruction": "1. Open the document using the File Reader tool and extract all employee profiles, including names, likes/hobbies, and Secret Santa assignments.\n2. Identify all gifts mentioned in the document and map them to recipients.\n3. Match each gift to the recipient's interests based on their profile.\n4. Cross-reference the list of recipients with the 12 employees to identify the one who did not receive a gift.\n5. Find the employee assigned to give a gift to the unfulfilled recipient, as this person is the one who did not give a gift.",
+          "tools": [
+            "File Reader"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to construct a clear, accurate, and comprehensive answer by integrating information from the FileAnalyzer's findings.",
+          "instruction": "1. Review the FileAnalyzer's output, which includes: a) the employee who did not receive a gift, and b) the employee assigned to give them a gift.\n2. Synthesize this information to determine the name of the person who did not give a gift.\n3. Format the final answer as a single name with no additional text.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

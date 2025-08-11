@@ -1,0 +1,36 @@
+{
+  "question": "Question: The Latin root of the Yola word \"gimlie\" shares a spelling with a Spanish word. What is the Google translation of the source title for the 1994 example sentence for that word in the Collins Spanish-to-English dictionary online? Answer in plain text, without punctuation.",
+  "analysis": "The user's question requires multiple web searches to trace the Latin root of a Yola word, locate a specific dictionary entry, and extract a translated example. Since no file is involved, the FileAnalyzer is omitted. The WebSearcher handles sequential searches and translation retrieval, while the Planner and Summarizer manage strategy and final synthesis.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner analyzes the query and creates a step-by-step search strategy for the WebSearcher to trace the Latin root, locate the Collins dictionary entry, and extract the 1994 example's source title translation. 2. The WebSearcher executes sequential web searches using GOOGLE Search, iteratively refining queries to gather all required information. 3. The Summarizer synthesizes the final translation result from the WebSearcher's findings and formats it as plain text.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a detailed search strategy for the WebSearcher to follow.",
+          "instruction": "Break down the user's query into sequential steps: (1) Identify the Latin root of 'gimlie' in Yola, (2) Find the Collins Spanish-to-English dictionary entry for that root, (3) Locate the 1994 example sentence, and (4) Extract the Google translation of its source title. Provide clear, numbered instructions for the WebSearcher to execute these steps.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy provided by the Planner to gather all required information.",
+          "instruction": "1. Strategize Your Search:\nFollow the Planner's numbered steps. For each step, identify core information needs and formulate targeted queries. For example: First, search 'Yola word gimlie Latin root' to find the root. Next, search 'Collins Spanish dictionary [root]' to locate the entry. Then, find the 1994 example and its source title. Finally, search for the translation of that title using Google's Translate widget.\n2. Execute the Search:\nUse GOOGLE Search for each query. Format queries as comma-separated lists of key terms. Iterate if results are insufficient.\n3. Analyze and Iterate:\nReview search results. If the Collins dictionary page or example sentence is not found, refine the query (e.g., 'Collins caminata 1994 example'). For translation, search the source title text in Google Translate and extract the result.\n4. Compile Findings:\nOnce all data is gathered, pass the final translation result to the Summarizer.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to construct a concise, accurate answer from the WebSearcher's findings.",
+          "instruction": "Receive the translation result from the WebSearcher. Format the answer as plain text without punctuation, adhering strictly to the user's requirement for 'as few words as possible' and no unnecessary formatting.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

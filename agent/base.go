@@ -120,6 +120,22 @@ func (ba *BaseAgent) Run(ctx context.Context,
 		}
 		steps = append(steps, actions...)
 
+		// 在 steps 更新后，检查其数量并通知环境
+		watcher_fd := "null"
+		if ba.env != nil {
+			actionCount := len(steps)
+			// 触发条件：action 数量为 5 的倍数且不为 0
+			if actionCount > 0 && actionCount%5 == 0 {
+				watcher_fd = ba.env.WatchActionTaken(ctx, ba.name, steps)
+			}
+		}
+		if watcher_fd != "null" {
+			steps = make([]schema.StepAction, 0) // 清空steps
+			totalFeedbacks = 0                   // 重置feedback计数器
+			i = i - 3
+			continue
+		}
+
 		tokens += cost
 		if len(feedbacks) != 0 {
 			totalFeedbacks += len(feedbacks)
@@ -230,7 +246,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_level_L2_v5_tw+watch_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -243,22 +259,22 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		fmt.Fprintf(f, "[%s]=====\n===Prompt:\n%s\n===Output:\n%s\n\n", timestamp, p, output.Content)
 
 		// 只记录上一条历史和模型输出
-		//var historyLog string
-		//if len(steps) == 0 {
-		//	var sb strings.Builder
-		//	msg := messages[len(messages)-1]
-		//	sb.WriteString(fmt.Sprintf("(%s -> %s): %s\n", msg.Sender, msg.Receiver, msg.Content))
-		//	historyLog = sb.String()
-		//} else {
-		//	lastStep := steps[len(steps)-1]
-		//	if lastStep.Observation != "" {
-		//		historyLog = fmt.Sprintf("Observation: %s", lastStep.Observation)
-		//	} else {
-		//		historyLog = fmt.Sprintf("Feedback: %s", lastStep.Feedback)
-		//	}
-		//}
-		//fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n",
-		//	historyLog, ba.name, output.Content)
+		// var historyLog string
+		// if len(steps) == 0 {
+		// 	var sb strings.Builder
+		// 	msg := messages[len(messages)-1]
+		// 	sb.WriteString(fmt.Sprintf("(%s -> %s): %s\n", msg.Sender, msg.Receiver, msg.Content))
+		// 	historyLog = sb.String()
+		// } else {
+		// 	lastStep := steps[len(steps)-1]
+		// 	if lastStep.Observation != "" {
+		// 		historyLog = fmt.Sprintf("Observation: %s", lastStep.Observation)
+		// 	} else {
+		// 		historyLog = fmt.Sprintf("Feedback: %s", lastStep.Feedback)
+		// 	}
+		// }
+		// fmt.Fprintf(f, "History: %s\nOutput of %s:\n%s\n\n",
+		// 	historyLog, ba.name, output.Content)
 	}
 
 	if ba.callback != nil {

@@ -199,6 +199,9 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 	agentsMap := make(map[string]schema.Agent)
 	var team []schema.Agent
 
+	env := environment.NewEnv()
+	env.Memory = memory.NewBufferMemory()
+
 	for _, agentDetail := range selectedSOP.Details {
 		desc := agentDetail.Responsibility
 
@@ -208,6 +211,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 			agent.WithPrompt(desc),
 			agent.WithRole(agentDetail.Instruction),
 			agent.WithLLM(client),
+			agent.WithEnv(env),
 			agent.WithCallback(callbackHandler),
 		}
 
@@ -249,13 +253,19 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 		team = append(team, newAgent)
 	}
 
-	env := environment.NewEnv()
-	env.Memory = memory.NewBufferMemory()
-
 	var teamLeader schema.Agent
 	if len(selectedSOP.Team) > 0 {
 		teamLeader = agentsMap[selectedSOP.Team[0]]
 	}
+
+	// Use WathcherAgent
+	watcher, _ := agent.NewWatcherAgent(
+		agent.WithLLM(client),
+		agent.WithEnv(env),
+		agent.WithPrompt(WatchPrompt),
+		agent.WithInstruction(WatchInstructions),
+		agent.WithCallback(callbackHandler),
+		agent.WithSuffix(WatchSuffix))
 
 	opts := []aievo.Option{
 		aievo.WithTeam(team),
@@ -267,6 +277,11 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 		aievo.WithSOP(selectedSOP.SOP),
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
+		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
+			messages := memory.Load(context.Background(), nil)
+			msgCount := len(messages)
+			return msgCount > 0 && msgCount%5 == 0
+		}),
 	}
 
 	return aievo.NewAIEvo(opts...)
@@ -300,10 +315,35 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		}
 		exampleSOPString := string(exampleSOPBytes)
 
-		// Use the RAG prompt with the extracted examples
-		prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
+		// 2.1.1 Use the RAG prompt with the extracted examples
+		// prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
 
-	} else {
+		// 2.1.2 RAG + templete
+		template_path := "SOP/v5.json"
+		templateBytes, err := os.ReadFile(template_path)
+		if err != nil {
+			prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
+			log.Printf("Failed to read template file %s: %v. Using RAG prompt only.", template_path, err)
+		} else {
+			var sops []SOP
+			if err := json.Unmarshal(templateBytes, &sops); err != nil {
+				return nil, fmt.Errorf("failed to unmarshal SOP JSON in either new or old format: %w", err)
+			}
+			if len(sops) == 0 {
+				return nil, fmt.Errorf("no SOPs found in the template file")
+			}
+			templateSOP := sops[len(sops)-1] // Get the last one as template
+
+			templateBytes, err := json.MarshalIndent(templateSOP, "", "  ")
+			if err != nil {
+				return nil, fmt.Errorf("failed to marshal SOP template to string: %w", err)
+			}
+			templateString := string(templateBytes)
+
+			prompt = fmt.Sprintf(SOPGeneratorPrompt_temp_rag, templateString, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
+		}
+
+	} else { // 2.2 只使用模板SOP
 		log.Printf("Detected standard SOP template from: %s", sopTemplatePath)
 		// Fallback to the old format (an array of SOPs)
 		var sops []SOP
@@ -466,7 +506,7 @@ func generateSOP_train(client llm.LLM, userQuestion string, metadata AnnotatorMe
 			Sender:   "User",
 			Receiver: "SOPGenerator",
 		},
-	}, llm.WithTemperature(0.6))
+	}, llm.WithTemperature(0.6), llm.WithTopP(0.95))
 	if err != nil {
 		return nil, fmt.Errorf("SOPGenerator agent run failed: %w", err)
 	}
@@ -617,7 +657,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{1, 2, 3}
+		levels = []int{2}
 	} else {
 		levels = []int{0}
 	}
@@ -642,8 +682,8 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_sopv1+_%s.json", level, timeStamp)
-		logFilename := fmt.Sprintf("eval/eval_level_%d_sopv1+_%s.log", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v5_tw+w_%s.json", level, timeStamp)
+		logFilename := fmt.Sprintf("eval/eval_level_%d_v5_tw+w_%s.log", level, timeStamp)
 		start_time := time.Now()
 		start_id := 0
 		//end_id := len(questions)
@@ -652,7 +692,7 @@ func main() {
 			// if q.FileName != "" { // 先忽略需要file的问题
 			// 	continue
 			// }
-			if i < start_id && level < 2 {
+			if i < start_id {
 				continue
 			}
 			//if i >= end_id {
@@ -672,7 +712,7 @@ func main() {
 			var generateNewSOP bool
 
 			if fromsop {
-				sopPath := "SOP/v1.json"
+				sopPath := "SOP/v5.json"
 				if eval == 0 {
 					generateNewSOP = false //
 				} else {
@@ -682,14 +722,14 @@ func main() {
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					// Set writeToFile to true if you want to save the generated SOP.
 					writeToFile := false
-					rag := false
+					rag := true
 					if rag { // RAG模式：从检索SOP作为引导生成SOP
 						retrievedSopFile, err := retrieveSOPFile(level, i)
 						if err != nil {
 							log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 						} else {
 							questionNumber := string(retrievedSopFile[len(retrievedSopFile)-6])
-							retrievedSopFile = fmt.Sprintf("gen_sop_v2.1_L0_q%s.json", questionNumber)
+							retrievedSopFile = fmt.Sprintf("gen_sop_v5_L0_q%s.json", questionNumber)
 
 							retrievedSopPath := fmt.Sprintf("SOP/gen_sop/%s", retrievedSopFile)
 							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
@@ -712,28 +752,28 @@ func main() {
 						}
 					}
 				} else { // 训练集：不生成SOP，直接使用已有的SOP
-					//sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v3.1_L0_q%d.json", i)
-					sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
+					sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v5.1_L0_q%d.json", i)
+					//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
 
-					// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_L%d_q%d.json", level, i)
-					// writeToFile := true // 训练集：生成SOP并写入文件
-					// generatedSOP, err := generateSOP_train(client, question, q.AnnotatorMetadata, sopPath, newSopPath, writeToFile)
-					// if err != nil {
-					// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-					// 	// Fallback to default SOP if generation fails
-					// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil)
-					// 	if err != nil {
-					// 		panic(err)
-					// 	}
-					// } else {
-					// 	log.Printf("Using generated SOP for question %d", i)
-					// 	// Use the generated SOP for the current question
-					// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
-					// 	if err != nil {
-					// 		panic(err)
-					// 	}
-					// }
+					//newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v5_L%d_q%d.json", level, i)
+					//writeToFile := true // 训练集：生成SOP并写入文件
+					//generatedSOP, err := generateSOP_train(client, question, q.AnnotatorMetadata, sopPath, newSopPath, writeToFile)
+					//if err != nil {
+					//	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+					//	// Fallback to default SOP if generation fails
+					//	evo, err = createEvoFromSOP(client, tools, sopPath, nil)
+					//	if err != nil {
+					//		panic(err)
+					//	}
+					//} else {
+					//	log.Printf("Using generated SOP for question %d", i)
+					//	// Use the generated SOP for the current question
+					//	evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
+					//	if err != nil {
+					//		panic(err)
+					//	}
+					//}
 				}
 			} else { // 手动构建团队
 				evo, err = createEvo(client, tools)
@@ -826,3 +866,5 @@ func main() {
 
 	fmt.Println("\n\nAll evaluation levels are complete.")
 }
+
+// sopv5 = v1 + guide summarizer output format in instruction

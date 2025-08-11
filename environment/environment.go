@@ -2,8 +2,11 @@ package environment
 
 import (
 	"context"
+	// "encoding/json"
+	"fmt"
 	"strings"
 
+	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/schema"
 	"github.com/thoas/go-funk"
 )
@@ -85,4 +88,52 @@ func (e *Environment) GetTeam() []schema.Agent {
 
 func (e *Environment) GetTeamLeader() schema.Agent {
 	return e.Team.Leader
+}
+
+// WatchActionTaken 调用watcher观察action行为
+func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, steps []schema.StepAction) string {
+	// 1. 检查 Watcher 是否已准备好接收通知
+	if e.WatchChan == nil {
+		return "null"
+	}
+
+	// // 2. 将传入的 steps 历史序列化为 JSON
+	// historyBytes, err := json.Marshal(steps)
+	// if err != nil {
+	// 	fmt.Printf("Error marshalling action history for agent %s: %v\n", agentName, err)
+	// 	return "null"
+	// }
+    var nilmessage []schema.Message
+    actionHistory := schema.ConvertConstructScratchPad("", agentName, nilmessage, steps)
+
+	// 3. 创建系统消息，内容包含 agent 名称和其完整的 action 历史
+	triggerMsg := schema.Message{
+		Type:    "MSG",
+		Content: fmt.Sprintf("Action history:\n%s", actionHistory),
+		Sender:  agentName,
+	}
+
+	// 4. 发送消息并等待 Watcher 处理完毕
+	// e.WatchChan <- triggerMsg
+	// <-e.WatchChanDone
+
+	historyMessages := e.LoadMemory(ctx, e.Watcher)
+	opts := []llm.GenerateOption{
+		llm.WithTemperature(0.6),
+		llm.WithTopP(0.95),
+	}
+	generation, err := e.Watcher.Run(ctx, append(historyMessages, triggerMsg), opts...)
+	if err != nil {
+		fmt.Printf("Error running watcher for agent %s: %v\n", agentName, err)
+		return "null"
+	}
+	msg := generation.Messages[0]
+	if msg.MngInfo == nil {
+		return "null"
+	}
+	// 如果replace不是空列表，则返回第一个元素
+	if len(msg.MngInfo.Replace) > 0 {
+		return msg.MngInfo.Replace[0]
+	}
+	return "null"
 }

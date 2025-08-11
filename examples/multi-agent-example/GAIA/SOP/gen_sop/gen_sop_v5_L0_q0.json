@@ -1,0 +1,36 @@
+{
+  "question": "Question: Who nominated the only Featured Article on English Wikipedia about a dinosaur that was promoted in November 2016?",
+  "analysis": "The user's question requires identifying the nominator of a specific Wikipedia Featured Article about a dinosaur promoted in November 2016. This involves retrieving historical Wikipedia data and linking it to a specific contributor. The task requires web search capabilities to locate the article and its nomination details. The FileAnalyzer is not needed as no file is referenced. The Planner orchestrates the search strategy, the WebSearcher executes iterative searches to locate the article and its nomination history, and the Summarizer synthesizes the final answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the query and creates a search strategy to identify the dinosaur-related Featured Article promoted in November 2016 and its nominator. The WebSearcher executes this strategy through iterative web searches, first locating the article and then extracting nomination details. Finally, the Summarizer compiles the findings into a concise answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to analyze the user's query and create a step-by-step search strategy for the WebSearcher to identify the dinosaur-related Wikipedia Featured Article promoted in November 2016 and its nominator.",
+          "instruction": "Break down the user's question into search objectives: (1) Find the only dinosaur-related Featured Article promoted in November 2016, (2) Identify the person who nominated this article. Create clear instructions for the WebSearcher to first locate the article and then find its nomination history.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the Planner's strategy to locate the specific Wikipedia article and its nomination details.",
+          "instruction": "1. Strategize Your Search:\n- First, search for 'Wikipedia Featured Articles promoted November 2016' to identify the dinosaur-related article (likely Giganotosaurus).\n- Next, search for the nomination history of the identified article to find the nominator.\n2. Execute the Search:\nUse GOOGLE Search with queries like: 'site:wikipedia.org/wiki/Wikipedia:Featured_article_candidates/Archive_November_2016', followed by specific queries about Giganotosaurus nomination.\n3. Analyze and Iterate:\nIf initial results are unclear, refine queries to target Wikipedia archives or article history pages. Extract the nominator's username from the nomination discussion.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to construct a clear, accurate, and concise answer by integrating information from the WebSearcher's findings.",
+          "instruction": "Combine the WebSearcher's results to identify the nominator of the Giganotosaurus article promoted in November 2016. Ensure the final answer is a single name (Wikipedia username) without additional text or formatting.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

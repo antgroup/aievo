@@ -1,0 +1,36 @@
+{
+  "question": "Question: According to github, when was Regression added to the oldest closed numpy.polynomial issue that has the Regression label in MM/DD/YY?",
+  "analysis": "The user's question requires retrieving specific historical data from GitHub about a numpy.polynomial issue's Regression label addition date. This necessitates web search capabilities to access GitHub's issue tracker and extract the required information. The Planner will create a search strategy, the WebSearcher will execute the GitHub navigation and filtering process, and the Summarizer will format the final date answer. No file analysis is required since the data resides on GitHub, not in a provided document.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner creates a detailed search strategy to locate the oldest closed numpy.polynomial issue with the Regression label on GitHub. Second, the WebSearcher executes this strategy by performing Google searches to find the GitHub repository, navigates through the filtered issues, and extracts the Regression label addition date. Finally, the Summarizer converts the date to MM/DD/YY format and delivers the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's query and create a step-by-step search strategy for the WebSearcher to locate specific GitHub issue metadata.",
+          "instruction": "Create a detailed action plan for the WebSearcher that includes: 1) Locating the official NumPy GitHub repository 2) Navigating to the closed issues section 3) Applying filters for 'numpy.polynomial' and 'Regression' labels 4) Identifying the oldest issue with these criteria 5) Extracting the date when the Regression label was added to this issue.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy provided by the Planner to gather specific metadata from GitHub issues.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the Planner's requirements. Formulate a step-by-step search strategy to access GitHub's issue tracker for numpy.polynomial.\n2. Execute the Search:\nUse the GOOGLE Search tool to find the official NumPy GitHub repository. Navigate through the issues section, apply filters for closed issues with both 'numpy.polynomial' and 'Regression' labels. Identify the oldest issue and extract the exact date when the Regression label was added (not the issue creation date).\n3. Analyze and Iterate:\nIf initial searches fail, try alternative queries like 'numpy polynomial regression issue date' or 'github numpy oldest regression issue'. Verify information accuracy by cross-referencing multiple sources if needed.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Answer Agent. Your core mission is to format the discovered date into the required MM/DD/YY format.",
+          "instruction": "Once the WebSearcher provides the date when the Regression label was added to the oldest closed numpy.polynomial issue, convert this date to MM/DD/YY format. Ensure the month, day, and year are each represented by two digits (e.g., April 15, 2018 becomes 04/15/18). Deliver only the formatted date as the final answer.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

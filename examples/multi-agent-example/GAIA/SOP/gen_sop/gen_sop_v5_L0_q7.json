@@ -1,0 +1,36 @@
+{
+  "question": "Question: On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "analysis": "The user's question requires extracting specific data from ScienceDirect and performing statistical calculations. Since the data is not commonly known and requires web scraping/up-to-date information, a WebSearcher is needed to gather Reference Works counts from ScienceDirect's Life Science and Health Sciences domains. The Planner creates a search strategy, the WebSearcher executes domain-specific searches and filters, and the Summarizer calculates the standard deviations and their difference. No FileAnalyzer is required as no file is provided.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner analyzes the query and creates a step-by-step search strategy for ScienceDirect data extraction. 2. The WebSearcher executes domain-specific searches on ScienceDirect, filters for Reference Works, and collects 2022 data across all Life Science domains and Health Sciences. 3. The Summarizer calculates sample standard deviations for both groups, computes their difference, and rounds to 3 decimal places.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Create a precise search strategy for ScienceDirect data extraction",
+          "instruction": "1. Identify required data points: Reference Works counts for each Life Science domain and Health Sciences on ScienceDirect (2022). 2. Create step-by-step instructions for navigating ScienceDirect's filters and domains. 3. Specify calculation requirements for standard deviation difference to 3 decimal places.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Extract Reference Works data from ScienceDirect for specified domains",
+          "instruction": "1. Access ScienceDirect via GOOGLE Search. 2. For each Life Science domain: a) Navigate to domain page b) Apply Reference Works filter c) Record total count d) Adjust for 2022 publications only. 3. Repeat for Health Sciences domain. 4. Return all numerical data to Summarizer.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Calculate and compare standard deviations",
+          "instruction": "1. Receive Life Science domain counts (n≥6) and Health Sciences count. 2. Calculate sample standard deviation for Life Sciences using formula: s = √[Σ(x−x̄)²/(n−1)]. 3. Calculate Health Sciences standard deviation. 4. Compute difference (Life Sciences - Health Sciences). 5. Round result to 3 decimal places using standard rounding rules.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
