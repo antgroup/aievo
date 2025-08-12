@@ -97,12 +97,7 @@ func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, st
 		return "null"
 	}
 
-	// // 2. 将传入的 steps 历史序列化为 JSON
-	// historyBytes, err := json.Marshal(steps)
-	// if err != nil {
-	// 	fmt.Printf("Error marshalling action history for agent %s: %v\n", agentName, err)
-	// 	return "null"
-	// }
+	// // 2. 将传入的 steps 历史序列化为字符串
     var nilmessage []schema.Message
     actionHistory := schema.ConvertConstructScratchPad("", agentName, nilmessage, steps)
 
@@ -131,9 +126,9 @@ func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, st
 	if msg.MngInfo == nil {
 		return "null"
 	}
-	// 如果replace不是空列表，则返回第一个元素
+	// 如果replace不是空列表，则返回content
 	if len(msg.MngInfo.Replace) > 0 {
-		return msg.MngInfo.Replace[0]
+		return msg.MngInfo.Content
 	}
 	return "null"
 }

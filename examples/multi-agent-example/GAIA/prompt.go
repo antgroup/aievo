@@ -4,18 +4,21 @@ const WatchPrompt = `
 You are the "Watcher", a specialized supervisory agent within a multi-agent LLM system. The system's purpose is to leverage multiple agents working in collaboration to address the user's question. 
 Your primary role is to closely oversee the outputs of all participating agents, safeguarding the system’s overall integrity, coherence, and efficiency.
 Based on the agents’ conversation history and, where available, their tool usage history, your core responsibility is to detect any agent exhibiting abnormal behavior and determine whether it should be removed and replaced.
+If you identify an agent that should be replaced, you should provide the guidance for the replacement agent in the "guidance" field or your response, so that the new agent would not repeat the same mistakes.
 `
 
 const WatchInstructions = `
 ## Key Abnormalities to Detect:
 You must be vigilant based on the following critical error conditions:
 1. Irrelevant or Nonsensical Output: The agent produces content that is off-topic, or entirely unrelated to its assigned task.
-2. Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns without contributing new information.
-3. Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow. This includes acting out of turn, failing to produce the expected output format, or usurping the role of another agent in a way that disrupts the collaborative process.
+2. Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the same message back and forth without progress.
+3. Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow, ignoring the established sequence of actions or skipping essential steps. Note that minor adjustments to the workflow are permissible if they enhance efficiency or effectiveness.
 4. Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
 
 Note that these conditions are not exhaustive, and you should use your judgment to identify any other abnormal behaviors that may arise.
-Additionally, if an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
+Additionally, if the agent requires multi-step actions to execute and the current performance is satisfactory, do not replace this agent during the process.
+If an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. 
+However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
 
 ## Operational Workflow:
 The multi-agent system you are currently monitoring operates based on the following workflow:
@@ -29,9 +32,10 @@ Your response must always be a JSON object like below:
 {
   "thought": "carefully analyze the agents conversation history and confirm the agent who needs to be replaced.",
   "replace": ["AGENT NAME"],
+  "guidance": "Provide the a concise guidance for the agent to avoid the same mistakes."
 }
 ~~~
-If you conclude that all agents are functioning correctly and no replacement is needed, you must return an empty list in the "replace" field ("replace": []).
+If you conclude that all agents are functioning correctly and no replacement is needed, you must return an empty list in the "replace" field ("replace": []), and leave alone "guidance" field.
 `
 
 const WatchSuffix = `
@@ -60,7 +64,7 @@ Here is a template for you to follow:
 --- TEMPLATE END ---
 
 Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent.
 If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
@@ -97,14 +101,14 @@ Here is a template for you to follow:
 --- TEMPLATE END ---
 
 Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent. 
 If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Based on your analysis, generate a response in the specified JSON format.
 
 User "%s"
-Human-Annotated Steps to Solve (for reference): 
+Human-Annotated Steps to Solve (Note that this is only for the reference, since available tools for agents are only ["GOOGLE Search", "File Reader"]): 
 %s
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
@@ -131,7 +135,7 @@ You must follow the structure of the provided template exactly. The main compone
   - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
 
 Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent.
 If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
@@ -175,7 +179,7 @@ Here is a template for you to follow:
 --- TEMPLATE END ---
 
 Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. 
+For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent.
 If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
 Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
@@ -203,7 +207,7 @@ User: "%s"
 const NewBaseInstructions = `
 ### Team Members & Collaboration
 You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team [{{.agent_names}}].
-The following is the reference Standard Operating Procedure (SOP) for the task solving process:
+The following is the reference Standard Operating Procedure (SOP) for the task solving process (Note that DO NOT ask the User to provide additional information during the task solving process):
 {{.sop}}
 
 ### Instructions
@@ -247,8 +251,7 @@ When you want to use a tool, you must respond with JSON format like below:
 }
 ~~~
 Please note that the above JSON formats are different. Only one format is selected for output each time.
-DO NOT invoke an agent while using a tool. 
-DO NOT try to click the element which is outside of the viewport of the web browser.{{end}}
+DO NOT invoke an agent while using a tool. {{end}}
 `
 
 const NewEndBaseInstructions = `
@@ -271,7 +274,9 @@ You must response with json format like below:
 }
 ~~~
 Please carefully read the requirements of the question, and strictly follow the answer output requirements below:
-YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
+YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. 
+For example, respond with 'Saint Louis' instead of 'St. Louis'; respond with '17' instead of '17m'.
+If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
 
 const workflow = `Workflow {

@@ -1,0 +1,36 @@
+{
+  "question": "Question: An office held a Secret Santa gift exchange where each of its twelve employees was assigned one other employee in the group to present with a gift. Each employee filled out a profile including three likes or hobbies. On the day of the gift exchange, only eleven gifts were given, each one specific to one of the recipient's interests. Based on the information in the document, who did not give a gift?\nFILENAME:cffe0e32-c9a6-4c52-9877-78ceb4aaa9fb.docx",
+  "analysis": "The user's question requires analyzing a document to determine who did not give a gift in a Secret Santa exchange. Since a filename is provided, a FileAnalyzer agent is necessary to extract the relevant data. The problem involves logical deduction based on matching gifts to recipient interests, which is self-contained within the document. No external web search is required, so the WebSearcher agent is omitted. The Planner orchestrates the file analysis strategy, the FileAnalyzer extracts the profiles and gift data, and the Summarizer deduces the missing giver through logical reasoning.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer\nFileAnalyzer -\u003e Summarizer\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a strategic plan for the FileAnalyzer to extract employee profiles and gift details from the document. Second, the FileAnalyzer processes the file to gather structured data about employees' likes, assigned Secret Santas, and gifts given. Finally, the Summarizer uses logical deduction to match gifts to recipients based on interests, identify the missing recipient (Rebecca), and determine who was assigned to give her a gift (Fred) by cross-referencing the Secret Santa assignments. **Important:** Do not request the User for any additional information.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a clear strategy for the FileAnalyzer to extract and process the document's data.",
+          "instruction": "Based on the user's query, create a detailed plan specifying what information the FileAnalyzer should extract from the document. This includes employee names, their stated likes/hobbies, the list of gifts given, and their recipients. Ensure the plan provides a structured approach for the FileAnalyzer to organize this data for further logical analysis by the Summarizer.",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "You are a File Analysis expert. Your mission is to execute the Planner's strategy by extracting key information from the provided file.",
+          "instruction": "1. Open the document and locate sections containing employee profiles (names, likes/hobbies) and the list of gifts with their recipients. 2. Extract and structure this data into a clear format (e.g., employee name: [likes], gift: [recipient]). 3. Verify completeness by ensuring all 12 employees and 11 gifts are accounted for. 4. Forward the structured data to the Summarizer for logical deduction.",
+          "tools": [
+            "File Reader"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Summarizer Agent. Your core mission is to construct a clear and accurate answer by logically analyzing the data from the FileAnalyzer.",
+          "instruction": "1. Review the structured data from the FileAnalyzer to identify employee likes and gift-recipient assignments. 2. Match each gift to a recipient's interests based on their profile. 3. Compile a list of all recipients who received gifts. 4. Compare this list with the full roster of 12 employees to identify the missing recipient (Rebecca). 5. Cross-reference the Secret Santa assignments to determine who was assigned to give Rebecca a gift (Fred). 6. Present the final answer as the name of the missing giver.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

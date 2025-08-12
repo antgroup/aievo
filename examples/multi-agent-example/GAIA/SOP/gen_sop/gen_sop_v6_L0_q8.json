@@ -1,0 +1,45 @@
+{
+  "question": "Question: What is the average number of pre-2020 works on the open researcher and contributor identification pages of the people whose identification is in this file?\nFILENAME:bec74516-02fc-48dc-b202-55e78d0e17cf.jsonld",
+  "analysis": "The user's question requires analyzing a JSONLD file containing ORCID IDs to determine the average number of pre-2020 works listed on their ORCID pages. Since a file is provided, the FileAnalyzer is needed to extract ORCID IDs. The WebSearcher must then retrieve pre-2020 work counts from each ORCID page via Google Search. The Planner coordinates these tasks, and the Summarizer calculates the final average.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer;\nPlanner -\u003e WebSearcher;\nFileAnalyzer -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner analyzes the user's query and creates a plan for file analysis (extracting ORCID IDs) and web searching (finding pre-2020 works per ORCID). 2. The FileAnalyzer reads the JSONLD file to extract ORCID IDs. 3. The WebSearcher uses Google Search to locate each ORCID page and count pre-2020 works. 4. The Summarizer calculates the average of these counts and returns the final numeric result. **Important:** No additional user input is required.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Create a two-pronged strategy to extract ORCID IDs from the file and gather pre-2020 work data from ORCID pages.",
+          "instruction": "1. For the FileAnalyzer: Define how to parse the JSONLD file to extract ORCID IDs. 2. For the WebSearcher: Specify searching for each ORCID ID's page via Google Search and extracting pre-2020 work counts. Ensure instructions are clear and executable with available tools.",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "Extract ORCID IDs from the provided JSONLD file.",
+          "instruction": "1. Use the File Reader tool to open and parse the JSONLD file. 2. Identify and extract all ORCID IDs listed in the file. 3. Format the extracted IDs as a comma-separated list for the WebSearcher.",
+          "tools": [
+            "File Reader"
+          ]
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Retrieve the number of pre-2020 works for each ORCID ID from ORCID pages.",
+          "instruction": "1. For each ORCID ID from the FileAnalyzer: a. Use Google Search to locate the ORCID page (e.g., query: 'ORCID [ID]'). b. Extract the list of works from the ORCID page. c. Count works published before 2020. 2. Compile all counts into a comma-separated list for the Summarizer.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Calculate the average number of pre-2020 works across all ORCID profiles.",
+          "instruction": "1. Receive the comma-separated list of pre-2020 work counts from the WebSearcher. 2. Sum all values and divide by the total number of ORCID IDs. 3. Return the result as a numeric value (e.g., '26.4') without additional formatting.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "question": "Question: According to github, when was Regression added to the oldest closed numpy.polynomial issue that has the Regression label in MM/DD/YY?",
+  "analysis": "The user's question requires retrieving a specific date from GitHub's issue tracker, which is not common knowledge and cannot be obtained from a file. This necessitates a web search strategy. The WebSearcher agent can use Google Search to find the oldest closed numpy.polynomial issue with the Regression label and extract the date the label was added. The Planner creates a search strategy, the WebSearcher executes it, and the Summarizer formats the date.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a step-by-step search strategy for the WebSearcher to locate the oldest closed numpy.polynomial issue with the Regression label and extract the label addition date. Second, the WebSearcher executes the plan using Google Search to gather precise information. Finally, the Summarizer integrates the findings, converts the date to MM/DD/YY format, and delivers the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a clear, step-by-step search strategy for the WebSearcher to locate the required information.",
+          "instruction": "Based on the user's query, create a detailed action plan for the WebSearcher to: 1) Locate the oldest closed numpy.polynomial issue on GitHub with the Regression label; 2) Identify the date when the Regression label was added to this issue. Structure the plan as sequential steps that leverage Google Search capabilities.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy to gather precise information about the numpy.polynomial issue's Regression label addition date.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the Planner's instructions. Formulate a step-by-step search strategy to find the oldest closed numpy.polynomial issue with the Regression label and its label addition date. Break complex queries into sequential steps.\n2. Execute the Search:\nUse the GOOGLE Search tool with queries focusing on key terms like 'numpy oldest closed polynomial issue regression label date'. Format queries as comma-separated lists.\n3. Analyze and Iterate:\nReview search results. If the date (e.g., 'Apr 15, 2018') is found: Proceed to final formatting. If not: Revise search terms (e.g., 'numpy polynomial issue regression label added 2018') and repeat. Handle errors by adjusting query structure.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Summarizer Agent. Your core mission is to format the found date into MM/DD/YY format and deliver the final answer.",
+          "instruction": "1. Receive the raw date information (e.g., 'Apr 15, 2018') from the WebSearcher.\n2. Convert it to MM/DD/YY format (e.g., '04/15/18').\n3. Ensure the output is strictly a date string with no additional text or formatting.\n4. Deliver the final answer.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

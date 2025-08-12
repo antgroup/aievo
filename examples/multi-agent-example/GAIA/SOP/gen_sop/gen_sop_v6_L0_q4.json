@@ -1,0 +1,36 @@
+{
+  "question": "Question: As of May 2023, how many stops are between South Station and Windsor Gardens on MBTA’s Franklin-Foxboro line (not included)?",
+  "analysis": "The user's question requires up-to-date information about MBTA Franklin-Foxboro line stops, which cannot be obtained without web search tools. Since no file is referenced, FileAnalyzer is excluded. The workflow involves: (1) Planner creating a search strategy to locate MBTA's official stop list and verify recent changes; (2) WebSearcher executing searches to extract stop data and validate timeliness; (3) Summarizer counting stops between South Station and Windsor Gardens using the synthesized data. This aligns with the human steps provided, focusing on web-based verification.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a web search strategy to identify the MBTA Franklin-Foxboro line stops and verify May 2023 accuracy. Next, the WebSearcher executes the plan by performing targeted Google searches, extracting stop lists from MBTA's official website, and checking for recent changes via news articles. Finally, the Summarizer calculates the number of stops between South Station and Windsor Gardens (excluding both) and delivers the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a web search strategy to locate MBTA's official stop list and verify its timeliness.",
+          "instruction": "Create a step-by-step search plan for the WebSearcher to: (1) Find MBTA's official Franklin-Foxboro line stop list; (2) Verify the stop list's validity as of May 2023; (3) Check for recent schedule changes that might affect the stop count. Ensure the plan includes searching MBTA's website, Wikipedia, and recent news articles about rail schedule changes.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy to gather relevant external information for solving the user's question.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the user's question and the Planner's strategy. Formulate search queries to locate MBTA's official stop list and verify its timeliness.\n2. Execute the Search:\nUse GOOGLE Search to: (a) Find MBTA's Franklin-Foxboro line page; (b) Extract the list of stops; (c) Search for 'MBTA Franklin-Foxboro line changes May 2023' and 'MBTA schedule changes 2023 news'.\n3. Analyze and Iterate:\nFrom MBTA's page, extract the ordered stop list and confirm the date of last update. From news articles, verify no recent changes affect the stop count. If information is conflicting or incomplete, refine search terms and repeat.\n4. Synthesize: Provide the Summarizer with: (a) The validated stop list; (b) Confirmation of May 2023 accuracy.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Summarizer Agent. Your core mission is to construct a clear and accurate answer for the user's question.",
+          "instruction": "1. Receive the validated stop list from the WebSearcher.\n2. Locate 'South Station' and 'Windsor Gardens' in the stop list.\n3. Count all stops that appear between these two stations in the list (excluding both).\n4. Return the count as the final answer in numeric format without units or additional text.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

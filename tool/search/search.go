@@ -111,6 +111,9 @@ func (t *Tool) Call(_ context.Context, input string) (string, error) {
 
 	// Search each query separately
 	for i, query := range trimmedQueries {
+		if i > 4 {
+			break // Limit to first 5 queries
+		}
 		var ret string
 		var searchErr error
 

@@ -12,7 +12,7 @@ Here is the context for the failed task:
 
 **2. Ground Truth for Verification:**
 - **Correct Answer:** %s
-- **Human-Annotated Steps to Solve (for reference):** %s
+- **Human-Annotated Steps to Solve** (Note that this is only for the reference, since available tools for agents are only ["GOOGLE Search", "File Reader"]): %s
 
 **3. The Standard Operating Procedure (SOP) that was used:**
 %s
@@ -24,7 +24,7 @@ Here is the context for the failed task:
 
 Based on all the information above, please perform a thorough analysis and provide your reflection.
 Please note that the agent can only use the standard Google web search tool and cannot access APIs from other websites. Therefore, instead of suggesting the use of specific webpage APIs, please guide the agent on how to better search for results using Google search.
-**Important:** When providing critiques and guidance for the SOP and agents, you must not disclose any facts from the 'Ground Truth' answer. Your goal is to refine the problem-solving *process*, not to hint at the solution.
+**Important:** When providing critiques and guidance for the SOP and agents, you must not disclose the 'Ground Truth' answer. Your goal is to refine the problem-solving *process*, not to hint at the solution.
 Your output must follow the JSON format below. Do not add any text outside the JSON structure.
 
 **Output Format (JSON):**

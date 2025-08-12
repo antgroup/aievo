@@ -1,0 +1,36 @@
+{
+  "question": "Question: The attached spreadsheet contains the sales of menu items for a regional fast-food chain. Which city had the greater total sales: Wharvton or Algrimand?\nFILENAME:7cc4acfa-63fd-4acc-a1a1-e8e529e0a97f.xlsx",
+  "analysis": "The user's question requires analyzing a spreadsheet to compare total sales between two cities. Since a file is attached, the FileAnalyzer is necessary to extract sales data. No web search is needed as all required information is in the provided file. The Planner will create a file analysis plan, the FileAnalyzer will calculate total sales for each city, and the Summarizer will compare results and deliver the final answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "FileAnalyzer",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e FileAnalyzer;\nFileAnalyzer -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a specific plan for file analysis. Second, the FileAnalyzer executes the plan by reading the spreadsheet, locating the rows for Wharvton and Algrimand, and calculating their total sales. Finally, the Summarizer compares the two totals and provides the final answer indicating which city had greater sales.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to analyze the user's question and create a precise plan for file analysis.",
+          "instruction": "Based on the user's query, create a clear set of instructions for the FileAnalyzer to: 1. Locate the rows corresponding to Wharvton and Algrimand in the spreadsheet 2. Calculate the total sales for each city by summing their respective rows.",
+          "tools": []
+        },
+        {
+          "name": "FileAnalyzer",
+          "responsibility": "You are a File Analysis expert. Your mission is to execute the analysis plan by extracting sales data from the spreadsheet.",
+          "instruction": "1. Open the provided Excel file using the File Reader tool.\n2. Locate the rows for Wharvton and Algrimand.\n3. Calculate the total sales for each city by summing all values in their respective rows.\n4. Format and deliver the results (two numerical values with city labels) to the Summarizer.",
+          "tools": [
+            "File Reader"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Summarizer Agent. Your core mission is to compare the sales totals and provide a definitive answer.",
+          "instruction": "1. Receive the sales totals for Wharvton and Algrimand from the FileAnalyzer.\n2. Compare the two numerical values.\n3. Return the name of the city with the higher total sales (or 'Equal' if values are the same).\n**Important:** Return only the city name (e.g., 'Wharvton') or 'Equal' without additional text.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

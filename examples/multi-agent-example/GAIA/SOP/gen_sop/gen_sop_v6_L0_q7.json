@@ -1,0 +1,36 @@
+{
+  "question": "Question: On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "analysis": "The user's question requires comparing sample standard deviations of Reference Works on ScienceDirect between Life Science domains and Health Sciences as of 2022. Since no file is provided, the FileAnalyzer is excluded. The WebSearcher is essential to gather specific data from ScienceDirect via Google Search. The Planner coordinates the search strategy, and the Summarizer calculates the final numerical answer. The workflow focuses on extracting raw data through web searches and performing mathematical computations to derive the required difference.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\n1. The Planner analyzes the query and creates a step-by-step search strategy to collect data on Reference Works for Life Science domains and Health Sciences on ScienceDirect. 2. The WebSearcher executes Google Searches to retrieve the number of Reference Works per domain (filtered by 2022) for both categories. 3. The Summarizer calculates the sample standard deviations for both datasets, computes their difference, and rounds the result to three decimal places. **Important:** No file analysis is required, and all data must be sourced directly via web searches.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your role is to design a precise search strategy for the WebSearcher to collect numerical data required for calculating standard deviations.",
+          "instruction": "1. Break down the user's query into actionable search tasks: identify Life Science domains on ScienceDirect, extract Reference Works counts filtered by 2022, and repeat for Health Sciences. 2. Define clear search parameters (e.g., 'ScienceDirect Life Science domain Reference Works count 2022') for each category. 3. Ensure the WebSearcher can retrieve raw numerical data per domain, not aggregated statistics. 4. Structure instructions to prioritize domains and handle potential data gaps.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to extract raw numerical data about Reference Works on ScienceDirect for Life Science domains and Health Sciences as of 2022.",
+          "instruction": "1. Follow the Planner's search strategy to identify all Life Science domains and Health Sciences on ScienceDirect. 2. For each domain:\n   a. Use GOOGLE Search with queries like 'ScienceDirect [Domain Name] Reference Works count 2022'.\n   b. Filter results to exclude entries dated 2023 or later.\n   c. Record the exact numerical count from authoritative sources in the search results.\n3. Compile two datasets: one for Life Science domains and one for Health Sciences. 4. Forward both datasets to the Summarizer for statistical analysis.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Summarizer Agent. Your core mission is to compute the sample standard deviations, their difference, and provide the final answer rounded to three decimal places.",
+          "instruction": "1. Receive two datasets from the WebSearcher: Life Science domain counts and Health Sciences counts. 2. Calculate the sample standard deviation for each dataset. 3. Subtract the Health Sciences standard deviation from the Life Sciences standard deviation. 4. Round the result to three decimal places. 5. Output the final answer as a single number without units or additional text (e.g., '0.269').",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

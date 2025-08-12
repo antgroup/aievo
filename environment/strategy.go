@@ -39,9 +39,17 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 	}
 	if msg.MngInfo.Replace != nil {
 		// Just clear the memory of the replaced agent.
-		_ = e.Memory.RemoveMessagesByAgents(ctx, msg.MngInfo.Replace)
+		if len(msg.MngInfo.Replace) > 0 {
+			_ = e.Memory.RemoveMessagesByAgents(ctx, msg.MngInfo.Replace)
+			msg.Receiver = msg.MngInfo.Replace[0]
+			msg.AllReceiver = []string{msg.MngInfo.Replace[0]}
+			msg.Sender = "Watcher"
+			msg.Content = msg.MngInfo.Content
+			msg.Type = schema.MsgTypeMsg
+			_ = e.Memory.Save(ctx, *msg)
+		}
 	}
-	//_ = e.Memory.Save(ctx, *msg)
+	// _ = e.Memory.Save(ctx, *msg)
 	return nil
 }
 

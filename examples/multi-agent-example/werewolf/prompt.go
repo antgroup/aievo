@@ -156,6 +156,7 @@ When there is no player to be remove from game, your Answer must be json format 
 // {
 // 	"thought": "carefully analyze the conversation history of God and confirm the players who need to be eliminated in this game.",
 //     "replace": ["AGENT NAME"],
+//     "guidance": "Alwayse output: 'Hello, {Agent Name}'."
 // }
 // `
 

@@ -1,0 +1,36 @@
+{
+  "question": "Question: The book with the doi 10.1353/book.24372 concerns a certain neurologist. According to chapter 2 of the book, what author influenced this neurologist’s belief in “endopsychic myths”? Give the last name only.",
+  "analysis": "The user's question requires accessing a specific book chapter via a DOI and searching for a term within it. Since no file is provided, FileAnalyzer is excluded. The task involves web research to locate the book, access chapter 2, and search for 'endopsychic myths'. The WebSearcher handles these steps using Google Search. The Planner strategizes the search workflow, and the Summarizer extracts the author's last name from the findings.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner creates a search strategy for the WebSearcher to locate the book via its DOI and extract relevant information from chapter 2. The WebSearcher executes sequential Google searches to identify the book, access chapter 2, and locate the passage mentioning 'endopsychic myths'. The Summarizer synthesizes the findings to provide the author's last name as the final answer.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "Orchestrate a step-by-step search strategy to locate the book, access chapter 2, and identify the target author.",
+          "instruction": "Create a clear plan for the WebSearcher to: (1) Find the book using DOI 10.1353/book.24372, (2) Locate chapter 2, (3) Search for the term 'endopsychic myths' in the chapter, and (4) Extract the author's name from the context. Ensure instructions are actionable for Google Search.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "Execute sequential web searches to locate the book chapter and extract the target passage.",
+          "instruction": "1. Search Google for the DOI '10.1353/book.24372' to identify the book's URL. 2. Search for chapter 2 of the book using a query like '[book title] chapter 2'. 3. Use Google Search to find the passage containing 'endopsychic myths' in chapter 2. 4. Extract the author's name from the passage. Format queries as comma-separated keywords. Iterate searches if results are insufficient.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "Extract the author's last name from the WebSearcher's findings.",
+          "instruction": "Review the WebSearcher's results to identify the author associated with 'endopsychic myths' in the neurologist's work. Provide only the author's last name as the final answer. If multiple authors are mentioned, select the one directly linked to the term in the passage.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -50,13 +50,10 @@ type ResultLog struct {
 }
 
 func normalizeAnswer(s string) string {
-	// Convert to lower case
-	lower := strings.ToLower(s)
-	// Remove all spaces
-	noSpaces := strings.ReplaceAll(lower, " ", "")
-	// Remove all punctuation except for semicolons and periods which might be part of the answer
-	reg := regexp.MustCompile(`[^\w\.;]`)
-	return reg.ReplaceAllString(noSpaces, "")
+	// Convert to lower case and remove all non-alphanumeric characters
+	s = strings.ToLower(s)
+	reg := regexp.MustCompile(`[^a-z0-9]`)
+	return reg.ReplaceAllString(s, "")
 }
 
 func loadGaiaDataset(filePath string) ([]GaiaQuestion, error) {
@@ -278,9 +275,9 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
 		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
-			messages := memory.Load(context.Background(), nil)
-			msgCount := len(messages)
-			return msgCount > 0 && msgCount%5 == 0
+		messages := memory.Load(context.Background(), nil)
+		msgCount := len(messages)
+		return msgCount > 0 && msgCount%5 == 0
 		}),
 	}
 
@@ -319,7 +316,7 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		// prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
 
 		// 2.1.2 RAG + templete
-		template_path := "SOP/v5.json"
+		template_path := "SOP/v6.json"
 		templateBytes, err := os.ReadFile(template_path)
 		if err != nil {
 			prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
@@ -657,7 +654,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{2}
+		levels = []int{2, 1, 3}
 	} else {
 		levels = []int{0}
 	}
@@ -682,8 +679,8 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v5_tw+w_%s.json", level, timeStamp)
-		logFilename := fmt.Sprintf("eval/eval_level_%d_v5_tw+w_%s.log", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wg_%s.json", level, timeStamp)
+		logFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wg_%s.log", level, timeStamp)
 		start_time := time.Now()
 		start_id := 0
 		//end_id := len(questions)
@@ -712,7 +709,7 @@ func main() {
 			var generateNewSOP bool
 
 			if fromsop {
-				sopPath := "SOP/v5.json"
+				sopPath := "SOP/v6.json"
 				if eval == 0 {
 					generateNewSOP = false //
 				} else {
@@ -729,7 +726,7 @@ func main() {
 							log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 						} else {
 							questionNumber := string(retrievedSopFile[len(retrievedSopFile)-6])
-							retrievedSopFile = fmt.Sprintf("gen_sop_v5_L0_q%s.json", questionNumber)
+							retrievedSopFile = fmt.Sprintf("gen_sop_v6_L0_q%s.json", questionNumber)
 
 							retrievedSopPath := fmt.Sprintf("SOP/gen_sop/%s", retrievedSopFile)
 							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
@@ -752,28 +749,28 @@ func main() {
 						}
 					}
 				} else { // 训练集：不生成SOP，直接使用已有的SOP
-					sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v5.1_L0_q%d.json", i)
+					sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v6.1_L0_q%d.json", i)
 					//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
 
-					//newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v5_L%d_q%d.json", level, i)
-					//writeToFile := true // 训练集：生成SOP并写入文件
-					//generatedSOP, err := generateSOP_train(client, question, q.AnnotatorMetadata, sopPath, newSopPath, writeToFile)
-					//if err != nil {
-					//	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-					//	// Fallback to default SOP if generation fails
-					//	evo, err = createEvoFromSOP(client, tools, sopPath, nil)
-					//	if err != nil {
-					//		panic(err)
-					//	}
-					//} else {
-					//	log.Printf("Using generated SOP for question %d", i)
-					//	// Use the generated SOP for the current question
-					//	evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
-					//	if err != nil {
-					//		panic(err)
-					//	}
-					//}
+					// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v6_L%d_q%d.json", level, i)
+					// writeToFile := true // 训练集：生成SOP并写入文件
+					// generatedSOP, err := generateSOP_train(client, question, q.AnnotatorMetadata, sopPath, newSopPath, writeToFile)
+					// if err != nil {
+					// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+					// 	// Fallback to default SOP if generation fails
+					// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil)
+					// 	if err != nil {
+					// 		panic(err)
+					// 	}
+					// } else {
+					// 	log.Printf("Using generated SOP for question %d", i)
+					// 	// Use the generated SOP for the current question
+					// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
+					// 	if err != nil {
+					// 		panic(err)
+					// 	}
+					// }
 				}
 			} else { // 手动构建团队
 				evo, err = createEvo(client, tools)
@@ -810,14 +807,14 @@ func main() {
 			modelOutputContent := gen
 			isCorrect := false
 
-			// Treat modelOutputContent as a plain string.
-			// Remove potential "FINAL ANSWER:" prefix and other noise.
-			processedOutput := strings.TrimPrefix(modelOutputContent, "FINAL ANSWER:")
-			processedOutput = strings.TrimSpace(processedOutput)
-			// Remove potential trailing period.
-			processedOutput = strings.TrimSuffix(processedOutput, ".")
-			// Also remove potential quotes around the answer
-			processedOutput = strings.Trim(processedOutput, "\"")
+			// Extract content after "FINAL ANSWER:" (case-insensitive).
+			finalAnswerRegex := regexp.MustCompile(`(?i)final answer:`)
+			parts := finalAnswerRegex.Split(modelOutputContent, 2)
+			processedOutput := modelOutputContent
+			if len(parts) > 1 {
+				// If "FINAL ANSWER:" is found, use the part after it.
+				processedOutput = parts[1]
+			}
 
 			normalizedModelOutput := normalizeAnswer(processedOutput)
 			normalizedStandardAnswer := normalizeAnswer(q.FinalAnswer)
@@ -868,3 +865,4 @@ func main() {
 }
 
 // sopv5 = v1 + guide summarizer output format in instruction
+// sopv6 = v5 + plan only google search + no ask user

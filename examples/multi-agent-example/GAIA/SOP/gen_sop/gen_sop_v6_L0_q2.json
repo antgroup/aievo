@@ -1,0 +1,36 @@
+{
+  "question": "Question: In Nature journal's Scientific Reports conference proceedings from 2012, in the article that did not mention plasmons or plasmonics, what nano-compound is studied? Don't use the prefix nano in your answer if there is one.",
+  "analysis": "The user's question requires searching for specific academic articles in Nature's Scientific Reports from 2012, filtering out those mentioning 'plasmons' or 'plasmonics', and identifying the studied nano-compound. Since no file is provided, FileAnalyzer is omitted. The WebSearcher is required to perform targeted Google searches to locate the relevant conference proceedings and extract the required information. The Planner orchestrates the search strategy, and the Summarizer synthesizes the final answer.",
+  "sops": [
+    {
+      "team": [
+        "Planner",
+        "WebSearcher",
+        "Summarizer"
+      ],
+      "sop": "**Workflow:**\nUser -\u003e Planner;\nPlanner -\u003e WebSearcher;\nWebSearcher -\u003e Summarizer;\nSummarizer -\u003e End.\n\n**Description:**\nFirst, the Planner analyzes the user's query and creates a step-by-step search strategy for the WebSearcher. Second, the WebSearcher executes the plan by performing targeted Google searches to locate the 2012 Nature Scientific Reports conference proceedings, filters articles based on the absence of 'plasmon' or 'plasmonic', and extracts the nano-compound name. Finally, the Summarizer validates and formats the answer strictly as per requirements. **Important:** Do not request the User for any additional information.",
+      "details": [
+        {
+          "name": "Planner",
+          "responsibility": "You are a master Planner. Your primary role is to analyze the user's question and create a clear, step-by-step search strategy for the WebSearcher to locate the required information.",
+          "instruction": "Based on the user's query, create a detailed plan for the WebSearcher to: 1) Locate Nature Scientific Reports conference proceedings from 2012; 2) Identify articles not mentioning 'plasmon' or 'plasmonic'; 3) Extract the nano-compound studied in those articles. Ensure the plan uses only Google Search-compatible steps.",
+          "tools": []
+        },
+        {
+          "name": "WebSearcher",
+          "responsibility": "You are an expert Web Searcher. Your mission is to execute the search strategy to locate the specific article and extract the nano-compound name.",
+          "instruction": "1. Strategize Your Search:\nCarefully analyze the request from the User and the suggestion from PlanAgent. Identify the core pieces of information you need to find. Based on the task, formulate a step-by-step search strategy. Do not try to solve everything with a single query when the query is complex.\n2. Execute the Search:\nUse the GOOGLE Search tool to execute the search. Make sure to follow the usage format of given tool. Each query should focus on key terms from the question. Format the query content as a comma-separated list. \n3. Analyze and Iterate: Review the search results provided in the `Observation`.If the information is sufficient: Synthesize the key findings and prepare to pass them to the AnswerAgent. If the information is insufficient or irrelevant: Return to Step 1. Revise your strategy and create a new query. If you receive an error in the `Feedback`: Analyze the feedback message to understand the issue and adjust your action accordingly.",
+          "tools": [
+            "GOOGLE Search"
+          ]
+        },
+        {
+          "name": "Summarizer",
+          "responsibility": "You are the final Summarizer Agent. Your core mission is to construct a clear and accurate answer for user's question. Please strictly follow the required format for your final answer.",
+          "instruction": "You will receive information from the WebSearcher. Your task is to validate that the identified nano-compound meets all criteria (2012 Nature Scientific Reports conference proceedings, no mention of 'plasmon' or 'plasmonic'). Format the final answer as follows: Remove the 'nano' prefix if present, and return only the compound name as a single string with no additional text, punctuation, or units.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

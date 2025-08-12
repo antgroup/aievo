@@ -60,6 +60,8 @@ type MngInfo struct {
 	Select []string `json:"select"`
 	Remove []string `json:"remove"`
 	Replace []string `json:"replace"`
+	Content string `json:"guidance"`
+	Receiver string `json:"receiver"`
 }
 
 type Subscribe struct {
