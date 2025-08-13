@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -67,6 +66,14 @@ type ReflectionInput struct {
 	ExpertAnalysis       string `json:"expert_analysis"`
 }
 
+// ReflectionOutput defines the structure for the reflection JSON file.
+type ReflectionOutput struct {
+	Question      string          `json:"question"`
+	OriginalSOP   string          `json:"sop"`
+	HistoryString string          `json:"history_conversation"`
+	LLMReflection json.RawMessage `json:"llm_reflection"`
+}
+
 // loadFile unmarshals a JSON file into the given interface
 func loadFile(path string, v interface{}) error {
 	bytes, err := os.ReadFile(path)
@@ -120,30 +127,61 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 	agentResponse := gen.Messages[0]
 	log.Printf("Reflector Agent Thought: %s", agentResponse.Thought)
 
-	// To preserve the original order of fields, we should not unmarshal and then marshal.
-	// Instead, we can just "indent" the raw JSON string we received.
-	var prettyJSON bytes.Buffer
-	if err := json.Indent(&prettyJSON, []byte(agentResponse.Content), "", "  "); err != nil {
-		// If indenting fails, it might not be valid JSON. Fallback to writing raw content.
-		log.Printf("Could not format JSON, writing raw content. Error: %v", err)
-		if err := os.WriteFile(outputPath, []byte(agentResponse.Content), 0644); err != nil {
-			return fmt.Errorf("failed to write raw reflection to file %s: %w", outputPath, err)
-		}
-	} else {
-		if err := os.WriteFile(outputPath, prettyJSON.Bytes(), 0644); err != nil {
-			return fmt.Errorf("failed to write formatted reflection to file %s: %w", outputPath, err)
-		}
+	// Create the structured output
+	// Unmarshal the agent's response to ensure it's valid JSON
+	var llmReflection json.RawMessage
+	if err := json.Unmarshal([]byte(agentResponse.Content), &llmReflection); err != nil {
+		// Fallback for non-JSON response
+		log.Printf("LLM reflection response is not valid JSON, wrapping it. Error: %v", err)
+		escapedString, _ := json.Marshal(agentResponse.Content)
+		llmReflection = json.RawMessage(escapedString)
 	}
 
-	log.Printf("Successfully wrote reflection to %s -------------", outputPath)
+	// Unmarshal original SOP to a structured format to ensure it's well-formed in the final JSON
+	var sopFile SOPFile
+	if err := json.Unmarshal([]byte(sopContent), &sopFile); err != nil {
+		log.Printf("Warning: could not unmarshal original SOP content: %v", err)
+		// If unmarshalling fails, just use the raw string.
+		sopFile.SOPs = []SOP{} // or handle error appropriately
+	}
+
+	outputData := ReflectionOutput{
+		Question:      question.Question,
+		OriginalSOP:   sopFile.SOPs[0].SOP, // Assuming the first SOP is the main one,
+		HistoryString: historyString,
+		LLMReflection: llmReflection,
+	}
+
+	// Marshal the combined data with pretty printing
+	prettyJSON, err := json.MarshalIndent(outputData, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal combined reflection data: %w", err)
+	}
+
+	// Write the final JSON to the output file
+	if err := os.WriteFile(outputPath, prettyJSON, 0644); err != nil {
+		return fmt.Errorf("failed to write reflection to file %s: %w", outputPath, err)
+	}
+
+	log.Printf("Successfully wrote reflection to %s -------------\n", outputPath)
 	return nil
 }
 
 func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []byte, outputPath string) error {
 	log.Printf("Performing revision for SOP: %s", outputPath)
 
-	// The reflection content is already a JSON string.
-	reflectionContent := string(reflectionBytes)
+	// 1. Unmarshal the reflection file to get the LLM's reflection part.
+	var reflectionInput ReflectionOutput
+	if err := json.Unmarshal(reflectionBytes, &reflectionInput); err != nil {
+		return fmt.Errorf("failed to unmarshal reflection file content: %w", err)
+	}
+
+	// 2. Extract only the LLM's reflection for the prompt.
+	reflectionContent := string(reflectionInput.LLMReflection)
+	if len(reflectionContent) == 0 || reflectionContent == "null" {
+		return fmt.Errorf("LLMReflection field is missing or empty in the reflection file")
+	}
+
 	originalSopContent := string(originalSopBytes)
 
 	prompt := fmt.Sprintf(RevisionPrompt,
@@ -206,7 +244,7 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 		return fmt.Errorf("failed to write revised SOP to file %s: %w", outputPath, err)
 	}
 
-	log.Printf("Successfully wrote revised SOP to %s ----------", outputPath)
+	log.Printf("Successfully wrote revised SOP to %s ----------\n\n", outputPath)
 	return nil
 }
 
@@ -291,6 +329,8 @@ func main() {
 	// --- End History Loading Logic ---
 
 	for i, result := range results {
+		fmt.Printf("\n==================Processing question ID: %d\n", i)
+		
 		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v6_L0_q%d.json", result.ID))
 		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v6.1_L0_q%d.json", result.ID))
 
@@ -301,7 +341,7 @@ func main() {
 		}
 
 		if result.IsCorrect {
-			log.Printf("Task %s was successful. Copying original SOP to %s", result.TaskID, revisedSopPath)
+			log.Printf("Task %s was successful. Copying original SOP to %s\n", result.TaskID, revisedSopPath)
 			if err := os.WriteFile(revisedSopPath, sopBytes, 0644); err != nil {
 				log.Printf("ERROR: Failed to copy successful SOP for task %s: %v", result.TaskID, err)
 			}

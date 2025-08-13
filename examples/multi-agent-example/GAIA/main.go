@@ -160,7 +160,7 @@ type SOPFile struct {
 	SOPs     []SOP  `json:"sops"`
 }
 
-func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) (*aievo.AIEvo, error) {
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string) (*aievo.AIEvo, error) {
 	var selectedSOP SOP
 
 	if sop != nil {
@@ -262,7 +262,9 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 		agent.WithPrompt(WatchPrompt),
 		agent.WithInstruction(WatchInstructions),
 		agent.WithCallback(callbackHandler),
-		agent.WithSuffix(WatchSuffix))
+		agent.WithSuffix(WatchSuffix),
+		agent.WithReflectionPath(reflectionPath),
+	)
 
 	opts := []aievo.Option{
 		aievo.WithTeam(team),
@@ -275,9 +277,9 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP) 
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
 		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
-		messages := memory.Load(context.Background(), nil)
-		msgCount := len(messages)
-		return msgCount > 0 && msgCount%5 == 0
+			messages := memory.Load(context.Background(), nil)
+			msgCount := len(messages)
+			return msgCount > 0 && msgCount%5 == 0
 		}),
 	}
 
@@ -654,7 +656,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{2, 1, 3}
+		levels = []int{1, 2, 3}
 	} else {
 		levels = []int{0}
 	}
@@ -679,8 +681,8 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wg_%s.json", level, timeStamp)
-		logFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wg_%s.log", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wgr_%s.json", level, timeStamp)
+		logFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wgr_%s.log", level, timeStamp)
 		start_time := time.Now()
 		start_id := 0
 		//end_id := len(questions)
@@ -717,6 +719,7 @@ func main() {
 				}
 				if generateNewSOP { // 评估集：LLM生成SOP
 					newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_L%d_q%d.json", level, i)
+					reflectionPath := ""
 					// Set writeToFile to true if you want to save the generated SOP.
 					writeToFile := false
 					rag := true
@@ -731,27 +734,30 @@ func main() {
 							retrievedSopPath := fmt.Sprintf("SOP/gen_sop/%s", retrievedSopFile)
 							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 							sopPath = retrievedSopPath
+
+							reflectionPath = fmt.Sprintf("SOP/reflect/ref_v6.1_L0_q%s.json", questionNumber)
 						}
 					} // 依据通用模板 / rag 生成SOP
 					generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
 					if err != nil {
 						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 						// Fallback to default SOP if generation fails
-						evo, err = createEvoFromSOP(client, tools, sopPath, nil)
+						evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath)
 						if err != nil {
 							panic(err)
 						}
 					} else {
 						log.Printf("Using generated SOP for question %d", i)
-						evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
+						evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath)
 						if err != nil {
 							panic(err)
 						}
 					}
 				} else { // 训练集：不生成SOP，直接使用已有的SOP
 					sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v6.1_L0_q%d.json", i)
+					reflectionPath := fmt.Sprintf("SOP/reflect/ref_v6.1_L%d_q%d.json", level, i)
 					//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
-					evo, err = createEvoFromSOP(client, tools, sopPath, nil)
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath)
 
 					// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v6_L%d_q%d.json", level, i)
 					// writeToFile := true // 训练集：生成SOP并写入文件
@@ -828,6 +834,7 @@ func main() {
 			if totalCount > 0 {
 				accuracy = float64(correctCount) / float64(totalCount)
 			}
+			fmt.Printf("Standard Answer: %s\n", q.FinalAnswer)
 			fmt.Printf("Is correct?     %t\n", isCorrect)
 
 			results = append(results, ResultLog{

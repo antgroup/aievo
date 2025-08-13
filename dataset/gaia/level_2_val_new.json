@@ -353,7 +353,7 @@
         "task_id": "ded28325-3447-4c56-860f-e497d6fb3577",
         "Question": "This is a secret message my friend gave me. It says where we should meet for our picnic on Friday. The only problem is, it’s encrypted in the Caesar cipher, so I can’t read it. Can you tell me what it says? This is the message:\n\nZsmxsm sc sx Zyvilsec Zvkjk.",
         "Level": 2,
-        "Final answer": "Picnic is in Ploybius Plaza.",
+        "Final answer": "Picnic is in Polybius Plaza.",
         "file_name": "",
         "Annotator Metadata": {
             "Steps": "1. Search the web for “Caesar cipher decrypt”.\n2. Click on top result, a decoding website.\n3. Enter the message into the text box.\n4. Click “DECRYPT (BRUTEFORCE)” to get all possible decryptions.\n5. Scroll through the results, noting that one possibility matches the user’s scenario of having a picnic.",

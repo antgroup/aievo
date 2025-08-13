@@ -35,6 +35,7 @@ type Options struct {
 	Vars             map[string]string
 	SOPGraph         string
 	Driver           driver.Driver
+	ReflectionPath   string // 反思文件路径
 
 	MaxIterations int
 }
@@ -147,6 +148,12 @@ func WithParseOutputFunc(fun func(string, *llm.Generation) ([]schema.StepAction,
 func WithDriver(dri driver.Driver) Option {
 	return func(opt *Options) {
 		opt.Driver = dri
+	}
+}
+
+func WithReflectionPath(path string) Option {
+	return func(opt *Options) {
+		opt.ReflectionPath = path
 	}
 }
 

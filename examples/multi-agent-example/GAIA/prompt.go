@@ -11,7 +11,7 @@ const WatchInstructions = `
 ## Key Abnormalities to Detect:
 You must be vigilant based on the following critical error conditions:
 1. Irrelevant or Nonsensical Output: The agent produces content that is off-topic, or entirely unrelated to its assigned task.
-2. Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the same message back and forth without progress.
+2. Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the same message back and forth without progress. Please note that it is acceptable for the agent to produce semantically similar content during its search process.
 3. Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow, ignoring the established sequence of actions or skipping essential steps. Note that minor adjustments to the workflow are permissible if they enhance efficiency or effectiveness.
 4. Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
 
@@ -20,7 +20,13 @@ Additionally, if the agent requires multi-step actions to execute and the curren
 If an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. 
 However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
 
-## Operational Workflow:
+{{if .refcase}}
+## Relevant Case for Reference:
+Here you have access to a historical reference case that contains the user's question, the corresponding SOP (Standard Operating Procedure) for that problem, and reflective insights from different agents' experiences. You can reference these relevant experiences to provide better guidance for agent improvement.
+{{.refcase}}
+{{end}}
+
+## Operational Workflow of Current System:
 The multi-agent system you are currently monitoring operates based on the following workflow:
 ~~~
 {{.sop}}

@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -16,7 +17,7 @@ import (
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
 	"github.com/antgroup/aievo/tool/filereaders"
-	"github.com/antgroup/aievo/utils/json"
+	utilsjson "github.com/antgroup/aievo/utils/json"
 )
 
 var _ schema.Agent = (*BaseAgent)(nil)
@@ -39,8 +40,9 @@ type BaseAgent struct {
 	filterMemoryFunc func([]schema.Message) []schema.Message
 	parseOutputFunc  func(string, *llm.Generation) ([]schema.StepAction, []schema.Message, error)
 
-	MaxIterations int
-	vars          map[string]string
+	MaxIterations  int
+	vars           map[string]string
+	reflectionPath string // 反思文件路径
 }
 
 func NewBaseAgent(opts ...Option) (*BaseAgent, error) {
@@ -86,8 +88,9 @@ func NewBaseAgent(opts ...Option) (*BaseAgent, error) {
 		filterMemoryFunc: options.FilterMemoryFunc,
 		parseOutputFunc:  options.ParseOutputFunc,
 
-		prompt: template,
-		vars:   options.Vars,
+		prompt:         template,
+		vars:           options.Vars,
+		reflectionPath: options.ReflectionPath,
 	}
 	return base, nil
 }
@@ -204,30 +207,14 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		inputs["sop"] = ba.env.SOP()
 	}
 
+	// 如果有文件名，则解析文件并添加到输入中
 	if strings.Contains(ba.name, "File") || strings.Contains(ba.name, "file") {
-		// Extract the question from the first message
-		question := messages[0].Content
-		// If the question contains a filename, extract it
-		if strings.Contains(question, "FILENAME:") {
-			parts := strings.Split(question, "FILENAME:")
-			filename := strings.TrimSpace(parts[1])
-			// Extract until next whitespace or end of string
-			if idx := strings.Index(filename, " "); idx > 0 {
-				filename = filename[:idx]
-			}
-			// Construct the full file path using relative path
-			fullPath := filepath.Join("../../../dataset", "gaia", "val_files", filename)
-			// Create file reader and read the file
-			reader := filereaders.NewGeneralReader()
-			fileContent, err := reader.Read("read file content", fullPath)
-			if err != nil {
-				inputs["file"] = fmt.Sprintf("Error reading file %s: %v", filename, err)
-			} else {
-				inputs["file"] = fileContent
-			}
-		} else {
-			inputs["file"] = "No file provided"
-		}
+		inputs["file"] = ba.parseFileFromMessage(messages)
+	}
+
+	// 如果有反思文件路径，则解析反思文件并添加到输入中 only for watcher agent
+	if ba.reflectionPath != "" && ba.reflectionPath != "null" {
+		inputs["refcase"] = ba.parseReflectionFile(ba.reflectionPath)
 	}
 
 	p, err := ba.prompt.Format(inputs)
@@ -255,7 +242,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_L123_v6_tw_wg_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_level_L123_v6_tw_wgr_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -382,7 +369,7 @@ func parseOutput(name string, output *llm.Generation) ([]schema.StepAction, []sc
 	if content == "" {
 		return nil, nil, errors.New("content is empty")
 	}
-	content = json.TrimJsonString(content)
+	content = utilsjson.TrimJsonString(content)
 
 	// 如果是消息列表
 	if content[0] == '[' && content[len(content)-1] == ']' {
@@ -580,4 +567,86 @@ func (ba *BaseAgent) Env() schema.Environment {
 
 func (ba *BaseAgent) Tools() []tool.Tool {
 	return ba.tools
+}
+
+func (ba *BaseAgent) ReflectionPath() string {
+	return ba.reflectionPath
+}
+
+// parseReflectionFile 解析反思文件并构建提示词
+func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
+	reflectionContent, err := os.ReadFile(reflectionPath)
+	if err != nil {
+		fmt.Printf("Error reading reflection file %s: %v\n", reflectionPath, err)
+		return ""
+	}
+
+	// 解析JSON格式的反思文件
+	var reflectionData struct {
+		Question      string                 `json:"question"`
+		SOP           string                 `json:"sop"`
+		LLMReflection map[string]interface{} `json:"llm_reflection"`
+	}
+
+	if err := json.Unmarshal(reflectionContent, &reflectionData); err != nil {
+		fmt.Printf("Error parsing reflection file %s: %v\n", reflectionPath, err)
+		return ""
+	}
+
+	// 构建反思案例提示词
+	refcasePrompt := fmt.Sprintf("**Question:** %s\n\n**SOP:** %s\n\n**Reflection Insights:**\n",
+		reflectionData.Question, reflectionData.SOP)
+
+	// 添加失败原因（放在agent_guidance之前）
+	if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
+		refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
+	}
+
+	// 添加Agent指导内容
+	if agentGuidance, ok := reflectionData.LLMReflection["agent_guidance"].([]interface{}); ok {
+		refcasePrompt += "**Agent Guidance:**\n"
+		for _, guidance := range agentGuidance {
+			if guidanceMap, ok := guidance.(map[string]interface{}); ok {
+				if agentName, ok := guidanceMap["agent_name"].(string); ok {
+					if feedback, ok := guidanceMap["feedback"].(string); ok {
+						if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
+							refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Revised Instruction:* %s\n",
+								agentName, feedback, revisedInstruction)
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return refcasePrompt
+}
+
+// parseFileFromMessage 从消息中解析文件名并读取文件内容
+func (ba *BaseAgent) parseFileFromMessage(messages []schema.Message) string {
+	if len(messages) == 0 {
+		return "No file provided"
+	}
+
+	// Extract the question from the first message
+	question := messages[0].Content
+	// If the question contains a filename, extract it
+	if strings.Contains(question, "FILENAME:") {
+		parts := strings.Split(question, "FILENAME:")
+		filename := strings.TrimSpace(parts[1])
+		// Extract until next whitespace or end of string
+		if idx := strings.Index(filename, " "); idx > 0 {
+			filename = filename[:idx]
+		}
+		// Construct the full file path using relative path
+		fullPath := filepath.Join("../../../dataset", "gaia", "val_files", filename)
+		// Create file reader and read the file
+		reader := filereaders.NewGeneralReader()
+		fileContent, err := reader.Read("read file content", fullPath)
+		if err != nil {
+			return fmt.Sprintf("Error reading file %s: %v", filename, err)
+		}
+		return fileContent
+	}
+	return "No file provided"
 }
