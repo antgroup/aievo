@@ -255,7 +255,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		teamLeader = agentsMap[selectedSOP.Team[0]]
 	}
 
-	// Use WathcherAgent
+	// Use WatcherAgent
 	watcher, _ := agent.NewWatcherAgent(
 		agent.WithLLM(client),
 		agent.WithEnv(env),
@@ -656,7 +656,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{1, 2, 3}
+		levels = []int{1, 3}
 	} else {
 		levels = []int{0}
 	}

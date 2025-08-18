@@ -136,7 +136,7 @@ func (ba *BaseAgent) Run(ctx context.Context,
 			// 利用 watcher_fd 构造成一条 message，加到 messages 当中
 			watcherMessage := schema.Message{
 				Type:     schema.MsgTypeMsg,
-				Content:  fmt.Sprintf("Hint from Global Watcher: %s", watcher_fd),
+				Content:  watcher_fd,
 				Sender:   "Watcher",
 				Receiver: ba.name,
 			}
@@ -217,6 +217,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		inputs["refcase"] = ba.parseReflectionFile(ba.reflectionPath)
 	}
 
+	inputs["question"] = messages[0].Content
+
 	p, err := ba.prompt.Format(inputs)
 	if err != nil {
 		return nil, nil, nil, 0, err
@@ -242,7 +244,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_L123_v6_tw_wgr_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_level_L13_v6_tw_wgr_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
