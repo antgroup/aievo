@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/antgroup/aievo/callback"
+	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/feedback"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
@@ -127,8 +128,15 @@ func (ba *BaseAgent) Run(ctx context.Context,
 		watcher_fd := "null"
 		if ba.env != nil {
 			actionCount := len(steps)
-			// 触发条件：action 数量为 5 的倍数且不为 0
-			if actionCount > 0 && actionCount%5 == 0 {
+			// 获取环境中配置的触发间隔
+			watcherInterval := 5 // 默认值
+			if env, ok := ba.env.(*environment.Environment); ok {
+				if env.WatcherInterval > 0 {
+					watcherInterval = env.WatcherInterval
+				}
+			}
+			// 触发条件：action 数量为 watcherInterval 的倍数且不为 0
+			if actionCount > 0 && actionCount%watcherInterval == 0 {
 				watcher_fd = ba.env.WatchActionTaken(ctx, ba.name, steps)
 			}
 		}
@@ -244,7 +252,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_L13_v6_tw_wgr_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_level_L123_v6_tw_wgr4_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {

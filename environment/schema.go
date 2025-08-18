@@ -9,18 +9,19 @@ import (
 )
 
 type Environment struct {
-	Team           *Team
-	SopExpert      schema.Agent
-	Planner        schema.Agent
-	Watcher        schema.Agent
-	WatchCondition func(message schema.Message, memory schema.Memory) bool
-	WatchChan      chan schema.Message
-	WatchChanDone  chan struct{}
-	Memory         schema.Memory
-	Callback       callback.Handler
-	MaxTurn        int
-	MaxToken       int
-	Sop            string
+	Team            *Team
+	SopExpert       schema.Agent
+	Planner         schema.Agent
+	Watcher         schema.Agent
+	WatchCondition  func(message schema.Message, memory schema.Memory) bool
+	WatcherInterval int // 每几轮对话后触发一次watcher
+	WatchChan       chan schema.Message
+	WatchChanDone   chan struct{}
+	Memory          schema.Memory
+	Callback        callback.Handler
+	MaxTurn         int
+	MaxToken        int
+	Sop             string
 
 	strategies map[string]func(context.Context, *schema.Message) error
 

@@ -75,6 +75,9 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 		firstSoloMessageKept[agentName] = false
 	}
 
+	// 维护目标agent的接收者列表
+	targetAgentReceivers := make(map[string]bool)
+
 	newMessages := make([]schema.Message, 0, len(c.Messages))
 	// 记录被删除agent收到的第一条消息在新列表中的位置
 	firstMessageIndex := -1
@@ -82,16 +85,28 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 	for _, msg := range c.Messages {
 		shouldRemove := false
 
-		// 规则 1: 检查消息是否由该agent发送
+		// 规则 1: 检查消息是否由目标agent发送
 		for _, agentName := range agents {
 			if msg.Sender == agentName {
 				shouldRemove = true
+				// 将该消息的接收者添加到接收者列表中
+				receivers := msg.Receivers()
+				for _, receiver := range receivers {
+					if receiver != agentName { // 避免自己给自己发消息的情况
+						targetAgentReceivers[receiver] = true
+					}
+				}
 				break
 			}
 		}
 
+		// 规则 1.5: 检查消息发送者是否在目标agent的接收者列表中
+		if !shouldRemove && targetAgentReceivers[msg.Sender] {
+			shouldRemove = true
+		}
+
 		if shouldRemove {
-			// 如果发送者是目标agent，则直接跳过，不添加到新列表
+			// 如果消息需要删除，则直接跳过，不添加到新列表
 			continue
 		}
 

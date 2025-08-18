@@ -126,8 +126,8 @@ func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, st
 	if msg.MngInfo == nil {
 		return "null"
 	}
-	// 如果replace不是空列表，则返回content
-	if len(msg.MngInfo.Replace) > 0 {
+	// 如果replace不是空列表，且agentname在其中，则返回content 
+	if len(msg.MngInfo.Replace) > 0 && funk.ContainsString(msg.MngInfo.Replace, agentName) {
 		return msg.MngInfo.Content
 	}
 	return "null"

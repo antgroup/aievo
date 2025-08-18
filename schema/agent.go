@@ -95,7 +95,11 @@ func ConvertConstructScratchPad(name, self string, messages []Message, steps []S
 						sender, receiver, message.Content)
 				}
 			}
-
+		}
+		if message.IsEnd() {
+			receiver = "User"
+			scratchPad += fmt.Sprintf("(%s -> %s)(End): %s\n",
+				sender, receiver, message.Content)
 		}
 	}
 	for _, step := range steps {

@@ -51,6 +51,12 @@ func initializeAIEvo(e *AIEvo, o *options) {
 	e.Planner = o.planner
 	e.Watcher = o.watcher
 	e.WatchCondition = o.watchCondition
+	// 设置默认的WatcherInterval为5，如果用户指定了则使用用户指定的值
+	if o.watcherInterval > 0 {
+		e.Environment.WatcherInterval = o.watcherInterval
+	} else {
+		e.Environment.WatcherInterval = 5 // 默认值
+	}
 	e.Handler = Chain(e.BuildPlan, e.BuildSOP, e.Watch, e.Scheduler)
 }
 
