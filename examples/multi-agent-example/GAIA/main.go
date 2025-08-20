@@ -552,7 +552,7 @@ func generateSOP_train(client llm.LLM, userQuestion string, metadata AnnotatorMe
 
 // retrieveSOPFile retrieves the top SOP filename from the retrieval results.
 func retrieveSOPFile(level int, questionID int) (string, error) {
-	retrievalPath := fmt.Sprintf("Analysis/retri_results_level_%d_bge.json", level)
+	retrievalPath := fmt.Sprintf("Analysis/retri_results_level_%d.json", level)
 	retrievalFile, err := os.ReadFile(retrievalPath)
 	if err != nil {
 		return "", fmt.Errorf("failed to read retrieval file %s: %w", retrievalPath, err)
@@ -657,7 +657,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{1, 2, 3}
+		levels = []int{3}
 	} else {
 		levels = []int{0}
 	}
@@ -682,18 +682,19 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wgr4_%s.json", level, timeStamp)
-		logFilename := fmt.Sprintf("eval/eval_level_%d_v6_tw_wgr4_%s.log", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-456+q_%s.json", level, timeStamp)
+		logFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-456+q_%s.log", level, timeStamp)
 		start_time := time.Now()
-		start_id := 0
+		start_id := 6
 		//end_id := len(questions)
-		watcherInterval := 4
+		//watcherInterval := 5
+		watcherInterval := level + 3
 
 		for i, q := range questions {
 			// if q.FileName != "" { // 先忽略需要file的问题
 			// 	continue
 			// }
-			if i < start_id {
+			if level == 3 && i < start_id {
 				continue
 			}
 			//if i >= end_id {
@@ -767,14 +768,14 @@ func main() {
 					// if err != nil {
 					// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 					// 	// Fallback to default SOP if generation fails
-					// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil)
+					// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval)
 					// 	if err != nil {
 					// 		panic(err)
 					// 	}
 					// } else {
 					// 	log.Printf("Using generated SOP for question %d", i)
 					// 	// Use the generated SOP for the current question
-					// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP)
+					// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval)
 					// 	if err != nil {
 					// 		panic(err)
 					// 	}

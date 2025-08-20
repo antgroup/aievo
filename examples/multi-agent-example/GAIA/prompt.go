@@ -19,7 +19,6 @@ Note that these conditions are not exhaustive, and you should use your judgment 
 Additionally, if the agent requires multi-step actions to execute and the current performance is satisfactory, do not replace this agent during the process.
 If an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. 
 However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
-Moreover, please note that communication messages between agents do not include the process of them using tools (e.g., the web searching process). Therefore, do not force them to provide detailed evidence and related processes in their communication.
 
 {{if .refcase}}
 ## Relevant Case for Reference:
@@ -220,6 +219,9 @@ You are part of a multi-agent system. Your name is {{ .name }} in team. Here is 
 The following is the reference Standard Operating Procedure (SOP) for the task solving process (Note that DO NOT ask the User to provide additional information during the task solving process):
 {{.sop}}
 
+## User's Question:
+{{.question}}
+
 ### Instructions
 {{.role}}
 
@@ -265,6 +267,9 @@ DO NOT invoke an agent while using a tool. {{end}}
 `
 
 const NewEndBaseInstructions = `
+## User's Question:
+{{.question}}
+
 ### Instructions
 {{.role}}
 

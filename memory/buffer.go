@@ -100,10 +100,10 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 			}
 		}
 
-		// 规则 1.5: 检查消息发送者是否在目标agent的接收者列表中
-		if !shouldRemove && targetAgentReceivers[msg.Sender] {
-			shouldRemove = true
-		}
+		// // 规则 1.5: 检查消息发送者是否在目标agent的接收者列表中
+		// if !shouldRemove && targetAgentReceivers[msg.Sender] {
+		// 	shouldRemove = true
+		// }
 
 		if shouldRemove {
 			// 如果消息需要删除，则直接跳过，不添加到新列表

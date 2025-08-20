@@ -1,0 +1,20 @@
+[
+    {
+        "team": ["Travel Information Analyzer", "Travel Plan Generator"],
+        "sop": "**Workflow:**\n1. User -> Travel Information Analyzer;\n2. Travel Information Analyzer -> Travel Plan Generator;\n3. Travel Plan Generator -> End.\n\n**Description:**\nFirst, the Travel Information Analyzer analyzes the user's travel planning question, searches for necessary information using available tools. Second, the Travel Plan Generator receives this comprehensive information and generates a detailed, final travel plan.",
+        "details": [
+            {
+                "name": "Travel Information Analyzer",
+                "responsibility": "You are a travel planning assistant. Analyse the given travel planning question and search necessary information.",
+                "instruction": "Your task is to carefully analyze the user's travel needs, use the provided tools to gather the necessary information, and compile all relevant information to send to the final travel plan generator.",
+                "tools": ["search"]
+            },
+            {
+                "name": "Travel Plan Generator",
+                "responsibility": "You are the Travel Plan Generator Agent. Your core mission is to generate the final, comprehensive travel plan for the user's travel planning question.",
+                "instruction": "Based on the provided information and query, please generate a detailed plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and accommodation names. Note that all the information in your plan should be derived from the provided data. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).",
+                "tools": []
+            }
+        ]
+    }
+]

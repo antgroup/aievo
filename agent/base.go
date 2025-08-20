@@ -152,7 +152,7 @@ func (ba *BaseAgent) Run(ctx context.Context,
 
 			steps = make([]schema.StepAction, 0) // 清空steps
 			totalFeedbacks = 0                   // 重置feedback计数器
-			i = i - 3
+			i = i - 1
 			continue
 		}
 
@@ -252,7 +252,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_L123_v6_tw_wgr4_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_level_L3_v6_twq_wgr-456+q_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {

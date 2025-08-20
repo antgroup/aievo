@@ -13,3 +13,11 @@ myread.py
 process_files.py
 examples/multi-agent-example/GAIA/Analysis/embedding/
 examples/multi-agent-example/GAIA/Analysis/embedding_bge
+
+examples/multi-agent-example/travelplanner/output
+examples/multi-agent-example/travelplanner/results/parse
+examples/multi-agent-example/travelplanner/results/sub
+
+dataset/travelplanner/database
+
+*.pyc
