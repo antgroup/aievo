@@ -657,7 +657,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{3}
+		levels = []int{2}
 	} else {
 		levels = []int{0}
 	}
@@ -682,8 +682,8 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-456+q_%s.json", level, timeStamp)
-		logFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-456+q_%s.log", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-5+3_%s.json", level, timeStamp)
+		logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 		start_time := time.Now()
 		start_id := 6
 		//end_id := len(questions)

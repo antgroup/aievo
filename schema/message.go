@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"encoding/json"
 	"strings"
 )
 
@@ -38,6 +39,25 @@ func (m *Message) Receivers() []string {
 	receivers := make([]string, 0)
 	if strings.EqualFold(m.Receiver, MsgAllReceiver) {
 		receivers = m.AllReceiver
+	} else if strings.Contains(m.Receiver, "[") {
+		var tempReceivers []string
+		// ["agent1", "agent2"]
+		if err := json.Unmarshal([]byte(m.Receiver), &tempReceivers); err == nil {
+			receivers = tempReceivers
+		} else {
+			// 如果JSON解析失败，尝试手动解析，去掉括号和引号
+			cleanReceiver := strings.Trim(m.Receiver, "[]")
+			if cleanReceiver != "" {
+				parts := strings.Split(cleanReceiver, ",")
+				for _, part := range parts {
+					// 去掉引号和空格
+					cleaned := strings.Trim(strings.TrimSpace(part), "\"'")
+					if cleaned != "" {
+						receivers = append(receivers, cleaned)
+					}
+				}
+			}
+		}
 	} else if strings.Contains(m.Receiver, ",") {
 		receivers = strings.Split(m.Receiver, ",")
 	} else if m.Receiver != "" {

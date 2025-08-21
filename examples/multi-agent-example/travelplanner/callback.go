@@ -38,14 +38,14 @@ func (h *CallbackHandler) HandleAgentActionStart(ctx context.Context, agent stri
 }
 
 func (h *CallbackHandler) HandleAgentActionEnd(ctx context.Context, agent string, action *schema.StepAction) {
-	scratchpad := fmt.Sprintf(`\nAgent: %s
-Thought: %s
-Action: %s
-Action Input: %s
-Observation: %s`, agent, action.Thought, action.Action,
-		action.Input, action.Observation)
-	fmt.Println(scratchpad)
-	fmt.Println("===========================================================================")
+// 	scratchpad := fmt.Sprintf(`\nAgent: %s
+// Thought: %s
+// Action: %s
+// Action Input: %s
+// Observation: %s`, agent, action.Thought, action.Action,
+// 		action.Input, action.Observation)
+// 	fmt.Println(scratchpad)
+// 	fmt.Println("===========================================================================")
 }
 
 func (h *CallbackHandler) HandleRetrieverStart(ctx context.Context, query string) {

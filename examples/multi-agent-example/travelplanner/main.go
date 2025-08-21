@@ -74,6 +74,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithInstruction(defaultBaseInstructions),
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
+		agent.WithTools(ts),
 		agent.WithSuffix(NULLSuffix),
 	)
 
@@ -179,19 +180,40 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithLLM(client),
 			agent.WithEnv(env),
 			agent.WithCallback(callbackHandler),
-			agent.WithSuffix(NULLSuffix), 
+			agent.WithSuffix(NULLSuffix),
 		}
 
-		if strings.Contains(agentDetail.Name, "Web") || strings.Contains(agentDetail.Name, "web") {
-			agentOpts = append(agentOpts, agent.WithTools(ts))
-		} else {
-			for _, toolName := range agentDetail.Tools {
-				if strings.EqualFold(toolName, "search") {
-					agentOpts = append(agentOpts, agent.WithTools(ts))
-					break
-				}
+			// Create a slice to store selected tools for this agent
+		var selectedTools []tool.Tool
+
+		for _, toolName := range agentDetail.Tools {
+			if strings.EqualFold(toolName, "search") {
+				selectedTools = ts
+				break
+			}
+			// Map tool names to specific tools from ts array
+			switch toolName {
+			case "FlightSearch":
+				selectedTools = append(selectedTools, ts[0]) // FlightTool
+			case "AccommodationSearch":
+				selectedTools = append(selectedTools, ts[1]) // AccommodationTool
+			case "RestaurantSearch":
+				selectedTools = append(selectedTools, ts[2]) // RestaurantTool
+			case "AttractionSearch":
+				selectedTools = append(selectedTools, ts[3]) // AttractionTool
+			case "GoogleDistanceMatrix":
+				selectedTools = append(selectedTools, ts[4]) // DistanceTool
+			case "CitySearch":
+				selectedTools = append(selectedTools, ts[5]) // CityTool
+			case "CostEnquiry":
+				selectedTools = append(selectedTools, ts[6]) // CostEnquiryTool
 			}
 		}
+ 		// Only add tools if we found any matches
+		if len(selectedTools) > 0 {
+			agentOpts = append(agentOpts, agent.WithTools(selectedTools))
+		}
+		
 
 		// Check if this is the last agent in the team
 		var instructionsToUse string
@@ -551,6 +573,7 @@ func main() {
 	client, err := openai.New(
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
 		openai.WithModel(os.Getenv("OPENAI_MODEL")),
+		// openai.WithModel("Qwen2.5-72B-Instruct"),
 		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
 	if err != nil {
 		log.Fatal(err)
@@ -604,18 +627,13 @@ func main() {
 	}
 
 	var mode string
-	eval := 1 // 0 for training, 1 for evaluation
+	datasetPath := ""
+	eval := 0 // 0 for training, 1 for evaluation
 	if eval == 0 {
 		mode = "train"
-	} else {
-		mode = "validation"
-	}
-
-	// 使用 travelplanner 数据集
-	datasetPath := ""
-	if eval == 0 {
 		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_dataset.json"
 	} else {
+		mode = "validation"
 		datasetPath = "../../../dataset/travelplanner/validation/travelplanner_validation_dataset.json"
 	}
 
@@ -632,7 +650,7 @@ func main() {
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
 	resultsFilename := fmt.Sprintf("output/%s_t0_%s.json", mode, timeStamp)
-	logFilename := fmt.Sprintf("output/%s_t0_%s.log", mode, timeStamp)
+	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
 	// end_id := 3 //len(questions)
@@ -643,7 +661,7 @@ func main() {
 			continue
 		}
 		// if i >= end_id {
-			// break
+		// break
 		// }
 
 		question := q.Query
@@ -657,7 +675,7 @@ func main() {
 		totalCount++
 
 		if fromsop {
-			sopPath := "SOP/v0.json"
+			sopPath := "SOP/v1.json"
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
@@ -750,18 +768,18 @@ func main() {
 
 		// var communicationHistory []schema.Message
 		// if buffer, ok := evo.Environment.Memory.(*memory.Buffer); ok {
-			// communicationHistory = buffer.Messages
+		// communicationHistory = buffer.Messages
 		// }
 
 		modelOutputContent := gen
 
 		results = append(results, TravelPlannerResultLog{
-			ID:                   i,
-			Query:                q.Query,
-			ModelOutput:          modelOutputContent,
+			ID:          i,
+			Query:       q.Query,
+			ModelOutput: modelOutputContent,
 			// CommunicationHistory: communicationHistory,
-			TotalCount:           totalCount,
-			Time:                 time.Since(start_time).String(),
+			TotalCount: totalCount,
+			Time:       time.Since(start_time).String(),
 		})
 
 		resultsJSON, err := json.MarshalIndent(results, "", "  ")

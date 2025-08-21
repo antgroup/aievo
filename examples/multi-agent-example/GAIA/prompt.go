@@ -219,9 +219,6 @@ You are part of a multi-agent system. Your name is {{ .name }} in team. Here is 
 The following is the reference Standard Operating Procedure (SOP) for the task solving process (Note that DO NOT ask the User to provide additional information during the task solving process):
 {{.sop}}
 
-## User's Question:
-{{.question}}
-
 ### Instructions
 {{.role}}
 
@@ -267,9 +264,6 @@ DO NOT invoke an agent while using a tool. {{end}}
 `
 
 const NewEndBaseInstructions = `
-## User's Question:
-{{.question}}
-
 ### Instructions
 {{.role}}
 

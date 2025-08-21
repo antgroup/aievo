@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/antgroup/aievo/callback"
-	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/feedback"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
@@ -129,12 +128,12 @@ func (ba *BaseAgent) Run(ctx context.Context,
 		if ba.env != nil {
 			actionCount := len(steps)
 			// 获取环境中配置的触发间隔
-			watcherInterval := 5 // 默认值
-			if env, ok := ba.env.(*environment.Environment); ok {
-				if env.WatcherInterval > 0 {
-					watcherInterval = env.WatcherInterval
-				}
-			}
+			watcherInterval := 3 // 默认值
+			//if env, ok := ba.env.(*environment.Environment); ok {
+			//	if env.WatcherInterval > 0 {
+			//		watcherInterval = env.WatcherInterval
+			//	}
+			//}
 			// 触发条件：action 数量为 watcherInterval 的倍数且不为 0
 			if actionCount > 0 && actionCount%watcherInterval == 0 {
 				watcher_fd = ba.env.WatchActionTaken(ctx, ba.name, steps)
@@ -252,7 +251,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	logfile := fmt.Sprintf("eval/log_level_L3_v6_twq_wgr-456+q_%s.log", time.Now().Format("2006-0102"))
+	// logfile := fmt.Sprintf("eval/log_level_L2_v6_twq_wgr-5+3_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_t1_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -488,6 +488,21 @@ func parseMessage(name, content string) (*schema.Message, error) {
 		}
 	}
 
+	// 如果receiver字段是数组，将其序列化为JSON字符串
+	if receiverObj, exists := rawMessage["receiver"]; exists {
+		if receiverStr, ok := receiverObj.(string); ok {
+			// 如果已经是字符串，保持不变
+			rawMessage["receiver"] = receiverStr
+		} else if receiverArray, ok := receiverObj.([]interface{}); ok {
+			// 如果是数组，序列化为JSON字符串
+			receiverBytes, err := json.Marshal(receiverArray)
+			if err != nil {
+				return nil, fmt.Errorf("failed to serialize receiver array: %w", err)
+			}
+			rawMessage["receiver"] = string(receiverBytes)
+		}
+	}
+
 	// 重新序列化并解析为Message结构
 	processedBytes, err := json.Marshal(rawMessage)
 	if err != nil {
@@ -538,6 +553,21 @@ func parseMessageList(name, content string) ([]schema.Message, error) {
 					return nil, fmt.Errorf("failed to serialize content object at index %d: %w", i, err)
 				}
 				jsonObj["content"] = string(contentBytes)
+			}
+		}
+
+		// 如果receiver字段是数组，将其序列化为JSON字符串
+		if receiverObj, exists := jsonObj["receiver"]; exists {
+			if receiverStr, ok := receiverObj.(string); ok {
+				// 如果已经是字符串，保持不变
+				jsonObj["receiver"] = receiverStr
+			} else if receiverArray, ok := receiverObj.([]interface{}); ok {
+				// 如果是数组，序列化为JSON字符串
+				receiverBytes, err := json.Marshal(receiverArray)
+				if err != nil {
+					return nil, fmt.Errorf("failed to serialize receiver array at index %d: %w", i, err)
+				}
+				jsonObj["receiver"] = string(receiverBytes)
 			}
 		}
 

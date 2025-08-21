@@ -178,7 +178,7 @@ class IntegratedEvaluator:
             prefix = """Please assist me in extracting valid information from a given natural language text and reconstructing it in JSON format, as demonstrated in the following example. If transportation details indicate a journey from one city to another (e.g., from A to B), the 'current_city' should be updated to the destination city (in this case, B). Use a ';' to separate different attractions, with each attraction formatted as 'Name, City'. If there's information about transportation, ensure that the 'current_city' aligns with the destination mentioned in the transportation details (i.e., the current city should follow the format 'from A to B'). Also, ensure that all flight numbers and costs are followed by a colon (i.e., 'Flight Number:' and 'Cost:'), consistent with the provided example. Each item should include ['day', 'current_city', 'transportation', 'breakfast', 'attraction', 'lunch', 'dinner', 'accommodation']. Replace non-specific information like 'eat at home/on the road' with '-'. Additionally, delete any '$' symbols.
 -----EXAMPLE-----
  [{{
-        "days": 1,
+        "day": 1,
         "current_city": "from Dallas to Peoria",
         "transportation": "Flight Number: 4044830, from Dallas to Peoria, Departure Time: 13:10, Arrival Time: 15:01",
         "breakfast": "-",
@@ -188,7 +188,7 @@ class IntegratedEvaluator:
         "accommodation": "Bushwick Music Mansion, Peoria"
     }},
     {{
-        "days": 2,
+        "day": 2,
         "current_city": "Peoria",
         "transportation": "-",
         "breakfast": "Tandoor Ka Zaika, Peoria",
@@ -198,7 +198,7 @@ class IntegratedEvaluator:
         "accommodation": "Bushwick Music Mansion, Peoria"
     }},
     {{
-        "days": 3,
+        "day": 3,
         "current_city": "from Peoria to Dallas",
         "transportation": "Flight Number: 4045904, from Peoria to Dallas, Departure Time: 07:09, Arrival Time: 09:20",
         "breakfast": "-",

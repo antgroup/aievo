@@ -239,13 +239,12 @@ You have access to the following tools:
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
 #### 1. Delegating Tasks or Sending Messages
-When you need to delegate tasks or send messages to one or more agents, please use the following formats. For a single agent, use a single JSON object. For multiple agents, use a list of JSON objects.
-The JSON format is as follows:
+When you need to delegate tasks or send messages to one or more agents, please use the following format:
 ~~~
 {
   "thought": "Clearly describe why you think the conversation should be sent to the receiver agent.",
   "cate": "MSG",
-  "receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",
+  "receiver": "The target agent's name. Must be one or more names in: [{{.agent_names}}].",
   "content": "A clear, self-contained, and informative message for the receiver agent."
 }
 ~~~
@@ -271,7 +270,7 @@ const NewEndBaseInstructions = `
 ### Example
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
 Output Travel Plan:
-Days 1:
+Day 1:
 Current City: from Ithaca to Charlotte
 Transportation: Flight Number: F3633413, from Ithaca to Charlotte, Departure Time: 05:38, Arrival Time: 07:46
 Breakfast: Nagaland's Kitchen, Charlotte
@@ -280,7 +279,7 @@ Lunch: Cafe Maple Street, Charlotte
 Dinner: Bombay Vada Pav, Charlotte
 Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
 
-Days 2:
+Day 2:
 Current City: Charlotte
 Transportation: -
 Breakfast: Olive Tree Cafe, Charlotte
@@ -289,7 +288,7 @@ Lunch: Birbal Ji Dhaba, Charlotte
 Dinner: Pind Balluchi, Charlotte
 Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
 
-Days 3:
+Day 3:
 Current City: from Charlotte to Ithaca
 Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26
 Breakfast: Subway, Charlotte
@@ -370,13 +369,12 @@ You have access to the following tools:
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
 #### 1. Delegating Tasks or Sending Messages
-When you need to delegate tasks or send messages to one or more agents, please use the following formats. For a single agent, use a single JSON object. For multiple agents, use a list of JSON objects.
-The JSON format is as follows:
+When you need to delegate tasks or send messages to one or more agents, please use the following format:
 ~~~
 {
   "thought": "Clearly describe why you think the conversation should be sent to the receiver agent.",
   "cate": "MSG",
-  "receiver": "The target agent's name. Must be one of: [{{.agent_names}}].",
+  "receiver": "The target agent's name. Must be one or more names in: [{{.agent_names}}].",
   "content": "A clear, self-contained, and informative message for the receiver agent."
 }
 ~~~
