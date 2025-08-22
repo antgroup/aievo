@@ -1,0 +1,3782 @@
+[
+    {
+        "id": 0,
+        "query_question": "Please create a travel plan for me where I'll be departing from Washington and heading to Myrtle Beach for a 3-day trip from March 13th to March 15th, 2022. Can you help me keep this journey within a budget of $1,400?",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                8,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                9,
+                0,
+                8
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "query_question": "Please draw up a 3-day travel itinerary for one person, beginning in Oakland and heading to Tucson from March 15th to March 17th, 2022, with a budget of $1,400.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "query_question": "Can you help me with a travel plan departing from Buffalo to Atlanta for a duration of 3 days, specifically from March 2nd to March 4th, 2022? I plan to travel alone and my planned budget for the trip is around $1,100.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                8
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                1
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "query_question": "Could you arrange a 3-day solo trip for me starting from Ontario and heading to Honolulu spanning from March 4th to March 6th, 2022, with a total budget of $3,200?",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                9
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "query_question": "Please assist me in devising a travel plan that departs from West Palm Beach and heads to Atlanta, lasting 3 days from March 13th, 2022 to March 15th, 2022. It should accommodate 1 person and adhere to a budget of $900.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                9,
+                8
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                9,
+                1
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "query_question": "Please assist in crafting a travel plan for a solo traveller, journeying from Detroit to San Diego for 3 days, from March 5th to March 7th, 2022. The travel plan should accommodate a total budget of $3,000.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                14,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "query_question": "Please create a travel plan for a 3-day trip from Missoula to Dallas scheduled from March 23rd to March 25th, 2022. The budget for this trip is set at $1,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                19,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                4,
+                0
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "query_question": "Could you arrange a 3-day travel from Boston to San Juan, Puerto Rico, for one person between March 28th and March 30th, 2022? The budget for this trip is set to $1,400.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                8,
+                9
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                9
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "query_question": "Can you help me plan a trip that begins in Sarasota and ends in Philadelphia? The trip should span over 3 days, from March 2nd to March 4th, 2022, and adhere to a budget of $2,100.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                9
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                9
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "query_question": "Could you help me create a travel plan starting from Minneapolis to St. Louis, spanning 3 days from March 15th to March 17th, 2022? The budget is set at $1,000.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                14,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                12,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 10,
+        "query_question": "Please create a travel plan departing from Minneapolis and heading to Seattle for 3 days, from March 29th to March 31st, 2022, with a budget of $1,800.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                19,
+                9
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                9
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "query_question": "Please devise a travel plan that starts from St. Petersburg and heads to Appleton, taking place across 3 days from March 19th to March 21st, 2022. This itinerary is for an individual, with a budget allocated at $1,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                14,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                7,
+                5
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "query_question": "Can you assist with a travel plan for one person departing from Pittsburgh to Baltimore for 3 days, from March 4th to March 6th, 2022, with a maximum budget of $1,200?",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                6,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "query_question": "Could you arrange a travel plan for me starting from Denver and going to Appleton for 3 days, specifically from March 4th to March 6th, 2022? I'm traveling alone and I have a budget of $1,800 for this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                7,
+                10
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                7
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "query_question": "Please arrange a 3-day trip for me departing from St. Louis and visiting Las Vegas from March 29th to March 31st, 2022. My budget for this journey is $1,300.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                1,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                1,
+                0
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "query_question": "Could you help me organize a 3-day journey from Spokane to San Francisco from March 3rd to March 5th, 2022? This trip is for 1 person with a budget of $1,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                4,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 16,
+        "query_question": "Can you help draft a 3-day travel plan, starting on March 1st, 2022 and ending on March 3rd, 2022, for one person departing from St. Louis and heading to Washington with a budget of $1,500?",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                9,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                1,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 17,
+        "query_question": "Could you design a 3-day travel itinerary from Denver to Palm Springs for 1 person? The travel should span from March 27th to March 29th, 2022. The travel budget is set at $2,200. No specific local constraints are given.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 18,
+        "query_question": "Could you assist in creating a travel plan for one person departing from Seattle and visiting San Francisco for 3 days, from March 21st to March 23rd, 2022? The new budget is $900.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                19,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                1
+            ]
+        }
+    },
+    {
+        "id": 19,
+        "query_question": "Could you assist with a 3-day travel itinerary starting from Providence to Orlando, with a visit planned to only one city? The travel dates are from March 24th to March 26th, 2022, and the budget for the trip should not exceed $1,800.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                3,
+                8
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                9,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 20,
+        "query_question": "Could you help create a travel itinerary for a solo trip departing from St. Louis and covering 2 cities in Florida over the course of 5 days, from March 15th to March 19th, 2022? The travel budget is set at $2,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                9,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                9,
+                0
+            ]
+        }
+    },
+    {
+        "id": 21,
+        "query_question": "Can you help craft a 5-day travel plan that starts in Colorado Springs and takes in 2 cities in Illinois from March 5th to March 9th, 2022? Single traveler with an overall budget of $1,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                6,
+                5
+            ]
+        }
+    },
+    {
+        "id": 22,
+        "query_question": "Could you create a 5-day travel plan for one person departing from Little Rock and visiting 2 cities in Texas from March 14th to March 18th, 2022? The budget for this trip is set at $3,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                17
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                17,
+                13
+            ]
+        }
+    },
+    {
+        "id": 23,
+        "query_question": "Could you arrange a 5-day trip for one person, starting from Latrobe and covering two cities in South Carolina from the dates of March 2nd to March 6th, 2022? My budget is set at $4,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                6,
+                5,
+                3
+            ]
+        }
+    },
+    {
+        "id": 24,
+        "query_question": "Can you create a 5-day travel itinerary for a solo trip starting from Jacksonville and visiting 2 cities in Michigan? The trip should be from March 25th to March 29th, 2022, and I have a budget of $4,600.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                10,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                14,
+                5
+            ]
+        }
+    },
+    {
+        "id": 25,
+        "query_question": "Could you construct a 5-day travel itinerary for a solo traveler starting in Orlando and visiting 2 cities in Illinois, spanning the dates from March 2nd to March 6th, 2022? The budget for the trip is set to $2,700.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                9,
+                10
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                9,
+                5
+            ]
+        }
+    },
+    {
+        "id": 26,
+        "query_question": "Can you create a 5-day travel plan for me that begins in Billings and includes visits to 2 cities in Minnesota? The journey should take place from March 6th to March 10th, 2022, with a budget of $4,000.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                4,
+                14
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                12,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "id": 27,
+        "query_question": "Could you create a 5-day travel plan for me, beginning in Washington, visiting 2 cities in Virginia from March 15th to March 19th, 2022? I have a budget of $2,200 for this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                8,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                5,
+                6,
+                3
+            ]
+        }
+    },
+    {
+        "id": 28,
+        "query_question": "Can you assist in crafting a travel schedule departing from Richmond and traveling to 2 cities in Tennessee? The journey will last 5 days, starting on March 5th and concluding on March 9th, 2022. The travel budget is set at $2,600.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                12,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                6
+            ]
+        }
+    },
+    {
+        "id": 29,
+        "query_question": "Can you help me devise a travel plan that begins in Key West and covers 2 cities in Indiana? The travel dates are from March 10th to March 14th, 2022, and the budget for the trip is $2,000.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                10
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 30,
+        "query_question": "Can you help me devise a 5-day travel plan starting from Cedar Rapids and covering 2 cities in Colorado from March 23rd to March 27th, 2022? This journey is for one person with a budget of $4,300.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                18,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                2,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 31,
+        "query_question": "Can you assist in creating a 5-day long itinerary? I am planning to leave Omaha on March 2nd, 2022, visit 2 different cities in Washington, and return by March 6th, 2022. I will be traveling alone with a budget set to $5,000.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                3,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "id": 32,
+        "query_question": "Could you aid in curating a 5-day travel plan for one person beginning in Denver and planning to visit 2 cities in Washington from March 23rd to March 27th, 2022? The budget for this trip is now set at $4,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                9,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                2,
+                4,
+                6
+            ]
+        }
+    },
+    {
+        "id": 33,
+        "query_question": "Could you put together a 5-day travel plan starting in Charlotte and visiting 2 cities in New Jersey? The dates of travel are from March 6th to March 10th, 2022, and I have a budget of $4,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                11,
+                8
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                5,
+                6,
+                3
+            ]
+        }
+    },
+    {
+        "id": 34,
+        "query_question": "Can you curate a 5-day travel itinerary for one person starting in Gainesville and visiting 2 cities in North Carolina, from March 23rd to March 27th, 2022? The budget for this plan is set at $2,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                11,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 35,
+        "query_question": "Could you please create a 5-day travel plan for me, starting from Los Angeles and visiting 2 cities in Colorado between March 13th and March 17th, 2022? My budget for the trip is $4,700.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                18,
+                11
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                2,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 36,
+        "query_question": "Could you please create a 5-day travel itinerary for one person, starting in Albuquerque and visiting 2 cities in Texas from March 25th to March 29th, 2022? The travel plan should work within a budget of $2,100.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                17
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                17,
+                4
+            ]
+        }
+    },
+    {
+        "id": 37,
+        "query_question": "Could you create a travel plan for a solo traveler starting from Birmingham and visiting 2 cities in Florida, for a duration of 5 days, from March 26th to March 30th, 2022? The allotted budget for this trip is $3,500.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                9,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 38,
+        "query_question": "Could you organize a 5-day travel plan leaving from Killeen and visiting 2 cities in Texas from March 3rd to March 7th, 2022, for one person? The budget for this trip is set at $3,500.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                19
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                17,
+                13
+            ]
+        }
+    },
+    {
+        "id": 39,
+        "query_question": "Can you create a 5-day travel plan for me starting in Sun Valley and visiting 2 cities in California from March 22nd to March 26th, 2022? My budget for this trip is $2,600.",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                12
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 40,
+        "query_question": "Can you help construct a travel plan that begins in Philadelphia and includes visits to 3 different cities in Virginia? The trip duration is for 7 days, from March 15th to March 21st, 2022, with a total budget of $1,800.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                6,
+                8
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "id": 41,
+        "query_question": "Could you construct a week-long travel plan for me, beginning in Bakersfield and heading to Texas? This journey spans from March 2nd to March 8th, 2022, and I am aiming to explore 3 unique cities. I have set aside a budget of $6,100 for this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                3,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                13,
+                3,
+                19
+            ]
+        }
+    },
+    {
+        "id": 42,
+        "query_question": "Could you help me arrange a 7-day solo travel itinerary from Kona to California with a budget of $5,800, intending to visit 3 distinct cities in California from March 7th to March 13th, 2022?",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                7
+            ]
+        }
+    },
+    {
+        "id": 43,
+        "query_question": "Can you assist in devising a 7-day trip for one person, commencing in Medford and involving visits to 3 distinct cities in Colorado from March 23rd to March 29th, 2022? The budget for this trip is set at $2,400.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                18,
+                7
+            ]
+        }
+    },
+    {
+        "id": 44,
+        "query_question": "Could you help me design a one-week travel itinerary departing from Devils Lake and heading to Colorado, covering a total of 3 cities? The travel dates are set between March 22nd and March 28th, 2022. This trip is for a single person with a budget of $3,500.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                18,
+                14
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                7,
+                14
+            ]
+        }
+    },
+    {
+        "id": 45,
+        "query_question": "Please help me craft a 7-day travel plan for one person departing from Charlotte in North Carolina, visiting 3 cities in Pennsylvania. The travel dates are from March 6th to March 12th, 2022. The allocated budget for this trip is $5,100.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                6,
+                0
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "id": 46,
+        "query_question": "Could you assist me in creating a travel plan from Palm Springs to Texas that spans 7 days, visiting 3 cities from March 13th to March 19th, 2022? I have set aside a budget of $8,100 for this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                3,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                13,
+                3,
+                19
+            ]
+        }
+    },
+    {
+        "id": 47,
+        "query_question": "I require a travel itinerary for a seven-day trip beginning on March 2nd and ending on March 8th, 2022. The trip will begin in Philadelphia and involve visiting 3 cities in Virginia. The available budget for the trip is $2,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                6,
+                8
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "id": 48,
+        "query_question": "Could you formulate a travel itinerary for me? I'm planning a solo trip from Dallas to Nebraska for 7 days, from March 7th to March 13th, 2022. During this trip, I wish to visit 3 different cities within Nebraska. My budget for this trip is $5,600.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                3,
+                7
+            ]
+        }
+    },
+    {
+        "id": 49,
+        "query_question": "Can you devise a week-long travel plan for a solo traveler? The trip takes off from Columbus and involves visiting 3 distinct cities in Texas from March 1st to March 7th, 2022. The budget for this venture is set at $4,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                13,
+                19
+            ]
+        }
+    },
+    {
+        "id": 50,
+        "query_question": "Could you assist in creating a week-long travel plan for one person, starting from Indianapolis and venturing through 3 cities in North Carolina from March 7th to March 13th, 2022? The planned budget for the trip is $6,500.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                11,
+                0
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                7,
+                0,
+                14
+            ]
+        }
+    },
+    {
+        "id": 51,
+        "query_question": "Could you help create a 7-day travel plan for one person departing from Wichita to Colorado that includes visiting 3 cities? The travel dates are from March 7th to March 13th, 2022, and the travel budget is $5,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                2,
+                7
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                7,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 52,
+        "query_question": "Please assist in creating a 7-day travel plan for a solo traveler, starting from Augusta and venturing through 3 different cities in Texas. This journey will occur from March 5th to March 11th, 2022, with a total budget of $4,100.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                13,
+                19
+            ]
+        }
+    },
+    {
+        "id": 53,
+        "query_question": "Could you generate a 7-day travel plan for me? I'll be leaving from Savannah and plan to visit 3 different cities in Texas from March 24th to March 30th, 2022. My budget for the entire trip is $3,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                3,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                13,
+                3,
+                19
+            ]
+        }
+    },
+    {
+        "id": 54,
+        "query_question": "Could you help me create a 7-day travel plan starting on March 18th, 2022, and ending on March 24th, 2022? The trip will start in Washington and I would like to visit 3 cities in Minnesota. This trip is for one person with a budget of $7,200.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                14,
+                7
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                12,
+                7,
+                14
+            ]
+        }
+    },
+    {
+        "id": 55,
+        "query_question": "I need to plan a 7-day solo trip starting in Los Angeles and including visits to 3 different cities in Florida, from March 22nd to March 28th, 2022. The budget for this trip should not exceed $4,700.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                9,
+                2
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                7,
+                2
+            ]
+        }
+    },
+    {
+        "id": 56,
+        "query_question": "Could you assist in creating a 7-day travel itinerary, which begins in Kona and includes visits to 3 different cities in California? The travel dates are from March 10th to March 16th, 2022, with a total travel expense of approximately $2,500.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                13
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                7,
+                0,
+                13
+            ]
+        }
+    },
+    {
+        "id": 57,
+        "query_question": "I need assistance in planning a 7-day journey beginning from Louisville, aiming to experience 3 different cities within Florida. The proposed dates are between March 23rd and March 29th, 2022, and I have a new budget of $7,800.",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                3,
+                9
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                1,
+                0,
+                7
+            ]
+        }
+    },
+    {
+        "id": 58,
+        "query_question": "Please assist in devising a week-long travel plan, beginning in Jacksonville and venturing through 3 distinct cities in Massachusetts from March 22nd to March 28th, 2022. The budget for this solo journey is set at $6,600.",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                7,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 59,
+        "query_question": "Could you assist in planning a 7-day trip for one person starting from Billings and visiting 3 cities in Texas between March 25th and March 31st, 2022? The budget for this trip is set at $8,500.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                3,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                13,
+                3,
+                19
+            ]
+        }
+    },
+    {
+        "id": 60,
+        "query_question": "Could you construct a 3-day travel plan, starting in New York and ending in Reno, for 4 people, including children under 10, from March 14th to March 16th, 2022? Our budget for this trip is set at $11,300. We require accommodations suitable for children under 10.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                13,
+                19
+            ],
+            "analysis_similarity": [
+                13,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                13,
+                2,
+                12
+            ]
+        }
+    },
+    {
+        "id": 61,
+        "query_question": "Please create a 3-day travel plan for two people, starting from Milwaukee and heading to New York. We are planning to visit from March 24th to March 26th, 2022. We have a budget of $1,900 and prefer to have non-shared rooms for our accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                7,
+                12
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                10,
+                9,
+                7
+            ]
+        }
+    },
+    {
+        "id": 62,
+        "query_question": "Can you help me put together a 3-day travel plan for 2 people, departing from Salt Lake City and heading to Twin Falls, taking place from March 25th to March 27th, 2022? Our budget is $1,600. Regarding dining options, we are interested in enjoying both Chinese and Mexican meals.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                10,
+                15
+            ],
+            "analysis_similarity": [
+                11,
+                10,
+                8
+            ],
+            "weighted_similarity": [
+                11,
+                10,
+                15
+            ]
+        }
+    },
+    {
+        "id": 63,
+        "query_question": "Please plan a 3-day trip for a group of 7 people from Salt Lake City to Burbank, with the journey taking place from March 12th to March 14th, 2022. During our time in Burbank, we wish to visit a solitary city. Our new budget is $7,600 for the trip. For accommodations, we would like to have entire rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                14
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                0
+            ],
+            "weighted_similarity": [
+                14,
+                19,
+                13
+            ]
+        }
+    },
+    {
+        "id": 64,
+        "query_question": "Can you curate a travel plan spanning 3 days from March 17th to March 19th, 2022, for a group of 8, departing from Denver and heading to Bozeman? Our budget is set at $7,000. Regarding our culinary preferences, we enjoy American and Indian cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                18,
+                2
+            ],
+            "analysis_similarity": [
+                10,
+                8,
+                16
+            ],
+            "weighted_similarity": [
+                18,
+                16,
+                2
+            ]
+        }
+    },
+    {
+        "id": 65,
+        "query_question": "Could you please design a 3-day travel plan for a group of 5, departing from Manchester and heading to Charlotte, from March 29th to March 31st, 2022? Our budget is set at $4,800 and we would prefer to have entire rooms for our accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                5,
+                14
+            ],
+            "analysis_similarity": [
+                14,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                14,
+                12,
+                5
+            ]
+        }
+    },
+    {
+        "id": 66,
+        "query_question": "Can you assist in creating a travel itinerary departing Baton Rouge and heading to Dallas for a duration of 3 days, from March 25th to March 27th, 2022? The plan will be for a group of 4 people and will have a total budget of $5,500. It's crucial for us to find accommodations where smoking is permitted as that's one of our requirements.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                19,
+                1,
+                13
+            ]
+        }
+    },
+    {
+        "id": 67,
+        "query_question": "Could you help design a 3-day trip for a group of 4 from Las Vegas to Santa Maria from March 10th to March 12th, 2022? We have a budget of $3,700. We have a preference for American and Mediterranean cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                15,
+                13
+            ],
+            "analysis_similarity": [
+                10,
+                8,
+                15
+            ],
+            "weighted_similarity": [
+                8,
+                15,
+                10
+            ]
+        }
+    },
+    {
+        "id": 68,
+        "query_question": "Please create a 3-day travel plan for two people, departing from Panama City and heading to Nashville from March 23rd to March 25th, 2022. We need accommodations that are not shared rooms and have a budget limit of $2,900.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                9
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                0,
+                9,
+                5
+            ]
+        }
+    },
+    {
+        "id": 69,
+        "query_question": "Could you create a 3-day travel itinerary for a group of 8, departing from Valparaiso and moving to Belleville? We will be traveling from March 3rd to March 5th, 2022. Our total budget for this trip is $6,600. We fancy Chinese and American cuisines for our meals during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                11,
+                15
+            ],
+            "analysis_similarity": [
+                10,
+                8,
+                11
+            ],
+            "weighted_similarity": [
+                10,
+                11,
+                8
+            ]
+        }
+    },
+    {
+        "id": 70,
+        "query_question": "Could you arrange a trip for two, leaving from Akron to Tampa for a duration of 3 days starting from March 28th, 2022 to March 30th, 2022? Our budget for this expedition is $2,500. We are fond of Chinese and American food, so we would like to try those cuisines at our destination.",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                9,
+                0
+            ],
+            "analysis_similarity": [
+                10,
+                8,
+                15
+            ],
+            "weighted_similarity": [
+                10,
+                8,
+                0
+            ]
+        }
+    },
+    {
+        "id": 71,
+        "query_question": "Could you help me create a travel plan for 3 days that starts from Houston to Wichita from March 19th to March 21st, 2022? We're a group of 3 people with a budget of $2,700. Smoking is a necessity for us, so accommodating this into our hotel arrangements would be beneficial.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                0,
+                13
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                19,
+                3
+            ]
+        }
+    },
+    {
+        "id": 72,
+        "query_question": "Please assist in crafting a 3-day travel plan for a group of 4 people. We plan to leave from Dallas and proceed to Huntsville, spanning from March 13th to March 15th, 2022. We have a budget of $2,700 for this journey. We require entire rooms for accommodations during our stay.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                19,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                19,
+                12,
+                13
+            ]
+        }
+    },
+    {
+        "id": 73,
+        "query_question": "Can you create a travel plan for a group of 5 departing from Charlotte heading to Hilton Head, to be carried out over 3 days, from March 26th to March 28th, 2022? The budget for this trip is capped at $7,000. We have a preference for Italian and French cuisines during our trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                15,
+                11
+            ],
+            "analysis_similarity": [
+                8,
+                16,
+                10
+            ],
+            "weighted_similarity": [
+                8,
+                15,
+                10
+            ]
+        }
+    },
+    {
+        "id": 74,
+        "query_question": "Could you create a 3-day travel itinerary for a party of 2, from Jacksonville to Washington between March 3rd and March 5th, 2022, with a budget of $1,000? Please note we're looking for accommodations where parties are allowed.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                8,
+                10
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                9,
+                8,
+                0
+            ]
+        }
+    },
+    {
+        "id": 75,
+        "query_question": "Can you prepare a travel plan for a group of 7 departing from Appleton to Charlotte? This will be a 3-day trip from March 18th to March 20th, 2022. Our budget for this trip is $9,500. Please ensure our accommodations allow visitors, as per the house rules.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                14,
+                19
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                13
+            ],
+            "weighted_similarity": [
+                14,
+                7,
+                19
+            ]
+        }
+    },
+    {
+        "id": 76,
+        "query_question": "Could you help draft a 3-day travel plan for two people? We're planning on departing Cleveland and arriving in Baltimore from March 15th to March 17th, 2022. We have a budget of $1,700 for this trip, and we require accommodations that provide private rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                12,
+                5
+            ],
+            "analysis_similarity": [
+                9,
+                12,
+                0
+            ],
+            "weighted_similarity": [
+                9,
+                12,
+                5
+            ]
+        }
+    },
+    {
+        "id": 77,
+        "query_question": "Please create a 3-day travel plan for a party of 3. We will be departing from Chicago and heading to Albuquerque, from March 16th to March 18th, 2022. Our budget is approximately $1,600. As for our accommodations, we would appreciate private rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                19,
+                12
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                9,
+                0
+            ]
+        }
+    },
+    {
+        "id": 78,
+        "query_question": "Create a travel plan for two people departing from Eugene and heading to Los Angeles. The trip will span 3 days, from March 14th to March 16th, 2022. They require accommodations that should ideally be entire rooms. The budget for this trip is set at $1,700.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                16,
+                2
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                9,
+                2,
+                16
+            ]
+        }
+    },
+    {
+        "id": 79,
+        "query_question": "I need assistance with organizing a 3-day trip for two people from Atlanta to Chicago, visiting just one city at the destination. The journey starts on March 24th and ends on March 26th, 2022. The revised budget for this trip is $1,900. We require accommodations that will provide us with entire rooms for our stay. Could you please help with this?",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                12,
+                19
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                9,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 80,
+        "query_question": "Could you tailor a 5-day travel plan for two people, departing from Knoxville and visiting 2 cities in Florida from March 20 to March 24, 2022? Our budget is set at $3,900. We'd love to explore local Chinese and Mediterranean cuisines during our stay.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                10,
+                11
+            ],
+            "analysis_similarity": [
+                11,
+                10,
+                15
+            ],
+            "weighted_similarity": [
+                11,
+                10,
+                15
+            ]
+        }
+    },
+    {
+        "id": 81,
+        "query_question": "Could you create a 5-day travel itinerary for a group of 3, starting in Miami and visiting 2 cities in Texas from March 27th to March 31st, 2022? We have a budget of $8,500. Along the way, we would love to experience Indian and Mediterranean cuisine.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                18,
+                13
+            ],
+            "analysis_similarity": [
+                16,
+                18,
+                11
+            ],
+            "weighted_similarity": [
+                3,
+                18,
+                10
+            ]
+        }
+    },
+    {
+        "id": 82,
+        "query_question": "Can you assist with crafting a 5-day travel itinerary for 2 people, originating from Denver and featuring 2 cities in New York? The itinerary will run from March 18th to March 22nd, 2022. Mexican and Indian cuisine are our preferred choices of food. Considering the budget, we have set it to $6,300.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                18,
+                2
+            ],
+            "analysis_similarity": [
+                11,
+                18,
+                16
+            ],
+            "weighted_similarity": [
+                11,
+                18,
+                10
+            ]
+        }
+    },
+    {
+        "id": 83,
+        "query_question": "Can you assist with a 5-day travel plan for two people, going from Greer to New York, covering 2 cities in the state from March 10th to March 14th, 2022? Our budget is set at $3,400. We require accommodations that could be private rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                11,
+                12
+            ],
+            "analysis_similarity": [
+                12,
+                9,
+                17
+            ],
+            "weighted_similarity": [
+                6,
+                12,
+                9
+            ]
+        }
+    },
+    {
+        "id": 84,
+        "query_question": "Can you create a 5-day travel itinerary for me? We are a group of 8 starting from Salt Lake City and intend to visit 2 cities in Texas from March 14th to March 18th, 2022. Our budget has been updated to $12,000. We require our accommodations to have a visitors-friendly house rule.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                13,
+                19
+            ]
+        }
+    },
+    {
+        "id": 85,
+        "query_question": "Could you create a 5-day travel plan for two people, beginning in Newark and visiting 2 cities in Wisconsin from March 13th to March 17th, 2022? Our budget is set at $2,700 and we prefer to stay in shared rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                12,
+                10
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                7,
+                12,
+                6
+            ]
+        }
+    },
+    {
+        "id": 86,
+        "query_question": "Could you help arrange a 5-day travel plan for a group of 7, departing from Omaha and planning to visit 2 cities in Colorado? The trip is set from March 14th to March 18th, 2022. It's vital that our accommodations are pet-friendly, as we have pets with us. Our budget for the entire trip is $23,400.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                2,
+                16
+            ],
+            "analysis_similarity": [
+                14,
+                13,
+                3
+            ],
+            "weighted_similarity": [
+                18,
+                14,
+                13
+            ]
+        }
+    },
+    {
+        "id": 87,
+        "query_question": "Can you create a 5-day travel plan for 2 people departing from Syracuse to visit 2 cities in Georgia? We are planning to travel from March 16th to March 20th, 2022. Our budget is approximately $2,000. We are interested in trying both American and Mediterranean cuisines during our trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                15,
+                8
+            ],
+            "analysis_similarity": [
+                8,
+                10,
+                11
+            ],
+            "weighted_similarity": [
+                11,
+                15,
+                8
+            ]
+        }
+    },
+    {
+        "id": 88,
+        "query_question": "Could you create a 5-day travel itinerary starting from Pittsburgh and venturing into 2 cities in Texas from March 5th to March 9th, 2022, for a group of 7 people? Our budget is set at $16,100. It's important for us to stay in accommodations that permit children under the age of 10.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                17,
+                19
+            ],
+            "analysis_similarity": [
+                13,
+                14,
+                17
+            ],
+            "weighted_similarity": [
+                13,
+                17,
+                19
+            ]
+        }
+    },
+    {
+        "id": 89,
+        "query_question": "Please create a 5-day travel plan for a group of 3 people, departing from Austin and touring 2 cities in Michigan from March 27th to March 31st, 2022. Our budget is set at $5,900, and we would like to have private rooms for our accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                12,
+                19
+            ],
+            "analysis_similarity": [
+                9,
+                12,
+                14
+            ],
+            "weighted_similarity": [
+                14,
+                12,
+                9
+            ]
+        }
+    },
+    {
+        "id": 90,
+        "query_question": "Can you please generate a 5-day travel plan for a party of 3, departing from Omaha and visiting 2 cities in Michigan, with a journey taking place from March 19th to March 23rd, 2022? Our budget is $7,500. Our accommodation requirements are private rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                12,
+                19
+            ],
+            "analysis_similarity": [
+                9,
+                12,
+                14
+            ],
+            "weighted_similarity": [
+                14,
+                12,
+                9
+            ]
+        }
+    },
+    {
+        "id": 91,
+        "query_question": "Can you design a 5-day travel plan for a group of 3? We wish to start in New Orleans and visit 2 cities in Florida from March 12th to March 16th, 2022. We've set a new budget of $4,200 for the trip. For our stay, we'd prefer to have entire rooms as our accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                3,
+                1
+            ],
+            "analysis_similarity": [
+                14,
+                9,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                3,
+                1
+            ]
+        }
+    },
+    {
+        "id": 92,
+        "query_question": "Could you help design a 5-day travel itinerary for 2 people, starting our journey from Durango and planning to visit 2 cities in Texas, from March 27th to March 31st, 2022? Our budget is set at $2,300 for this trip. We would love to explore Chinese and Indian cuisine during our trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                3,
+                13
+            ],
+            "analysis_similarity": [
+                11,
+                10,
+                16
+            ],
+            "weighted_similarity": [
+                11,
+                3,
+                18
+            ]
+        }
+    },
+    {
+        "id": 93,
+        "query_question": "Could you create a 5-day travel plan for 2 people departing from Richmond to visit 2 cities in Texas? The trip is scheduled from March 6th to March 10th, 2022. Our budget is $6,000. We have a particular interest in Chinese and Indian cuisines for our meals.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                11
+            ],
+            "analysis_similarity": [
+                11,
+                10,
+                16
+            ],
+            "weighted_similarity": [
+                11,
+                3,
+                17
+            ]
+        }
+    },
+    {
+        "id": 94,
+        "query_question": "Could you create a travel plan for a party of 8 departing from Fayetteville and heading to New York for 5 days, which will cover 2 cities between March 25th and March 29th, 2022? We have a maximum budget of $6,900. We are particularly interested in experiencing American and Mexican cuisines during our stay.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                15,
+                8
+            ],
+            "analysis_similarity": [
+                11,
+                10,
+                8
+            ],
+            "weighted_similarity": [
+                11,
+                15,
+                8
+            ]
+        }
+    },
+    {
+        "id": 95,
+        "query_question": "Could you help plan a 5-day trip for a group of 5 people, starting from Missoula and covering 2 cities in Texas from March 26th to March 30th, 2022? Our travel budget is $7,200. We'd particularly enjoy having access to both authentic Italian and French cuisines during our trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                19,
+                11
+            ]
+        }
+    },
+    {
+        "id": 96,
+        "query_question": "Can you assist in planning a 5-day travel itinerary for a party of 3 people from Manhattan heading to Texas, involving visits to 2 cities there from March 14th to March 18th, 2022? The budget for this trip stands at $3,900. We'd prefer accommodations that allow parties.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                3
+            ],
+            "analysis_similarity": [
+                6,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                19,
+                3,
+                13
+            ]
+        }
+    },
+    {
+        "id": 97,
+        "query_question": "Could you devise a 5-day travel itinerary for a group of 4, commencing in Bloomington and roaming in two cities in Florida from March 13th to March 17th, 2022? Our budget is set at $15,900. We require accommodations to be pet-friendly.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                3,
+                18
+            ],
+            "analysis_similarity": [
+                12,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                12,
+                9
+            ]
+        }
+    },
+    {
+        "id": 98,
+        "query_question": "We need to create a travel plan for 2 people departing from Lake Charles and visiting 2 cities in Texas. The trip will last for 5 days, starting from March 4th to March 8th, 2022. The budget is set at $4,600. In terms of accommodations, we prefer places where parties are allowed.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                19,
+                17
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                19,
+                17
+            ]
+        }
+    },
+    {
+        "id": 99,
+        "query_question": "Can you generate a 5-day travel itinerary for a group of 4, departing from Myrtle Beach and planning to visit 2 cities in Tennessee? The trip is scheduled from March 14th to March 18th, 2022, and we have allocated a budget of $5,500. We would prefer to stay in private rooms during our accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                5,
+                17
+            ],
+            "analysis_similarity": [
+                12,
+                9,
+                17
+            ],
+            "weighted_similarity": [
+                12,
+                5,
+                9
+            ]
+        }
+    },
+    {
+        "id": 100,
+        "query_question": "Can you create a one-week travel itinerary for two people departing from Myrtle Beach and covering three cities in Michigan between March 4th and March 10th, 2022? Our budget is set at $8,300. We would like to experience both French and American cuisines during our journey. We will require accommodations, though we have no specific house rules in mind.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                10,
+                8
+            ],
+            "analysis_similarity": [
+                8,
+                7,
+                10
+            ],
+            "weighted_similarity": [
+                14,
+                8,
+                10
+            ]
+        }
+    },
+    {
+        "id": 101,
+        "query_question": "I need assistance with planning a week-long trip for three people, starting from Punta Gorda and traveling to three different cities in Michigan. The trip dates are from March 6th to March 12th, 2022, and our new budget is set at $4,400. For dining, we'd like to try local American and French cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                14,
+                10
+            ],
+            "analysis_similarity": [
+                8,
+                7,
+                10
+            ],
+            "weighted_similarity": [
+                7,
+                14,
+                8
+            ]
+        }
+    },
+    {
+        "id": 102,
+        "query_question": "Could you help create a 7-day travel plan for a group of 3, departing from Greensboro and touring 3 different cities in Georgia from March 10th to March 16th, 2022? We have a new budget of $4,000 for this trip. We'd also appreciate if our accommodations have smoking areas.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                6,
+                11
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                13
+            ],
+            "weighted_similarity": [
+                7,
+                14,
+                13
+            ]
+        }
+    },
+    {
+        "id": 103,
+        "query_question": "Can you help me create a one-week travel itinerary for two people, starting in Tulsa and visiting three different cities in Missouri from March 14th till March 20th, 2022? Our budget is $8,800 and we would like to have private rooms for our accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                19,
+                0
+            ],
+            "analysis_similarity": [
+                9,
+                12,
+                14
+            ],
+            "weighted_similarity": [
+                12,
+                19,
+                14
+            ]
+        }
+    },
+    {
+        "id": 104,
+        "query_question": "Could you construct a 7-day travel itinerary for a group of 4, beginning in Monterey and exploring 3 cities in Texas from March 9th to March 15th, 2022? We've allocated a budget of $15,600 for this trip. Food-wise, we're particularly interested in trying out French and Chinese cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                3,
+                19
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                13
+            ],
+            "weighted_similarity": [
+                13,
+                19,
+                11
+            ]
+        }
+    },
+    {
+        "id": 105,
+        "query_question": "We're seeking a 7-day travel plan for 2 individuals, beginning in Akron and involving a visit to 3 different cities in Georgia from March 23rd to March 29th, 2022. We have set aside a budget of $8,900 for our trip. During our adventure, we'd like to dine on American and Chinese cuisine.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                10,
+                0
+            ],
+            "analysis_similarity": [
+                10,
+                8,
+                11
+            ],
+            "weighted_similarity": [
+                10,
+                11,
+                15
+            ]
+        }
+    },
+    {
+        "id": 106,
+        "query_question": "Can you help me design a week-long travel itinerary for a group of 5, departing from Washington and visiting 3 different cities in Indiana? The trip should last from March 23rd to March 29th, 2022, and our budget is set at $23,800. It's important to note that our accommodations need to be suitable for children under 10 years of age.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                13,
+                17
+            ],
+            "analysis_similarity": [
+                13,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                13,
+                14,
+                18
+            ]
+        }
+    },
+    {
+        "id": 107,
+        "query_question": "We are a group of 6 people, looking to plan a week-long vacation spanning from March 21st to March 27th, 2022. Our journey will start from Billings, heading towards Arizona with the intent to visit 3 cities in Arizona. Our total budget for the travel plan is $11,700. The accommodations should allow visitors.",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                19,
+                14
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                13
+            ],
+            "weighted_similarity": [
+                14,
+                19,
+                13
+            ]
+        }
+    },
+    {
+        "id": 108,
+        "query_question": "I am looking for a 7-day travel plan for two people from Harrisburg to Texas, visiting 3 cities between March 8th and March 14th, 2022. The budget for this trip is $4,100. We have a preference for Italian and French cuisines throughout the trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                13,
+                19
+            ],
+            "analysis_similarity": [
+                18,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                3,
+                13,
+                8
+            ]
+        }
+    },
+    {
+        "id": 109,
+        "query_question": "Can you help me create a 7-day travel itinerary for 2 people, starting from Miami, visiting 3 different cities in California from March 8th to March 14th, 2022? Our budget for the trip is $7,200. We enjoy Mexican and American cuisine.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                10,
+                18
+            ],
+            "analysis_similarity": [
+                11,
+                18,
+                10
+            ],
+            "weighted_similarity": [
+                11,
+                10,
+                18
+            ]
+        }
+    },
+    {
+        "id": 110,
+        "query_question": "I need assistance in crafting a 7-day travel plan for a group of 4 from Lexington to Texas. We plan to visit 3 cities in Texas from March 18th to March 24th, 2022. Please ensure that our lodging accommodations are suitable for children under 10 as we will be traveling with our younger ones. We have a budget of $16,800 for this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                17,
+                19
+            ],
+            "analysis_similarity": [
+                13,
+                14,
+                19
+            ],
+            "weighted_similarity": [
+                13,
+                19,
+                17
+            ]
+        }
+    },
+    {
+        "id": 111,
+        "query_question": "Can you arrange a 7-day trip for 2 people departing from Washington and visiting 3 cities in New York? The trip will be from March 13th to March 19th, 2022, with a budget of $5,500. We would prefer accommodations with smoking house rules.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                9,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                14,
+                13
+            ],
+            "weighted_similarity": [
+                14,
+                19,
+                9
+            ]
+        }
+    },
+    {
+        "id": 112,
+        "query_question": "Please assist in devising a week-long travel plan for a party of 5. We will depart from Marquette with the aim of visiting 3 cities in Michigan between March 6th and March 12th, 2022. Our budget is now set at $14,600. We should emphasize that our accommodations must be suitable for children under 10.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                12,
+                13
+            ],
+            "analysis_similarity": [
+                13,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                14,
+                13,
+                7
+            ]
+        }
+    },
+    {
+        "id": 113,
+        "query_question": "Could you design a 7-day travel plan starting March 11th and ending March 17th, 2022, for a group of 7 people? We intend to start from Rapid City and travel to 3 cities in Colorado. Our budget is about $16,300. For accommodations, we prefer having entire rooms.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                19,
+                2
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                13
+            ],
+            "weighted_similarity": [
+                14,
+                18,
+                19
+            ]
+        }
+    },
+    {
+        "id": 114,
+        "query_question": "I require a 7-day travel plan for two people, beginning in Minneapolis and continuing to three different cities in Texas from March 22 to March 28, 2022. Our budget for this trip is $11,900. It's essential to us that our accommodations are suitable for children under 10 years old.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                17,
+                19
+            ],
+            "analysis_similarity": [
+                13,
+                7,
+                14
+            ],
+            "weighted_similarity": [
+                13,
+                17,
+                19
+            ]
+        }
+    },
+    {
+        "id": 115,
+        "query_question": "We're looking for a 7-day travel plan for a group of 5. We'll be departing from Provo and intend to visit 3 different cities in California from March 22nd to March 28th, 2022. We have a budget of $14,900 and require accommodations that allow parties.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                16
+            ],
+            "analysis_similarity": [
+                14,
+                19,
+                13
+            ],
+            "weighted_similarity": [
+                19,
+                14,
+                13
+            ]
+        }
+    },
+    {
+        "id": 116,
+        "query_question": "Could you create a 7-day travel plan for a group of 8, starting from Rockford and visiting 3 cities in Florida from March 8th to March 14th, 2022? The budget allocated for this trip is $17,000. The accommodation preference is to have entire rooms for the group.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                14,
+                3
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                13
+            ],
+            "weighted_similarity": [
+                14,
+                7,
+                9
+            ]
+        }
+    },
+    {
+        "id": 117,
+        "query_question": "We are looking for a 7-day trip from St. Louis to Pennsylvania, touring 3 cities from the 23rd to the 29th of March, 2022. We are two people with a budget of $7,200. On our trip, we would like to try Indian and American cuisine.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                6,
+                10
+            ],
+            "analysis_similarity": [
+                18,
+                16,
+                10
+            ],
+            "weighted_similarity": [
+                5,
+                6,
+                18
+            ]
+        }
+    },
+    {
+        "id": 118,
+        "query_question": "Could you craft a 7-day travel itinerary for a group of three starting in Peoria and planning to visit three different cities within Illinois from March 13th to March 19th, 2022? We have a set budget of $8,400 and require accommodations that allow children under 10.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                13,
+                12
+            ],
+            "analysis_similarity": [
+                13,
+                7,
+                14
+            ],
+            "weighted_similarity": [
+                13,
+                14,
+                7
+            ]
+        }
+    },
+    {
+        "id": 119,
+        "query_question": "I am in need of a 7-day travel plan for a group of 8 travelers. We plan to depart from Chicago and visit 3 cities in Idaho from March 25th to March 31st, 2022. We've set our new budget at $22,200. In regards to dining preferences, we have a keen interest in Italian and Chinese cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                11,
+                10
+            ],
+            "analysis_similarity": [
+                18,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                18,
+                14,
+                11
+            ]
+        }
+    },
+    {
+        "id": 120,
+        "query_question": "I need to organize a 3-day trip for a group of 3, departing from Asheville and arriving in Minneapolis. We will be traveling from March 7th to March 9th, 2022, with a total budget of $2,300. We require accommodations that allow pets and provide entire rooms. Regarding meals, our group enjoys a variety of cuisines, including Indian, Chinese, Mediterranean, and American.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                18,
+                16
+            ],
+            "analysis_similarity": [
+                16,
+                10,
+                18
+            ],
+            "weighted_similarity": [
+                16,
+                18,
+                12
+            ]
+        }
+    },
+    {
+        "id": 121,
+        "query_question": "Can you design a 3-day travel itinerary for 2 people, departing from Ithaca and heading to Newark from March 18th to March 20th, 2022? Our budget is set at $1,200, and we require our accommodations to be entire rooms and visitor-friendly. Please note that we prefer not to drive ourselves during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                5,
+                19
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                9,
+                0,
+                19
+            ]
+        }
+    },
+    {
+        "id": 122,
+        "query_question": "Could you assist in creating a 3-day travel plan for a duo, starting from Nashville and going to Detroit from March 15th to March 17th, 2022? Our budget is set at $2,200. We require accommodations that permit smoking and are looking for rooms that are not shared. We would prefer not to drive ourselves during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                12,
+                5
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                14,
+                9,
+                5
+            ]
+        }
+    },
+    {
+        "id": 123,
+        "query_question": "Can you assist in creating a travel plan that commences in Atlanta, heading to Knoxville for a duration of 3 days, from March 29th to March 31st, 2022. For our accommodations, we are aiming for private rooms that accommodate children under the age of 10. Please note that we'll not be engaging in any self-driving. Overall, we are hoping to stay within a budget of $1,000.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                15,
+                12
+            ],
+            "analysis_similarity": [
+                9,
+                15,
+                17
+            ],
+            "weighted_similarity": [
+                17,
+                15,
+                9
+            ]
+        }
+    },
+    {
+        "id": 124,
+        "query_question": "Can you please generate a 3-day travel plan for 2 people departing from New York and traveling to Charleston from March 19th to March 21st, 2022? Our budget is set at $1,600. We require accommodations that allow smoking and should not be shared rooms. We have a preference for French, Mediterranean, Mexican, and Chinese cuisines during our trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                15,
+                11
+            ],
+            "analysis_similarity": [
+                8,
+                16,
+                10
+            ],
+            "weighted_similarity": [
+                8,
+                15,
+                11
+            ]
+        }
+    },
+    {
+        "id": 125,
+        "query_question": "Could you construct a 3-day journey for two people from Chicago to Albany that takes place from March 22nd to March 24th, 2022? Our budget is $2,300. We require accommodations that allow smoking and should ideally be entire rooms. We will not be self-driving during this trip. On the subject of cuisine, we're open to any suggestions you might have.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                5,
+                8
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                1,
+                5
+            ]
+        }
+    },
+    {
+        "id": 126,
+        "query_question": "Can you help put together a 3-day travel plan for a group of 3, leaving from Daytona Beach and heading to Atlanta from March 2nd to March 4th, 2022? We have a budget of $2,100. We require accommodations that allow children under 10 years of age, and we prefer having entire rooms to ourselves. Please note, we cannot utilize flights for transportation on this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                9,
+                17
+            ],
+            "analysis_similarity": [
+                17,
+                15,
+                13
+            ],
+            "weighted_similarity": [
+                15,
+                17,
+                9
+            ]
+        }
+    },
+    {
+        "id": 127,
+        "query_question": "Could you help design a travel plan for two people leaving from Houston to Pensacola for 3 days, from March 6th to March 8th, 2022? Our budget is set at $1,400 for this trip and we require our accommodations to be visitor-friendly. We would like to have options to dine at Indian, American, Chinese, and Italian restaurants. We also prefer not to self-drive during the trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                16
+            ],
+            "analysis_similarity": [
+                16,
+                15,
+                10
+            ],
+            "weighted_similarity": [
+                0,
+                15,
+                16
+            ]
+        }
+    },
+    {
+        "id": 128,
+        "query_question": "I need a 3-day travel itinerary for two people, departing from Newark and visiting Savannah from March 3rd to March 5th, 2022. We have a budget of $1,400. We'll be traveling with children under 10, so accommodations must be suitable for them. Our dietary preferences include Mediterranean, Mexican, French, and Indian cuisines, and we would appreciate food recommendations that cater to these preferences. Please note that we're not planning on self-driving.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                8,
+                11
+            ],
+            "analysis_similarity": [
+                15,
+                16,
+                8
+            ],
+            "weighted_similarity": [
+                15,
+                8,
+                16
+            ]
+        }
+    },
+    {
+        "id": 129,
+        "query_question": "Can you help me craft a 3-day travel plan for two people, starting from South Bend and ending in Atlanta, from March 6th to March 8th, 2022? Our budget is $1,500. We require accommodations that allow parties and we're interested in tasting local Mediterranean, American, Chinese, and Indian cuisines. Additionally, we are not planning on driving ourselves.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                18,
+                10
+            ],
+            "analysis_similarity": [
+                15,
+                10,
+                19
+            ],
+            "weighted_similarity": [
+                15,
+                10,
+                8
+            ]
+        }
+    },
+    {
+        "id": 130,
+        "query_question": "Can you help formulate a 3-day travel plan for 2 people, starting from Los Angeles and heading to Detroit, from March 18th to March 20th, 2022? Our total budget for the trip is $2,000. For accommodations, we need places that allow visitors. Also, we're looking for opportunities to savor diverse cuisines, including Chinese, Indian, Mexican, and Italian. We prefer not to self-drive during the journey.",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                16,
+                18
+            ],
+            "analysis_similarity": [
+                15,
+                10,
+                16
+            ],
+            "weighted_similarity": [
+                10,
+                15,
+                16
+            ]
+        }
+    },
+    {
+        "id": 131,
+        "query_question": "Can you assist in developing a 3-day trip plan for two individuals? We'll embark on our journey from San Jose aiming to explore Portland from March 16th to March 18th, 2022. Our budget is limited to $1,000. Our itinerary must include accommodations where pets are allowed. Regarding cuisine, we're particularly interested in Mediterranean, French, Mexican, and Indian food. Importantly, please avoid any flight bookings for transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                18,
+                15
+            ],
+            "analysis_similarity": [
+                16,
+                15,
+                8
+            ],
+            "weighted_similarity": [
+                16,
+                18,
+                15
+            ]
+        }
+    },
+    {
+        "id": 132,
+        "query_question": "Consider a travel plan departing from Houston to Pensacola for a period of 3 days, from March 12th to 14th, 2022. The plan should cater to 2 people with a maximum budget of $1,100. Please ensure that our accommodations permit smoking and offer non-shared rooms. Our preferred mode of transportation is not flight-based.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                17,
+                19
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                17,
+                1
+            ]
+        }
+    },
+    {
+        "id": 133,
+        "query_question": "Can you assist in formulating a 3-day travel plan departing from Columbus and heading to Newark, covering 1 city, from March 25th to March 27th, 2022, for 2 people? We are traveling with children under 10, so our accommodations must be suitable for them. We'd prefer entire rooms and our revised budget is set at $1,200. We're also looking for options where we don't need to self-drive.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                15,
+                8
+            ],
+            "analysis_similarity": [
+                15,
+                17,
+                9
+            ],
+            "weighted_similarity": [
+                15,
+                17,
+                9
+            ]
+        }
+    },
+    {
+        "id": 134,
+        "query_question": "Could you help me plan a 3-day trip for two people from Santa Ana to Houston between March 21st and March 23rd, 2022? We have a revised total budget of $3,000. We require accommodations that allow smoking, and we'd like our itinerary to include American, Italian, Mediterranean, and Mexican cuisines. Please consider alternative transportation options, as we do not intend to self-drive.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                13,
+                19
+            ],
+            "analysis_similarity": [
+                15,
+                10,
+                8
+            ],
+            "weighted_similarity": [
+                15,
+                19,
+                13
+            ]
+        }
+    },
+    {
+        "id": 135,
+        "query_question": "Could you help create a 3-day travel plan for two people? We're traveling from West Palm Beach to White Plains, visiting only one city from March 5th to March 7th, 2022. We have a budget of $2,600. For our accommodations, we'd like rooms that are not shared. We are not planning on self-driving and will be reliant on public transportation. Cuisines we are interested in trying include Mexican, Chinese, Mediterranean, and American.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                10,
+                8
+            ],
+            "analysis_similarity": [
+                15,
+                10,
+                11
+            ],
+            "weighted_similarity": [
+                11,
+                10,
+                15
+            ]
+        }
+    },
+    {
+        "id": 136,
+        "query_question": "Can you help arrange a travel plan departing from Cincinnati and journeying to Philadelphia? We will be there for 3 days, from March 7th to March 9th, 2022. This trip is for 2 people with a budget of $2,000. We require accommodations that allow children under 10 and private rooms. We are not planning on self-driving during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                9,
+                17
+            ],
+            "analysis_similarity": [
+                9,
+                15,
+                17
+            ],
+            "weighted_similarity": [
+                9,
+                17,
+                5
+            ]
+        }
+    },
+    {
+        "id": 137,
+        "query_question": "Can you assist in creating a 3-day travel itinerary for two people, beginning in Elmira and ending in Detroit from March 25th to March 27th, 2022? We have a budget of $2,200. For our stay, we would like to have entire rooms and they need to be pet-friendly. Regarding food, we would love to experience French, Mexican, American, and Mediterranean cuisines during our trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                18,
+                14
+            ],
+            "analysis_similarity": [
+                16,
+                8,
+                10
+            ],
+            "weighted_similarity": [
+                16,
+                18,
+                8
+            ]
+        }
+    },
+    {
+        "id": 138,
+        "query_question": "Please create a 3-day itinerary for a group of 3 departing from Fort Wayne and heading to Charlotte, spanning from March 8th to March 10th, 2022. We have a budget of $1,900. Our group will need to find accommodations that allow pets and provide entire rooms. We would also prefer a journey that doesn't involve any flights.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                18,
+                16
+            ],
+            "analysis_similarity": [
+                0,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                16,
+                15,
+                0
+            ]
+        }
+    },
+    {
+        "id": 139,
+        "query_question": "Could you assist in formulating a 3-day trip for two individuals, initiating from El Paso and concluding in Phoenix? The travel dates we're considering are March 4th to March 6th, 2022. We have a budget of $1,900. For accommodations, we have one constraint: the establishments must allow visitors. As far as meals go, we have a diverse taste palette, encompassing American, French, Mexican, and Indian cuisines. And to clarify, we are willing to travel, but not via flight.",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                17,
+                11
+            ],
+            "analysis_similarity": [
+                8,
+                10,
+                16
+            ],
+            "weighted_similarity": [
+                16,
+                15,
+                11
+            ]
+        }
+    },
+    {
+        "id": 140,
+        "query_question": "Could you assist with a 5-day travel plan for a duo beginning from Las Vegas and proceeding to visit 2 cities within Texas, from March 13th to March 17th, 2022? Our budget is now set at $3,700. We require accommodations that allow pets and should ideally be non-shared rooms. In regards to cuisine, we'd like to taste American, Indian, Mediterranean, and Mexican dishes throughout our journey.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                16,
+                17
+            ],
+            "analysis_similarity": [
+                16,
+                18,
+                11
+            ],
+            "weighted_similarity": [
+                18,
+                16,
+                17
+            ]
+        }
+    },
+    {
+        "id": 141,
+        "query_question": "Could you create a 5-day travel itinerary for two people starting in Washington and visiting 2 cities in California from March 14th to March 18th, 2022? The budget for this trip is $4,600. We are food lovers with a preference for Chinese, Mexican, American, and Italian cuisines. As for our accommodations, we require non-shared rooms and places that welcome visitors. Transportation details are currently flexible.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                10,
+                19
+            ],
+            "analysis_similarity": [
+                11,
+                10,
+                18
+            ],
+            "weighted_similarity": [
+                11,
+                10,
+                16
+            ]
+        }
+    },
+    {
+        "id": 142,
+        "query_question": "Could you help me plan a 5-day journey for a group of 6, departing from Cleveland and visiting 2 cities in Florida from March 2nd to March 6th, 2022? Our budget is now $13,900, and we require pet-friendly accommodations that should ideally be entire rooms. We are planning on bringing our pets along, so the need for pet-friendly accommodations is crucial. We would also prefer not to self-drive.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                3,
+                18
+            ],
+            "analysis_similarity": [
+                17,
+                19,
+                14
+            ],
+            "weighted_similarity": [
+                9,
+                3,
+                18
+            ]
+        }
+    },
+    {
+        "id": 143,
+        "query_question": "Could you suggest a 5-day travel itinerary for 2, leaving from Charlotte and visiting 2 cities in Wisconsin from March 18th to March 22nd, 2022? Our travel budget is set at $2,500. We will be traveling with children under 10, so our accommodations must be child-friendly and provide private rooms. Kindly ensure no flights are involved in the transportation planning.",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                12,
+                17
+            ],
+            "analysis_similarity": [
+                17,
+                12,
+                3
+            ],
+            "weighted_similarity": [
+                17,
+                7,
+                12
+            ]
+        }
+    },
+    {
+        "id": 144,
+        "query_question": "Can you assist in crafting a travel itinerary for a pair of travelers originating from Milwaukee and visiting 2 cities in Michigan? The trip is 5 days long, spanning from March 21st to March 25th, 2022. Our budget is now set at $1,700, and we require accommodations that allow parties and provide private rooms. Moreover, we'd prefer if our transportation did not involve any flights.",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                12,
+                10
+            ],
+            "analysis_similarity": [
+                17,
+                12,
+                3
+            ],
+            "weighted_similarity": [
+                14,
+                12,
+                17
+            ]
+        }
+    },
+    {
+        "id": 145,
+        "query_question": "Can you help design a 5-day travel plan for a group of 4, starting from Evansville and visiting 2 cities in Texas? The trip spans from March 12th to March 16th, 2022. Our budget is now $9,500, and for accommodations, we require entire rooms that do not restrict parties. Also, note that we prefer to avoid airline transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                19,
+                13
+            ],
+            "analysis_similarity": [
+                19,
+                17,
+                12
+            ],
+            "weighted_similarity": [
+                17,
+                19,
+                13
+            ]
+        }
+    },
+    {
+        "id": 146,
+        "query_question": "Could you help create a 5-day itinerary for a travel plan departing from Grand Junction and heading to 2 cities in Arizona from March 19th to March 23rd, 2022? It's a plan for two people with a budget of $2,100. Our accommodations should allow visitors and our preference is for private rooms. Additionally, we do not require any flight transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                2,
+                14
+            ],
+            "analysis_similarity": [
+                17,
+                12,
+                3
+            ],
+            "weighted_similarity": [
+                17,
+                16,
+                12
+            ]
+        }
+    },
+    {
+        "id": 147,
+        "query_question": "Could you help design a travel itinerary for 2 people, starting in Minneapolis and visiting 2 cities in Tennessee, spanning from March 2nd to March 6th, 2022? Our budget is set at $2,000. We will not be considering flight as a mode of transportation and would like to have non-shared rooms for accommodation. Also, we'd prefer smoking-friendly accommodations, as we are smokers.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                5,
+                19
+            ],
+            "analysis_similarity": [
+                17,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                12,
+                5,
+                17
+            ]
+        }
+    },
+    {
+        "id": 148,
+        "query_question": "Can you provide a travel plan for our group of 3 from Myrtle Beach to Massachusetts, visiting 2 cities over five days, from March 12th to March 16th, 2022? We have a budget of $3,800. We would like to stay in entire rooms where smoking is allowed. Additionally, we are interested in Indian, Mexican, American, and Mediterranean cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                18,
+                11
+            ],
+            "analysis_similarity": [
+                18,
+                16,
+                11
+            ],
+            "weighted_similarity": [
+                18,
+                11,
+                8
+            ]
+        }
+    },
+    {
+        "id": 149,
+        "query_question": "Could you arrange a 5-day travel plan for two individuals, leaving from Cedar Rapids and visiting two cities in Texas from March 11th until March 15th, 2022? Our budget is set at $2,400. Our accommodations must allow visitors. Regarding dining, we enjoy Mediterranean, Indian, Italian, and Chinese cuisines. And please ensure that our travels do not involve any flights, as we prefer other modes of transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                19,
+                3
+            ],
+            "analysis_similarity": [
+                17,
+                15,
+                11
+            ],
+            "weighted_similarity": [
+                17,
+                3,
+                15
+            ]
+        }
+    },
+    {
+        "id": 150,
+        "query_question": "Can you assist in creating a comprehensive 5-day travel plan for a group of 7? We'll be starting our journey in Washington, planning to discover 2 cities in New York from March 23rd to March 27th, 2022. A budget of $9,100 is allocated for this trip. Our accommodation preferences are geared toward securing entire rooms. For transportation, we have decided to avoid self-driving. In terms of dining options, we are eager to savor a variety of cuisines, including American, Mexican, Chinese, and Italian.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                19,
+                9
+            ],
+            "analysis_similarity": [
+                18,
+                11,
+                14
+            ],
+            "weighted_similarity": [
+                11,
+                19,
+                18
+            ]
+        }
+    },
+    {
+        "id": 151,
+        "query_question": "Could you plan a 5-day travel itinerary for a group of 7? We're set to depart from Sun Valley and aim to visit 2 cities in California from March 14th to March 18th, 2022. Our budget is now set at $11,400. In terms of accommodations, it is crucial that they allow parties. We also prefer to not fly between locations. On our trip, we look forward to enjoying a variety of cuisines, including Mediterranean, American, French, and Indian.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                18,
+                14
+            ],
+            "analysis_similarity": [
+                18,
+                19,
+                14
+            ],
+            "weighted_similarity": [
+                18,
+                19,
+                14
+            ]
+        }
+    },
+    {
+        "id": 152,
+        "query_question": "Could you assist with a 5-day travel itinerary for a group of 4, departing from Boston and visiting two cities in North Carolina from March 2nd to March 6th, 2022? Our new budget is $8,800. Our stay must accommodate visitors and provide entire rooms. It's also preferred that we don't self-drive for this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                11,
+                19
+            ],
+            "analysis_similarity": [
+                12,
+                19,
+                17
+            ],
+            "weighted_similarity": [
+                12,
+                19,
+                11
+            ]
+        }
+    },
+    {
+        "id": 153,
+        "query_question": "Could you create a 5-day travel plan for a couple leaving from Baton Rouge and visiting 2 cities in Texas from March 16th to March 20th, 2022? We have allocated a budget of $2,900 for this trip. Important to note is that our travels will not involve any flights; we prefer other modes of transportation. For our lodgings, we insist on not shared rooms, and notably, we will be traveling with our pet, hence the need for pet-friendly accommodations.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                13,
+                3
+            ],
+            "analysis_similarity": [
+                17,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                17,
+                3,
+                13
+            ]
+        }
+    },
+    {
+        "id": 154,
+        "query_question": "Can you plan a 5-day travel itinerary from Boston to New York for two people, visiting 2 different cities between March 7th and March 11th, 2022? Our budget is now set at $2,700 for this trip. Please note that we require accommodations that allow parties, and we would like rooms that are not shared. Lastly, for our travel, we'd prefer not to fly.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                11,
+                14
+            ],
+            "analysis_similarity": [
+                17,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                19,
+                17,
+                5
+            ]
+        }
+    },
+    {
+        "id": 155,
+        "query_question": "Could you devise a 5-day travel itinerary for a group of 2, departing from Detroit to explore 2 cities in Wisconsin from March 1st to March 5th, 2022? Our budget is set at $3,200. We require accommodations where parties are allowed and should preferably be entire rooms. Please note that we will not be using a self-driving car; suggest other transportation modes for us.",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                14,
+                19
+            ],
+            "analysis_similarity": [
+                19,
+                17,
+                3
+            ],
+            "weighted_similarity": [
+                19,
+                12,
+                7
+            ]
+        }
+    },
+    {
+        "id": 156,
+        "query_question": "Can you organize a 5-day trip for two people from Newark to Ohio, where we will visit two cities? The dates will be from March 23rd to March 27th, 2022. Our travel budget is $4,400. We anticipate hosting visitors at our accommodations, and we would like to try a variety of cuisines including French, Chinese, American, and Mexican during our trip. We prefer not to drive ourselves during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                8,
+                15
+            ],
+            "analysis_similarity": [
+                11,
+                15,
+                8
+            ],
+            "weighted_similarity": [
+                11,
+                8,
+                15
+            ]
+        }
+    },
+    {
+        "id": 157,
+        "query_question": "Can you assist in preparing a 5-day travel plan for two individuals, departing from Fort Lauderdale and visiting 2 cities in Texas? The travel dates should be from March 5th to March 9th, 2022, with a budget cap of $4,200. We're open to variety when it comes to food, preferring Indian, Italian, Chinese, or Mediterranean cuisines. It's important to note that we'd like accommodations allowing parties since we're planning to host them. Kindly note that we aren't intending to drive ourselves during the trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                19,
+                13
+            ],
+            "analysis_similarity": [
+                19,
+                15,
+                16
+            ],
+            "weighted_similarity": [
+                3,
+                19,
+                17
+            ]
+        }
+    },
+    {
+        "id": 158,
+        "query_question": "Could you create a 5-day travel itinerary for two people, leaving from Chicago and visiting 2 cities in North Carolina from March 5th to March 9th, 2022? Our budget is $3,600. We require non-shared accommodations that are pet-friendly because we will be bringing our pets. We'll not be flying and will presumably drive to the destination.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                18,
+                12
+            ],
+            "analysis_similarity": [
+                17,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                17,
+                5,
+                11
+            ]
+        }
+    },
+    {
+        "id": 159,
+        "query_question": "Could you help me organize a 5-day trip for 2 people starting from Islip to Pennsylvania, covering 2 cities between March 19th and March 23rd, 2022? Our budget is set at $2,700. We require accommodations that allow children under 10 and prefer to rent entire rooms. For our transportation, we prefer not to take any flights.",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                6,
+                17
+            ],
+            "analysis_similarity": [
+                17,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                5,
+                17,
+                6
+            ]
+        }
+    },
+    {
+        "id": 160,
+        "query_question": "We're planning a week-long trip for two from Pittsburgh to New York with a budget of $5,300. We're set to travel from March 13th to March 19th, 2022, and plan to visit three different cities in New York. Please keep in mind that our lodgings must allow visitors. As for meals, we'd love to sample French, Italian, Chinese, and American cuisines. Also, note that we're planning to travel without taking any flights.",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                5,
+                8
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                18
+            ],
+            "weighted_similarity": [
+                11,
+                8,
+                15
+            ]
+        }
+    },
+    {
+        "id": 161,
+        "query_question": "Could you design a one-week travel itinerary for two, departing from Houston and touring three cities in Tennessee from March 21st to March 27th, 2022? Our budget is now $8,200. We require accommodations that allow smoking and should ideally be private rooms. As for transportation, we would prefer not to self-drive.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                17,
+                12
+            ],
+            "analysis_similarity": [
+                19,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                19,
+                17,
+                13
+            ]
+        }
+    },
+    {
+        "id": 162,
+        "query_question": "We're seeking a 7-day travel plan for two persons, starting from Chattanooga and covering three different cities in Georgia. The travel dates are set between March 9th to March 15th, 2022. Our new budget is $6,900. We require accommodations that are neither shared nor subject to visitor restrictions and should be private rooms. For transportation, we'd rather avoid air travel.",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                14,
+                5
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                17
+            ],
+            "weighted_similarity": [
+                14,
+                19,
+                17
+            ]
+        }
+    },
+    {
+        "id": 163,
+        "query_question": "Can you create a 7-day travel plan for a group of 5, departing from La Crosse and visiting 3 cities in Illinois? The travel dates are from March 18th to March 24th, 2022, and our budget is now set at $4,800. We require accommodations that are suitable for children under 10 and would like to book entire rooms. We prefer no flights for our mode of transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                19,
+                14
+            ],
+            "analysis_similarity": [
+                13,
+                14,
+                17
+            ],
+            "weighted_similarity": [
+                17,
+                13,
+                14
+            ]
+        }
+    },
+    {
+        "id": 164,
+        "query_question": "Could you generate a 7-day travel itinerary for 2 people? We would be leaving Salt Lake City and aim to visit 3 cities in California between March 25th and March 31st, 2022. We have a new budget of $4,600. When selecting accommodations, we require private rooms and it is important that smoking is permitted. As for transportation, we do not plan on self-driving.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                14,
+                13
+            ],
+            "analysis_similarity": [
+                19,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                19,
+                14,
+                13
+            ]
+        }
+    },
+    {
+        "id": 165,
+        "query_question": "Could you devise a 7-day travel plan for two people, starting in Las Vegas and touring 3 cities in Idaho from March 4th to March 10th, 2022? Our budget is set at $5,100. We require accommodations that allow smoking and should ideally be entire rooms. We would prefer to avoid any flights for our transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                19
+            ],
+            "analysis_similarity": [
+                7,
+                19,
+                14
+            ],
+            "weighted_similarity": [
+                19,
+                14,
+                4
+            ]
+        }
+    },
+    {
+        "id": 166,
+        "query_question": "Could you devise a 7-day travel itinerary for two people, departing from Santa Ana and visiting three cities in Colorado from March 1st to March 7th, 2022? Our budget is set at $7,700. We require accommodations in the form of private rooms, and we will not be self-driving. For dining, we hold a preference for Italian, French, Chinese, and American cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                13,
+                14
+            ],
+            "analysis_similarity": [
+                18,
+                15,
+                19
+            ],
+            "weighted_similarity": [
+                18,
+                14,
+                19
+            ]
+        }
+    },
+    {
+        "id": 167,
+        "query_question": "I need assistance in crafting a travel plan starting in Fort Lauderdale and covering 3 cities in Georgia. The trip, designed for 2 people, will span from March 24th to March 30th, 2022. Our budget is $8,000. Regarding accommodations, we require rooms that are not shared and should accommodate children under 10. As for dining options, we have diverse tastes, including Indian, American, Chinese, and Mediterranean cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                10,
+                15
+            ],
+            "analysis_similarity": [
+                18,
+                13,
+                15
+            ],
+            "weighted_similarity": [
+                8,
+                10,
+                15
+            ]
+        }
+    },
+    {
+        "id": 168,
+        "query_question": "Can you assist me in planning a week-long trip for three people starting in Eau Claire intending to visit 3 unique cities in Illinois from March 20th to March 26th, 2022? Our budget tops out at $10,600. We are interested in local American, Chinese, French, and Italian cuisines. Please note, we won't require any flight transportation during this trip. Also, our accommodations need to permit visitors.",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                18,
+                15
+            ],
+            "analysis_similarity": [
+                14,
+                18,
+                7
+            ],
+            "weighted_similarity": [
+                10,
+                18,
+                14
+            ]
+        }
+    },
+    {
+        "id": 169,
+        "query_question": "Could you propose a one-week travel itinerary for 4 people, leaving from Seattle and heading to Florida from March 17th to March 23rd, 2022? We plan to visit 3 different cities in Florida. Our budget is set at $14,700. We require accommodations that allow parties, and we prefer to rent entire rooms. We also would prefer to avoid driving ourselves during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                9,
+                3
+            ],
+            "analysis_similarity": [
+                19,
+                13,
+                14
+            ],
+            "weighted_similarity": [
+                19,
+                9,
+                14
+            ]
+        }
+    },
+    {
+        "id": 170,
+        "query_question": "Could you help develop a week-long travel itinerary suitable for a group of 6 people, departing from Baton Rouge and planning to visit 3 different cities in Texas? The travel dates are set from March 17th to March 23rd, 2022. Our travel budget has been adjusted to $14,600. Bearing in mind that we have children under ten years old, our accommodations need to allow young children and we prefer to occupy entire rooms. We also prefer not to self-drive during this trip.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                19,
+                17
+            ],
+            "analysis_similarity": [
+                13,
+                19,
+                14
+            ],
+            "weighted_similarity": [
+                13,
+                19,
+                17
+            ]
+        }
+    },
+    {
+        "id": 171,
+        "query_question": "Could you create a 7-day travel itinerary for 2 people, departing from Albuquerque and visiting 3 cities in Texas from March 8th to March 14th, 2022? Our budget is set at $5,000. We require accommodations that allow smoking and are preferably not shared rooms. We would prefer to avoid any flights for our transportation.",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                17,
+                19
+            ],
+            "analysis_similarity": [
+                19,
+                7,
+                14
+            ],
+            "weighted_similarity": [
+                13,
+                19,
+                17
+            ]
+        }
+    },
+    {
+        "id": 172,
+        "query_question": "I am interested in a 7-day travel plan for two people, starting from Fort Lauderdale and covering three cities in Louisiana from March 8th to March 14th, 2022. We have a budget of $4,400. We'd like accommodations that house children under 10 and we'd prefer to have entire rooms to ourselves. Also, we'd like to avoid flights as a mode of transportation for this journey.",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                13,
+                17
+            ],
+            "analysis_similarity": [
+                17,
+                13,
+                14
+            ],
+            "weighted_similarity": [
+                17,
+                13,
+                1
+            ]
+        }
+    },
+    {
+        "id": 173,
+        "query_question": "I'm helping you plan a 7-day trip for two people from North Platte to Colorado, exploring three cities, starting from March 20 to March 26, 2022. The trip allocation would be a budget of $6,500. When it comes to lodging, we prefer accommodations where parties are allowed, and non-shared rooms are a must for us. As for transportation, we're aiming to exclude flight options.",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                19,
+                2
+            ],
+            "analysis_similarity": [
+                19,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                19,
+                18,
+                2
+            ]
+        }
+    },
+    {
+        "id": 174,
+        "query_question": "Could you provide a seven-day trip planning for 2 participants from Minneapolis to Illinois, visiting 3 cities between March 8th to March 14th, 2022? Budget limit should be kept at $8,100. Our accommodations must be child-friendly for children under 10 and consist of private rooms. We prefer not to fly, so non-flight transportation options would be ideal.",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                12,
+                14
+            ],
+            "analysis_similarity": [
+                17,
+                13,
+                14
+            ],
+            "weighted_similarity": [
+                17,
+                12,
+                13
+            ]
+        }
+    },
+    {
+        "id": 175,
+        "query_question": "I need assistance in planning a week-long vacation for 2 individuals, starting from Chattanooga and covering 3 cities in Georgia. This trip will span from March 24th to March 30th, 2022, with a budget cap at $6,800. We'll be traveling with our children who are under 10 years old, hence, accommodations must be children-friendly and should ideally be entire rooms. For this trip, we would prefer not to take any flights.",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                17,
+                13
+            ],
+            "analysis_similarity": [
+                17,
+                13,
+                14
+            ],
+            "weighted_similarity": [
+                17,
+                13,
+                15
+            ]
+        }
+    },
+    {
+        "id": 176,
+        "query_question": "Can you help devise a 7-day travel itinerary for 2 people, beginning in Salt Lake City and includes visiting 3 unique cities in Montana from March 16th to 22nd, 2022? We have a planned budget of $7,200. In terms of accommodations, we would like places where parties are permitted. Throughout our stay, we'd wish to enjoy various cuisines, including American, Mediterranean, Indian, and Chinese. Lastly, we prefer not to drive ourselves throughout this journey.",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                19,
+                18
+            ],
+            "analysis_similarity": [
+                19,
+                18,
+                15
+            ],
+            "weighted_similarity": [
+                4,
+                19,
+                18
+            ]
+        }
+    },
+    {
+        "id": 177,
+        "query_question": "We're planning a week-long trip with 2 people, starting in Key West and visiting 3 cities in Texas from March 3rd to March 9th, 2022. Our budget is set at $7,200 and we require accommodations that allow parties and where we have the entire rooms. As for dining, we would like to experience Mexican, Italian, Chinese, and American cuisines.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                3
+            ],
+            "analysis_similarity": [
+                18,
+                11,
+                19
+            ],
+            "weighted_similarity": [
+                19,
+                13,
+                18
+            ]
+        }
+    },
+    {
+        "id": 178,
+        "query_question": "Can you generate a one-week travel itinerary for a group of 3 from Newark to Florida covering 3 cities from March 18th to March 24th, 2022? Our budget is $10,400. We require accommodations that are entire rooms. Although we won't be self-driving, we'd prefer locations that allow parties.",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                19,
+                3
+            ],
+            "analysis_similarity": [
+                19,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                19,
+                9,
+                14
+            ]
+        }
+    },
+    {
+        "id": 179,
+        "query_question": "I'm looking for a 7-day travel itinerary for 2 people, starting from Reno and heading to Texas, specifically visiting 3 different cities. The travel dates are from March 7th to March 13th, 2022, with a set budget of $4,300. We require accommodations that adhere to house rules regarding visitors and should ideally be entire rooms. For food, we would love to try a variety of cuisines, including Chinese, French, American, and Mediterranean.",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                13,
+                17
+            ],
+            "analysis_similarity": [
+                18,
+                14,
+                7
+            ],
+            "weighted_similarity": [
+                19,
+                13,
+                15
+            ]
+        }
+    }
+]
