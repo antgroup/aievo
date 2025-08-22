@@ -1,0 +1,67 @@
+{
+  "question": "Can you provide a travel plan for 1 person departing from Kansas City to Pensacola for 3 days, from March 27th to March 29th, 2022, with a budget of $900?",
+  "analysis": "The user requires a comprehensive 3-day travel plan from Kansas City to Pensacola with a $900 budget. The existing SOP structure is suitable but requires adjustments to ensure strict budget adherence and single-person cost calculations. The Transportation Planner must prioritize affordable flights, while the Plan Checker will rigorously validate total costs against the $900 limit. All agents must focus on single-person expenses and exact-match data from tools to ensure accuracy.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner establishes daily locations and transportation modes between Kansas City and Pensacola. This framework guides the Accommodation Planner (finding 2-night lodging), Restaurant Planner (3 days of meals), and Attractions Planner (3 days of free activities). The Plan Checker validates all elements align with the $900 budget and logical consistency. Finally, the Final Plan Summarizer compiles the verified data into a cohesive itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Check user requirements: 3 days (March 27-29, 2022), Kansas City to Pensacola, $900 total budget. Use FlightSearch to find round-trip flights between MCI (Kansas City) and PNS (Pensacola) airports. Prioritize lowest-cost flights that fit the dates.\n2. Output daily 'Current City' (e.g., 'from Kansas City to Pensacola' on travel days) and transportation details (flight numbers, departure/arrival times, costs). Ensure return flight on March 29th.\n3. Calculate total transportation cost using GoogleDistanceMatrix for ground transport if needed (e.g., taxi/rental car).",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review Transportation Planner's daily locations. Search for 2-night accommodations in Pensacola (March 27-28), ensuring check-out on March 29th aligns with return flight.\n2. Use AccommodationSearch to find budget-friendly options under $300 total (including taxes). Verify room availability for 1 person, cancellation policies, and proximity to attractions.\n3. Exclude accommodation for March 29th (return day). Provide exact hotel name, address, and cost breakdown.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Use Transportation Planner's itinerary to identify active travel days (March 27-28). No meals needed on March 29th after departure.\n2. Search Pensacola restaurants via RestaurantSearch. Prioritize $30-$40/day total for 1 person (3 meals/day). Include local cuisine options while adhering to budget.\n3. For each meal, specify restaurant name (exact match), cuisine type, and cost (e.g., $12 for lunch). Avoid duplicate cuisines across days.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Focus on free attractions in Pensacola (March 27-28). Use AttractionSearch to find diverse options (e.g., beaches, museums, parks).\n2. Suggest one attraction per day with exact names (e.g., 'Gulf Islands National Seashore'). Include brief activity descriptions (e.g., 'beach relaxation', 'historic tour').\n3. Ensure attractions are geographically accessible from the planned accommodation.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Validate all elements: transportation dates match accommodation check-in/check-out; attractions/meal locations align with daily cities.\n2. Calculate total costs: flights + accommodation + meals + incidental costs must ≤ $900. Use CostEnquiry to verify tool-reported prices.\n3. Flag inconsistencies (e.g., overlapping schedules, budget overruns). Prioritize fixing critical issues (e.g., exceeding budget) before finalization.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Format the plan day-by-day with columns: Date, Current City, Transportation, Accommodation, Meals, Attractions.\n2. Include exact flight numbers (e.g., AA123), hotel confirmation codes, restaurant names, and attraction addresses. Use '-' for irrelevant fields (e.g., accommodation on March 29).\n3. Add a summary table with total costs broken into transportation, lodging, food, and attractions. Ensure the grand total ≤ $900.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

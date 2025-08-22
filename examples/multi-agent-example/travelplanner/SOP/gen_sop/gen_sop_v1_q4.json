@@ -1,0 +1,67 @@
+{
+  "question": "Please provide me with a travel plan that departs from Las Vegas to Denver for 3 days, from March 12th to March 14th, 2022. The budget for this solo trip is $1,600.",
+  "analysis": "The user requires a 3-day trip from Las Vegas to Denver with a $1,600 budget. The SOP must ensure transportation, accommodation, meals, and attractions are planned within constraints. The team follows the template structure but adjusts for the solo traveler's needs, focusing on single-person costs and free attractions. The workflow ensures logical sequencing and parallel planning, with the Plan Checker verifying budget adherence and consistency.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines inter-city transportation and daily locations. This framework is shared with Accommodation Planner, Restaurant Planner, and Attractions Planner, who work in parallel to find optimal options. The Plan Checker reviews for inconsistencies and budget compliance, then the Final Plan Summarizer compiles the verified data into a detailed itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "Plan inter-city transportation and daily locations for the solo traveler.",
+          "instruction": "1. Analyze user requirements: 3 days (March 12-14, 2022), Las Vegas to Denver round-trip, $1,600 total budget. Use FlightSearch to find flights and GoogleDistanceMatrix for local transport. 2. Define 'Current City' per day: Day 1 (Las Vegas → Denver), Day 2 (Denver), Day 3 (Denver → Las Vegas). Include flight numbers, costs, and durations. 3. Ensure return flight on Day 3.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "Find suitable overnight stays in Denver for 2 nights.",
+          "instruction": "1. Based on the Transportation Planner's daily cities, search for Denver accommodations for March 12-13 using AccommodationSearch. 2. Verify single-occupancy availability and budget compatibility. 3. Exclude accommodation on Day 3 (return day). 4. Record exact hotel names and costs.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "Recommend meals for each travel day.",
+          "instruction": "1. Use RestaurantSearch to find Denver restaurants for breakfast, lunch, and dinner each day (March 12-14). 2. Prioritize solo-dining-friendly spots. 3. Exclude meals on return day after attractions. 4. Calculate costs for one person.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "Suggest free daily activities in Denver.",
+          "instruction": "1. Use AttractionSearch to find free attractions in Denver for Days 1-2. 2. Ensure diversity in activities. 3. Exclude Las Vegas attractions (departure point). 4. Verify exact attraction names from search results.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "Validate itinerary consistency and budget compliance.",
+          "instruction": "1. Cross-verify all elements (transport, stays, meals, attractions) align with daily cities. 2. Use CostEnquiry to sum total expenses and confirm it stays under $1,600. 3. Flag any scheduling conflicts (e.g., flight overlaps with attractions). 4. Provide final approval to the Summarizer.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "Generate user-friendly day-by-day itinerary.",
+          "instruction": "1. Compile flight details, accommodation names, restaurant selections, and attractions into a structured format. 2. Use '-' for irrelevant fields (e.g., accommodation on Day 3). 3. Ensure dates, costs, and locations match verified data. 4. Present total budget summary.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

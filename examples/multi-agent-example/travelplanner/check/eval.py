@@ -385,34 +385,219 @@ class IntegratedEvaluator:
     def step4_evaluation(self):
         """步骤4: 评估结果"""
         print("\n📈 步骤 4/4: 评估结果...")
-        
         try:
             # 使用现有的评估函数
-            scores, detailed_scores = self.eval_score(self.set_type, self.submission_file)
-            
+            scores, detailed_scores, per_plan_results = self.eval_score_with_per_plan(self.set_type, self.submission_file)
+
             # 输出结果
             print("\n" + "="*60)
             print("🎯 评估结果:")
             print("="*60)
-            
             for key in scores:
                 percentage = float(int(scores[key]*10000))/100
                 print(f"{key}: {percentage}%")
-            
+
             print("\n" + "="*60)
             print("📊 详细结果:")
             print("="*60)
             print(json.dumps(detailed_scores, indent=2, ensure_ascii=False))
-            
+
             # 保存结果到文件
             self.save_results(scores, detailed_scores)
-            
+
+            # 新增：保存每条规划的详细评价指标到 jsonl 文件
+            self.save_per_plan_results(per_plan_results)
+
             return True, scores, detailed_scores
-            
         except Exception as e:
             print(f"评估步骤失败: {e}")
             traceback.print_exc()
             return False, None, None
+        
+    def save_per_plan_results(self, per_plan_results):
+        """保存每条规划的详细评价指标到 jsonl 文件"""
+        print("\n💾 保存每条规划的详细评价指标...")
+        base_name = os.path.basename(self.args.input_file)
+        if base_name.endswith('.json'):
+            base_name = base_name[:-5]
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        per_plan_filename = f"{base_name}_per_results_{timestamp}.jsonl"
+        per_plan_path = os.path.join(self.results_dir, per_plan_filename)
+        with open(per_plan_path, 'w', encoding='utf-8') as f:
+            for item in per_plan_results:
+                f.write(json.dumps(item, ensure_ascii=False) + "\n")
+        print(f"📁 每条规划详细评价已保存到: {per_plan_path}")
+        return per_plan_path
+    
+    def eval_score_with_per_plan(self, set_type: str, file_path: str):
+        """评估分数并返回每条规划的详细评价指标"""
+        # 加载测试计划
+        tested_plans = self.load_line_json_data(file_path)
+
+        # 初始化统计变量
+        hardConstraint_statistic = {level: {day: [] for day in [3,5,7]} for level in ['easy','medium','hard']}
+        commonsenseConstraint_statistic = {level: {day: [] for day in [3,5,7]} for level in ['easy','medium','hard']}
+
+        delivery_cnt = 0
+        plan_constraint_store = []
+        per_plan_results = []
+
+        print(f"评估 {min(len(self.query_data_list), len(tested_plans))} 个计划...")
+
+        for idx in range(0, min(len(self.query_data_list), len(tested_plans))):
+            query_data = self.query_data_list[idx]
+            tested_plan = tested_plans[idx]
+            # 数据类型转换
+            if type(query_data) == str:
+                query_data = eval(query_data)
+            if type(tested_plan) == str:
+                tested_plan = eval(tested_plan)
+            if type(query_data['local_constraint']) == str:
+                query_data['local_constraint'] = eval(query_data['local_constraint'])
+
+            # 常识约束评估
+            if tested_plan['plan']:
+                delivery_cnt += 1
+                commonsense_info_box = commonsense_eval(query_data, tested_plan['plan'])
+            else:
+                commonsense_info_box = None
+
+            # 硬约束评估（只有通过常识约束才评估）
+            if commonsense_info_box and commonsense_info_box['is_not_absent'][0] and commonsense_info_box['is_valid_information_in_sandbox'][0]:
+                hard_info_box = hard_eval(query_data, tested_plan['plan'])
+            else:
+                hard_info_box = None
+
+            plan_constraint_store.append({
+                'commonsense_constraint': commonsense_info_box,
+                'hard_constraint': hard_info_box
+            })
+
+            commonsenseConstraint_statistic[query_data['level']][query_data['days']].append(commonsense_info_box)
+            hardConstraint_statistic[query_data['level']][query_data['days']].append(hard_info_box)
+
+            # 新增：每条规划的详细评价指标
+            per_plan_results.append({
+                'idx': query_data.get('idx', idx),
+                'query': query_data.get('query', None),
+                'plan': tested_plan.get('plan', None),
+                'commonsense_constraint': commonsense_info_box,
+                'hard_constraint': hard_info_box
+            })
+
+        # 处理约束统计
+        constraint_record = {key: {day: {'house rule':0, 'cuisine':0, 'room type':0, 'transportation':0} for day in [3,5,7]} for key in ['medium','hard']}
+        constraint_mapping = {'house rule':'valid_room_rule','cuisine':'valid_cuisine','room type':'valid_room_type','transportation':'valid_transportation'}
+        mapping_constraint_record = {key: {day: {'valid_room_rule':0, 'valid_cuisine':0, 'valid_room_type':0, 'valid_transportation':0} for day in [3,5,7]} for key in ['medium','hard']}
+        count_record = {key:{day:0 for day in [3,5,7]} for key in ['easy','medium','hard']}
+
+        for unit in self.query_data_list:
+            if type(unit) == str:
+                unit = eval(unit)
+            if type(unit['local_constraint']) == str:
+                unit['local_constraint'] = eval(unit['local_constraint'])
+            count_record[unit['level']][unit['days']] += 1
+            for key in constraint_record['medium'][3]:
+                try:
+                    if unit['local_constraint'][key] != None:
+                        if unit['level'] in constraint_record:  # 只处理 medium 和 hard 级别
+                            constraint_record[unit['level']][unit['days']][key] += 1
+                            mapping_constraint_record[unit['level']][unit['days']][constraint_mapping[key]] += 1
+                except Exception:
+                    continue
+
+        # 统计处理
+        commonsenseConstraint_statistic_processed = self.statistics(commonsenseConstraint_statistic)
+        hardConstraint_statistic_processed = self.statistics(hardConstraint_statistic)
+
+        # 计算最终分数
+        final_all_cnt = 0
+        final_commonsense_cnt = 0
+        final_hardConstraint_cnt = 0
+
+        constraint_dis_record = {"commonsense":{"pass":0,"total":0},"hard":{"pass":0,"total":0}}
+
+        # 详细的约束统计处理（简化版本）
+        for constraint in ['commonsense','hard']:
+            if constraint == 'commonsense':
+                constraint_statistic = commonsenseConstraint_statistic_processed
+                key_list = ['is_valid_information_in_current_city','is_valid_information_in_sandbox','is_reasonalbe_visiting_city','is_valid_restaurants','is_valid_transportation','is_valid_attractions','is_valid_accommodation','is_not_absent']
+            else:
+                constraint_statistic = hardConstraint_statistic_processed
+                key_list = ['valid_cost','valid_room_rule','valid_cuisine','valid_room_type','valid_transportation']
+            for level in constraint_statistic:
+                for day in constraint_statistic[level]:
+                    for key in key_list:
+                        if key in constraint_statistic[level][day]:
+                            constraint_dis_record[constraint]['pass'] += constraint_statistic[level][day][key]['true']
+                            if constraint == 'commonsense':
+                                constraint_dis_record[constraint]['total'] += count_record[level][day]
+                            else:
+                                if key in ['valid_room_rule','valid_cuisine','valid_room_type','valid_transportation']:
+                                    if level in ['medium', 'hard']:
+                                        constraint_dis_record[constraint]['total'] += mapping_constraint_record[level][day].get(key, 0)
+                                    else:
+                                        constraint_dis_record[constraint]['total'] += count_record[level][day]
+                                else:
+                                    constraint_dis_record[constraint]['total'] += count_record[level][day]
+
+        # 计算宏观通过率
+        for idx in range(0, min(len(self.query_data_list), len(plan_constraint_store))):
+            if plan_constraint_store[idx]['commonsense_constraint']:
+                final_commonsense_pass = True
+                final_hardConstraint_pass = True
+                for item in plan_constraint_store[idx]['commonsense_constraint']:
+                    if plan_constraint_store[idx]['commonsense_constraint'][item][0] is not None and not plan_constraint_store[idx]['commonsense_constraint'][item][0]:
+                        final_commonsense_pass = False
+                        break
+                if plan_constraint_store[idx]['hard_constraint'] is None:
+                    continue
+                for item in plan_constraint_store[idx]['hard_constraint']:
+                    if plan_constraint_store[idx]['hard_constraint'][item][0] is not None and plan_constraint_store[idx]['hard_constraint'][item][0] == False:
+                        final_hardConstraint_pass = False
+                        break
+                if final_commonsense_pass:
+                    final_commonsense_cnt += 1
+                if final_hardConstraint_pass:
+                    final_hardConstraint_cnt += 1
+                if final_commonsense_pass and final_hardConstraint_pass:
+                    final_all_cnt += 1
+
+        # 计算最终结果
+        result = {}
+        if set_type == 'train':
+            total_count = 45
+            commonsense_total = 360
+            hard_total = 105
+        elif set_type == 'validation':
+            total_count = 180
+            commonsense_total = 1440
+            hard_total = 420
+        elif set_type == 'test':
+            total_count = 1000
+            commonsense_total = 8000
+            hard_total = 2290
+        else:
+            total_count = min(len(self.query_data_list), len(tested_plans))
+            commonsense_total = constraint_dis_record['commonsense']['total'] or total_count * 8
+            hard_total = constraint_dis_record['hard']['total'] or 1
+
+        result['Delivery Rate'] = delivery_cnt / total_count if total_count > 0 else 0
+        result['Commonsense Constraint Micro Pass Rate'] = constraint_dis_record['commonsense']['pass'] / commonsense_total if commonsense_total > 0 else 0
+        result['Commonsense Constraint Macro Pass Rate'] = final_commonsense_cnt / total_count if total_count > 0 else 0
+        result['Hard Constraint Micro Pass Rate'] = constraint_dis_record['hard']['pass'] / hard_total if hard_total > 0 else 0
+        result['Hard Constraint Macro Pass Rate'] = final_hardConstraint_cnt / total_count if total_count > 0 else 0
+        result['Final Pass Rate'] = final_all_cnt / total_count if total_count > 0 else 0
+
+        remap_commonsense_constraint_record, remap_hard_constraint_record = self.paper_term_mapping(
+            commonsenseConstraint_statistic_processed, hardConstraint_statistic_processed)
+
+        detailed_scores = {
+            "Commonsense Constraint": remap_commonsense_constraint_record,
+            "Hard Constraint": remap_hard_constraint_record
+        }
+
+        return result, detailed_scores, per_plan_results
     
     def eval_score(self, set_type: str, file_path: str):
         """评估分数 - 从原 eval.py 移植的逻辑"""

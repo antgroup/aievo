@@ -1,0 +1,67 @@
+{
+  "question": "Please design a travel plan departing from Las Vegas and heading to Stockton for 3 days, from March 3rd to March 5th, 2022, for one person, with a budget of $1,400.",
+  "analysis": "The user requires a 3-day travel plan from Las Vegas to Stockton with a $1,400 budget. The chosen team and workflow follow the template structure but adapt to the specific cities, duration, and budget constraints. The Transportation Planner establishes daily locations and transport modes (e.g., flight/driving), while Accommodation, Restaurant, and Attractions Planners work in parallel to meet the user's needs. The Plan Checker ensures budget adherence and logical consistency, especially critical given the fixed $1,400 limit. Adjustments include verifying return travel on the final day and ensuring no unnecessary bookings post-return.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation (e.g., flight or driving) and establishes daily locations between Las Vegas and Stockton. This framework guides the Accommodation Planner, Restaurant Planner, and Attractions Planner, who work in parallel to find suitable options. The Plan Checker validates the plan against the $1,400 budget and logical consistency (e.g., no meals/accommodation after returning to Las Vegas on March 5th). Finally, the Final Plan Summarizer compiles the verified itinerary into a user-friendly format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Check the user's requirements: 3-day trip (March 3-5, 2022), Las Vegas to Stockton, $1,400 budget. Use FlightSearch or GoogleDistanceMatrix to plan round-trip transportation. Determine if flying or driving is more cost-effective.\n2. Output daily 'Current City' and transportation details (e.g., flight number, cost, duration). Ensure return to Las Vegas on March 5th.\n3. Prioritize budget alignment while minimizing travel time.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review daily locations from the Transportation Planner. Focus on Stockton accommodations for March 3-4 nights (no accommodation needed on March 5th after return).\n2. Use AccommodationSearch to find options within the user's budget. Verify room availability, cancellation policies, and proximity to attractions.\n3. Exclude departure city (Las Vegas) accommodations except for the initial night if travel time requires.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Use daily locations to suggest meals in Las Vegas (March 3 morning) and Stockton (March 3-4). Skip meals after returning to Las Vegas on March 5th.\n2. Apply RestaurantSearch to find diverse options (e.g., local cuisine, budget-friendly). Calculate costs for one person.\n3. Ensure meal times align with transportation schedule (e.g., no dinner on March 5th if returning early).",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to find free attractions in Stockton for March 3-4. Avoid suggesting attractions in Las Vegas except for the departure day.\n2. Ensure activities are geographically feasible based on daily transportation plans.\n3. Prioritize unique local experiences (e.g., parks, museums) over generic options.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Validate that all elements (transport, accommodation, meals, attractions) align with daily locations and the $1,400 budget.\n2. Use CostEnquiry to sum total expenses. Flag over-budget items and suggest adjustments (e.g., cheaper accommodation).\n3. Check for logical errors: overlapping activities, missed return trips, or redundant bookings post-return.\n4. Ensure attractions are free and meal counts match travel days.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Compile verified data into a day-by-day itinerary. Include exact flight numbers, accommodation names, restaurant names, and attraction details.\n2. Format the plan as follows: \n   - Day 1: Las Vegas → Stockton (transport details, accommodation, dinner)\n   - Day 2: Stockton (attraction, meals)\n   - Day 3: Stockton → Las Vegas (morning attraction, return trip, no accommodation)\n3. Highlight total costs and confirm adherence to the $1,400 budget.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

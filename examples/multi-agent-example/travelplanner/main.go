@@ -183,7 +183,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithSuffix(NULLSuffix),
 		}
 
-			// Create a slice to store selected tools for this agent
+		// Create a slice to store selected tools for this agent
 		var selectedTools []tool.Tool
 
 		for _, toolName := range agentDetail.Tools {
@@ -209,11 +209,10 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 				selectedTools = append(selectedTools, ts[6]) // CostEnquiryTool
 			}
 		}
- 		// Only add tools if we found any matches
+		// Only add tools if we found any matches
 		if len(selectedTools) > 0 {
 			agentOpts = append(agentOpts, agent.WithTools(selectedTools))
 		}
-		
 
 		// Check if this is the last agent in the team
 		var instructionsToUse string
@@ -574,6 +573,7 @@ func main() {
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
 		openai.WithModel(os.Getenv("OPENAI_MODEL")),
 		// openai.WithModel("Qwen2.5-72B-Instruct"),
+		// openai.WithModel("Qwen3-235B-A22B-Thinking-2507"),
 		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
 	if err != nil {
 		log.Fatal(err)
@@ -628,13 +628,19 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 0 // 0 for training, 1 for evaluation
+	eval := 0 // 0 for training, 2 for evaluation
 	if eval == 0 {
 		mode = "train"
-		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_dataset.json"
-	} else {
+		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_split.json"
+	} else if eval == 1 {
+		mode = "eval"
+		datasetPath = "../../../dataset/travelplanner/train/travelplanner_eval_split.json"
+	} else if eval == 2 {
 		mode = "validation"
 		datasetPath = "../../../dataset/travelplanner/validation/travelplanner_validation_dataset.json"
+	} else if eval == 3 {
+		mode = "train"
+		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_dataset.json"
 	}
 
 	fmt.Printf("\n################## Starting Evaluation for TravelPlanner ##################\n")
@@ -649,7 +655,7 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_t0_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_t1.1_%s.json", mode, timeStamp)
 	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
@@ -725,7 +731,8 @@ func main() {
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v1_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件
-				// generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
+				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
 				// if err != nil {
 				// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 				// 	// Fallback to default SOP if generation fails
@@ -766,20 +773,20 @@ func main() {
 		// The return value 'gen' is a string, not a struct.
 		fmt.Printf("Model Output Answer: %s\n", gen)
 
-		// var communicationHistory []schema.Message
-		// if buffer, ok := evo.Environment.Memory.(*memory.Buffer); ok {
-		// communicationHistory = buffer.Messages
-		// }
+		var communicationHistory []schema.Message
+		if buffer, ok := evo.Environment.Memory.(*memory.Buffer); ok {
+			communicationHistory = buffer.Messages
+		}
 
 		modelOutputContent := gen
 
 		results = append(results, TravelPlannerResultLog{
-			ID:          i,
-			Query:       q.Query,
-			ModelOutput: modelOutputContent,
-			// CommunicationHistory: communicationHistory,
-			TotalCount: totalCount,
-			Time:       time.Since(start_time).String(),
+			ID:                   i,
+			Query:                q.Query,
+			ModelOutput:          modelOutputContent,
+			CommunicationHistory: communicationHistory,
+			TotalCount:           totalCount,
+			Time:                 time.Since(start_time).String(),
 		})
 
 		resultsJSON, err := json.MarshalIndent(results, "", "  ")
@@ -792,7 +799,7 @@ func main() {
 			log.Fatalf("Failed to write results to file: %v", err)
 		}
 
-		fmt.Printf("Total Count: %d\n", totalCount)
+		fmt.Printf("\n===========Total Count: %d\n", totalCount)
 	}
 
 	fmt.Printf("\nEvaluation finished for TravelPlanner. Results saved to %s\n", resultsFilename)

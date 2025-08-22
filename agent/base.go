@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/antgroup/aievo/environment"
 	"os"
 	"path/filepath"
 	"strings"
@@ -128,12 +129,12 @@ func (ba *BaseAgent) Run(ctx context.Context,
 		if ba.env != nil {
 			actionCount := len(steps)
 			// 获取环境中配置的触发间隔
-			watcherInterval := 3 // 默认值
-			//if env, ok := ba.env.(*environment.Environment); ok {
-			//	if env.WatcherInterval > 0 {
-			//		watcherInterval = env.WatcherInterval
-			//	}
-			//}
+			watcherInterval := 5 // 默认值
+			if env, ok := ba.env.(*environment.Environment); ok {
+				if env.WatcherInterval > 0 {
+					watcherInterval = env.WatcherInterval
+				}
+			}
 			// 触发条件：action 数量为 watcherInterval 的倍数且不为 0
 			if actionCount > 0 && actionCount%watcherInterval == 0 {
 				watcher_fd = ba.env.WatchActionTaken(ctx, ba.name, steps)
@@ -251,8 +252,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	// logfile := fmt.Sprintf("eval/log_level_L2_v6_twq_wgr-5+3_%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("eval/log_t1_%s.log", time.Now().Format("2006-0102"))
+	// logfile := fmt.Sprintf("eval/log_level_L2_v6_twq_wgr-5+4_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_t1.1_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {

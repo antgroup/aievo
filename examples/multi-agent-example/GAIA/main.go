@@ -682,13 +682,13 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-5+3_%s.json", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-5+4_%s.json", level, timeStamp)
 		logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 		start_time := time.Now()
 		start_id := 6
 		//end_id := len(questions)
-		//watcherInterval := 5
-		watcherInterval := level + 3
+		watcherInterval := 5
+		// watcherInterval := level + 3
 
 		for i, q := range questions {
 			// if q.FileName != "" { // 先忽略需要file的问题

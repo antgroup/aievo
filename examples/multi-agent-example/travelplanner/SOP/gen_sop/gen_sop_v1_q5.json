@@ -1,0 +1,67 @@
+{
+  "question": "Could you assist in crafting a travel itinerary for a 5-day, single-person trip departing from Orlando and touring 2 cities in Texas? The travel dates should range from March 10th to March 14th, 2022, and the entire travel budget is $3,100.",
+  "analysis": "The user requires a 5-day Texas trip from Orlando with a fixed budget. The existing SOP structure effectively handles multi-city travel planning with budget constraints. Key adaptations include: 1) Using CitySearch to identify two Texas cities within budget, 2) Ensuring round-trip flights from Orlando with FlightSearch, 3) Coordinating parallel planning for accommodations/meals/attractions in Texas cities, and 4) Rigorous budget verification through CostEnquiry. The existing agent roles and workflow are sufficient with minor instruction adjustments for Texas-specific planning.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner selects two Texas cities reachable from Orlando within the budget and timeframe. Using FlightSearch and GoogleDistanceMatrix, they establish daily locations and transportation logistics. This framework enables parallel planning for accommodations (using AccommodationSearch), dining (RestaurantSearch), and attractions (AttractionSearch). The Plan Checker then validates the integrated plan against the $3,100 budget using CostEnquiry, ensuring all elements align with the daily itinerary. Finally, the Summarizer compiles the verified plan into a detailed day-by-day format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Use CitySearch to identify two suitable Texas cities reachable from Orlando within the 5-day timeframe. Prioritize cities with multiple attractions and reasonable transportation costs.\n2. Plan round-trip flights from Orlando to the first Texas city (March 10), inter-city transportation to the second Texas city (March 12), and return flight to Orlando (March 14). Use FlightSearch and GoogleDistanceMatrix to calculate costs and durations.\n3. Ensure the transportation schedule allows 2 full days in each Texas city. Include exact flight numbers, departure/arrival times, and costs in your output.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Based on the Transportation Planner's daily locations, search for accommodations in both Texas cities using AccommodationSearch.\n2. Prioritize budget-friendly options within 15-20 minutes from major attractions. Verify room availability for single occupancy and ensure minimum stay requirements match the itinerary.\n3. Exclude accommodation for March 14 (return day). Calculate total accommodation costs including taxes and fees.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. For each day in Texas cities, use RestaurantSearch to find diverse dining options matching local cuisine specialties.\n2. Balance budget-friendly and mid-range restaurants. For each meal, provide exact restaurant names, addresses, cuisine types, and calculate per-meal costs for one person.\n3. Exclude meals on March 10 (arrival day) after 6 PM and March 14 (departure day) before 8 AM.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to find free attractions in both Texas cities. Prioritize diverse experiences (museums, parks, historic sites).\n2. Suggest two attractions per full day (morning/afternoon), ensuring they are geographically accessible within each city.\n3. Verify attraction operating hours match the travel dates. Provide exact attraction names and addresses.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Verify all elements align with daily locations and times from the Transportation Planner.\n2. Use CostEnquiry to calculate total expenses: flights + accommodations + meals + incidental costs. Ensure total stays under $3,100.\n3. Check for scheduling conflicts (e.g., attractions closed on specific days, unrealistic transportation timelines).\n4. Confirm all restaurant/accommodation/attraction names match search results exactly.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Format the verified plan as a day-by-day itinerary from March 10-14, 2022.\n2. Include exact flight numbers/times, accommodation names/addresses, restaurant selections with cuisine types, and attraction details.\n3. Present total costs for each category (transportation, accommodation, meals, attractions) and remaining budget.\n4. Add practical tips: local transportation options, weather preparation for March in Texas, and attraction reservation requirements.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "question": "Can you devise a travel plan that departs from Memphis and includes 2 cities in Pennsylvania? The trip is scheduled for 5 days from March 22nd to March 26th, 2022. The trip's total budget is $1,400.",
+  "analysis": "The user requires a 5-day travel plan departing from Memphis to two Pennsylvania cities, with a total budget of $1400. The core requirements include transportation, accommodation, meals, and attractions. The existing template structure is suitable but needs adjustments to focus on selecting two Pennsylvania cities, strict budget adherence, and ensuring multi-city logistics. The Plan Checker must prioritize budget validation using CostEnquiry, while Transportation Planner will use CitySearch to identify suitable Pennsylvania cities (e.g., Philadelphia and Pittsburgh). Parallel planning ensures efficiency within the 5-day schedule.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the Pennsylvania cities (using CitySearch), establishes daily locations, and plans transportation modes (e.g., flight to Philadelphia, driving to Pittsburgh). This framework guides parallel planning for accommodations, restaurants, and attractions. The Plan Checker validates budget adherence ($1,400 total) and logistical consistency, followed by the Final Plan Summarizer compiling the verified itinerary into a structured day-by-day format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Use CitySearch to select two Pennsylvania cities that fit a 5-day itinerary (e.g., Philadelphia and Pittsburgh). Prioritize cities with accessible transportation links and tourist attractions.\n2. Plan transportation between cities (e.g., flight from Memphis to Philadelphia, car rental to Pittsburgh), ensuring return to Memphis on March 26th.\n3. Calculate travel durations and costs using FlightSearch and GoogleDistanceMatrix, ensuring alignment with the $1,400 total budget.\n4. Output daily 'Current City' and transportation details (e.g., Flight Number, Cost, Duration) to form the framework for other planners.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Based on the Transportation Planner's daily cities, search for budget-friendly accommodations in Philadelphia and Pittsburgh using AccommodationSearch.\n2. Prioritize accommodations with proximity to attractions and verify costs fit within the remaining budget after transportation expenses.\n3. Ensure no accommodation is booked for the return day (March 26th) in Memphis.\n4. Output exact accommodation names, addresses, and costs for nights spent in Pennsylvania cities.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. For each day's 'Current City' (Memphis, Philadelphia, Pittsburgh), use RestaurantSearch to suggest three budget-conscious meals per day.\n2. Prioritize local cuisine specialties and ensure dietary diversity (e.g., vegetarian/vegan options).\n3. Exclude meals on departure/return days when applicable (e.g., no dinner on March 22nd departure day).\n4. Output restaurant names, meal times, cuisine types, and total costs (2-person basis) aligned with daily schedules.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to find free attractions in Memphis (departure day), Philadelphia, and Pittsburgh.\n2. Ensure attractions match the Transportation Planner's daily schedule (e.g., Philadelphia attractions on Days 2-3, Pittsburgh on Days 4-5).\n3. Avoid suggesting attractions in Memphis after departure day.\n4. Output attraction names, addresses, and reasons for selection (e.g., historical significance, family-friendliness).",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Cross-validate all planners' outputs against the Transportation Planner's daily schedule and the $1,400 total budget.\n2. Use CostEnquiry to sum transportation, accommodation, meal, and incidental costs (attractions are free).\n3. Flag inconsistencies (e.g., Philadelphia accommodation booked for incorrect dates) or budget overruns.\n4. Provide specific revision instructions to the Final Plan Summarizer if issues are found.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Format the verified plan into a day-by-day itinerary following the template structure.\n2. Include all flight numbers, accommodation names, restaurant selections, and attraction details.\n3. List costs in separate categories (transportation, accommodation, meals, other) with a total at the end.\n4. Use '-' for irrelevant fields (e.g., no accommodation on return day).",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

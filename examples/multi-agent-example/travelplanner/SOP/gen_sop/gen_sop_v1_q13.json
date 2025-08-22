@@ -1,0 +1,67 @@
+{
+  "question": "Could you help me come up with a travel plan that starts in Daytona Beach and includes visits to 3 distinct cities in Texas over a span of 7 days, from March 18th to March 24th, 2022? I'll be traveling alone on a budget of $3,600.",
+  "analysis": "The user requires a 7-day travel plan starting in Daytona Beach, visiting 3 distinct Texas cities, with a $3,600 budget for solo travel. The SOP adapts the template by emphasizing Texas city selection, budget adherence, and solo traveler considerations. Key adjustments include: Transportation Planner selecting 3 Texas cities and optimizing cost-effective routes; Plan Checker validating total costs against $3,600; and planners tailoring recommendations to solo travel affordability.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner selects 3 distinct Texas cities and establishes a transportation framework (flights/driving) between Daytona Beach and Texas locations within the budget. This framework guides parallel planning for Accommodation, Restaurants, and Attractions. The Plan Checker validates budget compliance and logistical coherence across all components, ensuring total costs remain under $3,600. Finally, the Summarizer compiles a detailed itinerary optimized for solo travelers.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "Plan cost-effective transportation between Daytona Beach and 3 distinct Texas cities, defining daily locations.",
+          "instruction": "1. Select 3 diverse Texas cities (e.g., Austin, San Antonio, Dallas) and plan round-trip transportation from Daytona Beach. Use FlightSearch and GoogleDistanceMatrix to compare flight costs/durations versus driving options for budget efficiency. \n2. Create a daily schedule (March 18-24) with clear 'Current City' assignments and transportation details (flight numbers, departure/arrival times, costs). Ensure return to Daytona Beach by March 24.\n3. Prioritize low-cost airlines or driving routes that maximize time for attractions while staying within the overall budget.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "Secure budget-friendly accommodations in each Texas city for solo travelers.",
+          "instruction": "1. Based on daily locations from Transportation Planner, use AccommodationSearch to find affordable single-occupancy hotels/hostels in Texas cities (avg. $70-100/night). \n2. Verify check-in/check-out dates align with travel days. Exclude accommodation on departure/return days.\n3. Prioritize properties with free breakfast and central locations near attractions to reduce transportation costs.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "Recommend budget-conscious dining options for solo meals in Texas cities.",
+          "instruction": "1. Use RestaurantSearch to suggest affordable Texas-style breakfast/lunch/dinner spots (avg. $10-15/meal) in each city. Prioritize walkable locations from accommodations.\n2. Include local specialties (e.g., BBQ in Austin, Tex-Mex in San Antonio) while noting vegetarian-friendly options if needed.\n3. Calculate daily meal costs (3 meals × $12 = $36/day) and exclude meals on non-travel days.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "Curate free cultural/historical attractions in Texas cities matching solo traveler interests.",
+          "instruction": "1. Use AttractionSearch to find 1-2 free attractions per city (e.g., Texas State Capitol, San Antonio River Walk, Dallas Arboretum). \n2. Ensure attractions are spaced for walkable/direct transit between morning-afternoon-evening time slots.\n3. Include brief historical/cultural context for each attraction to enhance solo traveler experience.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "Validate total plan costs and logistics against $3,600 budget and solo traveler practicality.",
+          "instruction": "1. Cross-check all transportation/accommodation/meal costs. Use CostEnquiry to verify: \n   - Flights/driving under $1,200 total\n   - Accommodation under $600 total (6 nights)\n   - Meals under $250 total (6 days × $36)\n   - Attractions free\n2. Confirm no duplicate city visits and logical transit order between Texas cities.\n3. Flag any budget overruns or time conflicts between attractions and transportation.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "Compile verified plan into a solo traveler-friendly format with precise details.",
+          "instruction": "1. Structure day-by-day plan with columns: Date | Current City | Transportation | Accommodation | Meals | Attractions.\n2. Include exact flight numbers, hotel names, restaurant names, and attraction titles from previous agents' outputs.\n3. Add budget summary section showing total costs across all categories under $3,600.\n4. Format for readability with time slots (Morning: [Attraction], Lunch: [Restaurant], etc.)",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

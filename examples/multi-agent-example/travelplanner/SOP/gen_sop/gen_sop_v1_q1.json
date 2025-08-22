@@ -1,0 +1,67 @@
+{
+  "question": "Craft a travel plan for me to depart from New Orleans and head to Louisville for 3 days, from March 12th to March 14th, 2022. I will be travelling alone with a budget of $1,900.",
+  "analysis": "The user requires a 3-day travel plan from New Orleans to Louisville with a $1,900 budget. The existing SOP template is well-suited for this task, as it covers transportation, accommodation, dining, attractions, and plan validation. The Transportation Planner will establish daily logistics between the two cities, while the Accommodation, Restaurant, and Attractions Planners will fill in details for Louisville. The Plan Checker ensures budget adherence and logical consistency, and the Final Plan Summarizer compiles the verified itinerary. Adjustments focus on cross-city logistics and budget allocation for a solo traveler.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip. This logistical framework is then passed to the Accommodation Planner, Restaurant Planner, and Attractions Planner, who work in parallel to find the best options in their respective areas. Once their individual plans are complete, the Plan Checker reviews the combined itinerary for logical errors, inconsistencies, or missed details. Finally, the Final Plan Summarizer receives the verified and refined plan to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). This information will form the framework for the other planners.\n3. Be sure to arrange the return trip to the starting point on the last day.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Please carefully reveiew the daily locations provided by the Transportation Planner and the user's budget and preferences. Use the search tool to find suitable accommodations.\n2. Please rigorously check if the accommodations meet the user's needs. This may include: checking the minimum stay duration, verifying the number of rooms against the number of people, and checking the room type, etc.\n3. Note that if the user returns to their original starting point on the last day, no accommodation needs to be arranged.\n4. Your output should include detailed information for the accommodations arranged in each city, with a strict emphasis on providing the exact accommodation name to ensure it matches the information found in the search result.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Please carefully reveiew the daily locations provided and the user's culinary interests, use the search tool to suggest restaurants for breakfast, lunch, and dinner.\n2. Ensure that the restaurant options are diverse and cater to the user's preferences, including dietary restrictions if specified.\n3. Based on the time analysis, if the user has already returned to the point of departure, there is no need to arrange corresponding meals.\n4. For each meal, provide the restaurant's name, its city, the cuisine type, and the total cost (multiply the head count by the per-person spending).\n5. The restaurant names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's interests and preferences, use the search tool to suggest attractions for **each day**.\n2. For each day, provide the attraction's name, its city.\n3. Ensure that the attraction options are diverse.\n4. DO NOT suggest attractions in the user's departure point.\n5. All attractions are free.\n6. The attraction names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Meticulously review the combined itinerary from the Transportation, Accommodation, Restaurant, and Attractions Planners. Ensure that all planned items (accommodation, meals, attractions) are in the correct city for each day as determined by the Transportation Planner.\n2. Check for logical inconsistencies, scheduling conflicts, and budget adherence.\n3. Based on the travel time analysis, if the user has not yet departed or has already returned to their point of origin, there is no need to arrange corresponding meals or accommodation.\n4. You can optionally use the CostEnquiry tool to verify budget adherence. (Note that the attractions are free).\n5. Provide feedback for revisions if necessary. **Important:** Considering efficiency, if an agent provides redundant information without the need for new information, do not recall that agent. You only need to highlight the issues that need attention to the final plan summarizer.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "Based on the verified and refined plan from other agents, generate a detailed, day-by-day final plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and accommodation names. Note that all the information in your plan should be derived from the provided data. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+[
+  {
+    "id": 0,
+    "question": "Please help me plan a trip from St. Petersburg to Rockford spanning 3 days from March 16th to March 18th, 2022. The travel should be planned for a single person with a budget of $1,700.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 1,
+    "question": "Please design a travel plan departing from Las Vegas and heading to Stockton for 3 days, from March 3rd to March 5th, 2022, for one person, with a budget of $1,400.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 2,
+    "question": "Could you help create a 5-day travel itinerary, starting from Baton Rouge moving to 2 cities in Texas between March 1st and March 5th, 2022? This trip is for a solo traveler, who has set a budget of $2,300.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 3,
+    "question": "Could you assist in creating a travel plan for one person, starting from Houston and heading to Utah for a week? The visit will be from the 23rd of March to the 29th of March, 2022, and will cover 3 different cities in Utah. The budget for this trip is set at $7,700.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 4,
+    "question": "Can you help me plan a one-week solo trip from Oklahoma City to Colorado, during which I'll be visiting 3 different cities? The trip will be from March 1st to March 7th, 2022, and I have a budget of $3,000.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 5,
+    "question": "Please help me plan a 7-day trip for one person, departing from Gulfport and visiting 3 cities in Texas from March 24th to March 30th, 2022. The budget for this trip is $4,200.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 6,
+    "question": "Could you help me come up with a travel plan that starts in Daytona Beach and includes visits to 3 distinct cities in Texas over a span of 7 days, from March 18th to March 24th, 2022? I'll be traveling alone on a budget of $3,600.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 1, Local constraints: {'house rule': None, 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 7,
+    "question": "Could you please arrange a 3-day trip for two, starting in Sacramento and heading to Atlanta, from March 14th to March 16th, 2022. The budget for this trip is $4,700, and we require accommodations where parties are allowed.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 2, Local constraints: {'house rule': 'parties', 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 8,
+    "question": "Please create a 3-day trip itinerary for a group of 8, departing from Asheville and heading to Baltimore. The travel dates are from March 20th to March 22nd, 2022. Our budget is set at $6,500. Since we'll be traveling with young children, our accommodations must be suitable for children under 10.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 8, Local constraints: {'house rule': 'children under 10', 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 9,
+    "question": "Could you formulate a 5-day trip plan for a group of 6 people? We will be starting in Nashville and would like to cover 2 cities in Pennsylvania from March 12th to March 16th, 2022. Our budget is approximately $15,100, and we would like to rent entire rooms for our accommodations.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 6, Local constraints: {'house rule': None, 'cuisine': None, 'room type': 'entire room', 'transportation': None}."
+  },
+  {
+    "id": 10,
+    "question": "Could you help create a 5-day travel itinerary for a group of 4, starting from New York and visiting 2 cities in Louisiana from March 15th to March 19th, 2022? We have a budget of $12,300. Please note that we require accommodations where smoking is permissible.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 4, Local constraints: {'house rule': 'smoking', 'cuisine': None, 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 11,
+    "question": "Can you help create a 5-day travel itinerary for a group of 7, departing from San Jose and covering 2 cities in Idaho, from March 1st to March 5th, 2022? We have a budget of $13,900. We'd love to try Indian and French cuisine on our journey.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 7, Local constraints: {'house rule': None, 'cuisine': ['Indian', 'French'], 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 12,
+    "question": "I need help crafting a 7-day travel plan for two individuals, departing from St. Louis and intending to visit 3 separate cities in California. The travel dates are from March 17th to March 23rd, 2022. We have a budget of $9,500 to cover all expenses. As for dining preferences, we are particularly fond of American and Chinese cuisines.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 2, Local constraints: {'house rule': None, 'cuisine': ['American', 'Chinese'], 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 13,
+    "question": "We're organizing a week-long trip for 4 people, starting in Louisville and stopping in three different cities in Michigan. The trip will begin on March 8th and conclude on March 14th, 2022. Our budget is now $19,400, and we require private rooms for accommodations.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 4, Local constraints: {'house rule': None, 'cuisine': None, 'room type': 'private room', 'transportation': None}."
+  },
+  {
+    "id": 14,
+    "question": "Could you help craft a week-long travel plan for 2 people? We'll be departing from Oakland and aim to visit 3 different cities in Oregon from March 12th to March 18th, 2022, with a total budget of $4,500. As for meals, we have a preference for Italian and Mediterranean cuisines.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 2, Local constraints: {'house rule': None, 'cuisine': ['Italian', 'Mediterranean'], 'room type': None, 'transportation': None}."
+  },
+  {
+    "id": 15,
+    "question": "Could you generate a 3-day travel plan for a group of 3 people, departing from Bangor and visiting Washington from March 21st to March 23rd, 2022? Our budget is set at $3,100. We require accommodations that are pet-friendly and we would prefer to have entire rooms to ourselves. We do not plan on self-driving for this trip.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 3, Local constraints: {'house rule': 'pets', 'cuisine': None, 'room type': 'entire room', 'transportation': 'no self-driving'}."
+  },
+  {
+    "id": 16,
+    "question": "Could you help arrange a 3-day travel plan from Grand Forks to Minneapolis for 2 people from March 17th to March 19th, 2022? We have a budget of $1,300. For our stay, we require accommodations that are conducive to hosting parties and should ideally be entire rooms. We would prefer a journey that does not involve flying.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 2, Local constraints: {'house rule': 'parties', 'cuisine': None, 'room type': 'entire room', 'transportation': 'no flight'}."
+  },
+  {
+    "id": 17,
+    "question": "Could you prepare a 3-day travel plan departing from Atlanta and heading to Chattanooga for a group of 5 people, spanning March 7th to March 9th, 2022? Our budget is set at $3,600. We'd love to try French, Mediterranean, Indian, and Chinese cuisines during our trip. We require accommodations that should ideally be entire rooms. Please note that we do not plan to drive ourselves during this trip.",
+    "analysis": "The travel planning problem requires Duration: 3 days, Cities to visit: 1, Number of people: 5, Local constraints: {'house rule': None, 'cuisine': ['French', 'Mediterranean', 'Indian', 'Chinese'], 'room type': 'entire room', 'transportation': 'no self-driving'}."
+  },
+  {
+    "id": 18,
+    "question": "Can you create a 5-day travel itinerary for a group of 3, departing from Atlanta and visiting 2 cities in Minnesota from March 3rd to March 7th, 2022? We have a budget of $7,900. We require accommodations that allow parties and should ideally be entire rooms. Although we don't plan to self-drive, we would like the flexibility to host parties.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 3, Local constraints: {'house rule': 'parties', 'cuisine': None, 'room type': 'entire room', 'transportation': 'no self-driving'}."
+  },
+  {
+    "id": 19,
+    "question": "Can you create a 5-day itinerary for a group of 7 people traveling from Richmond to two cities in Florida between March 9th and 13th, 2022? Our budget is $8,500. We require accommodations that allow visitors and should ideally be entire rooms. In regards to dining options, we prefer French, American, Mediterranean, and Italian cuisines.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 7, Local constraints: {'house rule': 'visitors', 'cuisine': ['French', 'American', 'Mediterranean', 'Italian'], 'room type': 'entire room', 'transportation': None}."
+  },
+  {
+    "id": 20,
+    "question": "Can you assist in creating a 5-day travel itinerary starting in Sacramento and covering 2 cities in Washington state from March 22nd to March 26th, 2022? The journey will be for a group of three with a budget of $3,600. We require accommodations that provide entire rooms and do not plan to travel by flight. As far as cuisines are concerned, we'd love to experience American, Mediterranean, Italian, and French during our trip.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 3, Local constraints: {'house rule': None, 'cuisine': ['American', 'Mediterranean', 'Italian', 'French'], 'room type': 'entire room', 'transportation': 'no flight'}."
+  },
+  {
+    "id": 21,
+    "question": "Could you formulate a 5-day travel plan for a group of 5? We'll be starting in Denver and wish to visit 2 cities in Texas from March 8th to March 12th, 2022. We have a budget of $7,100. Our accommodations must allow smoking. In terms of food, we are open to a variety of cuisines, including American, French, Mediterranean, and Italian. It's imperative that our journey does not involve any flights for transportation.",
+    "analysis": "The travel planning problem requires Duration: 5 days, Cities to visit: 2, Number of people: 5, Local constraints: {'house rule': 'smoking', 'cuisine': ['American', 'French', 'Mediterranean', 'Italian'], 'room type': None, 'transportation': 'no flight'}."
+  },
+  {
+    "id": 22,
+    "question": "We are planning a 7-day trip for two, leaving from Greensboro to visit 3 cities in New York. We will be traveling from March 20th to March 26th, 2022. Our budget for this trip is $3,800. As far as accommodations are concerned, we would like entire rooms to ourselves. We will not be taking any flights for transportation. We are food lovers and would like to experience Chinese, French, American, and Indian cuisines during our visit.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 2, Local constraints: {'house rule': None, 'cuisine': ['Chinese', 'French', 'American', 'Indian'], 'room type': 'entire room', 'transportation': 'no flight'}."
+  },
+  {
+    "id": 23,
+    "question": "Could you devise a 7-day travel itinerary for a pair, departing from Moline and heading to Texas, during which we will visit 3 different cities? The travel dates are scheduled from March 19th to March 25th, 2022. Our revised budget is set at $5,500. For our accommodations, we would prefer to have entire rooms. We intend to avoid any flights for our transportation. Regarding meals, we have a preference for a variety of cuisines, including American, Chinese, Mexican, and French.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 2, Local constraints: {'house rule': None, 'cuisine': ['Chinese', 'American', 'Mexican', 'French'], 'room type': 'entire room', 'transportation': 'no flight'}."
+  },
+  {
+    "id": 24,
+    "question": "We require a 7-day travel itinerary for two leaving from Minneapolis and covering three cities in Ohio, starting from March 17th to March 23rd, 2022. Our budget is up to $5,100. We will be accompanied by our pets, so we need pet-friendly accommodations. Our meals should preferably include American, Mediterranean, Chinese, and Italian cuisines. Please note we prefer not to take any flights so our travel plan should not include them.",
+    "analysis": "The travel planning problem requires Duration: 7 days, Cities to visit: 3, Number of people: 2, Local constraints: {'house rule': 'pets', 'cuisine': ['American', 'Mediterranean', 'Chinese', 'Italian'], 'room type': None, 'transportation': 'no flight'}."
+  }
+]

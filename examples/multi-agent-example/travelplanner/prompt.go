@@ -55,9 +55,9 @@ const WatchSuffix = `
 Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response. Begin!
 `
 
-const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
@@ -66,26 +66,25 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
   - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
 %s
 --- TEMPLATE END ---
 
-Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent.
-If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
-Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
+**Important Note:** 
+1. The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+2. The agent instructions within the template contain important information. You should reuse this information as more as possible, and add some new instructions based on user's query to create new SOP.
 
-Based on your analysis, generate a response in the specified JSON format.
+Now, analyze the following user's query to determine the agents and workflow.
 
-User "%s"
+User's query: "%s"
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
 {
-  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
+  "thought": "Your analysis of the need of user's query and the reasoning for the chosen team and workflow.",
   "content": { ... the complete SOP JSON object goes here ... },
   "cate": "end"
 }
@@ -117,8 +116,8 @@ Always include a "Planner" to create the initial strategy and a "Summarizer" to 
 
 Based on your analysis, generate a response in the specified JSON format.
 
-User "%s"
-Human-Annotated Steps to Solve (Note that this is only for the reference, since available tools for agents are only ["GOOGLE Search", "File Reader"]): 
+User: "%s"
+Human-Annotated Steps to Solve (Note that this is only for the reference
 %s
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
@@ -189,9 +188,6 @@ Here is a template for you to follow:
 --- TEMPLATE END ---
 
 Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent.
-If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
-Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
@@ -218,6 +214,7 @@ const NewBaseInstructions = `
 ### Team Members & Collaboration
 You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team [{{.agent_names}}].
 The following is the reference Standard Operating Procedure (SOP) for the task solving process (Note that DO NOT ask the User to provide additional information during the task solving process):
+Please strictly follow the workflow in the SOP by forwarding the message to the designated agent. If necessary, you are only permitted to communicate with agents who have previously sent you a message.
 {{.sop}}
 
 ### Instructions
@@ -264,10 +261,15 @@ DO NOT invoke an agent while using a tool. {{end}}
 `
 
 const NewEndBaseInstructions = `
+### Team Members & Collaboration
+You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team [{{.agent_names}}].
+The following is the reference Standard Operating Procedure (SOP) for the task solving process.
+{{.sop}}
+
 ### Instructions
 {{.role}}
 
-### Example
+### Input-Output Example
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
 Output Travel Plan:
 Day 1:

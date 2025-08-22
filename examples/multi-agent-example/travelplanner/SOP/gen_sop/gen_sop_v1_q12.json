@@ -1,0 +1,67 @@
+{
+  "question": "Please help me plan a 7-day trip for one person, departing from Gulfport and visiting 3 cities in Texas from March 24th to March 30th, 2022. The budget for this trip is $4,200.",
+  "analysis": "The user requires a 7-day Texas trip from Gulfport with three cities and a $4200 budget. The existing template's team structure covers all necessary components: transportation, accommodation, restaurants, attractions, plan verification, and summarization. Adjustments include specifying Texas cities in CitySearch, extending duration to 7 days, and budget validation via CostEnquiry. The workflow remains sequential with parallel processing for planners, ensuring all elements align with the Transportation Planner's framework and budget constraints.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation between Gulfport and three Texas cities over 7 days. This creates a daily location framework. The Accommodation Planner, Restaurant Planner, and Attractions Planner then work in parallel to find suitable options in their domains. The Plan Checker validates the combined itinerary for logical consistency and ensures total costs (flights, accommodation, meals) stay within the $4200 budget using CostEnquiry. Finally, the Final Plan Summarizer generates a cohesive itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "Plan transportation between Gulfport and three Texas cities over 7 days",
+          "instruction": "1. Analyze user's 7-day timeframe, Gulfport departure point, and Texas destination requirement. Use FlightSearch to find round-trip flights between Gulfport and Texas cities, prioritizing connecting flights if needed. Use GoogleDistanceMatrix to evaluate driving distances between Texas cities for intra-trip transportation options. 2. Output daily schedule with 'Current City' locations and transportation details (flights/self-driving). Include return trip to Gulfport on March 30th. 3. Prioritize cost-effective routes that maximize time in destination cities.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "Find suitable lodging in each Texas city",
+          "instruction": "1. Based on Transportation Planner's daily cities, search Texas accommodations within budget using AccommodationSearch. 2. Calculate required nights: total days minus return day. 3. Prioritize central locations with proximity to attractions. 4. Verify amenities match solo traveler needs (safety, single occupancy rates). 5. Include exact pricing for budget calculations.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "Plan meals in each destination city",
+          "instruction": "1. Use RestaurantSearch to find diverse dining options in each Texas city. 2. For each day, suggest breakfast/lunch/dinner locations with varied cuisines. 3. Calculate meal costs based on average Texas prices. 4. Prioritize walkable options near attractions. 5. Exclude meals on return day.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "Curate free attractions in Texas cities",
+          "instruction": "1. Use AttractionSearch to find three Texas cities' free attractions matching common interests. 2. Schedule one major attraction per day with reasonable travel distances. 3. Include walking tours, parks, and cultural sites. 4. Verify free admission policy dates for March timeframe. 5. Ensure attractions are spaced for realistic daily schedules.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "Validate complete itinerary and budget compliance",
+          "instruction": "1. Cross-check all elements for consistency: transportation timelines match accommodation check-in/out dates, meal locations align with daily cities, attractions are accessible. 2. Calculate total costs using CostEnquiry: flights + accommodation + meals. 3. Ensure total remains below $4200 threshold. 4. Verify Texas cities requirement is met. 5. Flag any schedule conflicts or unrealistic time allocations.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "Generate cohesive travel plan",
+          "instruction": "1. Compile verified itinerary into day-by-day format. 2. Include precise details: flight numbers, accommodation names, restaurant selections, attraction names. 3. Format costs with currency symbols and total calculations. 4. Use clear notation for multi-city days (e.g., 'Galveston → Houston'). 5. Add practical tips for Texas weather in March and transportation advisories.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

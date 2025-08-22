@@ -1,0 +1,67 @@
+{
+  "question": "Could you assist in creating a travel plan for one person, starting from Houston and heading to Utah for a week? The visit will be from the 23rd of March to the 29th of March, 2022, and will cover 3 different cities in Utah. The budget for this trip is set at $7,700.",
+  "analysis": "The user requires a 7-day trip from Houston to Utah covering 3 cities with a $7,700 budget. The existing SOP template covers all necessary aspects: transportation planning (flight/ground transport), accommodation, meals, attractions, plan verification, and final summarization. Adjustments are made to ensure multi-city coordination in Utah, strict budget tracking, and adherence to the 2022 travel dates. The Plan Checker will emphasize cost validation across all components to ensure the $7,700 limit is respected.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Plan Checker",
+        "Final Plan Summarizer"
+      ],
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines inter-city transportation between Houston and Utah's 3 cities (including return trip) using flight and ground transport options. This logistical framework is passed to the Accommodation Planner (for single-person stays in 3 cities), Restaurant Planner (for 3 daily meals per day), and Attractions Planner (free attractions in 3 Utah cities). The Plan Checker verifies cross-component consistency, validates against the $7,700 budget using CostEnquiry, and ensures all elements align with the 2022 travel dates. The Final Plan Summarizer compiles the verified plan into a day-by-day itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Plan round-trip transportation from Houston to Utah (March 23-29, 2022) covering 3 cities. Use FlightSearch for air travel and GoogleDistanceMatrix for inter-city driving routes. \n2. Create a daily 'Current City' schedule ensuring logical movement between 3 Utah cities. Include flight numbers, drive times, and transportation costs. \n3. Arrange return trip to Houston on March 29. Prioritize budget efficiency while ensuring feasible travel times.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Based on the Transportation Planner's daily cities, search for single-person accommodations in 3 Utah cities (March 22-28, noting March 29 is return day). \n2. Use AccommodationSearch to find budget-compliant options. Verify check-in/check-out dates match travel schedule. \n3. Prioritize hotels with free cancellation. Exclude accommodation for March 29 since user returns home.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. For each day's city (including travel days), use RestaurantSearch to find budget-friendly options matching single-person dining. \n2. Ensure meal times align with transportation schedule (e.g., no dinner on departure day after morning flight). \n3. Calculate meal costs for one person across all 7 days while maintaining diversity in cuisine types.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. For each of the 3 Utah cities, use AttractionSearch to find 2-3 free attractions per day. Prioritize outdoor activities given Utah's terrain. \n2. Ensure attractions are geographically clustered to minimize travel time between them. \n3. Include activity durations to help with daily scheduling. Avoid suggesting attractions on travel days with limited time.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Plan Checker",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Cross-verify all components: Ensure attractions are in the correct cities per Transportation plan, meals align with daily schedules, and accommodations match stay dates. \n2. Use CostEnquiry to validate total costs (flights, accommodations, meals, ground transport) stay under $7,700. \n3. Check that all 2022 travel dates are correctly implemented and that three distinct Utah cities are featured. Flag any inconsistencies to the Final Plan Summarizer.",
+          "tools": [
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Compile all verified components into a day-by-day plan following the specified format. \n2. For each day, clearly indicate: Date, Current City, Transportation (with flight numbers/costs), Accommodation (hotel name/cost), Meals (restaurant names/costs per meal), and Attractions. \n3. Include total costs section showing breakdown of transportation, accommodation, meals, and attractions (all free) with final total under $7,700.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
