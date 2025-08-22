@@ -22,3 +22,4 @@ dataset/travelplanner/database
 *.vscode
 *.pyc
 
+examples/multi-agent-example/travelplanner/Analysis/embedding_qwen
