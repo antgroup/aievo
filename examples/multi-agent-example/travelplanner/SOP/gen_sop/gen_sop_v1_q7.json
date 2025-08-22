@@ -1,6 +1,6 @@
 {
-  "question": "Could you help create a 5-day travel itinerary, starting from Baton Rouge moving to 2 cities in Texas between March 1st and March 5th, 2022? This trip is for a solo traveler, who has set a budget of $2,300.",
-  "analysis": "The user requires a 5-day Texas trip starting from Baton Rouge with a $2300 budget. The team structure from the template is reused with key adaptations: (1) Transportation Planner must identify 2 Texas cities and design a multi-city route; (2) All agents must accommodate solo traveler needs; (3) Plan Checker must rigorously validate against the specific budget constraint. The workflow remains sequential but adds special attention to inter-city transportation logistics and budget verification.",
+  "question": "Please help me craft a 7-day travel plan. I'm planning on leaving from Punta Gorda and exploring 3 different cities in Wisconsin from March 16th to March 22nd, 2022. The budget for this trip is set at $5,700.",
+  "analysis": "The user requires a 7-day travel plan from Punta Gorda to 3 Wisconsin cities within a $5,700 budget. The SOP follows the template structure with adjustments to focus on Wisconsin city selection, inter-city transportation planning, and budget verification. Key modifications include emphasizing CitySearch for Wisconsin city selection, FlightSearch for inter-city flights, and stricter budget checks via CostEnquiry to ensure adherence to the $5,700 limit.",
   "sops": [
     {
       "team": [
@@ -11,12 +11,12 @@
         "Plan Checker",
         "Final Plan Summarizer"
       ],
-      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines two Texas cities to visit and establishes the transportation sequence between Baton Rouge -\u003e City A -\u003e City B -\u003e Baton Rouge across 5 days. This framework defines daily locations for other planners. Accommodation, Restaurant, and Attractions Planners then work in parallel to find options matching the solo traveler's needs. The Plan Checker performs comprehensive validation including budget adherence (critical for $2300 constraint) and logistical consistency. Finally, the Final Plan Summarizer compiles all verified components into a cohesive itinerary with precise details.",
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner selects 3 Wisconsin cities and plans round-trip flights between Punta Gorda and Wisconsin, plus inter-city transportation. This establishes daily locations. The Accommodation Planner books stays in each city, Restaurant Planner selects meals, and Attractions Planner finds free attractions. All work in parallel. The Plan Checker verifies budget compliance ($5,700) and logistical consistency. Finally, the Final Plan Summarizer compiles a detailed itinerary with exact flight numbers, accommodation names, restaurant details, and attraction information.",
       "details": [
         {
           "name": "Transportation Planner",
-          "responsibility": "Plan multi-city transportation sequence between Baton Rouge and two Texas destinations within 5 days",
-          "instruction": "1. Identify two Texas cities reachable within budget. Use CitySearch to find suitable options, then FlightSearch and GoogleDistanceMatrix to plan: Day 1: Baton Rouge -\u003e City A; Day 3: City A -\u003e City B; Day 5: City B -\u003e Baton Rouge. \n2. Calculate transportation costs and durations for all legs. Prioritize flight options but consider driving where cost-effective. \n3. Ensure return trip arrives on final day. \n4. Output daily transportation details including flight numbers/costs, and clearly mark days with inter-city travel (e.g., 'Current City: From Houston to Austin')",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's request for 3 Wisconsin cities and plan transportation between Punta Gorda and Wisconsin cities.",
+          "instruction": "1. Use CitySearch to identify 3 Wisconsin cities matching the 7-day duration. Prioritize cities with diverse attractions and reasonable inter-city distances.\n2. Plan round-trip flights between Punta Gorda (PGD) and Wisconsin's primary city. Use GoogleDistanceMatrix for inter-city transportation (flights/taxis) between the 3 Wisconsin cities.\n3. Output must include flight numbers, departure/arrival times, costs, and 'Current City' details (e.g., 'from Milwaukee to Madison' for transit days). Ensure return to Punta Gorda on March 22nd.",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
@@ -25,40 +25,40 @@
         },
         {
           "name": "Accommodation Planner",
-          "responsibility": "Find solo-traveler-friendly accommodations in each Texas city",
-          "instruction": "1. Based on Transportation Planner's schedule, search for accommodations in each city using AccommodationSearch. Prioritize budget-friendly options for single travelers.\n2. Verify check-in/check-out dates match travel schedule. Note that no accommodation is needed on Day 5 after returning.\n3. For each night, provide accommodation name, address, cost, and confirmation number. \n4. Special consideration: Ensure safety and accessibility for solo travelers, particularly late-night arrival/departure logistics.",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find budget-compliant accommodations for 6 nights in Wisconsin cities.",
+          "instruction": "1. Review Transportation Planner's daily locations. Book 2-night stays in each of the 3 Wisconsin cities (total 6 nights). Use AccommodationSearch to find options within the user's $5,700 budget.\n2. Verify amenities: ensure free cancellation, breakfast inclusion, and proximity to attractions.\n3. Exclude accommodation on March 22nd (return day). Require exact hotel names from search results.",
           "tools": [
             "AccommodationSearch"
           ]
         },
         {
           "name": "Restaurant Planner",
-          "responsibility": "Curate solo-friendly dining experiences in each city",
-          "instruction": "1. For each city and meal time, suggest restaurants accessible to solo diners using RestaurantSearch. \n2. Include breakfast options near accommodations and lunch/dinner options near attractions. \n3. Prioritize budget-conscious choices ($25-$40 total/day for solo meals). \n4. For transit days, include restaurants near transportation hubs. \n5. Ensure all restaurant names and costs exactly match search results.",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend budget-friendly meals in Wisconsin cities.",
+          "instruction": "1. For each day in Wisconsin cities, suggest breakfast/lunch/dinner options. Prioritize Wisconsin specialties (e.g., cheese curds, bratwurst).\n2. Calculate meal costs for 2 people (default assumption). Use RestaurantSearch to find venues within $30-$50 per person daily budget.\n3. Omit meals on departure/return days. Ensure restaurant names match search results exactly.",
           "tools": [
             "RestaurantSearch"
           ]
         },
         {
           "name": "Attractions Planner",
-          "responsibility": "Create cultural/experiential itinerary for Texas cities",
-          "instruction": "1. For each city, use AttractionSearch to find 1-2 free attractions per day that showcase Texas culture. \n2. Prioritize unique experiences suitable for solo travelers (e.g., historical sites, museums, scenic viewpoints). \n3. For multi-city days, suggest attractions near transportation routes. \n4. Ensure chronological feasibility (arrival time to departure time). \n5. All attractions must be free to maintain budget compliance.",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest free attractions in 3 Wisconsin cities.",
+          "instruction": "1. Use AttractionSearch to find 2 free attractions per Wisconsin city. Prioritize seasonal activities (e.g., March events, indoor museums).\n2. Ensure attractions are within walking distance of accommodations. Exclude paid attractions.\n3. Provide exact attraction names and addresses from search results.",
           "tools": [
             "AttractionSearch"
           ]
         },
         {
           "name": "Plan Checker",
-          "responsibility": "Validate Texas itinerary against budget and logistics",
-          "instruction": "1. Verify all elements align with Transportation Planner's schedule. \n2. Use CostEnquiry to calculate total expenses: transportation + accommodation + meals (3 meals/day) + incidental costs. \n3. Ensure total remains under $2300. If over, identify areas for adjustment. \n4. Check for solo traveler safety considerations in accommodations and attractions. \n5. Validate that multi-city day transitions are logistically feasible.",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to verify the $5,700 budget and logistical consistency.",
+          "instruction": "1. Cross-check all locations against Transportation Planner's daily schedule. Ensure no overlapping timelines.\n2. Use CostEnquiry to calculate total costs: flights (3 round-trips), accommodations (6 nights), meals (6 days x 3 meals), transportation (inter-city taxis/flights).\n3. Flag any budget overruns (total \u003e$5,700) or missing elements. Require exact cost breakdowns from other agents.",
           "tools": [
             "CostEnquiry"
           ]
         },
         {
           "name": "Final Plan Summarizer",
-          "responsibility": "Compile verified components into cohesive Texas itinerary",
-          "instruction": "1. Format the plan day-by-day with precise details from all planners. \n2. For transit days, format 'Current City' as 'From [City A] to [City B]'. \n3. Include all flight numbers, accommodation names, restaurant details, and attraction names. \n4. Add budget summary section showing total estimated costs. \n5. Include solo traveler tips for each city (safety, transportation apps, etc.).",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to compile the verified plan into a detailed 7-day itinerary.",
+          "instruction": "1. Format the plan as: Day 1 (date), Departure city, Arrival city, Transportation details, Accommodation, Meals, Attractions.\n2. Use exact data from agents: flight numbers (e.g., AA1234), hotel confirmation codes, restaurant addresses.\n3. Include budget summary table showing allocations vs actuals. Mark days with '-' after return to Punta Gorda.",
           "tools": []
         }
       ]

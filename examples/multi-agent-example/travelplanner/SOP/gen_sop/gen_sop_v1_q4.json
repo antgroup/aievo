@@ -1,6 +1,6 @@
 {
-  "question": "Please provide me with a travel plan that departs from Las Vegas to Denver for 3 days, from March 12th to March 14th, 2022. The budget for this solo trip is $1,600.",
-  "analysis": "The user requires a 3-day trip from Las Vegas to Denver with a $1,600 budget. The SOP must ensure transportation, accommodation, meals, and attractions are planned within constraints. The team follows the template structure but adjusts for the solo traveler's needs, focusing on single-person costs and free attractions. The workflow ensures logical sequencing and parallel planning, with the Plan Checker verifying budget adherence and consistency.",
+  "question": "Could you plan a 5-day solo trip for me? I'll be setting off from Santa Ana and intend to visit 2 different cities in Montana. The travel dates are from March 6th to March 10th, 2022, and my outlined budget is $3,600. I have no specific preferences about house rules, cuisine, accommodations, or transportation.",
+  "analysis": "The user requires a 5-day solo trip from Santa Ana to two Montana cities with a $3,600 budget. The SOP follows the template structure but adapts to Montana-specific logistics. Key adjustments include: 1) Transportation Planner selects two Montana cities via CitySearch, 2) Plan Checker verifies total costs (including flights, accommodation, and meals) stay within budget using CostEnquiry, and 3) Attractions Planner focuses on free Montana attractions. The workflow ensures parallel planning of accommodations, restaurants, and attractions after transportation is defined, with strict budget adherence checks.",
   "sops": [
     {
       "team": [
@@ -11,12 +11,12 @@
         "Plan Checker",
         "Final Plan Summarizer"
       ],
-      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines inter-city transportation and daily locations. This framework is shared with Accommodation Planner, Restaurant Planner, and Attractions Planner, who work in parallel to find optimal options. The Plan Checker reviews for inconsistencies and budget compliance, then the Final Plan Summarizer compiles the verified data into a detailed itinerary.",
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner identifies two Montana cities (e.g., Billings and Missoula) using CitySearch and plans round-trip flights from Santa Ana. Daily transportation between cities and local mobility (e.g., rental car) are determined. This framework guides parallel planning for accommodations, restaurants, and attractions. The Plan Checker validates geographic consistency, budget compliance ($3,600 total), and logical flow. The Final Plan Summarizer compiles verified data into a day-by-day itinerary with exact names and costs.",
       "details": [
         {
           "name": "Transportation Planner",
-          "responsibility": "Plan inter-city transportation and daily locations for the solo traveler.",
-          "instruction": "1. Analyze user requirements: 3 days (March 12-14, 2022), Las Vegas to Denver round-trip, $1,600 total budget. Use FlightSearch to find flights and GoogleDistanceMatrix for local transport. 2. Define 'Current City' per day: Day 1 (Las Vegas → Denver), Day 2 (Denver), Day 3 (Denver → Las Vegas). Include flight numbers, costs, and durations. 3. Ensure return flight on Day 3.",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Use CitySearch to select two major cities in Montana (e.g., Billings and Missoula) that fit a 5-day itinerary. Plan round-trip flights from Santa Ana to the first city using FlightSearch. Determine inter-city transportation (e.g., driving via GoogleDistanceMatrix) and daily locations.\n2. Output must include 'Current City' for each day (e.g., 'from Santa Ana to Billings' on Day 1), flight numbers/costs, and local transportation details. Ensure return to Santa Ana by March 10th.\n3. Prioritize cost-effective options within the $3,600 budget (e.g., economy flights, shared rental cars).",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
@@ -25,40 +25,40 @@
         },
         {
           "name": "Accommodation Planner",
-          "responsibility": "Find suitable overnight stays in Denver for 2 nights.",
-          "instruction": "1. Based on the Transportation Planner's daily cities, search for Denver accommodations for March 12-13 using AccommodationSearch. 2. Verify single-occupancy availability and budget compatibility. 3. Exclude accommodation on Day 3 (return day). 4. Record exact hotel names and costs.",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review the Transportation Planner's daily cities and search for budget-friendly accommodations in each location using AccommodationSearch. Prioritize options within 20% of the remaining budget after transportation costs.\n2. Verify check-in/check-out dates align with travel days. Exclude accommodation on Day 5 if returning to Santa Ana.\n3. Output must include exact hotel/hostel names, addresses, and costs. Avoid overpriced or luxury options for solo travel.",
           "tools": [
             "AccommodationSearch"
           ]
         },
         {
           "name": "Restaurant Planner",
-          "responsibility": "Recommend meals for each travel day.",
-          "instruction": "1. Use RestaurantSearch to find Denver restaurants for breakfast, lunch, and dinner each day (March 12-14). 2. Prioritize solo-dining-friendly spots. 3. Exclude meals on return day after attractions. 4. Calculate costs for one person.",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Use RestaurantSearch to suggest three diverse meal options per day in each city. Since the user has no cuisine preferences, prioritize local Montana specialties (e.g., bison burgers) and budget-friendly eateries.\n2. Calculate meal costs for one person. Exclude meals on travel days before departure or after return.\n3. Output must include restaurant names, cuisine types, and total costs (e.g., 'Breakfast at XYZ Diner - $15').",
           "tools": [
             "RestaurantSearch"
           ]
         },
         {
           "name": "Attractions Planner",
-          "responsibility": "Suggest free daily activities in Denver.",
-          "instruction": "1. Use AttractionSearch to find free attractions in Denver for Days 1-2. 2. Ensure diversity in activities. 3. Exclude Las Vegas attractions (departure point). 4. Verify exact attraction names from search results.",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to find free attractions in each Montana city (e.g., Yellowstone National Park, Glacier National Park, local museums). Ensure activities match the user's solo travel style (e.g., hiking trails, self-guided tours).\n2. Output must include attraction names, cities, and brief descriptions. Avoid paid attractions to preserve budget.\n3. Align activities with daily locations and travel time constraints.",
           "tools": [
             "AttractionSearch"
           ]
         },
         {
           "name": "Plan Checker",
-          "responsibility": "Validate itinerary consistency and budget compliance.",
-          "instruction": "1. Cross-verify all elements (transport, stays, meals, attractions) align with daily cities. 2. Use CostEnquiry to sum total expenses and confirm it stays under $1,600. 3. Flag any scheduling conflicts (e.g., flight overlaps with attractions). 4. Provide final approval to the Summarizer.",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
+          "instruction": "1. Validate that all agents' outputs align with daily cities and transportation timelines. Check that attractions are free and accommodations are booked for correct dates.\n2. Use CostEnquiry to calculate total expenses: flights + accommodations + meals + local transport. Ensure total ≤ $3,600.\n3. Flag inconsistencies (e.g., meals in wrong cities, over-budget items) to the Final Plan Summarizer. Prioritize fixes that impact budget or feasibility.",
           "tools": [
             "CostEnquiry"
           ]
         },
         {
           "name": "Final Plan Summarizer",
-          "responsibility": "Generate user-friendly day-by-day itinerary.",
-          "instruction": "1. Compile flight details, accommodation names, restaurant selections, and attractions into a structured format. 2. Use '-' for irrelevant fields (e.g., accommodation on Day 3). 3. Ensure dates, costs, and locations match verified data. 4. Present total budget summary.",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Compile verified data into a day-by-day plan following the template format. Include flight numbers, accommodation names, restaurant choices, and attraction details.\n2. Highlight budget allocation: e.g., 'Transportation: $1,200 | Accommodation: $1,000 | Food: $800 | Misc: $600'.\n3. Add practical tips: packing list for Montana weather, rental car advice, and attraction booking recommendations.",
           "tools": []
         }
       ]

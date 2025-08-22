@@ -16,6 +16,7 @@ examples/multi-agent-example/GAIA/Analysis/embedding_bge
 
 examples/multi-agent-example/travelplanner/output
 examples/multi-agent-example/travelplanner/results
+examples/multi-agent-example/travelplanner/SOP/eval
 
 dataset/travelplanner/database
 

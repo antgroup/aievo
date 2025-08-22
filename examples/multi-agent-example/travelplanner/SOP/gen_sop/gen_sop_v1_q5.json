@@ -1,6 +1,6 @@
 {
-  "question": "Could you assist in crafting a travel itinerary for a 5-day, single-person trip departing from Orlando and touring 2 cities in Texas? The travel dates should range from March 10th to March 14th, 2022, and the entire travel budget is $3,100.",
-  "analysis": "The user requires a 5-day Texas trip from Orlando with a fixed budget. The existing SOP structure effectively handles multi-city travel planning with budget constraints. Key adaptations include: 1) Using CitySearch to identify two Texas cities within budget, 2) Ensuring round-trip flights from Orlando with FlightSearch, 3) Coordinating parallel planning for accommodations/meals/attractions in Texas cities, and 4) Rigorous budget verification through CostEnquiry. The existing agent roles and workflow are sufficient with minor instruction adjustments for Texas-specific planning.",
+  "question": "Can you devise a travel plan that departs from Memphis and includes 2 cities in Pennsylvania? The trip is scheduled for 5 days from March 22nd to March 26th, 2022. The trip's total budget is $1,400.",
+  "analysis": "The user requires a 5-day trip from Memphis visiting two Pennsylvania cities with a $1,400 budget. The existing SOP structure works well but requires adjustments to ensure Pennsylvania city selection and strict budget adherence. Transportation Planner must identify two PA cities using CitySearch, while Plan Checker must rigorously validate total costs against the fixed budget. Restaurant Planner needs to focus on cost-effective meal options to stay within budget.",
   "sops": [
     {
       "team": [
@@ -11,12 +11,12 @@
         "Plan Checker",
         "Final Plan Summarizer"
       ],
-      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner selects two Texas cities reachable from Orlando within the budget and timeframe. Using FlightSearch and GoogleDistanceMatrix, they establish daily locations and transportation logistics. This framework enables parallel planning for accommodations (using AccommodationSearch), dining (RestaurantSearch), and attractions (AttractionSearch). The Plan Checker then validates the integrated plan against the $3,100 budget using CostEnquiry, ensuring all elements align with the daily itinerary. Finally, the Summarizer compiles the verified plan into a detailed day-by-day format.",
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines two Pennsylvania cities to visit and establishes the transportation framework between Memphis → PA City 1 → PA City 2 → Memphis across 5 days. This framework is passed to the Accommodation Planner, Restaurant Planner, and Attractions Planner who work in parallel. The Plan Checker then validates the combined plan against the $1,400 budget and logical consistency, using CostEnquiry for verification. Finally, the Final Plan Summarizer compiles the approved plan into a detailed itinerary.",
       "details": [
         {
           "name": "Transportation Planner",
           "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
-          "instruction": "1. Use CitySearch to identify two suitable Texas cities reachable from Orlando within the 5-day timeframe. Prioritize cities with multiple attractions and reasonable transportation costs.\n2. Plan round-trip flights from Orlando to the first Texas city (March 10), inter-city transportation to the second Texas city (March 12), and return flight to Orlando (March 14). Use FlightSearch and GoogleDistanceMatrix to calculate costs and durations.\n3. Ensure the transportation schedule allows 2 full days in each Texas city. Include exact flight numbers, departure/arrival times, and costs in your output.",
+          "instruction": "1. Please carefully check the user's requirements: 5-day trip departing from Memphis, visiting two cities in Pennsylvania, with a total budget of $1,400. Use CitySearch to identify two suitable Pennsylvania cities that can be visited within the budget and timeframe.\n2. Plan round-trip transportation from Memphis to the first PA city, inter-city transportation to the second PA city, and return to Memphis. Use FlightSearch for air travel options and GoogleDistanceMatrix for ground transportation options.\n3. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). When travelling to two cities in one day, note 'from A to B' in the 'Current City' section.\n4. Be sure to arrange the return trip to Memphis on the last day.",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
@@ -26,7 +26,7 @@
         {
           "name": "Accommodation Planner",
           "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
-          "instruction": "1. Based on the Transportation Planner's daily locations, search for accommodations in both Texas cities using AccommodationSearch.\n2. Prioritize budget-friendly options within 15-20 minutes from major attractions. Verify room availability for single occupancy and ensure minimum stay requirements match the itinerary.\n3. Exclude accommodation for March 14 (return day). Calculate total accommodation costs including taxes and fees.",
+          "instruction": "1. Please carefully review the daily locations provided by the Transportation Planner and the user's budget. Use the search tool to find suitable accommodations in both Pennsylvania cities.\n2. Please rigorously check if the accommodations meet the budget constraints. This may include: checking the minimum stay duration, verifying the number of rooms against the number of people, and checking the room type.\n3. Note that if the user returns to Memphis on the last day, no accommodation needs to be arranged for that day.\n4. Your output should include detailed information for the accommodations arranged in each city, with a strict emphasis on providing the exact accommodation name to ensure it matches the information found in the search result.",
           "tools": [
             "AccommodationSearch"
           ]
@@ -34,7 +34,7 @@
         {
           "name": "Restaurant Planner",
           "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
-          "instruction": "1. For each day in Texas cities, use RestaurantSearch to find diverse dining options matching local cuisine specialties.\n2. Balance budget-friendly and mid-range restaurants. For each meal, provide exact restaurant names, addresses, cuisine types, and calculate per-meal costs for one person.\n3. Exclude meals on March 10 (arrival day) after 6 PM and March 14 (departure day) before 8 AM.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's budget constraints, use the search tool to suggest cost-effective restaurants for breakfast, lunch, and dinner in both Pennsylvania cities.\n2. Ensure that the restaurant options are diverse while maintaining reasonable costs to stay within the overall budget. Include any dietary restrictions if specified.\n3. Based on the time analysis, if the user has already returned to Memphis, there is no need to arrange corresponding meals.\n4. For each meal, provide the restaurant's name, its city, the cuisine type, and the total cost (multiply the head count by the per-person spending).\n5. The restaurant names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
           "tools": [
             "RestaurantSearch"
           ]
@@ -42,7 +42,7 @@
         {
           "name": "Attractions Planner",
           "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
-          "instruction": "1. Use AttractionSearch to find free attractions in both Texas cities. Prioritize diverse experiences (museums, parks, historic sites).\n2. Suggest two attractions per full day (morning/afternoon), ensuring they are geographically accessible within each city.\n3. Verify attraction operating hours match the travel dates. Provide exact attraction names and addresses.",
+          "instruction": "1. Please carefully review the daily locations provided and use the search tool to suggest attractions for **each day** in both Pennsylvania cities.\n2. For each day, provide the attraction's name, its city.\n3. Ensure that the attraction options are diverse and culturally enriching.\n4. DO NOT suggest attractions in Memphis.\n5. All attractions are free.\n6. The attraction names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
           "tools": [
             "AttractionSearch"
           ]
@@ -50,7 +50,7 @@
         {
           "name": "Plan Checker",
           "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
-          "instruction": "1. Verify all elements align with daily locations and times from the Transportation Planner.\n2. Use CostEnquiry to calculate total expenses: flights + accommodations + meals + incidental costs. Ensure total stays under $3,100.\n3. Check for scheduling conflicts (e.g., attractions closed on specific days, unrealistic transportation timelines).\n4. Confirm all restaurant/accommodation/attraction names match search results exactly.",
+          "instruction": "1. Meticulously review the combined itinerary from the Transportation, Accommodation, Restaurant, and Attractions Planners. Ensure that all planned items (accommodation, meals, attractions) are in the correct city for each day as determined by the Transportation Planner.\n2. Check for logical inconsistencies, scheduling conflicts, and budget adherence. The total budget is $1,400 - this includes transportation, accommodation, meals, and any incidental costs.\n3. Based on the travel time analysis, if the user has not yet departed or has already returned to Memphis, there is no need to arrange corresponding meals or accommodation.\n4. You must use the CostEnquiry tool to verify that the total plan adheres to the $1,400 budget. (Note that the attractions are free).\n5. Provide feedback for revisions if necessary. **Important:** Considering efficiency, if an agent provides redundant information without the need for new information, do not recall that agent. You only need to highlight the issues that need attention to the final plan summarizer.",
           "tools": [
             "CostEnquiry"
           ]
@@ -58,7 +58,7 @@
         {
           "name": "Final Plan Summarizer",
           "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
-          "instruction": "1. Format the verified plan as a day-by-day itinerary from March 10-14, 2022.\n2. Include exact flight numbers/times, accommodation names/addresses, restaurant selections with cuisine types, and attraction details.\n3. Present total costs for each category (transportation, accommodation, meals, attractions) and remaining budget.\n4. Add practical tips: local transportation options, weather preparation for March in Texas, and attraction reservation requirements.",
+          "instruction": "Based on the verified and refined plan from other agents, generate a detailed, day-by-day final plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and accommodation names. Note that all the information in your plan should be derived from the provided data. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).",
           "tools": []
         }
       ]

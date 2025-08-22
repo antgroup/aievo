@@ -1,6 +1,6 @@
 {
-  "question": "Could you plan a 5-day solo trip for me? I'll be setting off from Santa Ana and intend to visit 2 different cities in Montana. The travel dates are from March 6th to March 10th, 2022, and my outlined budget is $3,600. I have no specific preferences about house rules, cuisine, accommodations, or transportation.",
-  "analysis": "The user requires a 5-day solo trip from Santa Ana to two Montana cities with a $3,600 budget. The existing SOP structure is reused as it comprehensively covers transportation, accommodation, dining, attractions, validation, and summarization. Adjustments include focusing the Transportation Planner on selecting two Montana cities (e.g., Bozeman and Missoula) using CitySearch, ensuring return logistics, and budget adherence checks via CostEnquiry. The Restaurant Planner adjusts for solo dining costs, while the Attractions Planner prioritizes free, diverse activities in Montana. The Plan Checker validates alignment with Montana-specific logistics and budget constraints.",
+  "question": "Can you create a 5-day travel plan for one person departing from Greer and visiting 2 cities in Pennsylvania? The travel dates are from March 5th to March 9th, 2022. The trip's budget is set at $3,400.",
+  "analysis": "The user requires a 5-day travel plan from Greer to two Pennsylvania cities with a fixed budget. The existing SOP structure is suitable but requires adjustments to ensure Pennsylvania cities are selected via CitySearch, budget adherence via CostEnquiry, and proper day-by-day planning. The team structure remains unchanged as it comprehensively covers all travel aspects.",
   "sops": [
     {
       "team": [
@@ -16,7 +16,7 @@
         {
           "name": "Transportation Planner",
           "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
-          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). This information will form the framework for the other planners.\n3. Be sure to arrange the return trip to the starting point on the last day.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). When travelling to two cities in one day, you should note 'from A to B' in the 'Current City' section. This information will form the framework for the other planners.\n3. Be sure to arrange the return trip to the starting point on the last day.",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
