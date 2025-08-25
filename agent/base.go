@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/antgroup/aievo/environment"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/antgroup/aievo/callback"
+	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/feedback"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
@@ -220,9 +220,12 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		inputs["file"] = ba.parseFileFromMessage(messages)
 	}
 
-	// 如果有反思文件路径，则解析反思文件并添加到输入中 only for watcher agent
+	// 如果有反思文件路径，则解析反思文件并添加到输入中
 	if ba.reflectionPath != "" && ba.reflectionPath != "null" {
-		inputs["refcase"] = ba.parseReflectionFile(ba.reflectionPath)
+		reflect := ba.parseReflectionFile(ba.reflectionPath)
+		if reflect != "" {
+			inputs["refcase"] = reflect
+		}
 	}
 
 	inputs["question"] = messages[0].Content
@@ -252,8 +255,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	// logfile := fmt.Sprintf("eval/log_level_L2_v6_twq_wgr-5+4_%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("eval/log_t1.1_%s.log", time.Now().Format("2006-0102"))
+	// logfile := fmt.Sprintf("eval/log_level_L123_v6_twq_wgr456_pep_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_v1.2_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -634,33 +637,66 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 		return ""
 	}
 
-	// 构建反思案例提示词
-	refcasePrompt := fmt.Sprintf("**Question:** %s\n\n**SOP:** %s\n\n**Reflection Insights:**\n",
-		reflectionData.Question, reflectionData.SOP)
+	// 如果是watcher，使用原有的完整反思提示词
+	if strings.ToLower(ba.name) == "watcher" {
+		// 构建反思案例提示词
+		refcasePrompt := fmt.Sprintf("**Question:** %s\n\n**SOP:** %s\n\n**Reflection Insights:**\n",
+			reflectionData.Question, reflectionData.SOP)
 
-	// 添加失败原因（放在agent_guidance之前）
-	if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
-		refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
+		// 添加失败原因（放在agent_guidance之前）
+		if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
+			refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
+		}
+
+		// 添加Agent指导内容
+		if agentGuidance, ok := reflectionData.LLMReflection["agent_guidance"].([]interface{}); ok {
+			refcasePrompt += "**Agent Guidance:**\n"
+			for _, guidance := range agentGuidance {
+				if guidanceMap, ok := guidance.(map[string]interface{}); ok {
+					if agentName, ok := guidanceMap["agent_name"].(string); ok {
+						if feedback, ok := guidanceMap["feedback"].(string); ok {
+							if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
+								refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Revised Instruction:* %s\n",
+									agentName, feedback, revisedInstruction)
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return refcasePrompt
 	}
 
-	// 添加Agent指导内容
+	// 如果不是watcher，查找对应agent的guidance
 	if agentGuidance, ok := reflectionData.LLMReflection["agent_guidance"].([]interface{}); ok {
-		refcasePrompt += "**Agent Guidance:**\n"
 		for _, guidance := range agentGuidance {
 			if guidanceMap, ok := guidance.(map[string]interface{}); ok {
 				if agentName, ok := guidanceMap["agent_name"].(string); ok {
-					if feedback, ok := guidanceMap["feedback"].(string); ok {
-						if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
-							refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Revised Instruction:* %s\n",
-								agentName, feedback, revisedInstruction)
+					// 找到对应的agent
+					if agentName == ba.name {
+						// 构建简化的反思提示词，只包含question, failure_reason和该agent的feedback
+						refcasePrompt := fmt.Sprintf("**Question:** %s\n\n", reflectionData.Question)
+
+						// 添加失败原因
+						if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
+							refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
 						}
+
+						// 添加该agent的feedback
+						if feedback, ok := guidanceMap["feedback"].(string); ok {
+							refcasePrompt += fmt.Sprintf("**Agent Feedback:** %s\n", feedback)
+						}
+
+						return refcasePrompt
 					}
 				}
 			}
 		}
 	}
 
-	return refcasePrompt
+	// 如果没有找到对应的agent，返回空字符串
+	return ""
 }
 
 // parseFileFromMessage 从消息中解析文件名并读取文件内容

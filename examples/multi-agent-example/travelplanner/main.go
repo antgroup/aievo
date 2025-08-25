@@ -628,7 +628,7 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 0 // 0 for training, 2 for evaluation
+	eval := 3 // 0 for training, 2 for evaluation
 	if eval == 0 {
 		mode = "train"
 		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_split.json"
@@ -639,7 +639,7 @@ func main() {
 		mode = "validation"
 		datasetPath = "../../../dataset/travelplanner/validation/travelplanner_validation_dataset.json"
 	} else if eval == 3 {
-		mode = "train"
+		mode = "trainall"
 		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_dataset.json"
 	}
 
@@ -655,7 +655,7 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_t1.1_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_v1.2_%s.json", mode, timeStamp)
 	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
@@ -685,14 +685,14 @@ func main() {
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
-				generateNewSOP = false // For eval set, true to enable generation
+				generateNewSOP = true // For eval set, true to enable generation
 			}
 			if generateNewSOP { // 评估集：LLM生成SOP
 				newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_q%d.json", i)
 				reflectionPath := ""
 				// Set writeToFile to true if you want to save the generated SOP.
 				writeToFile := false
-				rag := true
+				rag := false
 				if rag { // RAG模式：从检索SOP作为引导生成SOP
 					retrievedSopFile, err := retrieveSOPFile(i)
 					if err != nil {
@@ -724,7 +724,7 @@ func main() {
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1_L0_q%d.json", i)
+				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.1_q%d.json", i)
 				reflectionPath := fmt.Sprintf("SOP/reflect/ref_v1_q%d.json", i)
 				//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)

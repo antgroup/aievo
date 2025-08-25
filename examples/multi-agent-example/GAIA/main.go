@@ -210,6 +210,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithLLM(client),
 			agent.WithEnv(env),
 			agent.WithCallback(callbackHandler),
+			agent.WithReflectionPath(reflectionPath),
 		}
 
 		if strings.Contains(agentDetail.Name, "Web") || strings.Contains(agentDetail.Name, "web") {
@@ -657,7 +658,7 @@ func main() {
 	eval := 1 // 0 for training, 1 for evaluation
 	var levels []int
 	if eval > 0 {
-		levels = []int{2}
+		levels = []int{1, 2, 3}
 	} else {
 		levels = []int{0}
 	}
@@ -682,13 +683,16 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr-5+4_%s.json", level, timeStamp)
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr456_pep_%s.json", level, timeStamp)
 		logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 		start_time := time.Now()
-		start_id := 6
+		start_id := 0
 		//end_id := len(questions)
-		watcherInterval := 5
-		// watcherInterval := level + 3
+		// watcherInterval := 7
+		watcherInterval := level + 3
+		//if level == 3 {
+		//	watcherInterval = 7
+		//}
 
 		for i, q := range questions {
 			// if q.FileName != "" { // 先忽略需要file的问题
@@ -738,6 +742,7 @@ func main() {
 							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 							sopPath = retrievedSopPath
 
+							questionNumber = "8" // !!!!!!
 							reflectionPath = fmt.Sprintf("SOP/reflect/ref_v6.1_L0_q%s.json", questionNumber)
 						}
 					} // 依据通用模板 / rag 生成SOP

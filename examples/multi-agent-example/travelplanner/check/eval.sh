@@ -5,7 +5,7 @@
 
 set -e
 
-INPUT_FILE=../output/train_v0_20250819203412.json
+INPUT_FILE=../output/train_rev1.1_20250825114833.json
 
 # 路径配置
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

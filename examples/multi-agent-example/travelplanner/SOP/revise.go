@@ -155,18 +155,22 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 	}
 	systemGeneratedPlan := string(planBytes)
 
-	// Format the evaluation result into a readable string
-	evalResultBytes, err := json.MarshalIndent(evalResult, "", "  ")
-	if err != nil {
-		return fmt.Errorf("failed to marshal evaluation result: %w", err)
+	// Format only the constraint fields from evaluation result
+	constraintInfo := map[string]interface{}{
+		"commonsense_constraint": evalResult.CommonsenseConstraint,
+		"hard_constraint":        evalResult.HardConstraint,
 	}
-	evalResultString := string(evalResultBytes)
+	constraintBytes, err := json.MarshalIndent(constraintInfo, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal constraint information: %w", err)
+	}
+	constraintString := string(constraintBytes)
 
 	prompt := fmt.Sprintf(ReflectionPrompt,
 		question.Query,
 		question.AnnotatedPlan,
 		systemGeneratedPlan,
-		evalResultString,
+		constraintString,
 		sopContent,
 		historyString,
 	)
@@ -325,9 +329,9 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_t1.1_20250822104827.json"
+	evalLogPath := "../output/train_v1_new_20250822195242.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_v0_20250819203412_per_results_20250822_112057.jsonl"
+	evaluationResultsPath := "../results/train_v1_new_20250822195242_per_results_20250823_122207.jsonl"
 	sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"

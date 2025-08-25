@@ -1,6 +1,6 @@
 {
-  "question": "Can you help me plan a one-week solo trip from Oklahoma City to Colorado, during which I'll be visiting 3 different cities? The trip will be from March 1st to March 7th, 2022, and I have a budget of $3,000.",
-  "analysis": "The user's query requires a multi-agent system to plan a solo trip across three Colorado cities for one week with a $3,000 budget. The existing template's team structure and workflow are suitable but require adjustments to address the solo traveler's needs, budget constraints, and specific geographic focus. The Transportation Planner must prioritize inter-city routes within Colorado, while the Plan Checker must rigorously validate against the $3,000 budget. Agent instructions are updated to emphasize solo-traveler suitability and cost-efficiency.",
+  "question": "Can you provide me with a 5-day travel plan for 2 people, starting from Asheville and exploring 2 cities in New York from March 13th to March 17th, 2022? Our budget is set at $4,700 and we would love to try local Mexican and Chinese cuisines during our trip.",
+  "analysis": "The user requires a 5-day travel plan starting in Asheville, visiting two New York cities with a focus on Mexican/Chinese cuisine within a $4,700 budget. The existing SOP template aligns well but requires adjustments to emphasize destination selection in New York, dietary preference integration, and budget validation. Key modifications include: 1) Explicit instructions for selecting two cities in New York (e.g., NYC and Albany) using CitySearch, 2) Restaurant Planner instructions prioritizing Mexican/Chinese cuisine, 3) Plan Checker's CostEnquiry usage to validate total costs against budget across all agents. The workflow remains efficient for parallel processing while ensuring logical consistency checks.",
   "sops": [
     {
       "team": [
@@ -11,12 +11,12 @@
         "Plan Checker",
         "Final Plan Summarizer"
       ],
-      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation between Oklahoma City and three Colorado cities (Denver, Colorado Springs, Boulder) with return trips. This framework establishes daily locations for planners. The Accommodation Planner secures budget-friendly solo accommodations, while the Restaurant Planner recommends cost-effective dining options suitable for solo travelers. The Attractions Planner identifies free/low-cost attractions. The Plan Checker validates the total cost against the $3,000 budget and ensures logical consistency. Finally, the Final Plan Summarizer compiles the verified plan into a detailed itinerary.",
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner identifies two cities in New York (e.g., NYC and Albany) using CitySearch, then plans transportation between Asheville to these cities and returns. This framework guides Accommodation Planner (book stays), Restaurant Planner (prioritize Mexican/Chinese cuisine), and Attractions Planner (free local attractions). Plan Checker validates budget adherence using CostEnquiry across all components before the Final Plan Summarizer compiles the verified itinerary.",
       "details": [
         {
           "name": "Transportation Planner",
-          "responsibility": "Plan transportation between Oklahoma City and three Colorado cities (Denver, Colorado Springs, Boulder) with daily location framework.",
-          "instruction": "1. Use CitySearch to identify three Colorado cities within the user's budget. Prioritize direct flights to Denver as the main hub.\n2. Use FlightSearch to find round-trip flights between Oklahoma City and Denver (March 1-7). Plan inter-city transportation between Denver, Colorado Springs, and Boulder using GoogleDistanceMatrix for taxi/driving options.\n3. Create a daily location schedule ensuring return to Oklahoma City by March 7. Include flight numbers, costs, and durations in output.",
+          "responsibility": "Plan transportation between Asheville and two New York cities with optimal modes and daily locations.",
+          "instruction": "1. Use CitySearch to select two cities in New York (e.g., NYC and Albany) that fit a 5-day trip. Analyze user inputs: 5 days (March 13-17, 2022), $4,700 budget for 2 people. Use FlightSearch for Asheville to NYC flights and GoogleDistanceMatrix to determine ground transportation between cities. \n2. Output daily 'Current City' (e.g., 'from Asheville to NYC', 'from NYC to Albany') and transportation details (flight numbers, taxi durations). Ensure return to Asheville on March 17.\n3. Prioritize cost-effective options while balancing time efficiency.",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
@@ -25,40 +25,40 @@
         },
         {
           "name": "Accommodation Planner",
-          "responsibility": "Secure budget-friendly solo accommodations in three Colorado cities.",
-          "instruction": "1. Review Transportation Planner's daily locations. Use AccommodationSearch to find options under $100/night in Denver, Colorado Springs, and Boulder.\n2. Prioritize single-occupancy rooms or budget hotels/hostels. Ensure check-out dates align with travel schedule.\n3. Exclude accommodation for March 7 (return day). Verify exact accommodation names from search results.",
+          "responsibility": "Secure accommodations in each New York city while adhering to budget.",
+          "instruction": "1. Based on the Transportation Planner's daily cities, use AccommodationSearch to find options in NYC and Albany. Prioritize mid-range hotels/hostels near attractions. \n2. Verify availability for March 13-16 (no accommodation needed on departure day March 17). Check room capacity for 2 people and total cost against the budget.\n3. Output exact accommodation names, addresses, and costs.",
           "tools": [
             "AccommodationSearch"
           ]
         },
         {
           "name": "Restaurant Planner",
-          "responsibility": "Recommend cost-effective dining options suitable for solo travelers.",
-          "instruction": "1. Use RestaurantSearch to find budget-friendly restaurants ($10-15/meal) near attractions in each city. Prioritize solo-dining-friendly establishments.\n2. Suggest one breakfast, lunch, and dinner option per day. Calculate meal costs for one person.\n3. Exclude meals on travel days before departure or after return.",
+          "responsibility": "Recommend Mexican/Chinese meals in each city.",
+          "instruction": "1. Use RestaurantSearch to find top-rated Mexican and Chinese restaurants in NYC and Albany. Schedule breakfast/lunch/dinner daily, excluding March 17. \n2. Ensure diversity: alternate cuisines daily (e.g., Mexican lunch on Day 1, Chinese dinner on Day 2). Calculate costs for 2 people per meal.\n3. Output restaurant names, addresses, cuisines, and exact costs.",
           "tools": [
             "RestaurantSearch"
           ]
         },
         {
           "name": "Attractions Planner",
-          "responsibility": "Suggest free/low-cost attractions in three Colorado cities.",
-          "instruction": "1. Use AttractionSearch to find free attractions in Denver, Colorado Springs, and Boulder. Prioritize walkable locations to minimize transportation costs.\n2. Suggest one attraction per day. Ensure attractions are open during March and accessible for solo travelers.\n3. Verify exact attraction names from search results.",
+          "responsibility": "Curate free attractions in each city.",
+          "instruction": "1. Use AttractionSearch to find free activities in NYC (e.g., Central Park) and Albany (e.g., parks/historical sites). Ensure one attraction per day (March 13-16). \n2. Avoid suggesting attractions in Asheville on March 17. Prioritize diverse experiences (cultural, historical, outdoor).\n3. Output exact attraction names and locations.",
           "tools": [
             "AttractionSearch"
           ]
         },
         {
           "name": "Plan Checker",
-          "responsibility": "Validate total cost against $3,000 budget and ensure logical consistency.",
-          "instruction": "1. Cross-check all locations, dates, and costs from Transportation, Accommodation, Restaurant, and Attractions Planners.\n2. Use CostEnquiry to calculate total expenses: flights ($800) + accommodations ($600) + meals ($420) + ground transport ($180) = $2,000. Ensure remaining $1,000 covers incidental costs.\n3. Flag any scheduling conflicts (e.g., attractions closed on Mondays) or budget overruns.",
+          "responsibility": "Validate itinerary consistency and budget compliance.",
+          "instruction": "1. Cross-check all agents' outputs: Ensure meals/accommodations only exist when in-city (not during travel days to/from Asheville). \n2. Use CostEnquiry to calculate total expenses: flights + accommodations + meals + ground transport. Confirm total ≤ $4,700. \n3. Flag inconsistencies (e.g., March 17 accommodation, mismatched cities). Provide actionable feedback.",
           "tools": [
             "CostEnquiry"
           ]
         },
         {
           "name": "Final Plan Summarizer",
-          "responsibility": "Generate a detailed, day-by-day itinerary for the solo traveler.",
-          "instruction": "1. Compile verified data into a day-by-day plan using the example format. Include flight numbers (e.g., DL1234), exact accommodation names, restaurant names, and attraction names.\n2. Use '-' for unnecessary entries (e.g., no accommodation on March 7). Note multi-city days as 'from A to B'.\n3. Add budget summary section showing total estimated costs.",
+          "responsibility": "Generate a cohesive final itinerary.",
+          "instruction": "1. Compile the verified plan into a day-wise format (March 13-17). Include flight numbers, accommodation names, restaurant details, and attractions. \n2. Use '-' for irrelevant fields (e.g., no attraction on travel days). Prioritize clarity: highlight Mexican/Chinese meals and free attractions. \n3. Ensure all names/dates match the agents' outputs.",
           "tools": []
         }
       ]

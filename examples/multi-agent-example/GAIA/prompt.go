@@ -23,8 +23,7 @@ However, if multiple instances of Feedback indicate errors, you should regard th
 {{if .refcase}}
 ## Relevant Case for Reference:
 Here you have access to a historical reference case that contains the user's question, the corresponding SOP (Standard Operating Procedure) for that problem, and reflective insights from different agents' experiences. You can reference these relevant experiences to provide better guidance for agent improvement.
-{{.refcase}}
-{{end}}
+{{.refcase}}{{end}}
 
 ## User's Question:
 {{.question}}
@@ -229,6 +228,11 @@ You have access to the following tools:
 {{.tool_descriptions}}
 ~~~{{end}}
 
+{{if .refcase}}
+## Relevant Case for Reference:
+Here you have access to a historical reference case that contains the user's question, and reflective insights from your experiences. You can reference these relevant experiences to improve your performance.
+{{.refcase}}{{end}}
+
 ### Current Task: Conversation History
 ~~~
 {{.history}}
@@ -266,6 +270,11 @@ DO NOT invoke an agent while using a tool. {{end}}
 const NewEndBaseInstructions = `
 ### Instructions
 {{.role}}
+
+{{if .refcase}}
+## Relevant Case for Reference:
+Here you have access to a historical reference case that contains the user's question, and reflective insights from your experiences. You can reference these relevant experiences to improve your performance.
+{{.refcase}}{{end}}
 
 ### Current Task & Conversation History:
 ~~~
@@ -443,6 +452,12 @@ You must response with json format like below:
 Note that carefully read the output requirements of the question.
 YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
 `
+
+//{{if .refcase}}
+//## Relevant Case for Reference:
+//Here you have access to a historical reference case that contains the user's question, the corresponding SOP (Standard Operating Procedure) for that problem, and reflective insights from different agents' experiences. You can reference these relevant experiences to provide better guidance for agent improvement.
+//{{.refcase}}
+//{{end}}
 
 // const workflow_v1 = `digraph Workflow {
 //     rankdir=LR;

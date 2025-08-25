@@ -6,7 +6,7 @@
         {
         "name": "Transportation Planner",
         "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
-        "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). When travelling to two cities in one day, you should note 'from A to B' in the 'Current City' section. This information will form the framework for the other planners.\n3. Be sure to arrange the return trip to the starting point on the last day.",
+        "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). When travelling to two cities in one day, you should note 'from A to B' in the 'Current City' section. This information will form the framework for the other planners.\n3. Be sure to arrange the return trip to the starting point on the last day.\n4. Ensure that the itinerary cannot include both flights and self-driving, and cannot include both taxi and self-driving.",
         "tools": ["FlightSearch", "GoogleDistanceMatrix", "CitySearch"]
         },
         {
@@ -18,7 +18,7 @@
         {
         "name": "Restaurant Planner",
         "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
-        "instruction": "1. Please carefully reveiew the daily locations provided and the user's culinary interests, use the search tool to suggest restaurants for breakfast, lunch, and dinner.\n2. Ensure that the restaurant options are diverse and cater to the user's preferences, including dietary restrictions if specified.\n3. Based on the time analysis, if the user has already returned to the point of departure, there is no need to arrange corresponding meals.\n4. For each meal, provide the restaurant's name, its city, the cuisine type, and the total cost (multiply the head count by the per-person spending).\n5. The restaurant names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
+        "instruction": "1. Please carefully reveiew the daily locations provided and the user's culinary interests, use the search tool to suggest restaurants for breakfast, lunch, and dinner.\n2. Ensure that every meal must be at a different restaurant, and caters to the user's preferences, including dietary restrictions if specified.\n3. Based on the time analysis, if the user has already returned to the point of departure, there is no need to arrange corresponding meals.\n4. For each meal, provide the restaurant's name, its city, the cuisine type, and the total cost (multiply the head count by the per-person spending).\n5. The restaurant names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
         "tools": ["RestaurantSearch"]
         },
         {

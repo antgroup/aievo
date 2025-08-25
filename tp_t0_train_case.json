@@ -25,5 +25,17 @@
     {"days": 5, "current_city": "from Duluth to Memphis", "transportation": "Flight Number: F3849516, from Duluth to Memphis, Departure Time: 18:16, Arrival Time: 20:19", "breakfast": "Lakeside Breakfast House, Duluth", "attraction": "-", "lunch": "Coffee House in Duluth, Duluth", "dinner": "Airport Lounge, Memphis", "accommodation": "-"}], 
 "commonsense_constraint": 
     {"is_reasonalbe_visiting_city": [true, null], "is_valid_restaurants": [true, null], "is_valid_attractions": [true, null], "is_valid_accommodation": [true, null], "is_valid_transportation": [false, "The transportation is conflicting."], "is_valid_information_in_current_city": [true, null], "is_valid_information_in_sandbox": [false, "The breakfast in day 1 is invalid in the sandbox."], "is_not_absent": [true, null]}, 
+"hard_constraint": null},
+
+{"mode": "valid",
+"idx": 92, "query": "Could you help design a 5-day travel itinerary for 2 people, starting our journey from Durango and planning to visit 2 cities in Texas, from March 27th to March 31st, 2022? Our budget is set at $2,300 for this trip. We would love to explore Chinese and Indian cuisine during our trip.", 
+"plan": [
+    {"day": 1, "current_city": "from Durango to Dallas", "transportation": "Flight Number: F3814244, from Durango to Dallas, Departure Time: 16:11, Arrival Time: 19:17", "breakfast": "-", "attraction": "Klyde Warren Park, Dallas;", "lunch": "-", "dinner": "Cafe Gatherings, Dallas", "accommodation": "温馨旅店(3), Dallas"}, 
+    {"day": 2, "current_city": "Dallas", "transportation": "-", "breakfast": "Kolkata Biryani House, Dallas", "attraction": "Dealey Plaza, Dallas;", "lunch": "Puri Bakers, Dallas", "dinner": "Wheelyz, Dallas", "accommodation": "温馨旅店(3), Dallas"}, 
+    {"day": 3, "current_city": "from Dallas to San Antonio", "transportation": "Self-driving, Distance: 441 km, Duration: 4 hours 4 mins, Cost: 22", "breakfast": "Bikaner Sweets, Dallas", "attraction": "-", "lunch": "R. Ahmad Food, Dallas", "dinner": "Barbeque Nation, San Antonio", "accommodation": "Charming Bedroom in Gramercy, San Antonio"}, 
+    {"day": 4, "current_city": "San Antonio", "transportation": "-", "breakfast": "Shri Balaji, San Antonio", "attraction": "San Antonio River Walk, San Antonio;", "lunch": "Barbeque Nation, San Antonio", "dinner": "Cafe Le Rue @ The Landings, San Antonio", "accommodation": "Charming Bedroom in Gramercy, San Antonio"}, 
+    {"day": 5, "current_city": "from Dallas to Durango", "transportation": "Flight Number: F3798971, from Dallas to Durango, Departure Time: 17:04, Arrival Time: 18:05", "breakfast": "-", "attraction": "-", "lunch": "Puri Bakers, Dallas", "dinner": "-", "accommodation": "-"}], 
+"commonsense_constraint": 
+    {"is_reasonalbe_visiting_city": [false, "The city sequence is invalid."], "is_valid_restaurants": [false, "The restaurant in day 4 lunch Barbeque Nation, San Antonio is repeated."], "is_valid_attractions": [true, null], "is_valid_accommodation": [true, null], "is_valid_transportation": [false, "The transportation is conflicting."], "is_valid_information_in_current_city": [false, "The transportation in day 3 is invalid city choice."], "is_valid_information_in_sandbox": [false, "The accommodation in day 1 is invalid in the sandbox."], "is_not_absent": [true, null]}, 
 "hard_constraint": null}
 ]

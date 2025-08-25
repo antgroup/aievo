@@ -89,21 +89,27 @@ class IntegratedEvaluator:
         print("📁 从数据集加载查询数据...")
         
         # 确定数据集类型
-        if 'train' in self.args.input_file:
+        if 'trainall' in self.args.input_file:
+            set_type = 'trainall'
+            self.dataset_file = f'../../../../dataset/travelplanner/train/travelplanner_train_dataset.json'
+        elif 'train' in self.args.input_file:
             set_type = 'train'
+            self.dataset_file = f'../../../../dataset/travelplanner/train/travelplanner_train_split.json'
+        elif 'eval' in self.args.input_file:
+            set_type = 'eval'
+            self.dataset_file = f'../../../../dataset/travelplanner/train/travelplanner_eval_split.json'
         elif 'validation' in self.args.input_file:
             set_type = 'validation'
-        elif 'test' in self.args.input_file:
-            set_type = 'test'
+            self.dataset_file = f'../../../../dataset/travelplanner/validation/travelplanner_validation_dataset.json'
         else:
-            print("警告: 无法从文件名确定数据集类型。默认为 'validation'。")
-            set_type = 'validation'
+            print("!!!!!错误: 无法从文件名确定数据集类型。")
+            # set_type = 'validation'
+            exit(0)
             
         self.set_type = set_type
         print(f"推断的数据集类型: {self.set_type}")
         
         # 构建数据集文件路径
-        self.dataset_file = f'../../../../dataset/travelplanner/{set_type}/travelplanner_{set_type}_dataset.json'
         
         try:
             with open(self.dataset_file, 'r', encoding='utf-8') as f:
@@ -565,7 +571,7 @@ class IntegratedEvaluator:
 
         # 计算最终结果
         result = {}
-        if set_type == 'train':
+        if set_type == 'trainall':
             total_count = 45
             commonsense_total = 360
             hard_total = 105
@@ -739,7 +745,7 @@ class IntegratedEvaluator:
         result = {}
         
         # 根据数据集类型设置总数
-        if set_type == 'train':
+        if set_type == 'trainall':
             total_count = 45
             commonsense_total = 360
             hard_total = 105

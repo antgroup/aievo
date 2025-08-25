@@ -163,7 +163,7 @@ func (t *Team) deduplicateSub() {
 			continue
 		}
 		k := fmt.Sprintf("%s-%s-%s",
-			sub.Subscriber, sub.Subscribed, sub.Condition)
+			sub.Subscriber.Name(), sub.Subscribed.Name(), sub.Condition)
 		if _, ok := m[k]; !ok {
 			subs = append(subs, sub)
 			m[k] = struct{}{}

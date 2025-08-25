@@ -51,12 +51,12 @@ Your output must follow the JSON format below. Do not add any text outside the J
     },
     "agent_guidance": [
       {
-        "agent_name": "Name of the first agent",
+        "agent_name": "Name of the agent",
         "feedback": "Specific feedback for this agent. What did it do wrong? How could it have performed better?",
         "revised_instruction": "A revised 'instruction' for this agent that would guide it to perform better on this specific task. This should be a direct, actionable instruction."
       },
       {
-        "agent_name": "Name of the second agent",
+        "agent_name": "Name of the agent",
         "feedback": "...",
         "revised_instruction": "..."
       }
@@ -69,6 +69,7 @@ Your output must follow the JSON format below. Do not add any text outside the J
 
 const (
 	RevisionPrompt = `You are an expert multi-agent system designer.
+The system is designed to provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
 Your task is to revise a Standard Operating Procedure (SOP) based on a critical reflection of a past failure.
 
 You will be given the original SOP and a detailed analysis of why it failed. Your goal is to produce a new, improved SOP that addresses these failures and is more robust for similar tasks in the future.
@@ -84,7 +85,7 @@ You will be given the original SOP and a detailed analysis of why it failed. You
 Generate a new SOP in the exact same JSON format as the original. The new SOP should incorporate the lessons from the reflection.
 - You may need to add, remove, or redefine agent roles.
 - You may refine the workflow (the "sop" field).
-- You must provide clearer, more precise instructions for each agent in the "details" section.
+- You must provide clearer, more precise instructions for each agent in the "details" section. Note that the original agent instructions may contain important information. You should reuse this information as more as possible, and add or revise some instructions.
 - Ensure the "tools" for each agent are appropriate and sufficient.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:

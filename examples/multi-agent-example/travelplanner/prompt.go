@@ -65,7 +65,7 @@ You must follow the structure of the provided template exactly. The main compone
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
-  - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
+  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent.
   - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
@@ -270,6 +270,8 @@ The following is the reference Standard Operating Procedure (SOP) for the task s
 {{.role}}
 
 ### Input-Output Example
+Here is an example of the input and output, and your output travel plan should be similar to the example.
+** Example **
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
 Output Travel Plan:
 Day 1:
@@ -298,7 +300,7 @@ Attraction: Books Monument, Charlotte.
 Lunch: Olive Tree Cafe, Charlotte
 Dinner: Kylin Skybar, Charlotte
 Accommodation: -
-
+** End of Example **
 
 ### Current Task & Conversation History:
 ~~~

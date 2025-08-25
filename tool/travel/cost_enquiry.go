@@ -115,7 +115,31 @@ func (t *CostEnquiryTool) loadCSV(filename string) ([][]string, error) {
 		return nil, err
 	}
 
-	return records, nil
+	// Filter out rows with empty/null values (equivalent to pandas dropna())
+	filteredRecords := [][]string{}
+	if len(records) > 0 {
+		filteredRecords = append(filteredRecords, records[0]) // Keep header
+
+		for i := 1; i < len(records); i++ {
+			row := records[i]
+			hasEmptyField := false
+
+			// Check if any field is empty or contains only whitespace
+			for _, field := range row {
+				if strings.TrimSpace(field) == "" {
+					hasEmptyField = true
+					break
+				}
+			}
+
+			// Only keep rows without empty fields
+			if !hasEmptyField {
+				filteredRecords = append(filteredRecords, row)
+			}
+		}
+	}
+
+	return filteredRecords, nil
 }
 
 // Name returns the name of the tool.

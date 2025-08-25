@@ -1,6 +1,6 @@
 {
-  "question": "Please help me plan a 7-day trip for one person, departing from Gulfport and visiting 3 cities in Texas from March 24th to March 30th, 2022. The budget for this trip is $4,200.",
-  "analysis": "The user requires a 7-day Texas trip from Gulfport with three cities and a $4200 budget. The existing template's team structure covers all necessary components: transportation, accommodation, restaurants, attractions, plan verification, and summarization. Adjustments include specifying Texas cities in CitySearch, extending duration to 7 days, and budget validation via CostEnquiry. The workflow remains sequential with parallel processing for planners, ensuring all elements align with the Transportation Planner's framework and budget constraints.",
+  "question": "Could you draft a 5-day travel plan for a group of 4 departing from Memphis and venturing into 2 cities in Minnesota? Our travels are scheduled from March 1st to March 5th, 2022, and our budget is set at $13,800. We require accommodations that provide private rooms.",
+  "analysis": "The existing SOP template provides a robust framework for multi-agent travel planning. This query requires minor adjustments to agent instructions to address the specific requirements of 2 Minnesota cities, group size of 4, private rooms requirement, and $13,800 budget. The core team structure remains effective, with enhanced focus on Minnesota-specific city selection, group accommodation verification, and budget management.",
   "sops": [
     {
       "team": [
@@ -11,12 +11,12 @@
         "Plan Checker",
         "Final Plan Summarizer"
       ],
-      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation between Gulfport and three Texas cities over 7 days. This creates a daily location framework. The Accommodation Planner, Restaurant Planner, and Attractions Planner then work in parallel to find suitable options in their domains. The Plan Checker validates the combined itinerary for logical consistency and ensures total costs (flights, accommodation, meals) stay within the $4200 budget using CostEnquiry. Finally, the Final Plan Summarizer generates a cohesive itinerary.",
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation between Memphis and two Minnesota cities (Minneapolis and St. Paul), establishing the location for each day. This framework is passed to the Accommodation Planner (who confirms private rooms for 4), Restaurant Planner (who plans meals for 4 people), and Attractions Planner (who suggests free attractions in Minnesota cities). The Plan Checker verifies budget adherence ($13,800 total) and logistical consistency, while the Final Plan Summarizer generates the comprehensive itinerary.",
       "details": [
         {
           "name": "Transportation Planner",
-          "responsibility": "Plan transportation between Gulfport and three Texas cities over 7 days",
-          "instruction": "1. Analyze user's 7-day timeframe, Gulfport departure point, and Texas destination requirement. Use FlightSearch to find round-trip flights between Gulfport and Texas cities, prioritizing connecting flights if needed. Use GoogleDistanceMatrix to evaluate driving distances between Texas cities for intra-trip transportation options. 2. Output daily schedule with 'Current City' locations and transportation details (flights/self-driving). Include return trip to Gulfport on March 30th. 3. Prioritize cost-effective routes that maximize time in destination cities.",
+          "responsibility": "Plan transportation between Memphis and two Minnesota cities (Minneapolis and St. Paul), establishing daily locations.",
+          "instruction": "1. Check user requirements: 5-day trip (March 1-5, 2022) for 4 people, Memphis departure, 2 Minnesota cities, $13,800 total budget. Use FlightSearch for Memphis-Minneapolis roundtrip, GoogleDistanceMatrix for Minneapolis-St. Paul transportation.\n2. Output must define 'Current City' for each day (including 'from A to B' notation for transit days) and transportation details (flight numbers, taxi/self-driving options, costs, durations). Ensure return to Memphis on March 5th.\n3. Prioritize direct flights if available to minimize travel fatigue for the group.",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
@@ -25,40 +25,40 @@
         },
         {
           "name": "Accommodation Planner",
-          "responsibility": "Find suitable lodging in each Texas city",
-          "instruction": "1. Based on Transportation Planner's daily cities, search Texas accommodations within budget using AccommodationSearch. 2. Calculate required nights: total days minus return day. 3. Prioritize central locations with proximity to attractions. 4. Verify amenities match solo traveler needs (safety, single occupancy rates). 5. Include exact pricing for budget calculations.",
+          "responsibility": "Find accommodations with private rooms for 4 people in daily locations.",
+          "instruction": "1. Review Transportation Planner's daily cities. Use AccommodationSearch to find options in Minneapolis (March 1-2) and St. Paul (March 2-4) that provide private rooms for 4 people.\n2. Verify minimum stay requirements, room configurations (2 queen rooms or similar), and budget compatibility. Prioritize central locations near attractions.\n3. No accommodation needed on March 5th (return day). Ensure exact accommodation names match search results.",
           "tools": [
             "AccommodationSearch"
           ]
         },
         {
           "name": "Restaurant Planner",
-          "responsibility": "Plan meals in each destination city",
-          "instruction": "1. Use RestaurantSearch to find diverse dining options in each Texas city. 2. For each day, suggest breakfast/lunch/dinner locations with varied cuisines. 3. Calculate meal costs based on average Texas prices. 4. Prioritize walkable options near attractions. 5. Exclude meals on return day.",
+          "responsibility": "Recommend meals for 4 people in daily locations.",
+          "instruction": "1. Based on daily locations, use RestaurantSearch to suggest breakfast, lunch, and dinner options. Include diverse cuisine types across the 5 days.\n2. For each meal, specify restaurant name (exact match), cuisine type, and total cost (4 people × per-person spending). Prioritize family-friendly options.\n3. No meals needed after returning to Memphis on March 5th. Consider meal timing relative to attraction visits.",
           "tools": [
             "RestaurantSearch"
           ]
         },
         {
           "name": "Attractions Planner",
-          "responsibility": "Curate free attractions in Texas cities",
-          "instruction": "1. Use AttractionSearch to find three Texas cities' free attractions matching common interests. 2. Schedule one major attraction per day with reasonable travel distances. 3. Include walking tours, parks, and cultural sites. 4. Verify free admission policy dates for March timeframe. 5. Ensure attractions are spaced for realistic daily schedules.",
+          "responsibility": "Suggest free attractions in daily locations (excluding Memphis).",
+          "instruction": "1. Use AttractionSearch to find free attractions in Minneapolis (March 1-2) and St. Paul (March 2-4). Ensure at least one attraction per day.\n2. Verify diversity across outdoor activities (e.g., Minnehaha Falls), cultural sites (Walker Art Center), and unique experiences (Mall of America).\n3. Avoid suggesting attractions in Memphis. Ensure exact attraction names match search results.",
           "tools": [
             "AttractionSearch"
           ]
         },
         {
           "name": "Plan Checker",
-          "responsibility": "Validate complete itinerary and budget compliance",
-          "instruction": "1. Cross-check all elements for consistency: transportation timelines match accommodation check-in/out dates, meal locations align with daily cities, attractions are accessible. 2. Calculate total costs using CostEnquiry: flights + accommodation + meals. 3. Ensure total remains below $4200 threshold. 4. Verify Texas cities requirement is met. 5. Flag any schedule conflicts or unrealistic time allocations.",
+          "responsibility": "Verify the integrated plan's quality, logic, and budget adherence.",
+          "instruction": "1. Cross-check all elements against Transportation Planner's daily cities. Ensure accommodations have private rooms for 4 people.\n2. Use CostEnquiry to verify total budget ($13,800) covers flights, accommodations, meals, and transportation. Attractions are already free.\n3. Check for schedule feasibility (e.g., travel times between cities, meal-attraction timing). Flag inconsistencies to Final Plan Summarizer.",
           "tools": [
             "CostEnquiry"
           ]
         },
         {
           "name": "Final Plan Summarizer",
-          "responsibility": "Generate cohesive travel plan",
-          "instruction": "1. Compile verified itinerary into day-by-day format. 2. Include precise details: flight numbers, accommodation names, restaurant selections, attraction names. 3. Format costs with currency symbols and total calculations. 4. Use clear notation for multi-city days (e.g., 'Galveston → Houston'). 5. Add practical tips for Texas weather in March and transportation advisories.",
+          "responsibility": "Generate the final comprehensive travel plan.",
+          "instruction": "1. Compile verified information into day-by-day format with flight numbers (F0123456 style), restaurant names, accommodation details, and attractions.\n2. Highlight group-specific elements: private rooms for 4, family meal arrangements, and budget breakdown. Use '-' for unnecessary information (e.g., accommodation on March 5th).\n3. Ensure all details align with common sense (e.g., flight durations match distance matrix, attraction operating dates in March).",
           "tools": []
         }
       ]

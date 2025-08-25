@@ -24,3 +24,7 @@ dataset/travelplanner/database
 *.pyc
 
 examples/multi-agent-example/travelplanner/Analysis/embedding_qwen
+examples/multi-agent-example/travelplanner/SOP/reflect
+examples/multi-agent-example/travelplanner/SOP/rev_sop
+examples/multi-agent-example/travelplanner/SOP/gen_sop
+

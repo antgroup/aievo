@@ -1,6 +1,6 @@
 {
-  "question": "Could you help me come up with a travel plan that starts in Daytona Beach and includes visits to 3 distinct cities in Texas over a span of 7 days, from March 18th to March 24th, 2022? I'll be traveling alone on a budget of $3,600.",
-  "analysis": "The user requires a 7-day travel plan starting in Daytona Beach, visiting 3 distinct Texas cities, with a $3,600 budget for solo travel. The SOP adapts the template by emphasizing Texas city selection, budget adherence, and solo traveler considerations. Key adjustments include: Transportation Planner selecting 3 Texas cities and optimizing cost-effective routes; Plan Checker validating total costs against $3,600; and planners tailoring recommendations to solo travel affordability.",
+  "question": "We need a 7-day travel plan for a group of 4, taking off from Santa Ana and visiting 3 different cities in Texas from March 25th to March 31st, 2022. Our budget is set at $5,800 for the trip. Additionally, our lodging options must accommodate children under the age of 10.",
+  "analysis": "The user requires a 7-day family trip from Santa Ana to three Texas cities with children under 10, adhering to a $5,800 budget. The existing SOP structure is adapted by adding child-friendly requirements to accommodation/restaurant planning, incorporating Texas city selection via CitySearch, and emphasizing budget validation. The workflow ensures parallel planning for lodging, meals, and activities while prioritizing family-friendly options.",
   "sops": [
     {
       "team": [
@@ -11,12 +11,12 @@
         "Plan Checker",
         "Final Plan Summarizer"
       ],
-      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner selects 3 distinct Texas cities and establishes a transportation framework (flights/driving) between Daytona Beach and Texas locations within the budget. This framework guides parallel planning for Accommodation, Restaurants, and Attractions. The Plan Checker validates budget compliance and logistical coherence across all components, ensuring total costs remain under $3,600. Finally, the Summarizer compiles a detailed itinerary optimized for solo travelers.",
+      "sop": "Workflow:\n1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner \n   Transportation Planner -\u003e Restaurant Planner \n   Transportation -\u003e Attractions Planner (in parallel);\n3. Accommodation Planner, Restaurant Planner, Attractions Planner -\u003e Plan Checker;\n4. Plan Checker -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner selects three Texas cities and plans round-trip transportation from Santa Ana, establishing daily locations. This framework guides the Accommodation Planner (child-friendly lodging), Restaurant Planner (family-friendly dining), and Attractions Planner (kid-appropriate free activities) in parallel planning. The Plan Checker validates budget compliance ($5,800 total for 4 people) and logical consistency. The Final Plan Summarizer integrates all verified elements into a cohesive itinerary emphasizing family-centric details.",
       "details": [
         {
           "name": "Transportation Planner",
-          "responsibility": "Plan cost-effective transportation between Daytona Beach and 3 distinct Texas cities, defining daily locations.",
-          "instruction": "1. Select 3 diverse Texas cities (e.g., Austin, San Antonio, Dallas) and plan round-trip transportation from Daytona Beach. Use FlightSearch and GoogleDistanceMatrix to compare flight costs/durations versus driving options for budget efficiency. \n2. Create a daily schedule (March 18-24) with clear 'Current City' assignments and transportation details (flight numbers, departure/arrival times, costs). Ensure return to Daytona Beach by March 24.\n3. Prioritize low-cost airlines or driving routes that maximize time for attractions while staying within the overall budget.",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations, including selection of three Texas cities.",
+          "instruction": "1. Check the user's requirements: 7-day trip from Santa Ana for 4 people, visiting three distinct Texas cities (e.g., Houston, Austin, Dallas), budget constraints, and departure/return dates (March 25-31, 2022). Use CitySearch to identify suitable Texas destinations. \n2. Plan round-trip air travel from Santa Ana to the first Texas city, then inter-city transportation (flights/rental cars) between Texas destinations. Return to Santa Ana on March 31. Use FlightSearch for flight details and GoogleDistanceMatrix for ground transport options.\n3. Output daily 'Current City' (e.g., 'from Santa Ana to Houston' for Day 1) and transportation details (flight numbers, costs, durations) to form the planning framework.",
           "tools": [
             "FlightSearch",
             "GoogleDistanceMatrix",
@@ -25,40 +25,40 @@
         },
         {
           "name": "Accommodation Planner",
-          "responsibility": "Secure budget-friendly accommodations in each Texas city for solo travelers.",
-          "instruction": "1. Based on daily locations from Transportation Planner, use AccommodationSearch to find affordable single-occupancy hotels/hostels in Texas cities (avg. $70-100/night). \n2. Verify check-in/check-out dates align with travel days. Exclude accommodation on departure/return days.\n3. Prioritize properties with free breakfast and central locations near attractions to reduce transportation costs.",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest child-friendly accommodations for each day of the trip.",
+          "instruction": "1. Review daily locations from the Transportation Planner and prioritize accommodations with child amenities (cribs, family rooms, play areas) for 4 people. Use AccommodationSearch to find options.\n2. Verify that lodging meets family needs: check minimum stay requirements, room capacity (at least 2 adults + 2 children), and proximity to attractions.\n3. Exclude accommodation for the departure day (March 25) and return day (March 31). Ensure total costs align with the $5,800 budget when combined with other expenses.\n4. Output exact accommodation names and child-specific features from search results.",
           "tools": [
             "AccommodationSearch"
           ]
         },
         {
           "name": "Restaurant Planner",
-          "responsibility": "Recommend budget-conscious dining options for solo meals in Texas cities.",
-          "instruction": "1. Use RestaurantSearch to suggest affordable Texas-style breakfast/lunch/dinner spots (avg. $10-15/meal) in each city. Prioritize walkable locations from accommodations.\n2. Include local specialties (e.g., BBQ in Austin, Tex-Mex in San Antonio) while noting vegetarian-friendly options if needed.\n3. Calculate daily meal costs (3 meals × $12 = $36/day) and exclude meals on non-travel days.",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend family-friendly meal options for each day during the travel.",
+          "instruction": "1. Using the daily itinerary, identify kid-friendly restaurants via RestaurantSearch. Prioritize venues with children's menus, high chairs, and family-centric ambiance.\n2. Suggest three daily meal options (breakfast, lunch, dinner) per location, ensuring dietary flexibility for children. Calculate costs for 4 people (multiply per-person spending by 4).\n3. Exclude meals on departure/return days. Ensure pricing aligns with overall budget constraints.\n4. Output exact restaurant names, cuisine types, and total costs from search results.",
           "tools": [
             "RestaurantSearch"
           ]
         },
         {
           "name": "Attractions Planner",
-          "responsibility": "Curate free cultural/historical attractions in Texas cities matching solo traveler interests.",
-          "instruction": "1. Use AttractionSearch to find 1-2 free attractions per city (e.g., Texas State Capitol, San Antonio River Walk, Dallas Arboretum). \n2. Ensure attractions are spaced for walkable/direct transit between morning-afternoon-evening time slots.\n3. Include brief historical/cultural context for each attraction to enhance solo traveler experience.",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest kid-friendly attractions or activities for each day.",
+          "instruction": "1. For each Texas city in the itinerary, use AttractionSearch to find free, child-appropriate activities (zoos, parks, museums with play areas).\n2. Ensure activities match the user's travel dates and provide educational/entertaining options for under-10 children.\n3. Exclude attractions in Santa Ana. Output exact attraction names and locations from search results.\n4. Verify accessibility (e.g., operating hours) to prevent scheduling conflicts.",
           "tools": [
             "AttractionSearch"
           ]
         },
         {
           "name": "Plan Checker",
-          "responsibility": "Validate total plan costs and logistics against $3,600 budget and solo traveler practicality.",
-          "instruction": "1. Cross-check all transportation/accommodation/meal costs. Use CostEnquiry to verify: \n   - Flights/driving under $1,200 total\n   - Accommodation under $600 total (6 nights)\n   - Meals under $250 total (6 days × $36)\n   - Attractions free\n2. Confirm no duplicate city visits and logical transit order between Texas cities.\n3. Flag any budget overruns or time conflicts between attractions and transportation.",
+          "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and budget compliance.",
+          "instruction": "1. Validate that all elements (transportation, lodging, meals, attractions) align with daily cities from the Transportation Planner. \n2. Check for family-specific issues: missing child amenities, adult-centric restaurants, or inaccessible attractions for children.\n3. Use CostEnquiry to confirm total expenses for 4 people (flights, accommodations, meals, attractions) remain under $5,800.\n4. Flag inconsistencies (e.g., overnight stays without lodging) and suggest revisions. Prioritize critical issues affecting safety or child-friendliness.",
           "tools": [
             "CostEnquiry"
           ]
         },
         {
           "name": "Final Plan Summarizer",
-          "responsibility": "Compile verified plan into a solo traveler-friendly format with precise details.",
-          "instruction": "1. Structure day-by-day plan with columns: Date | Current City | Transportation | Accommodation | Meals | Attractions.\n2. Include exact flight numbers, hotel names, restaurant names, and attraction titles from previous agents' outputs.\n3. Add budget summary section showing total costs across all categories under $3,600.\n4. Format for readability with time slots (Morning: [Attraction], Lunch: [Restaurant], etc.)",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Compile the verified plan into a day-by-day format using the template structure. Include flight numbers, accommodation names, restaurant selections, and attraction details.\n2. Emphasize family-centric features (e.g., 'hotel with indoor pool', 'restaurant with kids-eat-free deal').\n3. Summarize total costs for each category (transportation, lodging, dining, attractions) to confirm $5,800 budget adherence.\n4. Format the final plan with clear headers and bullet points, excluding unnecessary information (e.g., return day details).",
           "tools": []
         }
       ]
