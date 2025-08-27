@@ -27,6 +27,31 @@
     {"is_reasonalbe_visiting_city": [true, null], "is_valid_restaurants": [true, null], "is_valid_attractions": [true, null], "is_valid_accommodation": [true, null], "is_valid_transportation": [false, "The transportation is conflicting."], "is_valid_information_in_current_city": [true, null], "is_valid_information_in_sandbox": [false, "The breakfast in day 1 is invalid in the sandbox."], "is_not_absent": [true, null]}, 
 "hard_constraint": null},
 
+
+{"idx": 19, "query": "Please create a 3-day travel itinerary for 2 people beginning in Fort Lauderdale and ending in Milwaukee from the 8th to the 10th of March, 2022. Our travel budget is set at $1,100. We'd love to experience both American and Chinese cuisines during our journey.", 
+"plan": [
+    {"day": 1, "current_city": "from Fort Lauderdale to Miami", "transportation": "Flight Number: -, from Fort Lauderdale to Miami, Mode: Self-driving, Distance: 50 miles, Duration: 1 hour", "breakfast": "-", "attraction": "Bayfront Park, Miami;HistoryMiami Museum, Miami;Wynwood Walls, Miami;", "lunch": "Parrot's, Miami", "dinner": "Spice It - Hotel IBIS, Miami", "accommodation": "King Hotel Room at Wyndham Midtown 45 Resort, Miami"}, 
+    {"day": 2, "current_city": "Milwaukee", "transportation": "Flight Number: F3590678, from Miami to Milwaukee, Departure Time: 05:33, Arrival Time: 08:44, Duration: 3 hours 11 minutes", "breakfast": "Kumaon Dhaba & Service, Milwaukee", "attraction": "Milwaukee Riverwalk District, Milwaukee;Jewish Museum Milwaukee, Milwaukee;", "lunch": "The Chinese Kitchen, Milwaukee", "dinner": "-", "accommodation": "Affordable bedroom in the East Village!, Milwaukee"}, 
+    {"day": 3, "current_city": "from Milwaukee to Fort Lauderdale", "transportation": "Mode: Taxi, Local Milwaukee transportation budget: 20/day total; Flight Number: -, Mode: Flight Return, Estimated Departure Time: 21:42 (based on original plan)", "breakfast": "-", "attraction": "Veterans Park, Milwaukee;Mitchell Park Domes, Milwaukee;", "lunch": "Ramesh Vaishno Dhaba, Milwaukee", "dinner": "Himalaya Food Corner, Milwaukee", "accommodation": "-"}], 
+"commonsense_constraint": 
+    {"is_reasonalbe_visiting_city": [false, "The city sequence is invalid."], "is_valid_restaurants": [true, null], "is_valid_attractions": [true, null], "is_valid_accommodation": [false, "The accommodation King Hotel Room at Wyndham Midtown 45 Resort, Miami do not obey the minumum nights rule."], "is_valid_transportation": [false, "The transportation is conflicting."], "is_valid_information_in_current_city": [false, "The transportation in day 3 is invalid city choice."], "is_valid_information_in_sandbox": [false, "The flight number in day 1 is invalid in the sandbox."], "is_not_absent": [false, "Invalid City Number"]}, 
+"hard_constraint": null},
+
+{"idx": 24, "query": "Could you draft a 5-day travel plan for a group of 4 departing from Memphis and venturing into 2 cities in Minnesota? Our travels are scheduled from March 1st to March 5th, 2022, and our budget is set at $13,800. We require accommodations that provide private rooms.", 
+"plan": [
+    {"day": 1, "current_city": "from Memphis to Minneapolis", "transportation": "Flight Number: F3836157, from Memphis to Minneapolis, Departure Time: 05:57, Arrival Time: 08:10", "breakfast": "-", "attraction": "-", "lunch": "The Cafe, Minneapolis", "dinner": "Tony's, Minneapolis", "accommodation": "ENTIRE PLACE! near Columbia-sleeps up to 8 guests!, Minneapolis"}, 
+    {"day": 2, "current_city": "from Minneapolis to Duluth", "transportation": "Self-driving (248 km, 2h16m)", "breakfast": "Texas Roadhouse, Minneapolis", "attraction": "-", "lunch": "Sodam Korean Restaurant, Duluth", "dinner": "Skye - Hotel Unique, Duluth", "accommodation": "Light-filled South Slope Nest!, Duluth"}, 
+    {"day": 3, "current_city": "Duluth", "transportation": "-", "breakfast": "Bitters & Love, Duluth", "attraction": "-", "lunch": "Blue Rooftop Cafe Restaurant Bistro, Duluth", "dinner": "Liquid Lounge, Duluth", "accommodation": "Light-filled South Slope Nest!, Duluth"}, 
+    {"day": 4, "current_city": "from Duluth to Minneapolis", "transportation": "Self-driving (248 km, 2h16m)", "breakfast": "Gulab, Duluth", "attraction": "-", "lunch": "Barbeque Nation, Duluth", "dinner": "Court Avenue Brewing Company, Minneapolis", "accommodation": "Light-filled South Slope Nest!, Duluth"}, 
+    {"day": 5, "current_city": "from Minneapolis to Memphis", "transportation": "Flight Number: F3834617, from Minneapolis to Memphis, Departure Time: 15:36, Arrival Time: 17:37", "breakfast": "Monkeypod Kitchen by Merriman, Minneapolis", "attraction": "-", "lunch": "Wok In The Clouds, Minneapolis", "dinner": "-", "accommodation": "-"}], 
+"commonsense_constraint": 
+    {"is_reasonalbe_visiting_city": [false, "The city sequence is invalid."], "is_valid_restaurants": [true, null], "is_valid_attractions": [true, null], "is_valid_accommodation": [true, null], 
+    "is_valid_transportation": [false, "The transportation is conflicting."], 
+    "is_valid_information_in_current_city": [false, "The transportation in day 2 is invalid city choice."], "is_valid_information_in_sandbox": [false, "The lunch in day 3 is invalid in the sandbox."], 
+    "is_not_absent": [false, "No attaction in day 3 is not allowed."]}, 
+"hard_constraint": null}
+,
+
 {"mode": "valid",
 "idx": 92, "query": "Could you help design a 5-day travel itinerary for 2 people, starting our journey from Durango and planning to visit 2 cities in Texas, from March 27th to March 31st, 2022? Our budget is set at $2,300 for this trip. We would love to explore Chinese and Indian cuisine during our trip.", 
 "plan": [

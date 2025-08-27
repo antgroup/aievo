@@ -97,7 +97,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 	opts := make([]aievo.Option, 0)
 	opts = append(opts,
 		aievo.WithTeam(team),
-		aievo.WithMaxTurn(20),
+		aievo.WithMaxTurn(25),
 		aievo.WithCallback(callbackHandler),
 		aievo.WithLLM(client),
 		aievo.WithEnvironment(env),
@@ -531,17 +531,25 @@ func generateSOP_train(client llm.LLM, userQuestion string, metadata string, sop
 	return &newSop, nil
 }
 
-// retrieveSOPFile retrieves the top SOP filename from the retrieval results.
-func retrieveSOPFile(questionID int) (string, error) {
-	retrievalPath := "Analysis/retri_results_bge.json" // bge or qwen
+// retrieveSOPFile retrieves the top SOP number from the retrieval results.
+func retrieveSOPFile(mode string, questionID int) (int, error) {
+	var retrievalPath string
+	switch mode {
+	case "eval":
+		retrievalPath = "Analysis/retri_results_eval_qwen.json"
+	case "validation":
+		retrievalPath = "Analysis/retri_results_validation_qwen.json"
+	} 
+	
+
 	retrievalFile, err := os.ReadFile(retrievalPath)
 	if err != nil {
-		return "", fmt.Errorf("failed to read retrieval file %s: %w", retrievalPath, err)
+		return 0, fmt.Errorf("failed to read retrieval file %s: %w", retrievalPath, err)
 	}
 
 	type RetrievalResult struct {
-		WeightedSimilarity []string `json:"weighted_similarity"`
-		AnalysisSimilarity []string `json:"analysis_similarity"`
+		WeightedSimilarity []int `json:"weighted_similarity"`
+		AnalysisSimilarity []int `json:"analysis_similarity"`
 	}
 	type RetrievalEntry struct {
 		ID               int             `json:"id"`
@@ -549,7 +557,7 @@ func retrieveSOPFile(questionID int) (string, error) {
 	}
 	var retrievalData []RetrievalEntry
 	if err := json.Unmarshal(retrievalFile, &retrievalData); err != nil {
-		return "", fmt.Errorf("failed to parse retrieval file %s: %w", retrievalPath, err)
+		return 0, fmt.Errorf("failed to parse retrieval file %s: %w", retrievalPath, err)
 	}
 
 	for _, entry := range retrievalData {
@@ -560,11 +568,11 @@ func retrieveSOPFile(questionID int) (string, error) {
 			// if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
 			// return entry.RetrievalResults.AnalysisSimilarity[0], nil
 			// }
-			return "", fmt.Errorf("found entry for question ID %d, but weighted_similarity is empty", questionID)
+			return 0, fmt.Errorf("found entry for question ID %d, but weighted_similarity is empty", questionID)
 		}
 	}
 
-	return "", fmt.Errorf("could not find entry for question ID %d in %s", questionID, retrievalPath)
+	return 0, fmt.Errorf("could not find entry for question ID %d in %s", questionID, retrievalPath)
 }
 
 func main() {
@@ -655,7 +663,7 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_v1.2_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_t2_%s.json", mode, timeStamp)
 	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
@@ -681,7 +689,7 @@ func main() {
 		totalCount++
 
 		if fromsop {
-			sopPath := "SOP/v1.json"
+			sopPath := "SOP/v2.json"
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
@@ -694,18 +702,16 @@ func main() {
 				writeToFile := false
 				rag := false
 				if rag { // RAG模式：从检索SOP作为引导生成SOP
-					retrievedSopFile, err := retrieveSOPFile(i)
+					retrievedQuestionNumber, err := retrieveSOPFile(mode, i)
 					if err != nil {
 						log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 					} else {
-						questionNumber := string(retrievedSopFile[len(retrievedSopFile)-6])
-						retrievedSopFile = fmt.Sprintf("gen_sop_v6_q%s.json", questionNumber)
-
+						retrievedSopFile := fmt.Sprintf("gen_sop_v1.2_q%d.json", retrievedQuestionNumber)
 						retrievedSopPath := fmt.Sprintf("SOP/gen_sop/%s", retrievedSopFile)
 						log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 						sopPath = retrievedSopPath
 
-						reflectionPath = fmt.Sprintf("SOP/reflect/ref_v6.1_q%s.json", questionNumber)
+						reflectionPath = fmt.Sprintf("SOP/reflect/ref_v1.2_q%d.json", retrievedQuestionNumber)
 					}
 				} // 依据通用模板 / rag 生成SOP
 				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
@@ -724,12 +730,12 @@ func main() {
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.1_q%d.json", i)
+				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.2_q%d.json", i)
 				reflectionPath := fmt.Sprintf("SOP/reflect/ref_v1_q%d.json", i)
 				//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
 
-				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v1_q%d.json", i)
+				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v1.2_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件
 				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
 				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)

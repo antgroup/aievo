@@ -329,9 +329,9 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_v1_new_20250822195242.json"
+	evalLogPath := "../output/train_v1.2_20250826112443.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_v1_new_20250822195242_per_results_20250823_122207.jsonl"
+	evaluationResultsPath := "../results/train_v1.2_20250826112443_per_results_20250826_143911.jsonl"
 	sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
@@ -392,8 +392,8 @@ func main() {
 	for i, result := range results {
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 
-		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.1_q%d.json", result.ID))
+		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1.2_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.2_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -417,7 +417,7 @@ func main() {
 			continue
 		}
 
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.1_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.2_q%d.json", result.ID))
 
 		// Use the pre-processed history string
 		historyString := historyStrings[i]

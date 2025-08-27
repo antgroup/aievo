@@ -230,7 +230,7 @@ You have access to the following tools:
 
 {{if .refcase}}
 ## Relevant Case for Reference:
-Here you have access to a historical reference case that contains the user's question, and reflective insights from your experiences. You can reference these relevant experiences to improve your performance.
+Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes..
 {{.refcase}}{{end}}
 
 ### Current Task: Conversation History
@@ -273,7 +273,7 @@ const NewEndBaseInstructions = `
 
 {{if .refcase}}
 ## Relevant Case for Reference:
-Here you have access to a historical reference case that contains the user's question, and reflective insights from your experiences. You can reference these relevant experiences to improve your performance.
+Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes..
 {{.refcase}}{{end}}
 
 ### Current Task & Conversation History:

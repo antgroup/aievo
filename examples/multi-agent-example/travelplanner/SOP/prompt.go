@@ -34,9 +34,8 @@ The agents have access to various travel tools including flight search, accommod
 Pay special attention to:
 - Constraint violations shown in the evaluation results
 - Logic and feasibility issues in the travel plan
-- Proper use of available travel tools
 - Communication efficiency between agents
-- Budget management and optimization
+- Budget management
 
 Your output must follow the JSON format below. Do not add any text outside the JSON structure.
 
@@ -53,12 +52,12 @@ Your output must follow the JSON format below. Do not add any text outside the J
       {
         "agent_name": "Name of the agent",
         "feedback": "Specific feedback for this agent. What did it do wrong? How could it have performed better?",
-        "revised_instruction": "A revised 'instruction' for this agent that would guide it to perform better on this specific task. This should be a direct, actionable instruction."
+        "new_instruction": "Some new instructions for this agent that would guide it to avoid the same mistakes, which should be concise, actionable."
       },
       {
         "agent_name": "Name of the agent",
         "feedback": "...",
-        "revised_instruction": "..."
+        "new_instruction": "..."
       }
     ]
   },
@@ -83,10 +82,10 @@ You will be given the original SOP and a detailed analysis of why it failed. You
 **Your Task:**
 
 Generate a new SOP in the exact same JSON format as the original. The new SOP should incorporate the lessons from the reflection.
-- You may need to add, remove, or redefine agent roles.
+- You may need to add, remove, or redefine the agent in the team.
 - You may refine the workflow (the "sop" field).
 - You must provide clearer, more precise instructions for each agent in the "details" section. Note that the original agent instructions may contain important information. You should reuse this information as more as possible, and add or revise some instructions.
-- Ensure the "tools" for each agent are appropriate and sufficient.
+- Ensure the "tools" for each agent are appropriate and sufficient. All available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
