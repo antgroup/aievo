@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# 集成评估脚本启动器
-# 使用示例: ./eval.sh ../../output/train_v0_20250819203412.json
-
 set -e
 
-INPUT_FILE=../output/trainall_v2_20250826192458.json
+INPUT_FILE=../output/evals_t2_20250827112706.json
 
 # 路径配置
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

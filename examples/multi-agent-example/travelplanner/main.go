@@ -539,8 +539,7 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 		retrievalPath = "Analysis/retri_results_eval_qwen.json"
 	case "validation":
 		retrievalPath = "Analysis/retri_results_validation_qwen.json"
-	} 
-	
+	}
 
 	retrievalFile, err := os.ReadFile(retrievalPath)
 	if err != nil {
@@ -636,7 +635,7 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 3 // 0 for training, 2 for evaluation
+	eval := 0 // 0 for training, 2 for evaluation
 	if eval == 0 {
 		mode = "train"
 		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_split.json"
@@ -663,7 +662,7 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_t2_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_v2.6_%s.json", mode, timeStamp)
 	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
@@ -696,7 +695,7 @@ func main() {
 				generateNewSOP = true // For eval set, true to enable generation
 			}
 			if generateNewSOP { // 评估集：LLM生成SOP
-				newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_q%d.json", i)
+				newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v2_q%d.json", i)
 				reflectionPath := ""
 				// Set writeToFile to true if you want to save the generated SOP.
 				writeToFile := false
@@ -731,29 +730,29 @@ func main() {
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
 				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.2_q%d.json", i)
-				reflectionPath := fmt.Sprintf("SOP/reflect/ref_v1_q%d.json", i)
+				// reflectionPath := fmt.Sprintf("SOP/reflect/ref_v1_q%d.json", i)
 				//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
-				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
+				// evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
 
-				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v1.2_q%d.json", i)
-				// writeToFile := true // 训练集：生成SOP并写入文件
-				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
-				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
-				// if err != nil {
-				// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-				// 	// Fallback to default SOP if generation fails
-				// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval)
-				// 	if err != nil {
-				// 		panic(err)
-				// 	}
-				// } else {
-				// 	log.Printf("Using generated SOP for question %d", i)
-				// 	// Use the generated SOP for the current question
-				// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval)
-				// 	if err != nil {
-				// 		panic(err)
-				// 	}
-				// }
+				newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v2.6_q%d.json", i)
+				writeToFile := true // 训练集：生成SOP并写入文件
+				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				// generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
+				if err != nil {
+					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+					// Fallback to default SOP if generation fails
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval)
+					if err != nil {
+						panic(err)
+					}
+				} else {
+					log.Printf("Using generated SOP for question %d", i)
+					// Use the generated SOP for the current question
+					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval)
+					if err != nil {
+						panic(err)
+					}
+				}
 			}
 		} else { // 手动构建团队
 			evo, err = createEvo(client, tools)
@@ -811,3 +810,6 @@ func main() {
 	fmt.Printf("\nEvaluation finished for TravelPlanner. Results saved to %s\n", resultsFilename)
 	fmt.Println("\nTravelPlanner evaluation is complete.")
 }
+
+// v2.5 = v2 + list all notes for SOP agent
+// v2.6 = v2.5 + improved SOP generation prompt + little revise v2.json

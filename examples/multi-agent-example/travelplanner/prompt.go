@@ -57,14 +57,29 @@ Now, it is your turn to give your answer. Analyze the provided conversation hist
 
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
+- The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+- There are some important considerations for making the plan:
+1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+2.  Do not revisit any city in the middle of the trip.
+3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+4.  Restaurants for each day and each meal must not be repeated.
+5.  Attractions for each day must not be repeated.
+6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+7.  Accommodations, restaurants, and attractions** must match the city you are in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+8.  The information in the plan must strictly match the information found through search, especially for the names of hotels, restaurants, and attractions.
+9.  The total cost must be within budget, and all attractions must be free.
+10. The selected room type and constraints must meet the user's conditions (if any).
+11. The selected restaurants must cover the cuisines the user wants (if any).
+12. The chosen mode of transportation must meet the user's preferences (if any).
+
+You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
 - "sop": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
-  - "responsibility": A concise description of the agent's main role and purpose.
+  - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent.
   - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
@@ -74,9 +89,8 @@ Here is a template for you to follow:
 --- TEMPLATE END ---
 
 **Important Note:** 
-1. The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
-2. The agent instructions within the template contain important information. You should reuse this information as more as possible, and add some new instructions based on user's query to create new SOP.
-
+- The agent instructions within the template contain important information. You should reuse this information as more as possible, and add some new instructions based on user's query.
+ 
 Now, analyze the following user's query to determine the agents and workflow.
 
 User's query: "%s"
