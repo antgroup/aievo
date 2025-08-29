@@ -482,13 +482,38 @@ class IntegratedEvaluator:
             commonsenseConstraint_statistic[query_data['level']][query_data['days']].append(commonsense_info_box)
             hardConstraint_statistic[query_data['level']][query_data['days']].append(hard_info_box)
 
+            # 计算是否成功：同时满足常识约束和硬约束
+            success = False
+            if commonsense_info_box:
+                # 检查常识约束是否全部通过
+                commonsense_pass = True
+                for item in commonsense_info_box:
+                    if commonsense_info_box[item][0] is not None and not commonsense_info_box[item][0]:
+                        commonsense_pass = False
+                        break
+                
+                # 检查硬约束是否全部通过
+                hard_pass = True
+                if hard_info_box is not None:
+                    for item in hard_info_box:
+                        if hard_info_box[item][0] is not None and hard_info_box[item][0] == False:
+                            hard_pass = False
+                            break
+                else:
+                    # 如果没有硬约束评估结果，认为硬约束未通过
+                    hard_pass = False
+                
+                # 只有常识约束和硬约束都通过才算成功
+                success = commonsense_pass and hard_pass
+
             # 新增：每条规划的详细评价指标
             per_plan_results.append({
                 'idx': query_data.get('idx', idx),
                 'query': query_data.get('query', None),
                 'plan': tested_plan.get('plan', None),
                 'commonsense_constraint': commonsense_info_box,
-                'hard_constraint': hard_info_box
+                'hard_constraint': hard_info_box,
+                'success': success
             })
 
         # 处理约束统计

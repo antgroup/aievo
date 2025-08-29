@@ -256,7 +256,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 	}
 	// 记录输入输出
 	// logfile := fmt.Sprintf("eval/log_level_L123_v6_twq_wgr456_new2507__%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("eval/log_t3_all_2507_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_v3_all_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -629,12 +629,18 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 	var reflectionData struct {
 		Question      string                 `json:"question"`
 		SOP           string                 `json:"sop"`
+		Workflow      string                 `json:"workflow"`
 		LLMReflection map[string]interface{} `json:"llm_reflection"`
 	}
 
 	if err := json.Unmarshal(reflectionContent, &reflectionData); err != nil {
 		fmt.Printf("Error parsing reflection file %s: %v\n", reflectionPath, err)
 		return ""
+	}
+
+	// 如果sop为空但workflow不为空，将workflow赋值给sop
+	if reflectionData.SOP == "" && reflectionData.Workflow != "" {
+		reflectionData.SOP = reflectionData.Workflow
 	}
 
 	// 如果是watcher，使用原有的完整反思提示词

@@ -48,6 +48,7 @@ type TravelPlannerEvaluationResult struct {
 	Plan                  []json.RawMessage      `json:"plan"`
 	CommonsenseConstraint map[string]interface{} `json:"commonsense_constraint"`
 	HardConstraint        interface{}            `json:"hard_constraint"`
+	Success               bool                   `json:"success"`
 }
 
 // Struct for SOP file
@@ -58,9 +59,9 @@ type SOPFile struct {
 }
 
 type SOP struct {
-	Team    []string      `json:"team"`
-	SOP     string        `json:"sop"`
-	Details []AgentDetail `json:"details"`
+	Team     []string      `json:"team"`
+	Workflow string        `json:"workflow"`
+	Details  []AgentDetail `json:"details"`
 }
 
 type AgentDetail struct {
@@ -70,19 +71,10 @@ type AgentDetail struct {
 	Tools          []string `json:"tools"`
 }
 
-// ReflectionInput holds the data needed for the reflection prompt.
-type ReflectionInput struct {
-	Question             string `json:"question"`
-	SOP                  string `json:"sop"`
-	CommunicationHistory string `json:"communication_history"`
-	FinalAnswer          string `json:"final_answer"`
-	ExpertAnalysis       string `json:"expert_analysis"`
-}
-
 // ReflectionOutput defines the structure for the reflection JSON file.
 type ReflectionOutput struct {
 	Question      string          `json:"question"`
-	OriginalSOP   string          `json:"sop"`
+	OriginalSOP   string          `json:"workflow"`
 	HistoryString string          `json:"history_conversation"`
 	LLMReflection json.RawMessage `json:"llm_reflection"`
 }
@@ -168,7 +160,6 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 
 	prompt := fmt.Sprintf(ReflectionPrompt,
 		question.Query,
-		question.AnnotatedPlan,
 		systemGeneratedPlan,
 		constraintString,
 		sopContent,
@@ -193,7 +184,7 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 			Type:    schema.MsgTypeMsg,
 			Content: "You are an expert in analyzing and refining multi-agent systems.",
 		},
-	}, llm.WithTemperature(0.6))
+	}, llm.WithTemperature(0.6), llm.WithTopP(0.95))
 	if err != nil {
 		return fmt.Errorf("ReflectorAgent run failed: %w", err)
 	}
@@ -225,7 +216,7 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 
 	outputData := ReflectionOutput{
 		Question:      question.Query,
-		OriginalSOP:   sopFile.SOPs[0].SOP, // Assuming the first SOP is the main one,
+		OriginalSOP:   sopFile.SOPs[0].Workflow, // Assuming the first SOP is the main one,
 		HistoryString: historyString,
 		LLMReflection: llmReflection,
 	}
@@ -285,7 +276,7 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 			Type:    schema.MsgTypeMsg,
 			Content: "You are an expert multi-agent system designer.",
 		},
-	}, llm.WithTemperature(0.6))
+	}, llm.WithTemperature(0.6), llm.WithTopP(0.95))
 	if err != nil {
 		return fmt.Errorf("ReviserAgent run failed: %w", err)
 	}
@@ -394,6 +385,7 @@ func main() {
 
 		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1.2_q%d.json", result.ID))
 		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.2_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.2_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -416,8 +408,16 @@ func main() {
 			log.Printf("Warning: Could not find evaluation result for ID %d. Skipping.", result.ID)
 			continue
 		}
-
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.2_q%d.json", result.ID))
+		if evalResult.Success {
+			log.Printf("Query ID %d was successful according to evaluation. Copying successful SOP to rev_sop folder.", result.ID)
+			successfulSopPath := revisedSopPath
+			if err := os.WriteFile(successfulSopPath, sopBytes, 0644); err != nil {
+				log.Printf("ERROR: Failed to copy successful SOP for query %d to %s: %v", result.ID, successfulSopPath, err)
+			} else {
+				log.Printf("Successfully copied SOP for query %d to %s", result.ID, successfulSopPath)
+			}
+			continue
+		}
 
 		// Use the pre-processed history string
 		historyString := historyStrings[i]

@@ -76,7 +76,7 @@ You need to design a SOP, which defines the team of agents, their roles, and the
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
-- "sop": A description of the workflow, showing how agents interact with each other.
+- "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
@@ -113,7 +113,7 @@ The SOP defines the team of agents, their roles, and their collaboration workflo
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
-- "sop": A description of the workflow, showing how agents interact with each other.
+- "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
@@ -152,7 +152,7 @@ The SOP defines the team of agents, their roles, and their collaboration workflo
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
-- "sop": A description of the workflow, showing how agents interact with each other.
+- "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
@@ -191,7 +191,7 @@ The SOP defines the team of agents, their roles, and their collaboration workflo
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
-- "sop": A description of the workflow, showing how agents interact with each other.
+- "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose.
