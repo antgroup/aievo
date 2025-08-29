@@ -578,9 +578,9 @@ func main() {
 	// 大模型实例化
 	client, err := openai.New(
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
-		openai.WithModel(os.Getenv("OPENAI_MODEL")),
+		// openai.WithModel(os.Getenv("OPENAI_MODEL")),
 		// openai.WithModel("Qwen2.5-72B-Instruct"),
-		// openai.WithModel("Qwen3-235B-A22B-Thinking-2507"),
+		openai.WithModel("Qwen3-235B-A22B-Thinking-2507"),
 		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
 	if err != nil {
 		log.Fatal(err)
@@ -635,7 +635,7 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 0 // 0 for training, 2 for evaluation
+	eval := 3 // 0 for training, 2 for evaluation
 	if eval == 0 {
 		mode = "train"
 		datasetPath = "../../../dataset/travelplanner/train/travelplanner_train_split.json"
@@ -662,7 +662,7 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_v2.6_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_v3_2507_%s.json", mode, timeStamp)
 	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
@@ -688,7 +688,7 @@ func main() {
 		totalCount++
 
 		if fromsop {
-			sopPath := "SOP/v2.json"
+			sopPath := "SOP/v3.json"
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
@@ -734,7 +734,7 @@ func main() {
 				//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
 				// evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
 
-				newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v2.6_q%d.json", i)
+				newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v2.7_q%d.json", i)
 				writeToFile := true // 训练集：生成SOP并写入文件
 				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
 				// generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)

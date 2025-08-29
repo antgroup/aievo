@@ -65,9 +65,9 @@ const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-
 4.  Restaurants for each day and each meal must not be repeated.
 5.  Attractions for each day must not be repeated.
 6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
-7.  Accommodations, restaurants, and attractions** must match the city you are in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
 8.  The information in the plan must strictly match the information found through search, especially for the names of hotels, restaurants, and attractions.
-9.  The total cost must be within budget, and all attractions must be free.
+9.  The total cost must be within budget, and all attractions are free here.
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
@@ -80,7 +80,7 @@ You must follow the structure of the provided template exactly. The main compone
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
-  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent.
+  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
   - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
@@ -89,9 +89,11 @@ Here is a template for you to follow:
 --- TEMPLATE END ---
 
 **Important Note:** 
-- The agent instructions within the template contain important information. You should reuse this information as more as possible, and add some new instructions based on user's query.
+The agent instructions within the template contain important information. 
+You MUST reuse this information as more as possible. 
+In addition to these instructions, you can add new instructions or elaborate on certain instructions based on user needs.
  
-Now, analyze the following user's query to determine the agents and workflow.
+Now, analyze the following user's query to design the system.
 
 User's query: "%s"
 
@@ -315,6 +317,11 @@ Lunch: Olive Tree Cafe, Charlotte
 Dinner: Kylin Skybar, Charlotte
 Accommodation: -
 ** End of Example **
+Please adhere strictly to the output format above. 
+If the mode of travel is self-driving, the 'Transportation' field should be in the following format: 
+'Self-driving, from Kansas City to Pensacola, duration: 14 hours 2 mins, distance: 1,433 km, cost: 71'
+If the mode of travel is a taxi, the format should be like: 
+'Taxi, from State College(Pennsylvania) to Greer, duration: 9 hours 29 mins, distance: 982 km, cost: 982'.
 
 ### Current Task & Conversation History:
 ~~~

@@ -1,7 +1,7 @@
 [
     {
-    "team": ["Transportation Planner", "Accommodation Planner", "Restaurant Planner", "Attractions Planner", "Plan Checker", "Final Plan Summarizer"],
-    "sop": "Workflow:\n1. User -> Transportation Planner;\n2. Transportation Planner -> Accommodation Planner;\n3. Accommodation Planner -> Restaurant Planner\n   Accommodation Planner -> Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -> Plan Checker;\n5. Plan Checker -> Final Plan Summarizer;\n6. Final Plan Summarizer -> End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip. This logistical framework is then passed to the Accommodation Planner to arrange lodging. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find the best options in their respective areas. Once their individual plans are complete, the Plan Checker reviews the combined itinerary for logical errors, inconsistencies, or missed details. Finally, the Final Plan Summarizer receives the verified and refined plan to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
+    "team": ["Transportation Planner", "Accommodation Planner", "Restaurant Planner", "Attractions Planner", "Final Plan Summarizer"],
+    "sop": "Workflow:\n1. User -> Transportation Planner;\n2. Transportation Planner -> Accommodation Planner;\n3. Accommodation Planner -> Restaurant Planner\n   Accommodation Planner -> Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -> Final Plan Summarizer;\n5. Final Plan Summarizer -> End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip. This logistical framework is then passed to the Accommodation Planner to arrange lodging. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find the best options in their respective areas. Once their individual plans are complete, the Final Plan Summarizer receives all information to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
     "details": [
         {
         "name": "Transportation Planner",
@@ -26,12 +26,6 @@
         "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
         "instruction": "1. Please carefully review the daily locations provided and the user's interests and preferences, use the search tool to suggest attractions for **each day**.\n2. For each day, provide the attraction's name, its city.\n3. Ensure that attractions for each day must not be repeated.\n4. DO NOT suggest attractions in the user's departure point.\n5. All attractions are free.\n6. The attraction names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
         "tools": ["AttractionSearch"]
-        },
-        {
-        "name": "Plan Checker",
-        "responsibility": "You are the Plan Checker Agent. Your core mission is to review the integrated travel plan for quality, logic, and consistency.",
-        "instruction": "1. Meticulously review the combined itinerary from the Transportation, Accommodation, Restaurant, and Attractions Planners. Ensure that all planned items (accommodation, meals, attractions) are in the correct city for each day as determined by the Transportation Planner.\n2. Check for logical inconsistencies, scheduling conflicts, and budget adherence.\n3. You can optionally use the CostEnquiry tool to verify budget adherence. (Note that the attractions are free).\n4. Provide feedback for revisions if necessary. **Important:** Considering efficiency, if a planner provides redundant information without the need for giving new information, do not recall that planner. You only need to highlight the issues that need attention to the final plan summarizer.",
-        "tools": ["CostEnquiry"]
         },
         {
         "name": "Final Plan Summarizer",

@@ -255,8 +255,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	// logfile := fmt.Sprintf("eval/log_level_L3_v6_twq_wgr7_temp1_%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("eval/log_v2.6_%s.log", time.Now().Format("2006-0102"))
+	// logfile := fmt.Sprintf("eval/log_level_L123_v6_twq_wgr456_new2507__%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("eval/log_t3_all_2507_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {

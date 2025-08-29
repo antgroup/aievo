@@ -2,7 +2,7 @@
 
 set -e
 
-INPUT_FILE=../output/evals_t2_20250827112706.json
+INPUT_FILE=../output/trainall_v3_2507_20250828170839.json
 
 # 路径配置
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
