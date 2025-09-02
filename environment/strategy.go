@@ -42,7 +42,17 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 		if len(msg.MngInfo.Replace) > 0 {
 			_ = e.Memory.RemoveMessagesByAgents(ctx, msg.MngInfo.Replace)
 			msg.Receiver = msg.MngInfo.Replace[0]
-			msg.AllReceiver = []string{msg.MngInfo.Replace[0]}
+			
+			if msg.Receiver == "ALL" {
+				msg.Receiver = e.GetTeamLeader().Name()
+				allMembers := make([]string, 0, len(e.Team.members))
+				for _, member := range e.Team.members {
+					allMembers = append(allMembers, member.Name())
+				}
+				msg.AllReceiver = allMembers
+			} else {
+				msg.AllReceiver = []string{msg.MngInfo.Replace[0]}
+			}
 			msg.Sender = "Watcher"
 			msg.Content = msg.MngInfo.Content
 			msg.Type = schema.MsgTypeMsg

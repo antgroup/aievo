@@ -7,8 +7,9 @@ Pay special attention to:
 - Constraint violations shown in the evaluation results
 - Communication efficiency between agents
 
-## Example
+## Example of Input-Output
 ~~~
+Input:
 **1. The User's Travel Request:**
 Can you devise a travel plan that departs from Memphis and includes 2 cities in Pennsylvania? The trip is scheduled for 5 days from March 22nd to March 26th, 2022. The trip's total budget is $1,400.
 
@@ -30,18 +31,19 @@ Workflow:\n1. User -> Transportation Planner;\n2. Transportation Planner -> Acco
 **5. The full communication history of the agent team during the planning attempt:**
 (For brevity, the communication history is omitted here)
 
+Output:
 ** Reflection Content: **
 {
   "failure_reason": "1. The flight number is invalid in the sandbox.  2. The accommodation does not obey the minumum nights rule.",
   "sop_critique": {
-    "weaknesses": "The instructions for the Transportation Planner did not emphasize the importance of verifying the validity of transportation details against the sandbox data. The Accommodation Planner's instructions lacked clarity on adhering to accommodation constraints, such as minimum stay requirements.",
-    "suggestions": "1. Update the Transportation Planner's instructions to include a mandatory use of provided tools to check all transportation details. 2. Revise the Accommodation Planner's instructions to explicitly state the need to comply with all accommodation constraints, including minimum stay requirements."
+    "weaknesses": "The instructions for the Transportation Planner did not emphasize the importance of searching transportation details in the sandbox data. The Accommodation Planner's instructions lacked clarity on adhering to accommodation constraints, such as minimum stay requirements.",
+    "suggestions": "1. Update the Transportation Planner's instructions to include a mandatory use of provided tools to search for all transportation details. 2. Revise the Accommodation Planner's instructions to explicitly state the need to comply with all accommodation constraints, including minimum stay requirements."
   },
   "agent_guidance": [
     {
       "agent_name": "Transportation Planner",
       "feedback": "The agent failed to ensure that the flight number provided was valid according to the sandbox data.",
-      "new_instruction": "If plan to take the plane, always use the FlightSearch tool to verify the validity of all transportation details, including flight numbers, departure times, and arrival times, against the sandbox data before finalizing any transportation plans."
+      "new_instruction": "If plan to take the plane, always use the FlightSearch tool to search for all transportation details, including flight numbers, departure times, and arrival times, and deliver all these details to the following agents."
     },
     {
       "agent_name": "Accommodation Planner",
@@ -51,7 +53,6 @@ Workflow:\n1. User -> Transportation Planner;\n2. Transportation Planner -> Acco
   ]
 }
 ~~~
-
 
 ## Current Task
 **1. The User's Travel Request:**
@@ -125,9 +126,14 @@ The main components of the SOP are:
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
   - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
-You will be given the original SOP and a detailed analysis of why it failed. Your goal is to produce a new, improved SOP that addresses these failures and is more robust for similar tasks in the future.
+Here is a template for you to follow:
+--- TEMPLATE START ---
+%s
+--- TEMPLATE END ---
 
-**1. Original SOP:**
+You will be given a user's query, the original SOP and a detailed analysis of why it failed. Your goal is to produce a new, improved SOP that addresses these failures and is more robust for similar tasks in the future.
+
+**1. User's Query and Original SOP:**
 %s
 
 **2. Reflection on Failure:**
@@ -136,11 +142,12 @@ You will be given the original SOP and a detailed analysis of why it failed. You
 **Your Task:**
 
 Generate a new SOP in the exact same JSON format as the original. The new SOP should incorporate the lessons from the reflection.
-- You may need to add, remove, or redefine the agent in the team.
+- You may add, remove, or redefine the agent in the team.
 - You may refine the workflow field.
-- You must provide clearer, more precise instructions for each agent in the "details" section. 
+- You must provide clearer, more precise instructions for the agent in the "details" section. 
 **Important Note:** 
-The original agent instructions contain important information. You should reuse this information as more as possible, In addition to these instructions, you can add new instructions or elaborate on certain instructions based on the reflection and user query.
+The agent instructions in original SOP and template contain important information. You should reuse this information as more as possible. 
+In addition to these instructions, you should add new instructions or elaborate on certain instructions based on the reflection and user query.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~

@@ -115,7 +115,7 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			e.broadcast(gen.Messages...) // 发给watcher
 		}
 	}
-	return "", fmt.Errorf("unexpected end")
+	return "", fmt.Errorf("unexpected end. Might be out ot turn limit")
 }
 
 func (e *AIEvo) broadcast(messages ...schema.Message) {

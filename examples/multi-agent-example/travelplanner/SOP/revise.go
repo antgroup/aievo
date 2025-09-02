@@ -239,6 +239,20 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []byte, outputPath string) error {
 	log.Printf("Performing revision for SOP: %s", outputPath)
 
+	template_path := "v3.json"
+	templateBytes, _ := os.ReadFile(template_path)
+	var sops []SOP
+	if err := json.Unmarshal(templateBytes, &sops); err != nil {
+		return fmt.Errorf("failed to unmarshal SOP JSON in either new or old format: %w", err)
+	}
+	templateSOP := sops[len(sops)-1] // Get the last one as template
+	templateBytes, err := json.MarshalIndent(templateSOP, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal SOP template to string: %w", err)
+	}
+	templateString := string(templateBytes)
+
+
 	// 1. Unmarshal the reflection file to get the LLM's reflection part.
 	var reflectionInput ReflectionOutput
 	if err := json.Unmarshal(reflectionBytes, &reflectionInput); err != nil {
@@ -254,6 +268,7 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 	originalSopContent := string(originalSopBytes)
 
 	prompt := fmt.Sprintf(RevisionPrompt,
+		templateString,
 		originalSopContent,
 		reflectionContent,
 	)
@@ -286,22 +301,70 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 	}
 
 	revisedSopJSON := gen.Messages[0].Content
+	log.Printf("LLM returned content length: %d", len(revisedSopJSON))
 
-	// The output should be a SOPFile structure, let's validate and format it.
-	var sopFile SOPFile
-	if err := json.Unmarshal([]byte(revisedSopJSON), &sopFile); err != nil {
-		// Fallback: maybe it just returned the SOP array
-		var sops []SOP
-		if err2 := json.Unmarshal([]byte(revisedSopJSON), &sops); err2 != nil {
-			return fmt.Errorf("failed to unmarshal revised SOP JSON from agent response, content was:\n%s\nError: %w", revisedSopJSON, err)
-		}
-		// If fallback is successful, wrap it in SOPFile
-		var originalSopFile SOPFile
-		_ = json.Unmarshal(originalSopBytes, &originalSopFile)
-		sopFile.Question = originalSopFile.Question
-		sopFile.Analysis = gen.Messages[0].Thought
-		sopFile.SOPs = sops
+	// 先解析原始SOP文件以获取question信息
+	var originalSopFile SOPFile
+	originalQuestion := "Travel Planning Question"
+	if err := json.Unmarshal(originalSopBytes, &originalSopFile); err == nil && originalSopFile.Question != "" {
+		originalQuestion = originalSopFile.Question
 	}
+
+	// 尝试多种解析方式
+	var sopFile SOPFile
+	var parseSuccess bool
+
+	// 方式1: 直接解析Content为SOP对象或SOP数组
+	// 尝试解析为单个SOP对象
+	var sop SOP
+	if err := json.Unmarshal([]byte(revisedSopJSON), &sop); err == nil && len(sop.Team) > 0 {
+		sopFile = SOPFile{
+			Question: originalQuestion,
+			Analysis: gen.Messages[0].Thought,
+			SOPs:     []SOP{sop},
+		}
+		parseSuccess = true
+		log.Printf("Successfully parsed Content as single SOP")
+	} else {
+		// 尝试解析为SOP数组
+		var sops []SOP
+		if err := json.Unmarshal([]byte(revisedSopJSON), &sops); err == nil && len(sops) > 0 {
+			sopFile = SOPFile{
+				Question: originalQuestion,
+				Analysis: gen.Messages[0].Thought,
+				SOPs:     sops,
+			}
+			parseSuccess = true
+			log.Printf("Successfully parsed Content as SOP array with %d SOPs", len(sops))
+		}
+	}
+
+	// 方式2: 如果方式1失败，尝试解析为完整的SOPFile
+	if !parseSuccess {
+		if err := json.Unmarshal([]byte(revisedSopJSON), &sopFile); err == nil && len(sopFile.SOPs) > 0 {
+			parseSuccess = true
+			log.Printf("Successfully parsed as complete SOPFile with %d SOPs", len(sopFile.SOPs))
+			// 确保有question和analysis
+			if sopFile.Question == "" {
+				sopFile.Question = originalQuestion
+			}
+			if sopFile.Analysis == "" {
+				sopFile.Analysis = gen.Messages[0].Thought
+			}
+		}
+	}
+
+	// 如果所有方式都失败，返回错误
+	if !parseSuccess {
+		return fmt.Errorf("failed to parse LLM response in any supported format. Content was:\n%s", revisedSopJSON)
+	}
+
+	// 验证最终结果
+	if len(sopFile.SOPs) == 0 {
+		return fmt.Errorf("parsed SOPFile has no SOPs")
+	}
+
+	log.Printf("Final SOPFile: Analysis length=%d, SOPs count=%d", len(sopFile.Analysis), len(sopFile.SOPs))
 
 	// Pretty print the full JSON structure for saving
 	prettyJSON, err := json.MarshalIndent(sopFile, "", "  ")
@@ -320,10 +383,10 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_v1.2_20250826112443.json"
+	evalLogPath := "../output/train_rev3.1_endcall_20250902112058.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_v1.2_20250826112443_per_results_20250826_143911.jsonl"
-	sopDir := "./gen_sop/"
+	evaluationResultsPath := "../results/train_rev3.1_endcall_20250902112058_per_results_20250902.jsonl"
+	// sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
 	// --- END CONFIGURATION ---
@@ -383,9 +446,10 @@ func main() {
 	for i, result := range results {
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 
-		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v1.2_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.2_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v1.2_q%d.json", result.ID))
+		// sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_q%d.json", result.ID))
+		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v3.1.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -441,3 +505,5 @@ func main() {
 
 	log.Println("Revision process finished.-----------------------------------")
 }
+
+// v3 -> rev3 -> rev3.1 -> rev3.1.1

@@ -69,6 +69,15 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 		return nil
 	}
 
+	// 特殊处理 "ALL" 情况, 直接清空消息列表, 但保留用户消息
+	if agents[0] == "ALL" {
+		if len(c.Messages) > 0 {
+			c.Messages = c.Messages[:1]
+		}
+		c.index = 0
+		return nil
+	}
+
 	// 用于跟踪每个agent是否已经保留了其收到的第一条"单独"消息
 	firstSoloMessageKept := make(map[string]bool)
 	for _, agentName := range agents {

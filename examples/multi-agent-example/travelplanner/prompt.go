@@ -1,33 +1,42 @@
 package main
 
 const WatchPrompt = `
-You are the "Watcher", a specialized supervisory agent within a multi-agent LLM system. The system's purpose is to leverage multiple agents working in collaboration to address the user's question. 
+You are the "Watcher", a specialized supervisory agent within a multi-agent LLM system. The system's purpose is to leverage multiple agents working in collaboration to provide a complete travel plan for the user. 
 Your primary role is to closely oversee the outputs of all participating agents, safeguarding the system's overall integrity, coherence, and efficiency.
-Based on the agents' conversation history and, where available, their tool usage history, your core responsibility is to detect any agent exhibiting abnormal behavior and determine whether it should be removed and replaced.
+Based on the agents' conversation history and, where available, their tool usage history, you need to detect any agent exhibiting abnormal behavior and determine whether it should be removed and replaced.
 If you identify an agent that should be replaced, you should provide the guidance for the replacement agent in the "guidance" field of your response, so that the new agent would not repeat the same mistakes.
 `
 
 const WatchInstructions = `
 ## Key Abnormalities to Detect:
 You must be vigilant based on the following critical error conditions:
-1. Irrelevant or Nonsensical Output: The agent produces content that is off-topic, or entirely unrelated to its assigned task.
-2. Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the same message back and forth without progress. Please note that it is acceptable for the agent to produce semantically similar content during its search process.
-3. Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow, such as skipping essential steps. Note that you should view the workflow with a critical eye, as it may be flawed. Therefore, it is acceptable for the agents to make reasonable adjustments to the workflow during execution.
-4. Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
+-  Irrelevant Output: The agent produces content that is off-topic, or entirely unrelated to its assigned task.
+-  Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the same message back and forth without progress.
+-  Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow, such as skipping essential steps. Please note that the agent is allowed to communicate with other agents it is messaging with to obtain necessary information.
+-  Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
+-  Severe constraint violation: The plan must meet multiple constraint requirements, including:
+1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+2.  Do not revisit any city in the middle of the trip.
+3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+4.  Restaurants for each day and each meal must not be repeated.
+5.  Attractions for each day must not be repeated.
+6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+8.  The information in the plan must strictly match the information found through search, especially for the flight number, the names of hotels, restaurants, and attractions.
+9.  The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
+10. The selected room type and constraints must meet the user's conditions (if any).
+11. The selected restaurants must cover the cuisines the user wants (if any).
+12. The chosen mode of transportation must meet the user's preferences (if any).
 
-Note that these conditions are not exhaustive, and you should use your judgment to identify any other abnormal behaviors that may arise.
-Additionally, if the agent requires multi-step actions to execute and the current performance is satisfactory, do not replace this agent during the process.
-If an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. 
-However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
-Moreover, please note that communication messages between agents do not include the process of them using tools (e.g., the web searching process). Therefore, do not force them to provide detailed evidence and related processes in their communication.
+Please note that communication messages between agents do not include the process of them using tools (e.g., the web searching process). Therefore, do not force them to provide detailed evidence and related processes in their communication.
 
 {{if .refcase}}
 ## Relevant Case for Reference:
-Here you have access to a historical reference case that contains the user's question, the corresponding SOP (Standard Operating Procedure) for that problem, and reflective insights from different agents' experiences. You can reference these relevant experiences to provide better guidance for agent improvement.
+Here you have access to a historical reference case that contains the user's question, the corresponding workflow for that problem, and reflective insights from different agents' experiences. You can reference these relevant experiences to provide better guidance for agent improvement.
 {{.refcase}}
 {{end}}
 
-## User's Question:
+## Current User's Query:
 {{.question}}
 
 ## Operational Workflow of Current System:
@@ -35,6 +44,9 @@ The multi-agent system you are currently monitoring operates based on the follow
 ~~~
 {{.sop}}
 ~~~
+
+## Agents Conversation History for Analysis:
+{{.history}}
 
 ## Response Format:
 Your response must always be a JSON object like below:
@@ -47,11 +59,11 @@ Your response must always be a JSON object like below:
 ~~~
 If you conclude that all agents are functioning correctly and no replacement is needed, you must return an empty list in the "replace" field ("replace": []), and leave alone "guidance" field.
 `
+// Additionally, if the agent requires multi-step actions to execute and the current performance is satisfactory, do not replace this agent during the process.
+// If an 'Observation' in the conversation history indicates an error, it should not be attributed to the agent and not be treated as abnormal behavior. 
+// However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
 
 const WatchSuffix = `
-## Agents Conversation History for Analysis:
-{{.history}}
-
 Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response. Begin!
 `
 
@@ -66,8 +78,8 @@ const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-
 5.  Attractions for each day must not be repeated.
 6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
 7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
-8.  The information in the plan must strictly match the information found through search, especially for the names of hotels, restaurants, and attractions.
-9.  The total cost must be within budget, and all attractions are free here.
+8.  The information in the plan must strictly match the information found through search, especially for the flight number,the names of hotels, restaurants, and attractions.
+9.  The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
@@ -107,62 +119,39 @@ Your entire response MUST be in a single JSON object with the following format. 
 ~~~
 `
 
-const SOPGeneratorPrompt_train = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+const SOPGeneratorPrompt_rag = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-You must follow the structure of the provided template exactly. The main components of the SOP are:
-- "team": A list of agent names that will be part of the team.
-- "workflow": A description of the workflow, showing how agents interact with each other.
-- "details": A list of objects, where each object defines an agent with:
-  - "name": The agent's name (must match a name in the "team" list).
-  - "responsibility": A concise description of the agent's main role and purpose.
-  - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+- The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+- There are some important considerations for making the plan:
+1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+2.  Do not revisit any city in the middle of the trip.
+3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+4.  Restaurants for each day and each meal must not be repeated.
+5.  Attractions for each day must not be repeated.
+6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+8.  The information in the plan must strictly match the information found through search, especially for the flight number, the names of hotels, restaurants, and attractions.
+9.  The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
+10. The selected room type and constraints must meet the user's conditions (if any).
+11. The selected restaurants must cover the cuisines the user wants (if any).
+12. The chosen mode of transportation must meet the user's preferences (if any).
 
-Here is a template for you to follow:
---- TEMPLATE START ---
-%s
---- TEMPLATE END ---
-
-Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent. 
-If the question requires information not commonly known or needs up-to-date information from web, you may include a "WebSearcher" agent.
-Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
-
-Based on your analysis, generate a response in the specified JSON format.
-
-User: "%s"
-Human-Annotated Steps to Solve (Note that this is only for the reference
-%s
-
-Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
-~~~
-{
-  "thought": "Your analysis of the need of user's question and the reasoning for the chosen team and workflow.",
-  "content": { ... the complete SOP JSON object goes here ... },
-  "cate": "end"
-}
-~~~
-`
-
-const SOPGeneratorPrompt_rag = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
-
-The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
 - "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
-  - "responsibility": A concise description of the agent's main role and purpose.
-  - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+  - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
+  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
+  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
-Now, analyze the following user question to determine the necessary agents and workflow.
-For example, if the question involves a file (indicated by "FILENAME:"), you MUST include a "FileAnalyzer" agent. If no filename is provided, you must skip the "FileAnalyzer" agent.
-If the question requires information not commonly known or needs up-to-date information, you may include a "WebSearcher" agent.
-Always include a "Planner" to create the initial strategy and a "Summarizer" to provide the final answer.
+**Important Note:** 
+The agent instructions within the following example contain important information. 
+You MUST reuse this information as more as possible. 
+In addition to these instructions, you can add new instructions or elaborate on certain instructions based on user needs.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
@@ -185,23 +174,43 @@ Output:
 User: "%s"
 `
 
-const SOPGeneratorPrompt_temp_rag = `Your task is to act as an expert in designing multi-agent systems. Based on the user's question, you need to generate a Standard Operating Procedure (SOP) in JSON format.
+const SOPGeneratorPrompt_temp_rag = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-The SOP defines the team of agents, their roles, and their collaboration workflow to solve the user's problem.
+- The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+- There are some important considerations for making the plan:
+1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+2.  Do not revisit any city in the middle of the trip.
+3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+4.  Restaurants for each day and each meal must not be repeated.
+5.  Attractions for each day must not be repeated.
+6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+8.  The information in the plan must strictly match the information found through search, especially for the flight number, the names of hotels, restaurants, and attractions.
+9.  The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
+10. The selected room type and constraints must meet the user's conditions (if any).
+11. The selected restaurants must cover the cuisines the user wants (if any).
+12. The chosen mode of transportation must meet the user's preferences (if any).
+
+You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
 - "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
-  - "responsibility": A concise description of the agent's main role and purpose.
-  - "instruction": A detailed, step-by-step guide on how the agent should perform its task. DO NOT specify the output format for agent.
-  - "tools": A list of tools that the agent can use to perform its tasks. Available tools are: ["GOOGLE Search", "File Reader"].
+  - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
+  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
+  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
 %s
 --- TEMPLATE END ---
+
+**Important Note:** 
+The agent instructions within the template contain important information. 
+You MUST reuse this information as more as possible. 
+In addition to these instructions, you can add new instructions or elaborate on certain instructions based on user needs.
 
 Now, analyze the following user question to determine the necessary agents and workflow.
 
@@ -251,8 +260,8 @@ You have access to the following tools:
 ### Output Format
 Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
 
-#### 1. Delegating Tasks or Sending Messages
-When you need to delegate tasks or send messages to one or more agents, please use the following format:
+#### 1. Sending Messages
+When you need to send messages to one or more agents, please use the following format:
 ~~~
 {
   "thought": "Clearly describe why you think the conversation should be sent to the receiver agent.",
@@ -285,8 +294,8 @@ The following is the reference Standard Operating Procedure (SOP) for the task s
 ### Instructions
 {{.role}}
 
-### Input-Output Example
-Here is an example of the input and output, and your output travel plan should be similar to the example.
+### Example of Final Travel Plan
+Here is an example of the input query and output plan, and your output travel plan should be similar to the example.
 ** Example **
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
 Output Travel Plan:
@@ -329,7 +338,19 @@ If the mode of travel is a taxi, the format should be like:
 ~~~
 
 ### Output Format:
-You must response with json format like below:
+Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
+#### 1. Sending Messages
+When you need to send messages to one or more agents, please use the following format:
+~~~
+{
+  "thought": "Clearly describe why you think the conversation should be sent to the receiver agent.",
+  "cate": "MSG",
+  "receiver": "The target agent's name. Must be one or more names in: [{{.agent_names}}].",
+  "content": "A clear, self-contained, and informative message for the receiver agent."
+}
+~~~
+#### 2. Delivering the Final Answer
+When you have gathered all the necessary information and are ready to provide the final travel plan to the user, please use the following format:
 ~~~
 {
   "thought": "Clearly describe your reasoning process.",
@@ -339,6 +360,70 @@ You must response with json format like below:
 }
 ~~~
 `
+
+// const NewEndBaseInstructions = `
+// ### Team Members & Collaboration
+// You are part of a multi-agent system. Your name is {{ .name }} in team. Here is other agents in your team [{{.agent_names}}].
+// The following is the reference Standard Operating Procedure (SOP) for the task solving process.
+// {{.sop}}
+
+// ### Instructions
+// {{.role}}
+
+// ### Example of Final Travel Plan
+// Here is an example of the input query and output plan, and your output travel plan should be similar to the example.
+// ** Example **
+// Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
+// Output Travel Plan:
+// Day 1:
+// Current City: from Ithaca to Charlotte
+// Transportation: Flight Number: F3633413, from Ithaca to Charlotte, Departure Time: 05:38, Arrival Time: 07:46
+// Breakfast: Nagaland's Kitchen, Charlotte
+// Attraction: The Charlotte Museum of History, Charlotte
+// Lunch: Cafe Maple Street, Charlotte
+// Dinner: Bombay Vada Pav, Charlotte
+// Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
+
+// Day 2:
+// Current City: Charlotte
+// Transportation: -
+// Breakfast: Olive Tree Cafe, Charlotte
+// Attraction: The Mint Museum, Charlotte;Romare Bearden Park, Charlotte.
+// Lunch: Birbal Ji Dhaba, Charlotte
+// Dinner: Pind Balluchi, Charlotte
+// Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
+
+// Day 3:
+// Current City: from Charlotte to Ithaca
+// Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26
+// Breakfast: Subway, Charlotte
+// Attraction: Books Monument, Charlotte.
+// Lunch: Olive Tree Cafe, Charlotte
+// Dinner: Kylin Skybar, Charlotte
+// Accommodation: -
+// ** End of Example **
+// Please adhere strictly to the output format above. 
+// If the mode of travel is self-driving, the 'Transportation' field should be in the following format: 
+// 'Self-driving, from Kansas City to Pensacola, duration: 14 hours 2 mins, distance: 1,433 km, cost: 71'
+// If the mode of travel is a taxi, the format should be like: 
+// 'Taxi, from State College(Pennsylvania) to Greer, duration: 9 hours 29 mins, distance: 982 km, cost: 982'.
+
+// ### Current Task & Conversation History:
+// ~~~
+// {{.history}}
+// ~~~
+
+// ### Output Format:
+// You must deliver the final plan to the user, and response with json format like below:
+// ~~~
+// {
+//   "thought": "Clearly describe your reasoning process.",
+//   "content": "{Output Travel Plan}."
+//   "cate": "END",
+//   "receiver": "User",
+// }
+// ~~~
+// `
 
 const workflow = `Workflow {
     1. User -> PlanAgent;

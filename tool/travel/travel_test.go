@@ -26,14 +26,14 @@ func TestFlightTool(t *testing.T) {
 }
 
 func TestAccommodationTool(t *testing.T) {
-	tool, err := NewAccommodationTool(WithDatabasePath("../database"))
+	tool, err := NewAccommodationTool(WithDatabasePath("../../dataset/travelplanner/database"))
 	if err != nil {
 		t.Skipf("Skipping test due to database files not available: %v", err)
 		return
 	}
 
 	ctx := context.Background()
-	input := `{"city": "Rome"}`
+	input := `{"city": "Miami"}`
 
 	result, err := tool.Call(ctx, input)
 	if err != nil {

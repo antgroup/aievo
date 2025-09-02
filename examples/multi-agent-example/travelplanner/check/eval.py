@@ -426,7 +426,7 @@ class IntegratedEvaluator:
         base_name = os.path.basename(self.args.input_file)
         if base_name.endswith('.json'):
             base_name = base_name[:-5]
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%Y%m%d")
         per_plan_filename = f"{base_name}_per_results_{timestamp}.jsonl"
         per_plan_path = os.path.join(self.results_dir, per_plan_filename)
         with open(per_plan_path, 'w', encoding='utf-8') as f:
@@ -878,7 +878,7 @@ class IntegratedEvaluator:
             base_name = base_name[:-5]
         
         # 生成时间戳
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%Y%m%d")
         
         # 格式化分数结果为百分比
         formatted_scores = {}
