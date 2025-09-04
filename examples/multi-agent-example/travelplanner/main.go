@@ -237,15 +237,15 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 	}
 
 	// Use WatcherAgent
-	// watcher, _ := agent.NewWatcherAgent(
-	// 	agent.WithLLM(client),
-	// 	agent.WithEnv(env),
-	// 	agent.WithPrompt(WatchPrompt),
-	// 	agent.WithInstruction(WatchInstructions),
-	// 	agent.WithCallback(callbackHandler),
-	// 	agent.WithSuffix(WatchSuffix),
-	// 	agent.WithReflectionPath(reflectionPath),
-	// )
+	watcher, _ := agent.NewWatcherAgent(
+		agent.WithLLM(client),
+		agent.WithEnv(env),
+		agent.WithPrompt(WatchPrompt),
+		agent.WithInstruction(WatchInstructions),
+		agent.WithCallback(callbackHandler),
+		agent.WithSuffix(WatchSuffix),
+		agent.WithReflectionPath(reflectionPath),
+	)
 
 	opts := []aievo.Option{
 		aievo.WithTeam(team),
@@ -257,12 +257,12 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		aievo.WithSOP(selectedSOP.Workflow),
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
-		// aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
-		// 	messages := memory.Load(context.Background(), nil)
-		// 	msgCount := len(messages)
-		// 	return msgCount > 0 && msgCount%watcherInterval == 0
-		// }),
-		// aievo.WithWatcherInterval(watcherInterval),
+		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
+			messages := memory.Load(context.Background(), nil)
+			msgCount := len(messages)
+			return msgCount > 0 && msgCount%watcherInterval == 0
+		}),
+		aievo.WithWatcherInterval(watcherInterval),
 	}
 
 	return aievo.NewAIEvo(opts...)
@@ -297,6 +297,7 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		exampleSOPString := string(exampleSOPBytes)
 
 		// 2.1.1 Use the RAG prompt with the extracted examples
+		// exampleAnalysis = "{The analysis process. For brevity, it is omitted here.}"
 		// prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
 
 		// 2.1.2 RAG + templete
@@ -320,6 +321,8 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 				return nil, fmt.Errorf("failed to marshal SOP template to string: %w", err)
 			}
 			templateString := string(templateBytes)
+
+			exampleAnalysis = "{The analysis process. For brevity, it is omitted here.}"
 
 			prompt = fmt.Sprintf(SOPGeneratorPrompt_temp_rag, templateString, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
 		}
@@ -544,12 +547,12 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_v3_ta_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_rep3_ta_%s.json", mode, timeStamp)
 	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
 	// end_id := 3 //len(questions)
-	watcherInterval := 50
+	watcherInterval := 30
 
 	for i, q := range questions {
 		if i < start_id {
@@ -587,12 +590,12 @@ func main() {
 					if err != nil {
 						log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 					} else {
-						retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
-						// retrievedSopPath := fmt.Sprintf("SOP/rev_sop/rev_sop_v3_q%d.json", retrievedQuestionNumber)
+						// retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
+						retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v3_q%d.json", retrievedQuestionNumber)
 						log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 						sopPath = retrievedSopPath
 
-						reflectionPath = fmt.Sprintf("SOP/reflect/ref_v3_q%d.json", retrievedQuestionNumber)
+						reflectionPath = fmt.Sprintf("SOP/reflect/ref_v3.1.1.1_q%d.json", retrievedQuestionNumber)
 					}
 				} // 依据通用模板 / rag 生成SOP
 				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
@@ -611,9 +614,10 @@ func main() {
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v3.1_q%d.json", i)
+				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v3.1.1.1_q%d.json", i)
 				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
+				sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3_q%d.json", i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
@@ -698,3 +702,4 @@ func main() {
 // v2.7 = v2.6 + little revise v2.json, cost control
 // v3 = v2.7 - Plan Checker
 // start from 9.1, use qwen3-2507
+// start from 9.3, permit last agent to call others

@@ -96,7 +96,8 @@ func (t *AttractionTool) Description() string {
 	return `Find attractions in a city of your choice.
 Search for tourist attractions, landmarks, and points of interest in cities.
 Input must be json schema: ` + string(bytes) + `
-Example Input: {"city": "London"}`
+Note that just use the city name without the state.
+Example Input: {"city": "Memphis"}`
 }
 
 func (t *AttractionTool) Schema() *tool.PropertiesSchema {

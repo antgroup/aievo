@@ -1,0 +1,58 @@
+{
+  "question": "Can you provide a travel plan for 1 person departing from Kansas City to Pensacola for 3 days, from March 27th to March 29th, 2022, with a budget of $900?",
+  "analysis": "The user requires a 3-day closed-loop trip from Kansas City to Pensacola with strict budget constraints ($900) and 1-person logistics. The previous SOP failed because the Accommodation Planner prioritized cost over mandatory constraints (minimum stay requirement), violating requirement #6. To prevent recurrence, we revised all selection agents (Accommodation, Restaurant, Attractions) to enforce: (1) constraint verification as the FIRST step using search results, (2) mandatory compliance before cost optimization, and (3) explicit cross-checking of city-day alignment. Transportation Planner instructions were reinforced to prevent data fabrication. These changes strictly sequence constraint validation before selection, addressing the core failure where cost minimization overrode hard requirements. The team structure remains optimal as parallel processing balances efficiency with constraint rigor.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip. This logistical framework is then passed to the Accommodation Planner to arrange lodging. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find the best options in their respective areas. Once their individual plans are complete, the Final Plan Summarizer receives all information to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Ensure that the itinerary must be a closed loop, meaning user needs to return to starting point on the last day.\n3. Do not revisit any city in the middle of the trip. Unless the user requests it, do not add any waypoints on your own.\n4. If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.\n5. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). When travelling to two cities in one day, you should note 'from A to B' in the 'Current City' section. This information will form the framework for the other planners.\n6. All travel information (e.g., flight numbers, cost) must come exclusively from the search results; do not create them yourself.\n7. Calculate the total cost for transportation and indicate the remaining budget for the next planner.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the user's trip.",
+          "instruction": "1. Please carefully review the daily locations provided by the Transportation Planner and the user's budget and preferences. Use the search tool to find suitable accommodations.\n2. BEFORE selecting any accommodation, you MUST verify the following constraints using the search results:\n   a. The minimum stay requirement must be less than or equal to the exact number of nights you are booking.\n   b. The maximum occupancy must accommodate the number of people (1 person in this case).\n   c. The room type matches the user's specified conditions (if any).\n3. Only proceed with accommodations that satisfy ALL constraints; cost optimization is secondary to constraint compliance.\n4. Note that if the user returns to their original starting point on the last day, no accommodation needs to be arranged for that night.\n5. Your output must include the exact accommodation name as found in search results.\n6. Calculate costs by multiplying price per room per night by number of nights and rooms.\n7. State the price per room, total cost, and remaining budget for subsequent planners.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day of the user's trip.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's culinary interests. Use the search tool to suggest restaurants for breakfast, lunch, and dinner.\n2. BEFORE selecting any restaurant, you MUST verify the following using search results and current plan state:\n   a. The restaurant is located in the city where the user will be at meal time.\n   b. The cuisine type matches the user's requested preferences (if any).\n   c. The restaurant has not been used for any meal (breakfast/lunch/dinner) on any previous day or earlier that day.\n   d. Dietary restrictions (if specified) are accommodated.\n3. Only restaurants satisfying ALL constraints are eligible; cost optimization occurs after compliance.\n4. Do not arrange meals if the user has already returned to the starting point or has not yet departed.\n5. For each meal, provide the exact restaurant name from search results, city, cuisine type, and total cost (head count × per-person spending).\n6. Calculate and state the total meal cost.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction for each day of the user's trip.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's interests. Use the search tool to suggest attractions for each day.\n2. BEFORE selecting any attraction, you MUST verify the following using search results and current plan state:\n   a. The attraction is located in the city where the user will be that day.\n   b. The attraction has not been suggested for any previous day.\n   c. The attraction is confirmed free in search results.\n3. Only attractions satisfying ALL constraints are eligible; cost optimization is irrelevant as all are free.\n4. NEVER suggest attractions in the user's departure point (Kansas City) or when the user has returned to it.\n5. Provide the exact attraction name and city from search results.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Based on the verified and refined plan from other agents, generate a detailed, day-by-day final plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and accommodation names.\n2. Note that all the information in your plan should be derived from the provided data.\n3. Based on the travel time analysis, if the user has not yet departed or has already returned to their point of origin, there is no need to arrange corresponding meals or accommodation.\n4. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

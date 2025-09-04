@@ -1,0 +1,58 @@
+{
+  "question": "Can you create a 5-day travel plan for one person departing from Greer and visiting 2 cities in Pennsylvania? The travel dates are from March 5th to March 9th, 2022. The trip's budget is set at $3,400.",
+  "analysis": "The user requires a 5-day closed-loop trip from Greer, SC to two Pennsylvania cities with strict adherence to location validation and transportation rules. Past failures revealed critical gaps: (1) Transportation Planner generated invalid flight numbers by bypassing FlightSearch validation and misrepresented Day 1's origin city, (2) Final Plan Summarizer lacked explicit checks for PA city count and origin formatting. To address these, the revised SOP hardens Transportation Planner's flight validation with mandatory sandbox cross-checks and enforces explicit 'Greer, SC (origin)' notation for Day 1. The Final Plan Summarizer now includes automated PA city counting (rejecting non-2 counts) and origin-format verification before synthesis. Other agents remain unchanged as Restaurant/Attractions Planners already enforce city alignment, and Accommodation Planner's night-count logic was previously fixed. The workflow stays sequential-to-parallel to isolate transportation logic before parallel service curation, minimizing error propagation.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the route between Greer, and two Pennsylvania cities, ensuring a closed-loop 5-day itinerary with explicit origin notation and validated transportation. This framework is passed to the Accommodation Planner to secure stays meeting PA-specific minimum-night requirements. Simultaneously, the Restaurant and Attractions Planners curate non-repeating, location-accurate options for meals and activities. The Final Plan Summarizer enforces mandatory validation of PA city count and origin formatting before consolidating all data into the final itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. The user departs from Greer, and must visit exactly two cities in Pennsylvania over 5 days (March 5-9, 2022). Use CitySearch to identify valid PA cities and FlightSearch/GoogleDistanceMatrix to plan transportation. Ensure the itinerary starts and ends in Greer with no mid-trip city revisits.\n2. Strictly enforce closed-loop logic: Day 5 must return to Greer. Example sequence: Day 1 (Greer -\u003e City A), Day 2 (City A -\u003e City B), Days 3-4 (City B), Day 5 (City B -\u003e Greer).\n3. If self-driving is selected (e.g., Greer to PA via car), prohibit all flights/taxis for the entire trip. Prioritize cost-efficient options within the $3,400 budget.\n4. For ALL flights, run FlightSearch to obtain validated flight numbers, costs, and durations from the sandbox; output ONLY these verified details. Never invent or modify flight numbers.\n5. Output must specify 'Current City' per day. For travel days (Day 1/5), format as 'from A to B' to explicitly anchor the origin/destination. For stationary days, use city name only.\n6. Calculate transportation costs and remaining budget after deductions.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Using the Transportation Planner's PA city sequence, search AccommodationSearch for hotels in those cities. Confirm all properties are in the exact city matching the itinerary (e.g., Philadelphia, not NYC).\n2. Calculate required nights per city using: Nights = count of itinerary days from Day 1 to Day (N-1) where the city is 'Current City' (N = total travel days). For example, in a 5-day trip, Day 5 ends in Greer so accommodations cover Days 1-4 nights. If Pittsburgh is 'Current City' only on Day 1, Nights = 1. Verify minimum stay requirements ≤ calculated Nights.\n3. For every candidate property, validate the city using the 'city' or 'address' field in search results. Reject options where city data mismatches itinerary city (e.g., 'NYC' in name/address for Philadelphia).\n4. Prioritize lowest-cost options meeting all criteria. Calculate total cost as (price per room/night × Nights × rooms), assuming 1 room.\n5. Output exact accommodation names from search results, city-specific costs, and remaining budget after lodging expenses.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. For each PA city day (Days 1-4), use RestaurantSearch to find three unique restaurants per meal. Skip Day 5 meals since the user returns to Greer.\n2. Ensure zero repetition across all meals (e.g., no restaurant used twice). As no cuisine preferences were specified, prioritize diverse PA-local options (e.g., Philly cheesesteak, Pittsburgh pierogies).\n3. Validate all restaurant names and cities against search results. Calculate meal costs as (user count × per-person spend).\n4. Output restaurant names, cuisines, cities, and total meal costs while preserving budget compliance.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to identify one free attraction per PA city day (Days 1-4). Skip Day 5 (Greer return) and the departure city (Greer).\n2. Ensure attractions are unique (e.g., Day 1: Pittsburgh The Andy Warhol Museum; Day 2: Philadelphia Independence Hall).\n3. Strictly use exact attraction names and cities from search results. Confirm all are free as per user constraints.\n4. Exclude attractions in Greer or revisited cities. Output only one attraction per day with city alignment.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Before synthesizing, validate:\n   a. Count distinct cities in Pennsylvania (excluding Greer) in the itinerary; reject if ≠2 and request Transportation Planner correction.\n   b. Verify Day 1 'Current City' explicitly contains 'Greer' notation; reject non-compliant plans.\n2. Synthesize agent outputs into day-by-day plan.\n3. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

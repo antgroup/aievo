@@ -1,0 +1,58 @@
+{
+  "question": "Could you create a travel plan starting from Provo to Phoenix for 2 people, from March 24th to March 26th, 2022? Our budget is set at $1,400. We'll be bringing our pets along, so accommodations with pet-friendly house rules would be preferred. We intend to stay in private rooms. In terms of food, we'd like to have a variety of cuisines, including Indian, American, French, and Italian.",
+  "analysis": "The user requires a 3-day pet-friendly travel plan from Provo to Phoenix for 2 people with specific cuisine preferences and a strict $1,400 budget. Key constraints include: closed-loop itinerary (Provo -\u003e Phoenix -\u003e Provo), pet-friendly private accommodations, mandatory cuisine coverage (Indian/American/French/Italian), and no transportation mode mixing if self-driving is chosen. The SOP must enforce strict name matching from search results and budget compliance. The template's agent structure works but requires enhancements: Accommodation Planner must prioritize pet-friendly policies and private rooms; Restaurant Planner must explicitly cover all requested cuisines; all agents must verify budget allocation. Transportation Planner needs to consider pet logistics (e.g., flight pet policies vs. self-driving feasibility given the 11-hour drive distance). The workflow remains sequential/parallel as in the template since no special dependencies exist beyond standard planning phases.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip. This logistical framework is then passed to the Accommodation Planner to arrange lodging. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find the best options in their respective areas. Once their individual plans are complete, the Final Plan Summarizer receives all information to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, and budget. Use the provided tools to plan the primary transportation between cities, such as flights, taxi or self-driving.\n2. Ensure that the itinerary must be a closed loop, meaning user needs to return to starting point (Provo) on the last day (March 26).\n3. Do not revisit any city in the middle of the trip. Unless the user requests it, do not add any waypoints on your own.\n4. If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey. Consider pet logistics (e.g., airline pet policies vs. driving feasibility for 2 people + pets).\n5. Your output should clearly define the 'Current City' for each day and the 'transportation' details (e.g., Flight Number, Cost, Duration). When travelling to two cities in one day, you should note 'from A to B' in the 'Current City' section. This information will form the framework for the other planners.\n6. Calculate the total cost for transportation and indicate the remaining budget for the next planner.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Please carefully review the daily locations provided by the Transportation Planner and the user's budget and preferences. Use the search tool to find suitable accommodations.\n2. Please rigorously check if the accommodations meet the user's needs. This may include: checking the minimum stay duration, verifying the maximum occupancy of rooms against the number of people (2), confirming private room availability, and ensuring pet-friendly policies are explicitly stated in search results.\n3. Note that if the user returns to their original starting point (Provo) on the last day, no accommodation needs to be arranged for that night.\n4. If possible, try to minimize expenses to leave a buffer for later.\n5. Your output should include detailed information for the accommodations arranged in each city, with a strict emphasis on providing the exact accommodation name to ensure it matches the information found in the search result.\n6. The search results show the price per room per night, so you need to multiply it by the number of nights and the number of rooms, to get the final costs.\n7. Subject to meeting the user's needs, try to select the most affordable accommodation. Calculate your accommodation costs, and state the price per room, the total cost, and remaining budget for the planners that follow.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's requirement for cuisines including Indian, American, French, and Italian. Use the search tool to suggest restaurants for breakfast, lunch, and dinner, ensuring all four cuisine types are covered at least once during the trip.\n2. Ensure that each meal must be at a different restaurant, and caters to the user's preferences. Verify cuisine type matches search results exactly.\n3. Based on the time analysis, if the user has already returned to the point of departure (Provo), there is no need to arrange corresponding meals.\n4. For each meal, provide the restaurant's name, its city, the cuisine type, and the total cost (multiply the head count by the per-person spending).\n5. The restaurant names should be exact matches to those found in the search results, ensuring accuracy and reliability.\n6. Subject to meeting the user's needs, try to select the most affordable restaurants. Calculate and state the total cost of all planned meals.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's interests and preferences, use the search tool to suggest attractions for **each day**.\n2. For each day, provide the attraction's name, its city.\n3. Ensure that attractions for each day must not be repeated.\n4. DO NOT suggest attractions in the user's departure point (Provo) except on travel days when they are still there.\n5. All attractions in the search result are free.\n6. The attraction names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Based on the verified and refined plan from other agents, generate a detailed, day-by-day final plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and accommodation names.\n2. Note that all the information in your plan should be derived from the provided data.\n3. Based on the travel time analysis, if the user has not yet departed or has already returned to their point of origin (Provo), there is no need to arrange corresponding meals or accommodation.\n4. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).\n5. There's no need to specify the room type in the output plan.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

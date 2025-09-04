@@ -96,7 +96,8 @@ func (t *RestaurantTool) Description() string {
 	return `Explore dining options in a city of your choice.
 Search for restaurants in cities with cuisine and rating information.
 Input must be json schema: ` + string(bytes) + `
-Example Input: {"city": "Tokyo"}`
+Note that just use the city name without the state.
+Example Input: {"city": "Memphis"}`
 }
 
 func (t *RestaurantTool) Schema() *tool.PropertiesSchema {

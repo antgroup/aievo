@@ -1,0 +1,58 @@
+{
+  "question": "Please provide me with a travel plan that departs from Las Vegas to Denver for 3 days, from March 12th to March 14th, 2022. The budget for this solo trip is $1,600.",
+  "analysis": "The user requires a 3-day solo trip from Las Vegas to Denver with a $1,600 budget, returning to Las Vegas on the final day. Key constraints include closed-loop itinerary, no city revisits, solo-specific accommodations (single occupancy), and strict budget adherence. The SOP must ensure agents prioritize cost efficiency while respecting solo traveler needs. Transportation Planner must enforce the Las Vegas-Denver-Las Vegas loop within 3 days. Accommodation and Restaurant Planners must verify single-person suitability and avoid repetitions. Attractions Planner leverages free entries. Budget tracking across agents is critical to stay under $1,600.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner establishes the closed-loop route (Las Vegas -\u003e Denver -\u003e Las Vegas) for 3 days, selecting transportation modes within budget. The Accommodation Planner then secures single-occupancy stays in Denver for nights 1 and 2. Simultaneously, the Restaurant Planner books non-repeating solo-friendly meals, and the Attractions Planner schedules unique free activities. Finally, the Summarizer consolidates all details into a cohesive itinerary, validating against budget and solo-travel constraints.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days (3 days), departure city (Las Vegas), destination city (Denver), travel dates (March 12-14, 2022), solo travel constraints, and budget ($1,600). Use the provided tools to plan transportation between cities.\n2. Ensure the itinerary is a closed loop: user departs Las Vegas on day 1, arrives in Denver, and returns to Las Vegas on day 3.\n3. Do not revisit any city mid-trip; Denver must be visited only once.\n4. If self-driving is selected, prohibit all plane/taxi usage. Prioritize cost-effective options within budget.\n5. Output must specify 'Current City' for each day (e.g., 'from Las Vegas to Denver' for day 1) and transportation details (mode, cost, duration).\n6. Calculate total transportation cost and deduct from the budget, passing remaining funds to the next planner.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review daily locations from the Transportation Planner and user's solo travel/budget constraints. Use search tools to find single-occupancy accommodations in Denver for nights 1 and 2.\n2. Rigorously verify: minimum stay requirements (e.g., 2-night stays if applicable), room occupancy (1 person), and room type suitability.\n3. Exclude accommodations for day 3 since the user returns to Las Vegas.\n4. Prioritize cost efficiency to preserve budget for meals/attractions. Multiply nightly rates by nights and rooms (1 room for solo).\n5. Output exact accommodation names from search results, with per-night cost, total cost, and updated remaining budget.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Use daily locations and user's solo travel context to search for restaurants in Denver for days 1-2. Day 3 meals end before returning to Las Vegas.\n2. Ensure all restaurants are distinct per meal and day, suitable for solo dining, and align with budget constraints.\n3. Exclude meals for days when the user hasn't departed (pre-day 1) or has returned (post-day 3).\n4. For each meal, provide exact restaurant names, cuisine types, and total cost (1 person × per-meal spending).\n5. Prioritize affordable options while maintaining variety; confirm all names match search results.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Search for free attractions in Denver for days 1-2 using the user's itinerary. Exclude day 3 as travel concludes.\n2. Provide exact attraction names from search results, ensuring no repetitions across days.\n3. Verify all attractions are located in the current city (Denver) and avoid departure city (Las Vegas) suggestions.\n4. Prioritize solo-friendly activities and confirm all entries are free per user constraints.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Consolidate verified data from all planners into a day-by-day itinerary, including exact names for flights, hotels, restaurants, and attractions.\n2. Validate all entries match search results and adhere to solo-travel constraints (e.g., single occupancy, no repeated meals/attractions).\n3. Exclude meals/accommodations for non-travel days (pre-departure/post-return).\n4. Ensure total costs stay within $1,600 budget and format the output with clear day-wise sections, using '-' for irrelevant fields (e.g., day 3 accommodation).",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

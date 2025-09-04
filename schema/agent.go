@@ -58,6 +58,10 @@ type Agent interface {
 	Env() Environment
 
 	Tools() []tool.Tool
+
+	SetRole(role string)
+
+	GetRole() string
 }
 
 var (
@@ -90,7 +94,7 @@ func ConvertConstructScratchPad(name, self string, messages []Message, steps []S
 			} else {
 				if sender == "Watcher" {
 					scratchPad += fmt.Sprintf("(Hint from Global Watcher): %s\n", message.Content)
-				}else {
+				} else {
 					scratchPad += fmt.Sprintf("(%s -> %s): %s\n",
 						sender, receiver, message.Content)
 				}

@@ -98,8 +98,8 @@ func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, st
 	}
 
 	// // 2. 将传入的 steps 历史序列化为字符串
-    var nilmessage []schema.Message
-    actionHistory := schema.ConvertConstructScratchPad("", agentName, nilmessage, steps)
+	var nilmessage []schema.Message
+	actionHistory := schema.ConvertConstructScratchPad("", agentName, nilmessage, steps)
 
 	// 3. 创建系统消息，内容包含 agent 名称和其完整的 action 历史
 	triggerMsg := schema.Message{
@@ -126,9 +126,98 @@ func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, st
 	if msg.MngInfo == nil {
 		return "null"
 	}
-	// 如果replace不是空列表，且agentname在其中，则返回content 
+	// 如果replace不是空列表，且agentname在其中，则返回content
 	if len(msg.MngInfo.Replace) > 0 && funk.ContainsString(msg.MngInfo.Replace, agentName) {
 		return msg.MngInfo.Content
 	}
 	return "null"
+}
+
+// AddActionRecord 添加动作记录
+func (e *Environment) AddActionRecord(agentName, action, input, output, timestamp string) {
+	record := ActionRecord{
+		AgentName: agentName,
+		Action:    action,
+		Input:     input,
+		Output:    output,
+		Timestamp: timestamp,
+	}
+	e.ActionHistory = append(e.ActionHistory, record)
+}
+
+// GetActionHistory 获取动作历史，以字符串形式返回
+func (e *Environment) GetActionHistory() string {
+	if len(e.ActionHistory) == 0 {
+		return "Null"
+	}
+
+	var history strings.Builder
+	history.WriteString("Action History:\n")
+	for i, record := range e.ActionHistory {
+		history.WriteString(fmt.Sprintf("[%d] %s uses tool: %s\n",
+			i+1, record.AgentName, record.Action))
+		if record.Input != "" {
+			history.WriteString(fmt.Sprintf("    Input: %s\n", record.Input))
+		}
+		if record.Output != "" {
+			outputStr := record.Output
+			if len(outputStr) > 5000 {
+				outputStr = fmt.Sprintf("%s... (omitted)", outputStr[:5000])
+			}
+			history.WriteString(fmt.Sprintf("    Observation: %s\n", outputStr))
+		}
+	}
+	return history.String()
+}
+
+// RemoveActionsByAgents 删除指定agent的动作记录及之后的记录
+func (e *Environment) RemoveActionsByAgents(agents []string) error {
+	if len(agents) == 0 {
+		return nil
+	}
+
+	// 找到第一条目标agent的动作记录
+	firstTargetIndex := -1
+	for i, record := range e.ActionHistory {
+		for _, agentName := range agents {
+			if record.AgentName == agentName {
+				firstTargetIndex = i
+				break
+			}
+		}
+		if firstTargetIndex != -1 {
+			break
+		}
+	}
+
+	// 如果找到了，删除该记录及之后的所有记录
+	if firstTargetIndex != -1 {
+		e.ActionHistory = e.ActionHistory[:firstTargetIndex]
+		fmt.Printf("Removed action history from index %d onwards for agents: %v\n", firstTargetIndex, agents)
+	}
+
+	return nil
+}
+
+// RemoveActionsByAgentCount 删除指定agent的最近几次动作记录
+func (e *Environment) RemoveActionsByAgentCount(agentName string, count int) error {
+	if count <= 0 {
+		return nil
+	}
+
+	// 从后往前遍历，找到指定agent的最近count次动作记录并删除
+	removed := 0
+	for i := len(e.ActionHistory) - 1; i >= 0 && removed < count; i-- {
+		if e.ActionHistory[i].AgentName == agentName {
+			// 删除该记录
+			e.ActionHistory = append(e.ActionHistory[:i], e.ActionHistory[i+1:]...)
+			removed++
+		}
+	}
+
+	if removed > 0 {
+		fmt.Printf("Removed %d recent action records for agent: %s\n", removed, agentName)
+	}
+
+	return nil
 }

@@ -1,0 +1,58 @@
+{
+  "question": "We need a 7-day travel plan for a group of 4, taking off from Santa Ana and visiting 3 different cities in Texas from March 25th to March 31st, 2022. Our budget is set at $5,800 for the trip. Additionally, our lodging options must accommodate children under the age of 10.",
+  "analysis": "The user requires a 7-day closed-loop Texas itinerary from Santa Ana for 4 people (including children under 10) within $5,800. The critical failure analysis reveals two root causes: (1) Transportation Planner selected cities without pre-validating child-friendly lodging availability, causing iterative rejections; (2) Unrealistic ≥3 lodging option requirement ignored real-world inventory constraints. To address this, the revised SOP mandates Transportation Planner to validate ≥1 compliant accommodation per city BEFORE finalizing itinerary (with evidence), reduces minimum lodging options to 1 for feasibility, and embeds a lodging crisis protocol (switch to 2-city itinerary after 2 validation failures). The Accommodation Planner now requires only ≥1 option and must provide pre-validated alternatives WITH search evidence during rejections. Workflow remains linear but strengthens validation checkpoints to prevent iteration cycles, while retaining tool efficiency. Budget allocation is hardened with explicit $4,600/$1,200 caps to prevent cost overruns.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip, ensuring the Santa Ana-Texas-Santa Ana closed loop. The Transportation Planner must validate all transportation details (using FlightSearch for flights and GoogleDistanceMatrix for driving) against sandbox data to ensure accuracy before finalizing. This validated logistical framework is then passed to the Accommodation Planner to arrange child-friendly lodging. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find the best options in their respective areas while respecting the $5,800 budget. Once their individual plans are complete, the Final Plan Summarizer receives all information to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements: 7-day trip (March 25-31, 2022) from Santa Ana visiting exactly 3 different cities in Texas for a group of 4, with $5,800 total budget. Use CitySearch to identify appropriate Texas destinations.\n2. Ensure the itinerary forms a closed loop, starting and ending in Santa Ana on March 31st.\n3. Do not revisit any Texas city during the trip. Verify all cities are in Texas except Santa Ana (CA).\n4. If self-driving is selected for any leg, prohibit all air/taxi transport for the entire journey.\n5. For any flight segment, use FlightSearch to obtain and validate flight numbers, departure times, arrival times, and costs against sandbox data. For driving segments, use GoogleDistanceMatrix to validate the route and distance.\n6. Output must specify 'Current City' for each day (e.g., 'from Santa Ana to Austin') and complete transportation details (mode, cost, duration, and specific details such as flight numbers and times for flights, or route and distance for driving). Confirm total transportation cost leaves sufficient budget for other categories.\n7. Prioritize cost-effective transport modes that maintain schedule feasibility for 7 days.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review daily locations from Transportation Planner and user constraints: $5,800 total budget, group of 4 including children under 10. Use AccommodationSearch to find Texas-based lodging.\n2. Rigorously verify: minimum stay requirements, room occupancy for 4 people, explicit allowance for children under 10, and family-appropriate amenities.\n3. No accommodation needed on March 31st when returning to Santa Ana.\n4. Prioritize budget-friendly options that meet child requirements, calculating costs as (price per room × nights × required rooms).\n5. Output must include exact accommodation names from search results, with room type details confirming child policy compliance.\n6. Track cumulative costs and ensure remaining budget covers meals/activities while maintaining $5,800 total limit.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Using daily locations from Transportation Planner, search for restaurants in each Texas city using RestaurantSearch. Note no meals needed on departure/return days when in Santa Ana.\n2. Ensure all 21 meals (7 days × 3 meals) use unique restaurants with no repetitions across days.\n3. Verify meal costs fit remaining budget after transport/accommodation, calculating as (4 people × per-person cost).\n4. Prioritize affordable options while maintaining meal variety, though no specific cuisine preferences were stated.\n5. Output must include exact restaurant names from search results, with city and meal-specific cost breakdowns.\n6. Confirm all selected restaurants are operational during March 25-31, 2022 timeframe.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. For each Texas city visit day (excluding Santa Ana days), use AttractionSearch to find free attractions matching family-friendly requirements.\n2. Ensure 6 unique attractions across 6 Texas days (March 25-30), with no repetitions.\n3. Verify all attractions are operational during travel dates and suitable for children under 10.\n4. Output must include exact attraction names from search results with city locations.\n5. Never suggest attractions for Santa Ana days (March 25 departure and March 31 return).\n6. Confirm all listed attractions are verified free per user's budget constraints.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Consolidate all agent outputs into a day-by-day itinerary strictly following the format: date, current city, transportation, accommodation, breakfast/lunch/dinner, attraction.\n2. Verify all Texas cities are visited only once, with Santa Ana as start/end point.\n3. Cross-check that: child-friendly lodging is confirmed, all restaurants/attractions are unique, total costs ≤ $5,800.\n4. Replace any missing/invalid entries with '-' (e.g., no accommodation on return day).\n5. Ensure transportation modes comply with self-driving constraint if applicable.\n6. Present final budget breakdown showing transport, lodging, meals, and buffer amounts.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

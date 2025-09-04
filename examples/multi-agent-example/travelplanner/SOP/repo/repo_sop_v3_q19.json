@@ -1,0 +1,59 @@
+{
+  "question": "Can you assist in creating a travel itinerary for a group of 4, starting in Seattle and visiting 3 unique cities across Texas? This trip will span over 7 days from March 10th through March 16th, 2022. We have a budget of $11,000. Regarding our accommodations, we would like to rent entire rooms, and it's important that our lodgings allow parties. As for transportation, we do not plan to drive ourselves around.",
+  "analysis": "The user requires a 7-day closed-loop Texas itinerary starting/ending in Seattle with strict constraints: flight-only transport, party-permitted entire-home accommodations (defined as absence of explicit prohibitions), and non-repeating restaurants/attractions. The critical failure analysis revealed the Transportation Planner wasted route adjustment attempts on low-priority cities (Corpus Christi, Waco) instead of prioritizing major metropolitan areas (Houston, Dallas, San Antonio, Austin) where party-compliant accommodations are more prevalent. To address this, the SOP must: (1) mandate Transportation Planner to exclusively use the 4 major cities for route validation, (2) enforce a tiered attempt limit starting with Houston-Dallas-San Antonio as the default combination, and (3) prevent consideration of minor cities entirely. The team structure remains optimal but requires precise city prioritization logic in Transportation Planner's instructions. Workflow is refined to emphasize major-city-first validation while keeping parallel processing for efficiency. All other constraints (closed loop, no repeats, budget adherence) are preserved with stricter city-selection guardrails.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner designs a flight-based closed-loop route using ONLY major Texas cities (Houston, Dallas, San Antonio, Austin) for the 3 stops. They proactively validate accommodation feasibility for party-compliant entire-home stays using AccommodationSearch previews, starting with the default city trio (Houston, Dallas, San Antonio). After 2 consecutive route adjustment attempts (using distinct combinations of the 4 major cities) failing accommodation validation, mandatory user escalation occurs. This pre-validated framework passes to the Accommodation Planner. Simultaneously, Restaurant and Attractions Planners curate non-repeating dining/activities matching Texas locations. The Final Plan Summarizer enforces all constraints (budget, closed loop, no repeats) before delivery.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan flight-based transportation ensuring a closed-loop itinerary across 3 unique Texas cities from the major metropolitan set.",
+          "instruction": "1. Strictly use FlightSearch to plan inter-city travel since the user explicitly prohibits self-driving; do not consider taxi or self-driving options. Confirm all flights originate/terminate in Seattle on March 10/March 16.\n2. Design a 7-day closed loop: Seattle → 3 distinct Texas cities selected EXCLUSIVELY from {Houston, Dallas, San Antonio, Austin} → Seattle. Never revisit any Texas city mid-itinerary.\n3. Verify flight dates align with March 10-16, 2022, ensuring Day 7 returns to Seattle. For travel days, denote 'from A to B' in Current City (e.g., 'from Austin to Houston').\n4. Calculate transportation costs for 4 passengers using FlightSearch results; deduct from $11,000 budget and pass remaining balance.\n5. Before finalizing any route, use AccommodationSearch to confirm party-compliant availability (defined as: 'entire home/apt' properties with NO explicit party prohibitions in house_rules) for all proposed cities/dates. You MUST start with the default city trio: Houston, Dallas, San Antonio (in any visitation order). If unavailable, attempt ONE alternative combination from the 4 major cities (e.g., Houston, Dallas, Austin). After 2 consecutive attempts failing accommodation validation, escalate to user with 'ESCALATE: No feasible route due to accommodation constraints' and halt processing. NEVER consider Texas cities outside {Houston, Dallas, San Antonio, Austin}.\n6. Always validate flight numbers via FlightSearch sandbox before handoff; reject invalid flights immediately. Track cumulative budget impact of route changes and reject revisions exceeding remaining balance.\n7. Output must include exact flight numbers, costs, and durations per leg. Use CitySearch to confirm Texas city uniqueness and GoogleDistanceMatrix only for airport ground transfers.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch",
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to secure party-permitted entire-home stays matching Texas city locations and budget.",
+          "instruction": "1. Use AccommodationSearch to find properties labeled 'entire home/apt' where house_rules contain NO explicit party prohibitions (e.g., absence of 'no parties' text). Reject hotels, shared spaces, or properties with prohibitive language.\n2. Validate minimum stay requirements (e.g., 2-night minimums) against Transportation Planner's daily city schedule. Skip accommodation for Day 7 (return to Seattle).\n3. Prioritize cost efficiency: multiply nightly rate by room count (for 4 people) and stay duration. Ensure total stays ≤ remaining budget after transportation.\n4. Output exact property names from search results, including city-specific details (e.g., 'Downtown Austin Party Villa').\n5. If two consecutive cities in the itinerary (per Transportation Planner's schedule) have no party-compliant accommodations found, escalate to user with 'ESCALATE: Accommodation constraints unmet for consecutive cities' and halt processing. Never request route adjustments for single city failures.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to curate non-repeating breakfast/lunch/dinner options across Texas cities.",
+          "instruction": "1. For each Texas city day (Days 1-6), use RestaurantSearch to select 3 distinct restaurants per day. Skip meals on travel days if arrival/departure timing makes them impractical (e.g., Day 1 dinner after late flight).\n2. Ensure all restaurant names and cuisines exactly match search results. Prioritize affordable per-person costs for 4 guests.\n3. Confirm no restaurant repeats across the itinerary. Verify cuisines offer regional Texas diversity (e.g., BBQ, Tex-Mex) even if user didn't specify preferences.\n4. Output must include meal timing rationale (e.g., 'Lunch: 12:30pm after Attraction X').",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to schedule free, non-repeating daily activities in Texas cities.",
+          "instruction": "1. Use AttractionSearch to identify 1 free attraction per Texas city day (Days 1-6). Exclude Seattle activities except on Day 7 (return day).\n2. Validate attractions are unique across all days and match search-result names (e.g., 'The Bullock Texas State History Museum').\n3. Align attraction timing with Transportation Planner's city schedule (e.g., avoid scheduling after departure flights).\n4. Prioritize iconic Texas experiences (e.g., Space Center Houston, AT\u0026T Stadium tour) to enhance itinerary relevance.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to synthesize all components into a validated, user-ready itinerary.",
+          "instruction": "1. Cross-verify all data: transportation dates must form a closed loop, accommodations must permit parties (via no prohibitions rule), and no restaurants/attractions repeat.\n2. Enforce Texas-city specificity: all restaurants/attractions must exist in the city visited that day per Transportation Planner's route.\n3. Calculate total costs (transportation + accommodations + meals) against $11,000 budget. If exceeded, reject and request adjustments.\n4. Format output as a day-by-day table with '-' for unnecessary entries (e.g., Day 7 accommodation). Highlight flight numbers, exact hotel/restaurant names, and attraction details from search results.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

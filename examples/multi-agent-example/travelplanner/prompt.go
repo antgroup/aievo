@@ -11,11 +11,11 @@ const WatchInstructions = `
 ## Key Abnormalities to Detect:
 You must be vigilant based on the following critical error conditions:
 -  Irrelevant Output: The agent produces content that is off-topic, or entirely unrelated to its assigned task.
--  Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the same message back and forth without progress.
+-  Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the similar message back and forth without progress.
 -  Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow, such as skipping essential steps. Please note that the agent is allowed to communicate with other agents it is messaging with to obtain necessary information.
 -  Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
 -  Severe constraint violation: The plan must meet multiple constraint requirements, including:
-1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+1.  The itinerary must be a closed loop, meaning user must return to starting point on the last day.
 2.  Do not revisit any city in the middle of the trip.
 3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
 4.  Restaurants for each day and each meal must not be repeated.
@@ -27,8 +27,15 @@ You must be vigilant based on the following critical error conditions:
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
+13. Use the exact city name without adding its state.
+14. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
-Please note that communication messages between agents do not include the process of them using tools (e.g., the web searching process). Therefore, do not force them to provide detailed evidence and related processes in their communication.
+** Important Note:**
+- You are supervising a task in progress, so some actions (such as the search process) or communications may not have been completed yet.
+For example, if an agent has just completed a search but has not yet had time to forward the message, do not replace this agent.
+And if the agent requires multi-step actions to execute and the current performance is satisfactory, do not replace this agent during the process.
+- In addition, communication messages between agents do not include the process of them using tools (e.g., searching process). Therefore, do not force them to provide related processes in their communication.
+- If certain constraints consistently cannot be met or a consensus cannot be reached, inform the corresponding agent that they can appropriately relax the requirements. The top priority is to submit the plan on time (within 20 turns of conversation).
 
 {{if .refcase}}
 ## Relevant Case for Reference:
@@ -45,8 +52,16 @@ The multi-agent system you are currently monitoring operates based on the follow
 {{.sop}}
 ~~~
 
+## Agents Tool Usage History:
+~~~
+{{.action_history}}
+~~~
+
 ## Agents Conversation History for Analysis:
+~~~
 {{.history}}
+~~~
+Please note that communication is still in progress, so it is normal for some messages not to be forwarded or for some agents not to have sent messages yet. The conversation ends when the final plan is sent to the user.
 
 ## Response Format:
 Your response must always be a JSON object like below:
@@ -64,7 +79,8 @@ If you conclude that all agents are functioning correctly and no replacement is 
 // However, if multiple instances of Feedback indicate errors, you should regard this as evidence of abnormal behavior on the part of the agent.
 
 const WatchSuffix = `
-Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response. Begin!
+Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response.
+If an agent has just completed a search but has not yet had time to forward the message, do not replace this agent!
 `
 
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
@@ -83,6 +99,8 @@ const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
+13. Use the exact city name without adding its state.
+14. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
 You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 
@@ -136,6 +154,8 @@ const SOPGeneratorPrompt_rag = `Your task is to act as an expert in designing mu
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
+13. Use the exact city name without adding its state.
+14. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
 You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 
@@ -190,6 +210,8 @@ const SOPGeneratorPrompt_temp_rag = `Your task is to act as an expert in designi
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
+13. Use the exact city name without adding its state.
+14. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
 You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
 

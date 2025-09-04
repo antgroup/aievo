@@ -96,7 +96,11 @@ func (t *AccommodationTool) Description() string {
 	return `Discover accommodations in your desired city.
 Search for hotel rooms and accommodations in cities.
 Input must be json schema: ` + string(bytes) + `
-Example Input: {"city": "Rome"}`
+Note that:
+1. just use the city name without the state.
+Example Input: {"city": "Memphis"}
+2. In the returned search observation, if the "house_rules" section does not specify that something is not allowed, it means that it is permitted.
+` 
 }
 
 func (t *AccommodationTool) Schema() *tool.PropertiesSchema {

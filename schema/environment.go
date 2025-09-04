@@ -22,7 +22,19 @@ type Environment interface {
 
 	GetSubscribeAgents(_ context.Context, subscribed Agent) []Agent
 
-    WatchActionTaken(ctx context.Context, agentName string, steps []StepAction) string
+	WatchActionTaken(ctx context.Context, agentName string, steps []StepAction) string
+
+	// AddActionRecord 添加动作记录
+	AddActionRecord(agentName, action, input, output, timestamp string)
+
+	// GetActionHistory 获取动作历史，以字符串形式返回
+	GetActionHistory() string
+
+	// RemoveActionsByAgents 删除指定agent的动作记录及之后的记录
+	RemoveActionsByAgents(agents []string) error
+
+	// RemoveActionsByAgentCount 删除指定agent的最近几次动作记录
+	RemoveActionsByAgentCount(agentName string, count int) error
 }
 
 // Memory is the interface for memory in chains.
@@ -57,11 +69,11 @@ type MngInfo struct {
 		Tools       []string `json:"tools"`
 		Prompt      string   `json:"prompt"`
 	} `json:"create"`
-	Select []string `json:"select"`
-	Remove []string `json:"remove"`
-	Replace []string `json:"replace"`
-	Content string `json:"guidance"`
-	Receiver string `json:"receiver"`
+	Select   []string `json:"select"`
+	Remove   []string `json:"remove"`
+	Replace  []string `json:"replace"`
+	Content  string   `json:"guidance"`
+	Receiver string   `json:"receiver"`
 }
 
 type Subscribe struct {

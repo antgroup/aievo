@@ -74,6 +74,7 @@ func (t *DistanceTool) Description() string {
 	return `Estimate the distance, time and cost between two cities.
 Calculate travel information between origin and destination cities using different transportation modes.
 Input must be json schema: ` + string(bytes) + `
+Note that just use the city name without the state.
 Example Input: {"origin": "Paris", "destination": "Lyon", "mode": "self-driving"}`
 }
 
@@ -152,8 +153,9 @@ func (t *DistanceTool) calculateDistance(origin, destination, mode string) (stri
 			duration := row[headerMap["duration"]]
 			distance := row[headerMap["distance"]]
 
-			// Check for invalid data
-			if duration == "" || distance == "" || duration == "NaN" || distance == "NaN" {
+			// Check for invalid data - including empty strings and NaN values
+			if duration == "" || distance == "" || duration == "NaN" || distance == "NaN" ||
+				strings.TrimSpace(duration) == "" || strings.TrimSpace(distance) == "" {
 				return "No valid information.", nil
 			}
 
@@ -164,12 +166,14 @@ func (t *DistanceTool) calculateDistance(origin, destination, mode string) (stri
 
 			// Calculate cost based on mode
 			var cost int
+			var costCalculated bool
 			if strings.Contains(mode, "driving") || mode == "self-driving" {
 				// Extract numeric value from distance
 				distanceStr := strings.ReplaceAll(distance, "km", "")
 				distanceStr = strings.ReplaceAll(distanceStr, ",", "")
 				if distVal, err := strconv.ParseFloat(strings.TrimSpace(distanceStr), 64); err == nil {
 					cost = int(distVal * 0.05)
+					costCalculated = true
 				}
 			} else if mode == "taxi" {
 				// Extract numeric value from distance
@@ -177,7 +181,13 @@ func (t *DistanceTool) calculateDistance(origin, destination, mode string) (stri
 				distanceStr = strings.ReplaceAll(distanceStr, ",", "")
 				if distVal, err := strconv.ParseFloat(strings.TrimSpace(distanceStr), 64); err == nil {
 					cost = int(math.Round(distVal))
+					costCalculated = true
 				}
+			}
+
+			// If cost calculation failed, return no valid information
+			if !costCalculated {
+				return "No valid information.", nil
 			}
 
 			return fmt.Sprintf("%s, from %s to %s, duration: %s, distance: %s, cost: %d",

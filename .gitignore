@@ -7,6 +7,7 @@ examples/multi-agent-example/GAIA/eval_onlyfile
 examples/multi-agent-example/GAIA/SOP/val_sop
 examples/multi-agent-example/GAIA/SOP/rev_sop
 examples/multi-agent-example/GAIA/SOP/reflect
+examples/multi-agent-example/GAIA/log
 examples/multi-agent-example/paper_write/eval
 *.log
 myread.py
@@ -27,4 +28,6 @@ examples/multi-agent-example/travelplanner/Analysis/embedding_qwen
 examples/multi-agent-example/travelplanner/SOP/reflect
 examples/multi-agent-example/travelplanner/SOP/rev_sop
 examples/multi-agent-example/travelplanner/SOP/gen_sop
+examples/multi-agent-example/travelplanner/log
+
 

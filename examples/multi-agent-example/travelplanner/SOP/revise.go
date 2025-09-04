@@ -383,9 +383,9 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_rev3.1_endcall_20250902112058.json"
+	evalLogPath := "../output/train_rev3.1.1_edc_20250902175616.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_rev3.1_endcall_20250902112058_per_results_20250902.jsonl"
+	evaluationResultsPath := "../results/train_rev3.1.1_edc_20250902175616_per_results_20250903.jsonl"
 	// sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
@@ -447,9 +447,9 @@ func main() {
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 
 		// sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_q%d.json", result.ID))
-		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v3.1.1_q%d.json", result.ID))
+		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1.1_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v3.1.1.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -506,4 +506,4 @@ func main() {
 	log.Println("Revision process finished.-----------------------------------")
 }
 
-// v3 -> rev3 -> rev3.1 -> rev3.1.1
+// v3 -> rev3 -> rev3.1 -> rev3.1.1 -> rev3.1.1.1

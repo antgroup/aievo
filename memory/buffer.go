@@ -3,7 +3,6 @@ package memory
 import (
 	"context"
 	"fmt"
-	"slices"
 
 	"github.com/antgroup/aievo/schema"
 )
@@ -69,7 +68,7 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 		return nil
 	}
 
-	// 特殊处理 "ALL" 情况, 直接清空消息列表, 但保留用户消息
+	// 1. 特殊处理 "ALL" 情况, 直接清空消息列表, 但保留用户消息
 	if agents[0] == "ALL" {
 		if len(c.Messages) > 0 {
 			c.Messages = c.Messages[:1]
@@ -78,92 +77,60 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 		return nil
 	}
 
-	// 用于跟踪每个agent是否已经保留了其收到的第一条"单独"消息
-	firstSoloMessageKept := make(map[string]bool)
-	for _, agentName := range agents {
-		firstSoloMessageKept[agentName] = false
+	// 2. 检查目标agent是否已经发过消息
+	agentHasSentMessage := false
+	agentSet := make(map[string]struct{}, len(agents))
+	for _, agent := range agents {
+		agentSet[agent] = struct{}{}
 	}
 
-	// 维护目标agent的接收者列表
-	targetAgentReceivers := make(map[string]bool)
-
-	newMessages := make([]schema.Message, 0, len(c.Messages))
-	// 记录被删除agent收到的第一条消息在新列表中的位置
-	firstMessageIndex := -1
-
 	for _, msg := range c.Messages {
-		shouldRemove := false
+		if _, ok := agentSet[msg.Sender]; ok {
+			agentHasSentMessage = true
+			break
+		}
+	}
+	// 如果目标agent还没有发过消息，则直接返回
+	if !agentHasSentMessage {
+		return nil
+	}
 
-		// 规则 1: 检查消息是否由目标agent发送
+	// 3. 从头开始检测消息池里的消息，找到第一条接收者中有该agent的消息
+	firstTargetMessageIndex := -1
+
+	for i, msg := range c.Messages {
+		receivers := msg.Receivers()
+		// 检查接收者中是否有目标agent
 		for _, agentName := range agents {
-			if msg.Sender == agentName {
-				shouldRemove = true
-				// 将该消息的接收者添加到接收者列表中
-				receivers := msg.Receivers()
-				for _, receiver := range receivers {
-					if receiver != agentName { // 避免自己给自己发消息的情况
-						targetAgentReceivers[receiver] = true
-					}
+			for _, receiver := range receivers {
+				if receiver == agentName {
+					firstTargetMessageIndex = i
+					break
 				}
+			}
+			if firstTargetMessageIndex != -1 {     // 检查下一条消息是不是A-》c
 				break
 			}
 		}
-
-		// // 规则 1.5: 检查消息发送者是否在目标agent的接收者列表中
-		// if !shouldRemove && targetAgentReceivers[msg.Sender] {
-		// 	shouldRemove = true
-		// }
-
-		if shouldRemove {
-			// 如果消息需要删除，则直接跳过，不添加到新列表
-			continue
-		}
-
-		// 规则 2 & 3: 检查接收者逻辑
-		receivers := msg.Receivers()
-		// 如果有多个接收者，则保留消息
-		if len(receivers) > 1 {
-			// 不做任何事，shouldRemove 保持 false，消息将被保留
-		} else if len(receivers) == 1 {
-			// 如果只有一个接收者
-			receiverName := receivers[0]
-			isTargetAgent := slices.Contains(agents, receiverName)
-
-			if isTargetAgent {
-				// 如果这个唯一的接收者是目标agent
-				if !firstSoloMessageKept[receiverName] {
-					// 这是它收到的第一条单独消息，保留
-					firstSoloMessageKept[receiverName] = true
-					// 记录这条消息在新列表中的位置（作为重新开始的消费位点）
-					if firstMessageIndex == -1 {
-						firstMessageIndex = len(newMessages)
-					}
-				} else {
-					// 这是后续的单独消息，删除
-					shouldRemove = true
-				}
-			}
-		}
-
-		// 根据最终的标志决定是否保留消息
-		if !shouldRemove {
-			newMessages = append(newMessages, msg)
+		if firstTargetMessageIndex != -1 {
+			break
 		}
 	}
 
 	fmt.Printf("Before removal: len(c.Messages) = %d, c.index = %d\n", len(c.Messages), c.index)
-	c.Messages = newMessages
 
-	// 将 c.index 指向被删除agent收到的第一条消息
-	// 这样agent就会从"重新开始"的位置消费消息
-	if firstMessageIndex != -1 {
-		c.index = firstMessageIndex
+	// 如果找到了第一条目标消息，删除该消息之后的所有消息
+	if firstTargetMessageIndex != -1 {
+		// 保留从0到firstTargetMessageIndex的消息（包含该消息）
+		c.Messages = c.Messages[:firstTargetMessageIndex+1]
+		// 设置c.index指向该消息，使得下次调用时会重新处理这条消息
+		c.index = firstTargetMessageIndex
+		fmt.Printf("Found first target message at index %d, truncated messages after it\n", firstTargetMessageIndex)
 	} else {
-		// 如果没有找到第一条消息，保持原有索引（但要确保不越界）
-		if c.index >= len(c.Messages) {
-			c.index = len(c.Messages) - 1
-		}
+		// 如果没有找到目标消息，保持原状
+		fmt.Printf("No target message found, keeping all messages\n")
 	}
+
 	fmt.Printf("After removal: len(c.Messages) = %d, c.index = %d\n", len(c.Messages), c.index)
 	return nil
 }

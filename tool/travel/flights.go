@@ -96,6 +96,7 @@ func (t *FlightTool) Description() string {
 	return `A flight information retrieval tool.
 Search for flights between departure and destination cities on specific dates.
 Input must be json schema: ` + string(bytes) + `
+Note that just use the city name without the state.
 Example Input: {"departure_city": "New York", "destination_city": "London", "date": "2022-10-01"}`
 }
 

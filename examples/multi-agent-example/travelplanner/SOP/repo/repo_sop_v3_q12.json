@@ -1,0 +1,58 @@
+{
+  "question": "Could you draft a 5-day travel plan for a group of 4 departing from Memphis and venturing into 2 cities in Minnesota? Our travels are scheduled from March 1st to March 5th, 2022, and our budget is set at $13,800. We require accommodations that provide private rooms.",
+  "analysis": "The user requires a 5-day closed-loop travel plan starting and ending in Memphis, visiting exactly two cities in Minnesota with a $13,800 budget for 4 people needing private rooms. The SOP must enforce strict adherence to constraints: no city revisits mid-trip, transportation mode consistency (self-driving prohibits planes/taxis), non-repeating restaurants/attractions, and location-specific arrangements. The team structure from the template is reused but instructions are tailored to address Minnesota-specific cities, private room requirements, and budget allocation for 4 travelers. Transportation Planner must prioritize Minnesota city selection and closed-loop routing, while Accommodation Planner focuses on verifying private room availability for 4 guests. Parallel processing for restaurants/attractions ensures efficiency within the 5-day constraint.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip, ensuring a closed loop through two Minnesota cities. This logistical framework is then passed to the Accommodation Planner to arrange private-room lodging for 4 people. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find non-repeating dining and activity options specific to Minnesota cities. Once their individual plans are complete, the Final Plan Summarizer integrates all information into a comprehensive itinerary that strictly adheres to the $13,800 budget and user requirements.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements: a 5-day trip departing from Memphis on March 1st to March 5th, 2022, visiting exactly two cities in Minnesota, with a budget of $13,800 for a group of 4. Use the provided tools to plan the primary transportation between cities, such as flights, taxi, or self-driving, ensuring the itinerary forms a closed loop.\n2. Ensure the itinerary starts and ends in Memphis with exactly two non-repeating Minnesota cities in between (e.g., Memphis -\u003e Duluth -\u003e Minneapolis -\u003e Memphis).\n3. Do not revisit any city during Days 1-4. The route must strictly follow: Day 1 (Memphis to City A), Day 2 (City A), Day 3 (City A to City B), Day 4 (City B), Day 5 (City B to Memphis).\n4. If self-driving is selected for any segment, the entire journey must use self-driving (no planes/taxis allowed).\n5. Your output must define 'Current City' for each day (e.g., 'from Memphis to Duluth' for Day 1) and include transportation details (mode, cost, duration). Calculate total transportation cost and remaining budget for subsequent planners.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review the daily locations from the Transportation Planner and focus exclusively on accommodations in the two Minnesota cities (Days 1-4 nights). No accommodation is needed on Day 5 as users return to Memphis.\n2. Rigorously verify that accommodations meet all user requirements: private rooms for 4 people (e.g., two double rooms or a quad suite), minimum stay duration compliance, and occupancy limits.\n3. Prioritize cost-effective options that leave sufficient budget for meals and activities, while ensuring exact name matching from search results.\n4. Calculate costs as (price per room per night × number of rooms × nights). For 4 travelers requiring private rooms, assume 2 rooms unless a single suite accommodates all.\n5. Output must include exact accommodation names, room types, nightly/total costs, and updated remaining budget.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Focus exclusively on restaurants in the two Minnesota cities during Days 1-4. No meals are needed on Day 5 after returning to Memphis.\n2. For each meal, select unique restaurants (no repeats across days) that serve diverse cuisines, accommodating all 4 travelers.\n3. Verify exact restaurant names and cuisine types from search results, ensuring no duplication of establishments or meal types.\n4. Calculate meal costs as (per-person spending × 4 people). Prioritize affordable options while maintaining variety.\n5. Explicitly exclude Memphis-based restaurants since attractions/meals are not arranged in the departure city during active travel days.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Identify free attractions exclusively in the two Minnesota cities (Duluth and Minneapolis) for Days 1-4. Never suggest Memphis attractions.\n2. Ensure no attraction is repeated across days, with one unique attraction per active travel day.\n3. Validate all attraction names against search results and confirm they operate during March 2022.\n4. Focus on location-appropriate activities (e.g., Split Rock Lighthouse for Duluth, Chain of Lakes for Minneapolis).\n5. Output must include exact attraction names and cities with no references to the departure point.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Synthesize inputs from all planners into a day-by-day itinerary strictly following the format: Day, Current City, Transportation, Accommodation, Breakfast/Lunch/Dinner, Attraction.\n2. Verify all entries match search-result names (e.g., 'Hilton Duluth', 'Sven \u0026 Ole's Pizza').\n3. Exclude Memphis-based arrangements except for Day 5's return transportation.\n4. Confirm total costs stay within $13,800 by cross-referencing transportation, accommodation, and meal calculations.\n5. Use '-' for irrelevant fields (e.g., Accommodation on Day 5) and note city transitions as 'from A to B' in Current City.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

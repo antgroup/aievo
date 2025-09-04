@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/antgroup/aievo/environment"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/antgroup/aievo/callback"
-	"github.com/antgroup/aievo/environment"
 	"github.com/antgroup/aievo/feedback"
 	"github.com/antgroup/aievo/llm"
 	"github.com/antgroup/aievo/prompt"
@@ -124,6 +124,13 @@ func (ba *BaseAgent) Run(ctx context.Context,
 		}
 		steps = append(steps, actions...)
 
+		// 记录动作历史到环境中
+		if ba.env != nil {
+			for _, action := range actions {
+				ba.env.AddActionRecord(ba.name, action.Action, action.Input, action.Observation, time.Now().Format("2006-01-02 15:04:05"))
+			}
+		}
+
 		// 在 steps 更新后，检查其数量并通知环境
 		watcher_fd := "null"
 		if ba.env != nil {
@@ -150,9 +157,15 @@ func (ba *BaseAgent) Run(ctx context.Context,
 			}
 			messages = append(messages, watcherMessage)
 
+			// 清除当前agent在本轮对话中的动作历史记录
+			if ba.env != nil && len(steps) > 0 {
+				ba.env.RemoveActionsByAgentCount(ba.name, len(steps))
+			}
+
 			steps = make([]schema.StepAction, 0) // 清空steps
 			totalFeedbacks = 0                   // 重置feedback计数器
 			i = i - 1
+
 			continue
 		}
 
@@ -228,6 +241,11 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 
+	// 添加动作历史记录到inputs中
+	if ba.env != nil {
+		inputs["action_history"] = ba.env.GetActionHistory()
+	}
+
 	inputs["question"] = messages[0].Content
 
 	p, err := ba.prompt.Format(inputs)
@@ -255,8 +273,8 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	// logfile := fmt.Sprintf("eval/log_level_L2_v6_twq_wgr456_new2507_t01_%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("eval/log_v3_ta_%s.log", time.Now().Format("2006-0102"))
+	// logfile := fmt.Sprintf("log/log_level_L2_v6_twq_wgr6new__%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("log/log_rep3_ta_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -732,4 +750,12 @@ func (ba *BaseAgent) parseFileFromMessage(messages []schema.Message) string {
 		return fileContent
 	}
 	return "No file provided"
+}
+
+func (ba *BaseAgent) SetRole(role string) {
+	ba.role = role
+}
+
+func (ba *BaseAgent) GetRole() string {
+	return ba.role
 }
