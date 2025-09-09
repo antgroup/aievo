@@ -160,7 +160,7 @@ type SOPFile struct {
 	SOPs     []SOP  `json:"sops"`
 }
 
-func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int) (*aievo.AIEvo, error) {
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int, watcherActionInterval int) (*aievo.AIEvo, error) {
 	var selectedSOP SOP
 
 	if sop != nil {
@@ -283,6 +283,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			return msgCount > 0 && msgCount%watcherInterval == 0
 		}),
 		aievo.WithWatcherInterval(watcherInterval),
+		aievo.WithWatcherActionInterval(watcherActionInterval),
 	}
 
 	return aievo.NewAIEvo(opts...)
@@ -689,7 +690,8 @@ func main() {
 		start_time := time.Now()
 		start_id := 0
 		//end_id := len(questions)
-		watcherInterval := 6
+		watcherInterval := 5
+		watcherActionInterval := 4 // 默认值
 		// watcherInterval := level + 3
 		//if level == 3 {
 		//	watcherInterval = 7
@@ -750,13 +752,13 @@ func main() {
 					if err != nil {
 						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 						// Fallback to default SOP if generation fails
-						evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
+						evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval)
 						if err != nil {
 							panic(err)
 						}
 					} else {
 						log.Printf("Using generated SOP for question %d", i)
-						evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval)
+						evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval, watcherActionInterval)
 						if err != nil {
 							panic(err)
 						}
@@ -765,7 +767,7 @@ func main() {
 					sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v6.1_L0_q%d.json", i)
 					reflectionPath := fmt.Sprintf("SOP/reflect/ref_v6.1_L%d_q%d.json", level, i)
 					//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
-					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval)
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval)
 
 					// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v6_L%d_q%d.json", level, i)
 					// writeToFile := true // 训练集：生成SOP并写入文件
@@ -773,14 +775,14 @@ func main() {
 					// if err != nil {
 					// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 					// 	// Fallback to default SOP if generation fails
-					// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval)
+					// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval, watcherActionInterval)
 					// 	if err != nil {
 					// 		panic(err)
 					// 	}
 					// } else {
 					// 	log.Printf("Using generated SOP for question %d", i)
 					// 	// Use the generated SOP for the current question
-					// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval)
+					// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval, watcherActionInterval)
 					// 	if err != nil {
 					// 		panic(err)
 					// 	}

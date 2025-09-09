@@ -239,8 +239,8 @@ You have access to the following tools:
 ~~~{{end}}
 
 {{if .refcase}}
-## Relevant Case for Reference:
-Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes..
+### Relevant Case for Reference:
+Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes.
 {{.refcase}}{{end}}
 
 ### Current Task: Conversation History

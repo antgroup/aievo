@@ -114,6 +114,8 @@ The system is designed to provide a complete plan for the user, including transp
 10. The selected room type and constraints must meet the user's conditions (if any).
 11. The selected restaurants must cover the cuisines the user wants (if any).
 12. The chosen mode of transportation must meet the user's preferences (if any).
+13. Use the exact city name without adding its state.
+14. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
 There is a team of agents working together to create a travel plan based on a user's request. The agents can use various tools to search necessary information. The agents must follow a Standard Operating Procedure (SOP) that defines their roles, instructions, and workflow.
 Your task is to revise a past Standard Operating Procedure (SOP) based on a critical reflection of a past failure.

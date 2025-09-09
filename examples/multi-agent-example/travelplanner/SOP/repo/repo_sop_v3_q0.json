@@ -41,7 +41,7 @@
         {
           "name": "Attractions Planner",
           "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction for each day of the user's trip.",
-          "instruction": "1. Please carefully review the daily locations provided and the user's interests. Use the search tool to suggest attractions for each day.\n2. BEFORE selecting any attraction, you MUST verify the following using search results and current plan state:\n   a. The attraction is located in the city where the user will be that day.\n   b. The attraction has not been suggested for any previous day.\n   c. The attraction is confirmed free in search results.\n3. Only attractions satisfying ALL constraints are eligible; cost optimization is irrelevant as all are free.\n4. NEVER suggest attractions in the user's departure point (Kansas City) or when the user has returned to it.\n5. Provide the exact attraction name and city from search results.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's interests. Use the search tool to suggest attractions for each day.\n2. BEFORE selecting any attraction, you MUST verify the following using search results and current plan state:\n   a. The attraction is located in the city where the user will be that day.\n   b. The attraction has not been suggested for any previous day.\n3. NEVER suggest attractions in the user's departure point (Kansas City) or when the user has returned to it.\n4. Provide the exact attraction name and city from search results.",
           "tools": [
             "AttractionSearch"
           ]

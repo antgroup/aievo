@@ -2,6 +2,7 @@ package environment
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/antgroup/aievo/schema"
 	"github.com/thoas/go-funk"
@@ -64,6 +65,16 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 					// 将newInstruction添加到agent的role中
 					currentRole := targetAgent.GetRole()
 					targetAgent.SetRole(currentRole + "\nImportant Note: " + newInstruction)
+
+					// 创建一条只有watcher能看到的消息记录
+					watcherLogMsg := schema.Message{
+						Type:        schema.MsgTypeMsg,
+						Content:     fmt.Sprintf("Replace agent %s with instruction: %s", msg.Receiver, newInstruction),
+						Sender:      "Watcher",
+						Receiver:    "", 
+						AllReceiver: []string{"Watcher"}, // 只有watcher自己能看到
+					}
+					_ = e.Memory.Save(ctx, watcherLogMsg)
 				}
 			}
 		}

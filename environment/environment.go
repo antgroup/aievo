@@ -159,13 +159,13 @@ func (e *Environment) GetActionHistory() string {
 		if record.Input != "" {
 			history.WriteString(fmt.Sprintf("    Input: %s\n", record.Input))
 		}
-		if record.Output != "" {
-			outputStr := record.Output
-			if len(outputStr) > 5000 {
-				outputStr = fmt.Sprintf("%s... (omitted)", outputStr[:5000])
-			}
-			history.WriteString(fmt.Sprintf("    Observation: %s\n", outputStr))
-		}
+		// if record.Output != "" {
+			// outputStr := record.Output
+			// if len(outputStr) > 5000 {
+				// outputStr = fmt.Sprintf("%s... (omitted for brevity)", outputStr[:5000])
+			// }
+			// history.WriteString(fmt.Sprintf("    Observation: %s\n", outputStr))
+		// }
 	}
 	return history.String()
 }

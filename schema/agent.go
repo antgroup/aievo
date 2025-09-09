@@ -93,7 +93,7 @@ func ConvertConstructScratchPad(name, self string, messages []Message, steps []S
 					sender, receiver, message.Condition, message.Content)
 			} else {
 				if sender == "Watcher" {
-					scratchPad += fmt.Sprintf("(Hint from Global Watcher): %s\n", message.Content)
+					scratchPad += fmt.Sprintf("(Global Watcher): %s\n", message.Content)
 				} else {
 					scratchPad += fmt.Sprintf("(%s -> %s): %s\n",
 						sender, receiver, message.Content)

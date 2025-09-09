@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/antgroup/aievo/agent"
 	"github.com/antgroup/aievo/llm"
@@ -77,6 +78,7 @@ type ReflectionOutput struct {
 	OriginalSOP   string          `json:"workflow"`
 	HistoryString string          `json:"history_conversation"`
 	LLMReflection json.RawMessage `json:"llm_reflection"`
+	GroundTruth   string          `json:"ground_truth"`
 }
 
 // loadFile unmarshals a JSON file into the given interface
@@ -135,6 +137,93 @@ func filterCommunicationHistory(messages []schema.Message) []map[string]string {
 		}
 	}
 	return filtered
+}
+
+// extractPurePlan extracts the pure plan (last array) from annotated_plan string
+func extractPurePlan(annotatedPlan string) string {
+	if annotatedPlan == "" {
+		return ""
+	}
+
+	// Find the first occurrence of [{'days': 1,
+	pattern := "[{'days': 1,"
+	index := strings.Index(annotatedPlan, pattern)
+
+	if index == -1 {
+		// If the pattern is not found, try alternative patterns
+		altPatterns := []string{
+			"[{\"days\": 1,", // With double quotes
+			"[{'days':1,",    // Without space after colon
+			"[{\"days\":1,",  // Double quotes without space
+		}
+
+		for _, altPattern := range altPatterns {
+			index = strings.Index(annotatedPlan, altPattern)
+			if index != -1 {
+				pattern = altPattern
+				break
+			}
+		}
+	}
+
+	if index == -1 {
+		log.Printf("Warning: could not find pure plan pattern in annotated_plan: %s", annotatedPlan)
+		return annotatedPlan // Return original if pattern not found
+	}
+
+	// Extract everything from the pattern onwards
+	purePlan := annotatedPlan[index:]
+
+	// Find the matching closing bracket to get complete array
+	// We need to find the last ]] to close the array properly
+	lastIndex := strings.LastIndex(purePlan, "]]")
+	if lastIndex != -1 {
+		purePlan = purePlan[:lastIndex+2] // +2 to include the ]]
+	}
+
+	log.Printf("Successfully extracted pure plan starting from position %d", index)
+	return purePlan
+}
+
+// generateSuccessfulReflection generates a reflection file for successful cases without LLM reflection
+func generateSuccessfulReflection(sopContent string, historyString string, question TravelPlannerQuestion, outputPath string) error {
+	log.Printf("Generating reflection for successful query: %s", question.Query)
+
+	// Unmarshal original SOP to a structured format to ensure it's well-formed in the final JSON
+	var sopFile SOPFile
+	if err := json.Unmarshal([]byte(sopContent), &sopFile); err != nil {
+		log.Printf("Warning: could not unmarshal original SOP content: %v", err)
+		// If unmarshalling fails, just use the raw string.
+		sopFile.SOPs = []SOP{} // or handle error appropriately
+	}
+
+	// Extract pure plan from annotated_plan
+	purePlan := extractPurePlan(question.AnnotatedPlan)
+
+	// For successful cases, we don't have LLM reflection, so we use an empty JSON object
+	llmReflection := json.RawMessage("{}")
+
+	outputData := ReflectionOutput{
+		Question:      question.Query,
+		OriginalSOP:   sopFile.SOPs[0].Workflow, // Assuming the first SOP is the main one,
+		HistoryString: historyString,
+		LLMReflection: llmReflection,
+		GroundTruth:   purePlan,
+	}
+
+	// Marshal the combined data with pretty printing
+	prettyJSON, err := json.MarshalIndent(outputData, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal combined reflection data: %w", err)
+	}
+
+	// Write the final JSON to the output file
+	if err := os.WriteFile(outputPath, prettyJSON, 0644); err != nil {
+		return fmt.Errorf("failed to write reflection to file %s: %w", outputPath, err)
+	}
+
+	log.Printf("Successfully wrote successful case reflection to %s -------------\n", outputPath)
+	return nil
 }
 
 func performReflection(client llm.LLM, sopContent string, historyString string, question TravelPlannerQuestion, evalResult TravelPlannerEvaluationResult, outputPath string) error {
@@ -214,11 +303,15 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 		sopFile.SOPs = []SOP{} // or handle error appropriately
 	}
 
+	// Extract pure plan from annotated_plan
+	purePlan := extractPurePlan(question.AnnotatedPlan)
+
 	outputData := ReflectionOutput{
 		Question:      question.Query,
 		OriginalSOP:   sopFile.SOPs[0].Workflow, // Assuming the first SOP is the main one,
 		HistoryString: historyString,
 		LLMReflection: llmReflection,
+		GroundTruth:   purePlan,
 	}
 
 	// Marshal the combined data with pretty printing
@@ -251,7 +344,6 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 		return fmt.Errorf("failed to marshal SOP template to string: %w", err)
 	}
 	templateString := string(templateBytes)
-
 
 	// 1. Unmarshal the reflection file to get the LLM's reflection part.
 	var reflectionInput ReflectionOutput
@@ -383,9 +475,9 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_rev3.1.1_edc_20250902175616.json"
+	evalLogPath := "../output/train_rep3_20250905104608.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_rev3.1.1_edc_20250902175616_per_results_20250903.jsonl"
+	evaluationResultsPath := "../results/train_rep3_20250905104608_per_results_20250905.jsonl"
 	// sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
@@ -447,9 +539,10 @@ func main() {
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 
 		// sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_q%d.json", result.ID))
-		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1.1_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_v3.1.1.1_q%d.json", result.ID))
+		// sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1_q%d.json", result.ID))
+		sopPath := filepath.Join(fmt.Sprintf("repo/repo_sop_v3_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rep_v3_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -479,6 +572,12 @@ func main() {
 				log.Printf("ERROR: Failed to copy successful SOP for query %d to %s: %v", result.ID, successfulSopPath, err)
 			} else {
 				log.Printf("Successfully copied SOP for query %d to %s", result.ID, successfulSopPath)
+			}
+
+			// Generate reflection file for successful case
+			historyString := historyStrings[i]
+			if err := generateSuccessfulReflection(string(sopBytes), historyString, question, reflectionOutputPath); err != nil {
+				log.Printf("ERROR: Failed to generate reflection for successful query %d: %v", result.ID, err)
 			}
 			continue
 		}

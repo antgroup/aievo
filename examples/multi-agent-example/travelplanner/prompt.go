@@ -40,8 +40,7 @@ And if the agent requires multi-step actions to execute and the current performa
 {{if .refcase}}
 ## Relevant Case for Reference:
 Here you have access to a historical reference case that contains the user's question, the corresponding workflow for that problem, and reflective insights from different agents' experiences. You can reference these relevant experiences to provide better guidance for agent improvement.
-{{.refcase}}
-{{end}}
+{{.refcase}}{{end}}
 
 ## Current User's Query:
 {{.question}}
@@ -53,11 +52,16 @@ The multi-agent system you are currently monitoring operates based on the follow
 ~~~
 
 ## Agents Tool Usage History:
+All available tools in system are: ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch"].
+Note that each agent will see the execution results, but for the sake of brevity, they are invisible to the Watcher.
 ~~~
 {{.action_history}}
 ~~~
 
 ## Agents Conversation History for Analysis:
+Note that:
+1. The below history also contains your previous messages of watching and guidance.
+2. Every agent only needs to convey the information it provides. There is no need to repeat the information already provided by predecessors.
 ~~~
 {{.history}}
 ~~~
@@ -171,7 +175,7 @@ You must follow the structure of the provided template exactly. The main compone
 **Important Note:** 
 The agent instructions within the following example contain important information. 
 You MUST reuse this information as more as possible. 
-In addition to these instructions, you can add new instructions or elaborate on certain instructions based on user needs.
+In addition to these instructions, you can add new instructions or elaborate on certain instructions based on user needs and important considerations above.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
@@ -306,6 +310,19 @@ When you want to use a tool, you must respond with JSON format like below:
 Please note that the above JSON formats are different. Only one format is selected for output each time.
 DO NOT invoke an agent while using a tool. {{end}}
 `
+
+// {{if .refcase}}
+// ## Relevant Case for Reference:
+// Here's a historically similar case, which includes the user's query, a reflection on your past actions (if applicable), and the standard plan that the overall system should output (ground truth). 
+// You can refer to the relevant experience and the standard plan to better complete your task and avoid repeating the same mistakes.
+// {{.refcase}}{{end}}
+
+// refv2
+// {{if .refcase}}
+// ## Relevant Case for Reference:
+// Here's a historically similar case, which includes the user's query, a reflection on your past experience. 
+// You can refer to the relevant feedback and improved instructions to better complete your task and avoid repeating the same mistakes.
+// {{.refcase}}{{end}}
 
 const NewEndBaseInstructions = `
 ### Team Members & Collaboration

@@ -97,6 +97,7 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 
 	// 3. 从头开始检测消息池里的消息，找到第一条接收者中有该agent的消息
 	firstTargetMessageIndex := -1
+	firstTargetSenderIndex := -1 // 新增：记录目标agent首次发消息的位置
 
 	for i, msg := range c.Messages {
 		receivers := msg.Receivers()
@@ -104,31 +105,38 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 		for _, agentName := range agents {
 			for _, receiver := range receivers {
 				if receiver == agentName {
-					firstTargetMessageIndex = i
+					if firstTargetMessageIndex == -1 {
+						firstTargetMessageIndex = i
+					}
 					break
 				}
 			}
-			if firstTargetMessageIndex != -1 {     // 检查下一条消息是不是A-》c
+			// 检查发送者是否为目标agent
+			if msg.Sender == agentName {
+				if firstTargetSenderIndex == -1 {
+					firstTargetSenderIndex = i
+				}
 				break
 			}
-		}
-		if firstTargetMessageIndex != -1 {
-			break
 		}
 	}
 
 	fmt.Printf("Before removal: len(c.Messages) = %d, c.index = %d\n", len(c.Messages), c.index)
 
-	// 如果找到了第一条目标消息，删除该消息之后的所有消息
-	if firstTargetMessageIndex != -1 {
-		// 保留从0到firstTargetMessageIndex的消息（包含该消息）
-		c.Messages = c.Messages[:firstTargetMessageIndex+1]
-		// 设置c.index指向该消息，使得下次调用时会重新处理这条消息
-		c.index = firstTargetMessageIndex
-		fmt.Printf("Found first target message at index %d, truncated messages after it\n", firstTargetMessageIndex)
+	// 如果找到了目标agent首次发消息的位置，删除该消息及之后的所有消息
+	if firstTargetSenderIndex != -1 {
+		// 保留从0到firstTargetSenderIndex-1的消息（不包含目标agent首次发消息）
+		c.Messages = c.Messages[:firstTargetSenderIndex]
+		// 设置c.index指向目标agent首次收到消息的位置（如果存在），否则指向截断位置
+		if firstTargetMessageIndex != -1 && firstTargetMessageIndex < firstTargetSenderIndex {
+			c.index = firstTargetMessageIndex
+		} else {
+			c.index = firstTargetSenderIndex
+		}
+		fmt.Printf("Found first target sender message at index %d, truncated messages from it\n", firstTargetSenderIndex)
 	} else {
-		// 如果没有找到目标消息，保持原状
-		fmt.Printf("No target message found, keeping all messages\n")
+		// 如果目标agent没有发过消息，保持原状
+		fmt.Printf("Target agent has not sent any messages, keeping all messages\n")
 	}
 
 	fmt.Printf("After removal: len(c.Messages) = %d, c.index = %d\n", len(c.Messages), c.index)

@@ -35,6 +35,7 @@ type options struct {
 	watcher         schema.Agent
 	watchCondition  func(message schema.Message, memory schema.Memory) bool
 	watcherInterval int // 每几轮对话后触发一次watcher
+	watcherActionInterval int // 每几轮对话后触发一次watcher action
 
 	sop string
 }
@@ -150,6 +151,12 @@ func WithWatcher(agent schema.Agent, condition func(message schema.Message, memo
 func WithWatcherInterval(interval int) Option {
 	return func(opts *options) {
 		opts.watcherInterval = interval
+	}
+}
+
+func WithWatcherActionInterval(interval int) Option {
+	return func(opts *options) {
+		opts.watcherActionInterval = interval
 	}
 }
 

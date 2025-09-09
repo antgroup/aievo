@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/antgroup/aievo/environment"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/antgroup/aievo/environment"
 
 	"github.com/antgroup/aievo/callback"
 	"github.com/antgroup/aievo/feedback"
@@ -136,14 +137,14 @@ func (ba *BaseAgent) Run(ctx context.Context,
 		if ba.env != nil {
 			actionCount := len(steps)
 			// 获取环境中配置的触发间隔
-			watcherInterval := 5 // 默认值
+			watcherActionInterval := 6 // 默认值
 			if env, ok := ba.env.(*environment.Environment); ok {
-				if env.WatcherInterval > 0 {
-					watcherInterval = env.WatcherInterval
+				if env.WatcherActionInterval > 0 {
+					watcherActionInterval = env.WatcherActionInterval
 				}
 			}
-			// 触发条件：action 数量为 watcherInterval 的倍数且不为 0
-			if actionCount > 0 && actionCount%watcherInterval == 0 {
+			// 触发条件：action 数量为 watcherActionInterval 的倍数且不为 0
+			if actionCount > 0 && actionCount%watcherActionInterval == 0 {
 				watcher_fd = ba.env.WatchActionTaken(ctx, ba.name, steps)
 			}
 		}
@@ -274,7 +275,7 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 	}
 	// 记录输入输出
 	// logfile := fmt.Sprintf("log/log_level_L2_v6_twq_wgr6new__%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("log/log_rep3_ta_%s.log", time.Now().Format("2006-0102"))
+	logfile := fmt.Sprintf("log/log_rep3_tan_val_%s.log", time.Now().Format("2006-0102"))
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -649,6 +650,7 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 		SOP           string                 `json:"sop"`
 		Workflow      string                 `json:"workflow"`
 		LLMReflection map[string]interface{} `json:"llm_reflection"`
+		GroundTruth   string                 `json:"ground_truth"`
 	}
 
 	if err := json.Unmarshal(reflectionContent, &reflectionData); err != nil {
@@ -662,14 +664,14 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 	}
 
 	// 如果是watcher，使用原有的完整反思提示词
-	if strings.ToLower(ba.name) == "watcher" {
+	if strings.ToLower(ba.name) == "watcheragent" {
 		// 构建反思案例提示词
-		refcasePrompt := fmt.Sprintf("**Question:** %s\n\n**SOP:** %s\n\n**Reflection Insights:**\n",
+		refcasePrompt := fmt.Sprintf("**Question:** %s\n\n**SOP:** %s\n",
 			reflectionData.Question, reflectionData.SOP)
 
 		// 添加失败原因（放在agent_guidance之前）
 		if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
-			refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
+			refcasePrompt += fmt.Sprintf("**Reflection Insights:**\n**Failure Reason:** %s\n", failureReason)
 		}
 
 		// 添加Agent指导内容
@@ -680,8 +682,14 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 					if agentName, ok := guidanceMap["agent_name"].(string); ok {
 						if feedback, ok := guidanceMap["feedback"].(string); ok {
 							if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
-								refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Revised Instruction:* %s\n",
+								refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Improved Instruction:* %s\n",
 									agentName, feedback, revisedInstruction)
+							} else if newInstruction, ok := guidanceMap["new_instruction"].(string); ok {
+								refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Improved Instruction:* %s\n",
+									agentName, feedback, newInstruction)
+							} else {
+								refcasePrompt += fmt.Sprintf("- **%s:** %s\n",
+									agentName, feedback)
 							}
 						}
 					}
@@ -689,37 +697,79 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 			}
 		}
 
+		// 添加ground_truth部分（如果有）
+		if reflectionData.GroundTruth != "" {
+			refcasePrompt += fmt.Sprintf("\n**Ground Truth:** %s\n", reflectionData.GroundTruth)
+		}
+
 		return refcasePrompt
 	}
 
 	// 如果不是watcher，查找对应agent的guidance
+	agentHasGuidance := false
+	var agentRefcasePrompt string
+
 	if agentGuidance, ok := reflectionData.LLMReflection["agent_guidance"].([]interface{}); ok {
 		for _, guidance := range agentGuidance {
 			if guidanceMap, ok := guidance.(map[string]interface{}); ok {
 				if agentName, ok := guidanceMap["agent_name"].(string); ok {
 					// 找到对应的agent
 					if agentName == ba.name {
+						agentHasGuidance = true
 						// 构建简化的反思提示词，只包含question, failure_reason和该agent的feedback
-						refcasePrompt := fmt.Sprintf("**Question:** %s\n\n", reflectionData.Question)
+						agentRefcasePrompt = fmt.Sprintf("**Question:** %s\n\n", reflectionData.Question)
 
 						// 添加失败原因
 						if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
-							refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
+							agentRefcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
 						}
 
 						// 添加该agent的feedback
 						if feedback, ok := guidanceMap["feedback"].(string); ok {
-							refcasePrompt += fmt.Sprintf("**Agent Feedback:** %s\n", feedback)
+							agentRefcasePrompt += fmt.Sprintf("**Agent Feedback:** %s\n", feedback)
 						}
 
-						return refcasePrompt
+						// 添加该agent的新增指令
+						if newIns, ok := guidanceMap["new_instruction"].(string); ok {
+							agentRefcasePrompt += fmt.Sprintf("**Improved Instruction:** %s\n", newIns)
+						} else {
+							if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
+								agentRefcasePrompt += fmt.Sprintf("**Improved Instruction:** %s\n", revisedInstruction)
+							}
+						}
+
+						// 添加ground_truth部分（如果有）
+						// if reflectionData.GroundTruth != "" {
+						// 	agentRefcasePrompt += fmt.Sprintf("\n**Ground Truth:** %s\n", reflectionData.GroundTruth)
+						// }
+
+						return agentRefcasePrompt
 					}
 				}
 			}
 		}
 	}
 
-	// 如果没有找到对应的agent，返回空字符串
+	// 如果没有找到对应的agent guidance，构建通用提示词
+	// if !agentHasGuidance {
+	// 	refcasePrompt := fmt.Sprintf("**Question:** %s\n\n", reflectionData.Question)
+
+	// 	// 添加失败原因
+	// 	if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
+	// 		refcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
+	// 	}
+
+	// 	// 添加ground_truth部分（如果有）
+	// 	if reflectionData.GroundTruth != "" {
+	// 		refcasePrompt += fmt.Sprintf("**Ground Truth:** %s\n", reflectionData.GroundTruth)
+	// 	}
+
+	// 	return refcasePrompt
+	// }
+	if !agentHasGuidance {
+		return ""
+	}
+
 	return ""
 }
 
