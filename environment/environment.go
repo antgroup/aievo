@@ -90,6 +90,10 @@ func (e *Environment) GetTeamLeader() schema.Agent {
 	return e.Team.Leader
 }
 
+func (e *Environment) GetTurn() int {
+	return e.turn
+}
+
 // WatchActionTaken 调用watcher观察action行为
 func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, steps []schema.StepAction) string {
 	// 1. 检查 Watcher 是否已准备好接收通知
@@ -160,11 +164,11 @@ func (e *Environment) GetActionHistory() string {
 			history.WriteString(fmt.Sprintf("    Input: %s\n", record.Input))
 		}
 		// if record.Output != "" {
-			// outputStr := record.Output
-			// if len(outputStr) > 5000 {
-				// outputStr = fmt.Sprintf("%s... (omitted for brevity)", outputStr[:5000])
-			// }
-			// history.WriteString(fmt.Sprintf("    Observation: %s\n", outputStr))
+		// outputStr := record.Output
+		// if len(outputStr) > 5000 {
+		// outputStr = fmt.Sprintf("%s... (omitted for brevity)", outputStr[:5000])
+		// }
+		// history.WriteString(fmt.Sprintf("    Observation: %s\n", outputStr))
 		// }
 	}
 	return history.String()

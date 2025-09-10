@@ -41,7 +41,7 @@ func (e *AIEvo) Watch(ctx context.Context, _ string, opts ...llm.GenerateOption)
 		e.WatchChanDone = make(chan struct{})
 		go func() {
 			for message := range e.WatchChan {
-				if e.WatchCondition != nil && !e.WatchCondition(message, e.Memory) {
+				if e.WatchCondition != nil && !e.WatchCondition(message, e.Memory, e.GetTurn()) {
 					e.WatchChanDone <- struct{}{}
 					continue
 				}
@@ -71,7 +71,7 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			return msg.Content, nil
 		}
 		receivers := msg.Receivers()
-		for _, rec := range receivers {
+		for i, rec := range receivers {
 			receiver := e.Agent(rec)
 			if receiver == nil {
 				if len(receivers) == 1 {
@@ -112,7 +112,12 @@ func (e *AIEvo) Scheduler(ctx context.Context, prompt string, opts ...llm.Genera
 			if err != nil {
 				return "", err
 			}
-			e.broadcast(gen.Messages...) // 发给watcher
+
+			if i == len(receivers)-1 {
+				// 最后一个接收者，触发watcher
+				e.broadcast(gen.Messages...) // 发给watcher
+			}
+			// e.broadcast(gen.Messages...) // 发给watcher
 		}
 	}
 	return "", fmt.Errorf("unexpected end. Might be out ot turn limit")

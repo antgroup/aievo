@@ -62,7 +62,7 @@ func loadTravelPlannerDataset(filePath string) ([]TravelPlannerQuestion, error) 
 	return questions, nil
 }
 
-func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
+func createEvo(client llm.LLM, ts []tool.Tool, logFilePath string) (*aievo.AIEvo, error) {
 	callbackHandler := &CallbackHandler{}
 
 	// 实例化Agents
@@ -76,6 +76,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithCallback(callbackHandler),
 		agent.WithTools(ts),
 		agent.WithSuffix(NULLSuffix),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	AnswerA, _ := agent.NewBaseAgent(
@@ -86,6 +87,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	env := environment.NewEnv()
@@ -130,7 +132,7 @@ type SOPFile struct {
 	SOPs     []SOP  `json:"sops"`
 }
 
-func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int, watcherActionInterval int) (*aievo.AIEvo, error) {
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int, watcherActionInterval int, logFilePath string) (*aievo.AIEvo, error) {
 	var selectedSOP SOP
 
 	if sop != nil {
@@ -182,6 +184,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithCallback(callbackHandler),
 			agent.WithSuffix(NULLSuffix),
 			agent.WithReflectionPath(reflectionPath),
+			agent.WithLogFilePath(logFilePath),
 		}
 
 		// Create a slice to store selected tools for this agent
@@ -246,6 +249,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(WatchSuffix),
 		agent.WithReflectionPath(reflectionPath),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	opts := []aievo.Option{
@@ -258,9 +262,10 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		aievo.WithSOP(selectedSOP.Workflow),
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
-		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
-			messages := memory.Load(context.Background(), nil)
-			msgCount := len(messages)
+		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory, turn int) bool {
+			// messages := memory.Load(context.Background(), nil)
+			// msgCount := len(messages)
+			msgCount := turn
 			return msgCount > 0 && msgCount%watcherInterval == 0
 		}),
 		aievo.WithWatcherInterval(watcherInterval),
@@ -448,7 +453,7 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 	for _, entry := range retrievalData {
 		if entry.ID == questionID {
 			// if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
-				// return entry.RetrievalResults.WeightedSimilarity[0], nil
+			// return entry.RetrievalResults.WeightedSimilarity[0], nil
 			// }
 			if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
 				return entry.RetrievalResults.AnalysisSimilarity[0], nil
@@ -521,7 +526,7 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 2 // 0 for training, 2 for evaluation
+	eval := 0 // 0 for training, 2 for evaluation
 	switch eval {
 	case 0:
 		mode = "train"
@@ -549,13 +554,14 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_rep3_tan_%s.json", mode, timeStamp)
-	logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
+	resultsFilename := fmt.Sprintf("output/%s_rep3.1.1ww_%s.json", mode, timeStamp)
+	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
+	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
 	// end_id := 3 //len(questions)
-	watcherInterval := 50
-	watcherActionInterval := 60 // 默认值
+	watcherInterval := 2
+	watcherActionInterval := 6
 	//test_id := []int{9, 10, 11}
 
 	for i, q := range questions {
@@ -585,6 +591,12 @@ func main() {
 
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 		totalCount++
+		logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if logErr == nil {
+			defer logFile.Close()
+			logEntry := fmt.Sprintf("\n\n===============Processing question ID: %d\n", i)
+			logFile.WriteString(logEntry)
+		}
 
 		if fromsop {
 			sopPath := "SOP/v3.json"
@@ -616,23 +628,23 @@ func main() {
 				if err != nil {
 					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 					// Fallback to default SOP if generation fails
-					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval)
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename)
 					if err != nil {
 						panic(err)
 					}
 				} else {
 					log.Printf("Using generated SOP for question %d", i)
-					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval, watcherActionInterval)
+					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval, watcherActionInterval, logFilename)
 					if err != nil {
 						panic(err)
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", i)
+				sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1.1_q%d.json", i)
 				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3_q%d.json", i)
-				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval)
+				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename)
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件
@@ -655,7 +667,7 @@ func main() {
 				// }
 			}
 		} else { // 手动构建团队
-			evo, err = createEvo(client, tools)
+			evo, err = createEvo(client, tools, logFilename)
 		}
 		if err != nil {
 			panic(fmt.Errorf("failed to create AIEvo instance: %w", err))
@@ -666,7 +678,7 @@ func main() {
 		if err != nil {
 			log.Printf("Error running engineer for query: %v", err)
 			// 记录错误信息到log文件
-			logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+			logFile, logErr := os.OpenFile(ErrorlogFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if logErr == nil {
 				defer logFile.Close()
 				logEntry := fmt.Sprintf("-----ID: %d\n---Query:%s\n---Error: %v\n\n", i, q.Query, err)

@@ -160,7 +160,7 @@ func extractPurePlan(annotatedPlan string) string {
 		for _, altPattern := range altPatterns {
 			index = strings.Index(annotatedPlan, altPattern)
 			if index != -1 {
-				pattern = altPattern
+				// pattern = altPattern
 				break
 			}
 		}
@@ -475,9 +475,9 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_rep3_20250905104608.json"
+	evalLogPath := "../output/train_rep3.1_20250908103053.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_rep3_20250905104608_per_results_20250905.jsonl"
+	evaluationResultsPath := "../results/train_rep3.1_20250908103053_per_results_20250908.jsonl"
 	// sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
@@ -539,10 +539,10 @@ func main() {
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 
 		// sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_q%d.json", result.ID))
-		// sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v3.1.1_q%d.json", result.ID))
-		sopPath := filepath.Join(fmt.Sprintf("repo/repo_sop_v3_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rep_v3_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1_q%d.json", result.ID))
+		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1_q%d.json", result.ID))
+		// sopPath := filepath.Join(fmt.Sprintf("repo/repo_sop_v3_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rep_v3.1_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {

@@ -20,21 +20,21 @@ const (
 )
 
 type options struct {
-	team            []schema.Agent
-	leader          schema.Agent
-	env             *environment.Environment
-	subscribes      []schema.Subscribe
-	maxTurn         int
-	maxToken        int
-	subMode         environment.SubscribeMode
-	LLM             llm.LLM
-	user            schema.Agent
-	callback        callback.Handler
-	sopExpert       schema.Agent
-	planner         schema.Agent
-	watcher         schema.Agent
-	watchCondition  func(message schema.Message, memory schema.Memory) bool
-	watcherInterval int // 每几轮对话后触发一次watcher
+	team                  []schema.Agent
+	leader                schema.Agent
+	env                   *environment.Environment
+	subscribes            []schema.Subscribe
+	maxTurn               int
+	maxToken              int
+	subMode               environment.SubscribeMode
+	LLM                   llm.LLM
+	user                  schema.Agent
+	callback              callback.Handler
+	sopExpert             schema.Agent
+	planner               schema.Agent
+	watcher               schema.Agent
+	watchCondition        func(message schema.Message, memory schema.Memory, turn int) bool
+	watcherInterval       int // 每几轮对话后触发一次watcher
 	watcherActionInterval int // 每几轮对话后触发一次watcher action
 
 	sop string
@@ -141,7 +141,7 @@ func WithSopExpert(agent schema.Agent) Option {
 	}
 }
 
-func WithWatcher(agent schema.Agent, condition func(message schema.Message, memory schema.Memory) bool) Option {
+func WithWatcher(agent schema.Agent, condition func(message schema.Message, memory schema.Memory, turn int) bool) Option {
 	return func(opts *options) {
 		opts.watcher = agent
 		opts.watchCondition = condition

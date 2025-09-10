@@ -69,7 +69,7 @@ func main() {
 		aievo.WithTeamLeader(leader),
 		aievo.WithSopExpert(sop),
 		aievo.WithUserProxy(nil),
-		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
+		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory, turn int) bool {
 			return message.Condition == "daily" && message.Sender == "God"
 			// messages := memory.Load(context.Background(), nil)
 			// msgCount := len(messages)

@@ -22,7 +22,7 @@ type Environment struct {
 	SopExpert             schema.Agent
 	Planner               schema.Agent
 	Watcher               schema.Agent
-	WatchCondition        func(message schema.Message, memory schema.Memory) bool
+	WatchCondition        func(message schema.Message, memory schema.Memory, turn int) bool
 	WatcherInterval       int // 每几轮对话后触发一次watcher
 	WatcherActionInterval int // 每几轮动作后触发一次watcher
 	WatchChan             chan schema.Message

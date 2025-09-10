@@ -64,7 +64,7 @@ func main() {
 		aievo.WithEnvironment(env),
 		aievo.WithTeamLeader(leader),
 		// set watcher running condition
-		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
+		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory, turn int) bool {
 			return message.Sender == "GameMaster" && message.Receiver == "ALL"
 		}),
 		aievo.WithSopExpert(sop),

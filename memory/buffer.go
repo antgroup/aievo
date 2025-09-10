@@ -127,11 +127,12 @@ func (c *Buffer) RemoveMessagesByAgents(ctx context.Context, agents []string) er
 	if firstTargetSenderIndex != -1 {
 		// 保留从0到firstTargetSenderIndex-1的消息（不包含目标agent首次发消息）
 		c.Messages = c.Messages[:firstTargetSenderIndex]
-		// 设置c.index指向目标agent首次收到消息的位置（如果存在），否则指向截断位置
+		// 设置c.index指向目标agent首次收到消息的位置（如果存在）
 		if firstTargetMessageIndex != -1 && firstTargetMessageIndex < firstTargetSenderIndex {
 			c.index = firstTargetMessageIndex
-		} else {
-			c.index = firstTargetSenderIndex
+		}
+		if c.index >= len(c.Messages) {
+			c.index = len(c.Messages) - 1
 		}
 		fmt.Printf("Found first target sender message at index %d, truncated messages from it\n", firstTargetSenderIndex)
 	} else {

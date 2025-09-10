@@ -45,6 +45,7 @@ type BaseAgent struct {
 	MaxIterations  int
 	vars           map[string]string
 	reflectionPath string // 反思文件路径
+	logFilePath    string // 日志文件路径
 }
 
 func NewBaseAgent(opts ...Option) (*BaseAgent, error) {
@@ -93,6 +94,7 @@ func NewBaseAgent(opts ...Option) (*BaseAgent, error) {
 		prompt:         template,
 		vars:           options.Vars,
 		reflectionPath: options.ReflectionPath,
+		logFilePath:    options.LogFilePath,
 	}
 	return base, nil
 }
@@ -274,8 +276,13 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 		}
 	}
 	// 记录输入输出
-	// logfile := fmt.Sprintf("log/log_level_L2_v6_twq_wgr6new__%s.log", time.Now().Format("2006-0102"))
-	logfile := fmt.Sprintf("log/log_rep3_tan_val_%s.log", time.Now().Format("2006-0102"))
+	var logfile string
+	if ba.logFilePath != "" {
+		logfile = ba.logFilePath
+	} else {
+		// 如果没有设置logFilePath，使用默认路径
+		logfile = fmt.Sprintf("log/%s.log", time.Now().Format("2006-0102"))
+	}
 	// Open log file in append mode
 	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {

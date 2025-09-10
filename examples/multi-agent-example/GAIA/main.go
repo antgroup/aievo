@@ -277,7 +277,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		aievo.WithSOP(selectedSOP.SOP),
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
-		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory) bool {
+		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory, turn int) bool {
 			messages := memory.Load(context.Background(), nil)
 			msgCount := len(messages)
 			return msgCount > 0 && msgCount%watcherInterval == 0
