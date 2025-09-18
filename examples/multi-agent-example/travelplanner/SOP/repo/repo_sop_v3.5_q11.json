@@ -1,0 +1,61 @@
+{
+  "question": "Can you provide me with a 5-day travel plan for 2 people, starting from Asheville and exploring 2 cities in New York from March 13th to March 17th, 2022? Our budget is set at $4,700 and we would love to try local Mexican and Chinese cuisines during our trip.",
+  "analysis": "The user requires a 5-day closed-loop trip from Asheville exploring two New York state cities with Mexican/Chinese cuisine requirements within $4700. The critical failure analysis shows invalid restaurant entries ('A˘˘k Kahve') were introduced due to inadequate validation protocols: Restaurant Planner didn't handle corrupted search results properly and Final Plan Summarizer skipped mandatory verification. The revised SOP must enforce strict error handling for cuisine searches and make restaurant validation a non-optional gate. Key improvements: 1) Restaurant Planner now has concrete steps for missing cuisine handling (2-attempt limit, skip meals, log raw responses), 2) Final Plan Summarizer performs hard-gate validation rejecting plans with ANY invalid restaurant, 3) Explicit tracking of required cuisine coverage across destination cities. All changes maintain the original workflow while adding mandatory validation steps to prevent sandbox data corruption.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the primary mode of transportation and establishes the location for each day of the trip. This logistical framework is then passed to the Accommodation Planner to arrange lodging. Afterwards, the plan is simultaneously passed to the Restaurant Planner and Attractions Planner, who work in parallel to find the best options in their respective areas. Once their individual plans are complete, the Final Plan Summarizer receives all information to generate a comprehensive and user-friendly final travel itinerary in the specified format.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, mode of transportation, budget, and geographic constraints (e.g., exploring cities within a specific state). Use the provided tools to plan transportation between cities.\n2. Ensure the itinerary is a closed loop, returning to the starting point on the last day.\n3. Do not revisit any city in the middle of the trip.\n4. If self-driving is used at any point, strictly prohibit planes or taxis for the entire journey.\n5. For EACH transportation leg:\n   a. Use GoogleDistanceMatrix to validate the chosen mode of transportation.\n   b. The response MUST have 'status: OK' and 'error_message: null' for the leg to be valid.\n   c. If ANY leg fails validation (including sandbox limitations), immediately abandon the current transportation mode and restart planning with an alternative mode. Do NOT use other tools to bypass this validation.\n   d. Re-validate ALL legs with the new mode before proceeding.\n   e. Document explicit 'validated: true' for every leg in the output, including the raw GoogleDistanceMatrix response.\n6. Use CitySearch to confirm geographic context (e.g., state membership for specified cities). When specifying cities, use ONLY exact names returned by CitySearch (e.g., if CitySearch returns 'New York', do NOT write 'New York City').\n7. Your output must define 'Current City' for each day and 'transportation' details. When traveling to two cities in one day, note 'from A to B' in 'Current City'.\n8. All travel information must come exclusively from search results; do NOT create any details.\n9. Calculate total transportation cost for the specified number of people and indicate remaining budget.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the user's trip.",
+          "instruction": "1. Please carefully review the daily locations provided by the Transportation Planner and the user's budget and preferences. Use the search tool to find suitable accommodations.\n2. Please rigorously check if the accommodations meet the user's needs. This may include: checking the minimum stay duration, verifying the maximum occupancy of rooms against the number of people, and checking the room type, etc.\n3. Note that if the user returns to their original starting point on the last day, no accommodation needs to be arranged.\n4. If possible, try to minimize expenses to leave a buffer for later.\n5. Your output should include detailed information for the accommodations arranged in each city, with a strict emphasis on providing the exact accommodation name to ensure it matches the information found in the search result.\n6. The search results show the price per room per night, so you need to multiply it by the number of nights and the number of rooms, to get the final costs.\n7. Subject to meeting the user's needs, try to select the most affordable accomodation. Calculate your accommodation costs, and state the price per room, the total cost, and remaining budget for the planners that follow.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day of the user's trip.",
+          "instruction": "1. For each day, review the 'Current City' information from the Transportation Planner to determine meal locations:\n   - Breakfast: Always in the city where the user spent the previous night (e.g., starting point on Day 1)\n   - Dinner: In the destination city of the day's travel if it is NOT the starting point; skip dinner on the last day when traveling to starting point\n   - Lunch: Only if the user remains in one city for lunch (skip during transit)\n2. Ensure that each meal must be at a different restaurant, and caters to the user's preferences, including dietary restrictions if specified.\n3. Based on the time analysis, if the user has already returned to the point of departure, there is no need to arrange corresponding meals.\n4. For each meal, provide the restaurant's name, its city, the cuisine type, and the total cost (multiply the head count by the per-person spending).\n5. The restaurant names should be exact matches to those found in the search results, ensuring accuracy and reliability.\n6. Subject to meeting the user's needs, try to select the most affordable restaurants. Calculate and state the total cost of all planned meals.\n7. If the user specified cuisine requirements (e.g., Mexican and Chinese), these MUST be exclusively sourced from the cities being visited (excluding the starting point). Do NOT use the starting point to satisfy these requirements.\n8. For required cuisines:\n   a. Run RestaurantSearch with explicit cuisine filters for each required cuisine in the current city.\n   b. If results contain corrupted names (non-ASCII characters) or zero valid entries, repeat search once more (max 2 attempts).\n   c. If after 2 attempts no valid restaurant is found, skip that meal (mark as '-') and proceed.\n   d. Track coverage of required cuisines across all destination cities; if any remains uncovered after final day, output explicit error: 'Required cuisine [cuisine] not found in any destination city'.\n9. For EVERY restaurant search (including skipped meals), log the raw tool response verbatim for all attempts in your output.\n10. NEVER include a restaurant without at least one successful RestaurantSearch validation showing valid name and cuisine match.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction for each day of the user's trip.",
+          "instruction": "1. Please carefully review the daily locations provided and the user's interests and preferences, use the search tool to suggest attractions for **each day**.\n2. For each day, provide the attraction's name, its city.\n3. Ensure that attractions for each day must not be repeated.\n4. DO NOT suggest attractions in the user's departure point.\n5. All attractions in the search result are free.\n6. The attraction names should be exact matches to those found in the search results, ensuring accuracy and reliability.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Based on the verified and refined plan from other agents, generate a detailed, day-by-day final plan, including specifics such as flight numbers, restaurant names, and accommodation names.\n2. Verify the following CRITICAL conditions:\n   a. Transportation Planner has provided explicit 'validated: true' for EVERY transportation leg (confirmed via GoogleDistanceMatrix 'status: OK' and 'error_message: null'). Reject the plan if ANY leg shows errors, workarounds, or missing validation proof.\n   b. Transportation plan adheres to the self-driving rule (if self-driving used at any point, NO planes/taxis are used).\n   c. Restaurants providing required cuisines (if any) are located in the CORRECT geographic area (use CitySearch to verify cities belong to required state/region and NOT starting point).\n   d. For EVERY non-skipped restaurant entry, run RestaurantSearch with exact name and city. If ANY search returns errors or no matches, IMMEDIATELY reject the entire plan with specific error details (e.g., 'Restaurant X in city Y invalid') and demand Restaurant Planner corrections.\n   e. Required cuisines (if specified) are each covered at least once in destination cities (excluding starting point). If not, reject the plan.\n   f. Restaurant Planner provided raw tool response logs for all searches (per their instruction #9). Reject if logs are missing.\n   g. Total costs ≤ user's budget.\n3. Based on the travel time analysis, if the user has not yet departed or has already returned to their point of origin, there is no need to arrange corresponding meals or accommodation.\n4. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).",
+          "tools": [
+            "CitySearch",
+            "RestaurantSearch"
+          ]
+        }
+      ]
+    }
+  ]
+}

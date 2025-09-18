@@ -1,0 +1,58 @@
+{
+  "question": "Could you help with creating a 5-day travel plan for 2 people, originating from Evansville and covering 2 cities in Texas from March 17th to March 21st, 2022? Our preferred accommodations are private rooms, and they must permit children under 10 since we will have them with us. Transportation should not involve any flights. The budget for this trip is set at $2,800.",
+  "analysis": "The user requires a 5-day closed-loop itinerary starting and ending in Evansville, covering exactly two Texas cities with no flights, private accommodations allowing children under 10, and a strict $2,800 budget. Key constraints include self-driving as the sole transportation mode (triggering prohibition of planes/taxis), child-friendly lodging verification, and strict adherence to city-specific daily planning. The Transportation Planner must use ground transport tools to design a feasible driving route between Evansville and two Texas cities while ensuring loop closure. The Accommodation Planner requires explicit checks for private rooms and child policies. All agents must rigorously validate city/day alignment and avoid repetition, with cost calculations tightly coordinated to stay within budget.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines the self-driving route between Evansville and two Texas cities while ensuring a closed-loop itinerary. This framework is passed to the Accommodation Planner to secure child-friendly private rooms. Simultaneously, the Restaurant and Attractions Planners arrange non-repeating meals and activities matching daily locations. The Final Plan Summarizer validates all components against user constraints (no flights, child policies, budget) before delivering the complete itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Strictly adhere to the user's requirement of no flights; plan exclusively using self-driving for the entire journey (this prohibits planes/taxis per rule 3). Use CitySearch to identify two valid cities in Texas. Calculate driving routes via GoogleDistanceMatrix and cost via CostEnquiry.\n2. Ensure the itinerary forms a closed loop: Evansville -\u003e Texas City 1 -\u003e Texas City 2 -\u003e Evansville, with return on Day 5. Never revisit cities mid-trip.\n3. Verify driving feasibility between cities (e.g., Evansville to Austin to San Antonio) within 5 days using GoogleDistanceMatrix duration data.\n4. For each day, specify 'Current City' (e.g., 'from Evansville to Austin' on Day 1) and transportation details (vehicle type, distance, cost). Exclude transportation costs for the final return day if arrival precedes evening.\n5. Calculate total transportation cost and deduct from $2,800 budget before passing to Accommodation Planner.\n6. Note that the total number of people is 2.",
+          "tools": [
+            "CitySearch",
+            "GoogleDistanceMatrix",
+            "CostEnquiry"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review daily locations from Transportation Planner and enforce user requirements: private room type, permission for children, and occupancy for 2 people.\n2. Use AccommodationSearch to filter results by 'private room' and child policy.\n3. Confirm minimum stay requirements (e.g., 2-night minimum in Austin) align with Transportation Planner's city durations.\n4. Prioritize accommodations with lowest nightly rate meeting constraints. Calculate total cost as (price per room × nights × rooms needed).\n5. Exclude accommodation for Day 5 if returning to Evansville before evening. Deduct total accommodation cost from remaining budget.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Use RestaurantSearch to find three distinct restaurants per day (breakfast/lunch/dinner) in the current city, prioritizing local Texas cuisine where possible.\n2. Verify all restaurants operate during travel dates (March 17-21, 2022) and accommodate 2 people.\n3. Exclude meal arrangements for Day 1 before departure and Day 5 after returning to Evansville.\n4. Ensure no restaurant repetition across days. Use exact names from search results.\n5. Calculate all meal costs, staying within remaining budget.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to find one attraction per day in the current Texas city (never Evansville except on return day).\n2. Strictly avoid repeating attractions across days. Use exact search-result names.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Validate all components against user constraints: no flights, child-friendly accommodations, two Texas cities, and $2,800 total budget.\n2. Construct day-by-day table with exact names from search results. Use '-' for irrelevant fields (e.g., accommodation on Day 5).\n3. Confirm closed-loop structure: Day 1 departure from Evansville, Day 5 return to Evansville with no overnight stay.\n4. Cross-verify no repeated restaurants/attractions and that all cities match daily locations.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

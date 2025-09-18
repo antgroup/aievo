@@ -69,11 +69,11 @@ type MngInfo struct {
 		Tools       []string `json:"tools"`
 		Prompt      string   `json:"prompt"`
 	} `json:"create"`
-	Select   []string `json:"select"`
-	Remove   []string `json:"remove"`
-	Replace  []string `json:"replace"`
-	Content  string   `json:"guidance"`
-	Receiver string   `json:"receiver"`
+	Select   []string    `json:"select"`
+	Remove   []string    `json:"remove"`
+	Replace  []string    `json:"replace"`
+	Content  interface{} `json:"guidance"`
+	Receiver string      `json:"receiver"`
 }
 
 type Subscribe struct {

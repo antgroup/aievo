@@ -55,18 +55,41 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 				}
 				msg.AllReceiver = allMembers
 				msg.Sender = "Watcher"
-				msg.Content = msg.MngInfo.Content
+				// 处理Content字段类型转换
+				switch v := msg.MngInfo.Content.(type) {
+				case string:
+					msg.Content = v
+				default:
+					if contentBytes, err := json.Marshal(v); err == nil {
+						msg.Content = string(contentBytes)
+					} else {
+						msg.Content = fmt.Sprintf("%v", v)
+					}
+				}
 				msg.Type = schema.MsgTypeMsg
 				_ = e.Memory.Save(ctx, *msg)
 			} else {
 				if len(msg.MngInfo.Replace) == 1 {
-					newInstruction := msg.MngInfo.Content
+					var newInstruction string
+					// 处理Content字段，支持字符串和其他类型
+					switch v := msg.MngInfo.Content.(type) {
+					case string:
+						newInstruction = v
+					default:
+						// 如果不是字符串，将其序列化为JSON字符串
+						if contentBytes, err := json.Marshal(v); err == nil {
+							newInstruction = string(contentBytes)
+						} else {
+							newInstruction = fmt.Sprintf("%v", v)
+						}
+					}
+
 					// 获取需要更换的agent并更新其role
 					targetAgent := e.Agent(msg.Receiver)
 					if targetAgent != nil {
 						// 将newInstruction添加到agent的role中
 						currentRole := targetAgent.GetRole()
-						targetAgent.SetRole(currentRole + "\nImportant Note: " + newInstruction)
+						targetAgent.SetRole(currentRole + "\n**Important Note:**\n" + newInstruction)
 
 						// 创建一条只有watcher能看到的消息记录
 						watcherLogMsg := schema.Message{
@@ -93,9 +116,21 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 					}
 
 					// 创建一条只有watcher能看到的消息记录
+					var contentStr string
+					switch v := msg.MngInfo.Content.(type) {
+					case string:
+						contentStr = v
+					default:
+						if contentBytes, err := json.Marshal(v); err == nil {
+							contentStr = string(contentBytes)
+						} else {
+							contentStr = fmt.Sprintf("%v", v)
+						}
+					}
+
 					watcherLogMsg := schema.Message{
 						Type:        schema.MsgTypeMsg,
-						Content:     fmt.Sprintf("Replace multiple agents with guidance: %s", msg.MngInfo.Content),
+						Content:     fmt.Sprintf("Replace multiple agents with guidance: %s", contentStr),
 						Sender:      "Watcher",
 						Receiver:    "",
 						AllReceiver: []string{"Watcher"}, // 只有watcher自己能看到
@@ -115,16 +150,30 @@ func (e *Environment) sopStrategy(ctx context.Context, msg *schema.Message) erro
 	return nil
 }
 
-// parseAgentGuidance 解析JSON格式的agent指导字符串
-// 例如: {"Accommodation Planner": "Verify physical addresses...", "Restaurant Planner": "SKIP ALL MEALS..."}
+// parseAgentGuidance 解析agent指导内容，支持字符串和JSON格式
+// 字符串格式: "single guidance for one agent"
+// JSON格式: {"Accommodation Planner": "Verify physical addresses...", "Restaurant Planner": "SKIP ALL MEALS..."}
 // 返回: map[agentName]guidance
-func (e *Environment) parseAgentGuidance(content string) map[string]string {
+func (e *Environment) parseAgentGuidance(content interface{}) map[string]string {
 	result := make(map[string]string)
 
-	// 尝试解析JSON格式
-	err := json.Unmarshal([]byte(content), &result)
-	if err != nil {
-		// 如果JSON解析失败，返回空map
+	switch v := content.(type) {
+	case string:
+		// 如果是字符串，尝试解析为JSON
+		err := json.Unmarshal([]byte(v), &result)
+		if err != nil {
+			// 如果JSON解析失败，返回空map（因为对于单个agent的情况，会在调用方处理）
+			return make(map[string]string)
+		}
+	case map[string]interface{}:
+		// 如果已经是map格式，直接转换
+		for k, val := range v {
+			if strVal, ok := val.(string); ok {
+				result[k] = strVal
+			}
+		}
+	default:
+		// 其他类型，返回空map
 		return make(map[string]string)
 	}
 

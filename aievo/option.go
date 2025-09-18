@@ -36,6 +36,7 @@ type options struct {
 	watchCondition        func(message schema.Message, memory schema.Memory, turn int) bool
 	watcherInterval       int // 每几轮对话后触发一次watcher
 	watcherActionInterval int // 每几轮对话后触发一次watcher action
+	maxWatcherUses        int // watcher的最大使用次数
 
 	sop string
 }
@@ -157,6 +158,12 @@ func WithWatcherInterval(interval int) Option {
 func WithWatcherActionInterval(interval int) Option {
 	return func(opts *options) {
 		opts.watcherActionInterval = interval
+	}
+}
+
+func WithMaxWatcherUses(maxUses int) Option {
+	return func(opts *options) {
+		opts.maxWatcherUses = maxUses
 	}
 }
 

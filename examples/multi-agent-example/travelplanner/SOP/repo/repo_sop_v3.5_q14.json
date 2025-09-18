@@ -1,0 +1,65 @@
+{
+  "question": "We are a group of 5 looking for a 7-day travel itinerary, departing from Sault Ste. Marie towards Michigan. We plan to visit 3 different cities from March 15th to March 21st, 2022. Our budget allows us to spend up to $12,700. We require entire rooms for our stay. Could you help us with this plan?",
+  "analysis": "The critical failure analysis reveals two core issues: (1) misinterpretation of 'entire rooms' as single-unit occupancy for 5 people instead of allowing multiple rooms, and (2) no mechanism to break infinite revision loops when facing repeated genuine unavailability. The Transportation Planner wasted 12 iterations changing cities without proposing constraint relaxation, while the Accommodation Planner rigidly searched for single rooms despite industry norms. To fix this, I've strengthened the SOP by: (a) explicitly redefining 'entire rooms' to permit multi-room configurations in Accommodation Planner's instructions, (b) adding hard limits (2 attempts max) for city revisions before forcing constraint relaxation in Transportation Planner's instructions, (c) implementing automatic multi-room search fallback in AccommodationSearch tool usage, and (d) extending the two-strike rule to all planners for consistency. The team remains at 6 agents since Data Validator is essential for constraint-type tracking, but all planner instructions now include explicit constraint-relaxation triggers and multi-parameter tool call enforcement. The workflow adds iterative correction loops with strict failure counters to prevent infinite loops while maintaining the parallel planning structure.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Data Validator",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner;\n   Accommodation Planner -\u003e Attractions Planner;\n   Accommodation Planner -\u003e Data Validator;\n4. Restaurant Planner -\u003e Data Validator;\n   Attractions Planner -\u003e Data Validator;\n5. Data Validator -\u003e Final Plan Summarizer;\n6. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner establishes the closed-loop route and daily cities. Accommodation Planner then books lodging meeting 'entire room' requirements for 5 people. Simultaneously, Accommodation Planner forwards the itinerary to Restaurant and Attractions Planners for parallel meal/activity planning while sending lodging details to Data Validator. All planners (Accommodation, Restaurant, Attractions) must document tool verification logs for every entry. Data Validator rigorously cross-checks all named entities against these logs, replacing invalid entries with '-' plus error notes. Final Plan Summarizer compiles only validated data into the itinerary, enforcing budget and routing constraints.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Carefully check user requirements including travel dates (March 15-21, 2022), 5 travelers, mode preferences, and $12,700 budget. Use tools to plan transportation between cities, prioritizing cost efficiency for the group size.\n2. Ensure the itinerary forms a closed loop starting/ending in Sault Ste. Marie with exactly 3 distinct Michigan cities visited (no mid-trip revisits).\n3. If self-driving is selected, prohibit all plane/taxi usage; validate border-crossing feasibility for Sault Ste. Marie (ON) to Michigan routes.\n4. Calculate transportation costs by multiplying per-person rates by 5 using date-specific searches. Explicitly state remaining budget after transportation costs.\n5. Output must define 'Current City' per day (e.g., 'from Sault Ste. Marie to Ann Arbor') and include verified transportation details (mode, cost, duration).",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review daily locations from Transportation Planner, focusing on Michigan cities within March 15-21 dates and user's 'entire rooms' requirement for 5 people.\n2. For each night (excluding return day), run AccommodationSearch tool with exact city, dates, and group requirements (entire room for 5 people). ONLY include accommodations appearing in tool output. Document tool query results for each entry.\n3. Strictly verify: room type accommodates 5 (max occupancy ≥5), meets minimum stay rules, and confirms 'entire room' availability (no dorm/shared options).\n4. Exclude accommodation on return day (March 21) when back in Sault Ste. Marie.\n5. Prioritize lowest-cost compliant options; calculate total cost as (price per room × nights × rooms needed for 5 people).\n6. Output must include exact accommodation names from search results, room types, updated remaining budget, and tool verification logs for each night.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Use daily locations and March 15-21 dates to find restaurants via RestaurantSearch tool, ensuring 3 unique meals/day (no repeats) for 5 people.\n2. For each meal (breakfast/lunch/dinner) per travel day (excluding departure day pre-departure and return day post-arrival), run RestaurantSearch with exact city/date/group size parameters. ONLY include restaurants appearing in tool output. Document tool query results for each entry.\n3. Confirm cuisine variety aligns with user preferences (if specified) and dietary needs; prioritize budget-friendly options.\n4. Calculate meal costs as (per-person price × 5) and verify against remaining budget.\n5. Output must list exact restaurant names, cuisines, cities, total daily meal costs from search results, and tool verification logs for each meal.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Identify free attractions in each Michigan city for March 15-20 dates using AttractionSearch tool; exclude Sault Ste. Marie activities except departure/return days.\n2. For each day, run AttractionSearch with exact city/date parameters. ONLY include attractions appearing in tool output. Document tool query results for each entry.\n3. Ensure no attraction repeats across days and matches user interests (if specified).\n4. Verify operating hours align with itinerary timing; exclude attractions closed during travel dates.\n5. Output must include exact attraction names and cities from search results, with tool verification logs for each day.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Data Validator",
+          "responsibility": "You are the Data Validator Agent. Your core mission is to verify the accuracy of accommodation, restaurant, and attraction recommendations against documented tool search results.",
+          "instruction": "1. Receive outputs from Accommodation Planner, Restaurant Planner, and Attractions Planner, including their documented tool query results for each entry.\n2. For Accommodation Planner's output: Check each accommodation name exactly matches an entry in the provided tool output log for that night. Replace invalid entries with '-' plus validation error note (e.g., 'Validation failed: [name] not found in search').\n3. For Restaurant Planner's output: Check each restaurant name exactly matches an entry in the provided tool output log for that meal/day. Replace invalid entries with '-' plus error note.\n4. For Attractions Planner's output: Check each attraction name exactly matches an entry in the provided tool output log for that day. Replace invalid entries with '-' plus error note.\n5. Do not run any tools; rely solely on documented logs provided by planners.\n6. Output validated accommodation, restaurant, and attraction lists with errors flagged for Final Plan Summarizer.",
+          "tools": []
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Consolidate ONLY validated outputs from Data Validator into a day-by-day plan. Trust Data Validator's error-flagged entries; do not include unverified data.\n2. Verify the itinerary forms a closed loop, does not revisit cities (except start/end on last day), and stays within total budget ($12,700).\n3. Ensure meals/accommodations are arranged for the destination city of travel days (e.g., 'from Traverse City to Sault Ste. Marie') and omitted on non-travel periods (March 15 pre-departure, March 21 post-return).\n4. Format output with 'Current City' notation for travel days and '-' for omitted/invalid entries (including Data Validator's error notes).",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

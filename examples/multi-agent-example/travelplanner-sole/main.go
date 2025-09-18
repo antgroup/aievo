@@ -17,7 +17,7 @@ import (
 	"github.com/antgroup/aievo/memory"
 	"github.com/antgroup/aievo/schema"
 	"github.com/antgroup/aievo/tool"
-	"github.com/antgroup/aievo/tool/travel"
+	// "github.com/antgroup/aievo/tool/travel"
 )
 
 // TravelPlannerQuestion represents a single question from the TravelPlanner dataset
@@ -185,37 +185,6 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithSuffix(NULLSuffix),
 			agent.WithReflectionPath(reflectionPath),
 			agent.WithLogFilePath(logFilePath),
-		}
-
-		// Create a slice to store selected tools for this agent
-		var selectedTools []tool.Tool
-
-		for _, toolName := range agentDetail.Tools {
-			if strings.EqualFold(toolName, "search") {
-				selectedTools = ts
-				break
-			}
-			// Map tool names to specific tools from ts array
-			switch toolName {
-			case "FlightSearch":
-				selectedTools = append(selectedTools, ts[0]) // FlightTool
-			case "AccommodationSearch":
-				selectedTools = append(selectedTools, ts[1]) // AccommodationTool
-			case "RestaurantSearch":
-				selectedTools = append(selectedTools, ts[2]) // RestaurantTool
-			case "AttractionSearch":
-				selectedTools = append(selectedTools, ts[3]) // AttractionTool
-			case "GoogleDistanceMatrix":
-				selectedTools = append(selectedTools, ts[4]) // DistanceTool
-			case "CitySearch":
-				selectedTools = append(selectedTools, ts[5]) // CityTool
-			case "CostEnquiry":
-				selectedTools = append(selectedTools, ts[6]) // CostEnquiryTool
-			}
-		}
-		// Only add tools if we found any matches
-		if len(selectedTools) > 0 {
-			agentOpts = append(agentOpts, agent.WithTools(selectedTools))
 		}
 
 		// Check if this is the last agent in the team
@@ -481,53 +450,10 @@ func main() {
 
 	tools := []tool.Tool{}
 
-	// Travel Tools
-	flightTool, err := travel.NewFlightTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create FlightTool: %v", err)
-	} else {
-		tools = append(tools, flightTool)
-	}
-	accommodationTool, err := travel.NewAccommodationTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create AccommodationTool: %v", err)
-	} else {
-		tools = append(tools, accommodationTool)
-	}
-	restaurantTool, err := travel.NewRestaurantTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create RestaurantTool: %v", err)
-	} else {
-		tools = append(tools, restaurantTool)
-	}
-	attractionTool, err := travel.NewAttractionTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create AttractionTool: %v", err)
-	} else {
-		tools = append(tools, attractionTool)
-	}
-	distanceTool, err := travel.NewDistanceTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create DistanceTool: %v", err)
-	} else {
-		tools = append(tools, distanceTool)
-	}
-	cityTool, err := travel.NewCityTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create CityTool: %v", err)
-	} else {
-		tools = append(tools, cityTool)
-	}
-	costEnquiryTool, err := travel.NewCostEnquiryTool(travel.WithDatabasePath("../../../dataset/travelplanner/database"))
-	if err != nil {
-		log.Printf("Failed to create CostEnquiryTool: %v", err)
-	} else {
-		tools = append(tools, costEnquiryTool)
-	}
 
 	var mode string
 	datasetPath := ""
-	eval := 1 // 0 for training, 2 for evaluation
+	eval := 0 // 0 for training, 2 for evaluation
 	switch eval {
 	case 0:
 		mode = "train"
@@ -555,15 +481,15 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_rep3_tan_wgr2+6m2_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_v3_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
 	//end_id := 1 //len(questions)
-	watcherInterval := 2
-	watcherActionInterval := 6
-	maxWatcherUses := 2 // 设置watcher最大使用次数
+	watcherInterval := 29
+	watcherActionInterval := 89
+	maxWatcherUses := -1 // 设置watcher最大使用次数
 	//test_id := []int{9, 10, 11}
 
 	for i, q := range questions {
@@ -618,7 +544,7 @@ func main() {
 						log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 					} else {
 						// retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
-						retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v3_q%d.json", retrievedQuestionNumber)
+						retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", retrievedQuestionNumber)
 						log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 						sopPath = retrievedSopPath
 
@@ -642,30 +568,30 @@ func main() {
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
 				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1.1_q%d.json", i)
-				reflectionPath := ""
+				// reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
-				sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", i)
-				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", i)
+				// evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
-				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
-				// writeToFile := true // 训练集：生成SOP并写入文件
-				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
-				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
-				// if err != nil {
-				// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-				// 	// Fallback to default SOP if generation fails
-				// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval)
-				// 	if err != nil {
-				// 		panic(err)
-				// 	}
-				// } else {
-				// 	log.Printf("Using generated SOP for question %d", i)
-				// 	// Use the generated SOP for the current question
-				// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval)
-				// 	if err != nil {
-				// 		panic(err)
-				// 	}
-				// }
+				newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
+				writeToFile := true // 训练集：生成SOP并写入文件
+				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				// generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
+				if err != nil {
+					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+					// Fallback to default SOP if generation fails
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+					if err != nil {
+						panic(err)
+					}
+				} else {
+					log.Printf("Using generated SOP for question %d", i)
+					// Use the generated SOP for the current question
+					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+					if err != nil {
+						panic(err)
+					}
+				}
 			}
 		} else { // 手动构建团队
 			evo, err = createEvo(client, tools, logFilename)
@@ -673,6 +599,9 @@ func main() {
 		if err != nil {
 			panic(fmt.Errorf("failed to create AIEvo instance: %w", err))
 		}
+
+		reference_info := q.ReferenceInformation
+		question += "\nReference Information: " + reference_info
 
 		gen, err := evo.Run(context.Background(), question,
 			llm.WithTemperature(0.6), llm.WithTopP(0.95))

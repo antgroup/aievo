@@ -132,7 +132,7 @@ func (e *Environment) WatchActionTaken(ctx context.Context, agentName string, st
 	}
 	// 如果replace不是空列表，且agentname在其中，则返回content
 	if len(msg.MngInfo.Replace) > 0 && funk.ContainsString(msg.MngInfo.Replace, agentName) {
-		return msg.MngInfo.Content
+		return fmt.Sprintf("%v", msg.MngInfo.Content)
 	}
 	return "null"
 }

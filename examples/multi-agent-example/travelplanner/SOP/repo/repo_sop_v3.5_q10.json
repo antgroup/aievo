@@ -1,0 +1,58 @@
+{
+  "question": "Please create a 3-day travel itinerary for 2 people beginning in Fort Lauderdale and ending in Milwaukee from the 8th to the 10th of March, 2022. Our travel budget is set at $1,100. We'd love to experience both American and Chinese cuisines during our journey.",
+  "analysis": "The user requires a 3-day closed-loop itinerary starting and ending in Fort Lauderdale (despite mentioning Milwaukee as endpoint, SOP Rule 1 mandates return to origin), with strict budget constraints ($1,100 for 2 people) and cuisine preferences (American/Chinese). Transportation Planner must design a feasible route (e.g., Fort Lauderdale → Chicago → Milwaukee → Fort Lauderdale) while adhering to no-city-revisits and self-driving restrictions. Restaurant Planner must ensure cuisine coverage across days without repetition. Budget allocation requires tight coordination: Transportation Planner calculates initial costs, leaving sufficient funds for accommodation/meals. Attractions Planner leverages free entries per user's note. All agents must strictly use search-result names and validate against city/day alignment.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nTransportation Planner first establishes the closed-loop route (Fort Lauderdale → intermediate cities → return to Fort Lauderdale) within budget, using date-specific transport searches. Accommodation Planner then books stays for 2 people across valid nights, respecting hotel constraints. Simultaneously, Restaurant Planner selects non-repeating American/Chinese cuisine options per meal/day, while Attractions Planner curates free daily activities. Final Plan Summarizer validates all components against user constraints (budget, cuisine, closed loop) before outputting the integrated itinerary.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. The user requires a 3-day trip (March 8-10, 2022) for 2 people with $1,100 total budget, starting/ending in Fort Lauderdale. Plan a closed-loop itinerary where Day 3 returns to Fort Lauderdale, avoiding city revisits mid-trip. Milwaukee must be included as an intermediate destination per user's endpoint mention.\n2. Use FlightSearch/GoogleDistanceMatrix to evaluate cost-effective options (e.g., Fort Lauderdale → Chicago (Day 1), Chicago → Milwaukee (Day 2), Milwaukee → Fort Lauderdale (Day 3)). If self-driving is chosen, exclude all flights/taxis.\n3. Verify transport costs stay within budget: e.g., $400 max for flights to preserve funds for other categories. Output daily 'Current City' (e.g., 'from Fort Lauderdale to Chicago' for Day 1) and transport details (mode, cost, duration).\n4. Calculate precise transportation costs for 2 people and state remaining budget for Accommodation Planner.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Based on Transportation Planner's output, arrange stays only for Days 1-2 (Day 3 ends in Fort Lauderdale; no accommodation needed). Confirm all bookings for 2 people with room types meeting user conditions.\n2. Use AccommodationSearch to find hotels with minimum stay compliance (e.g., 1-night stays where required) and exact name matching. Prioritize options under $150/night to fit remaining budget.\n3. Calculate total cost: (price per room × nights × rooms for 2 people). Verify cumulative costs (transport + accommodation) ≤ $900 to reserve $200 for meals.\n4. Output exact hotel names, cities, and nightly/total costs. State remaining budget for meal planning.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. For each meal (Days 1-2 only; Day 3 has no meals post-return), use RestaurantSearch to select non-repeating venues covering American and Chinese cuisines across the trip. Ensure at least one American and one Chinese meal per day where possible.\n2. Validate all restaurants are in the current city/day per Transportation Planner's route. Exclude meals on Day 3 if user returns to Fort Lauderdale before dinner.\n3. Calculate costs per meal: (restaurant's avg. spend per person × 2 people). Prioritize options ≤ $25/meal to stay within $200 food budget.\n4. Output exact restaurant names, cuisines, cities, and total meal costs. Confirm no repeated venues across days.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to select one free attraction per Day 1-2 in the current city (e.g., Chicago's Millennium Park, Milwaukee's Art Museum). Exclude Day 3 as user returns to origin.\n2. Ensure all attraction names exactly match search results and avoid repetition. Verify locations align with daily cities from Transportation Planner.\n3. Prioritize attractions reflecting user interests (e.g., cultural sites for cuisine-themed exploration). Output attraction names and cities only—no costs needed (all free per user query).",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Consolidate all agent outputs into a day-by-day plan. Verify: closed loop (Day 3 ends in Fort Lauderdale), no repeated restaurants/attractions, American/Chinese cuisine coverage, and total cost ≤ $1,100.\n2. Format strictly as: Day | Current City | Transportation | Accommodation | Breakfast/Lunch/Dinner | Attraction. Use '-' for omitted entries (e.g., Day 3 meals/accommodation).\n3. Cross-check all names (flights, hotels, restaurants) against search results. Reject any mismatched entries.\n4. Highlight budget adherence: show running totals for transport, accommodation, and meals. Confirm final cost is within $1,100.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

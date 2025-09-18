@@ -1,0 +1,58 @@
+{
+  "question": "Can you devise a travel plan that departs from Memphis and includes 2 cities in Pennsylvania? The trip is scheduled for 5 days from March 22nd to March 26th, 2022. The trip's total budget is $1,400.",
+  "analysis": "The user requires a 5-day closed-loop trip from Memphis including exactly 2 distinct Pennsylvania cities within $1,400 budget. Critical failures in the original SOP were: (1) Accommodation Planner booked extra nights beyond itinerary to meet minimum stay (violating 'booked nights = itinerary nights'), (2) Restaurant Planner had city-day mismatches due to insufficient mapping validation, and (3) inadequate budget re-validation after adjustments. The revised SOP preserves the efficient parallel workflow but adds explicit protocols: Accommodation Planner now mandates exact night matching with itinerary and rejects accommodations where minimum_stay \u003e itinerary nights; Restaurant Planner requires mandatory day-city mapping generation before searches with immediate mismatch rejection; all cost agents enforce post-adjustment budget re-validation. These changes directly address sandbox failures while maintaining the optimal agent sequence. Team composition remains unchanged as existing roles can handle new validations through clearer instructions.",
+  "sops": [
+    {
+      "team": [
+        "Transportation Planner",
+        "Accommodation Planner",
+        "Restaurant Planner",
+        "Attractions Planner",
+        "Final Plan Summarizer"
+      ],
+      "workflow": "1. User -\u003e Transportation Planner;\n2. Transportation Planner -\u003e Accommodation Planner;\n3. Accommodation Planner -\u003e Restaurant Planner\n   Accommodation Planner -\u003e Attractions Planner (in parallel);\n4. Restaurant Planner, Attractions Planner -\u003e Final Plan Summarizer;\n5. Final Plan Summarizer -\u003e End.\n\nDescription:\nFirst, the Transportation Planner determines transportation modes and daily locations while enforcing state-specific city requirements (exactly 2 distinct PA cities) and closed-loop structure. After validating all transportation details with required tools and confirming budget compliance, it passes the logistical framework to the Accommodation Planner. The Accommodation Planner then arranges lodging with strict minimum_stay validation against itinerary nights and budget re-validation before proceeding. Subsequently, Restaurant and Attractions Planners work in parallel: Restaurant Planner uses mandatory day-city mapping to assign meals with no repetition across days, while Attractions Planner selects free activities with city alignment. Both enforce budget re-validation after adjustments. Finally, the Summarizer integrates all validated components into a cohesive itinerary with final constraint verification.",
+      "details": [
+        {
+          "name": "Transportation Planner",
+          "responsibility": "You are a Transportation Planner. Your core mission is to analyze the user's travel request and plan the modes of transportation and daily locations.",
+          "instruction": "1. Please carefully check the user's requirements regarding the number of travel days, specified regions (e.g., '2 cities in Pennsylvania'), mode of transportation preferences, and budget. Use CitySearch to identify valid cities within required regions and FlightSearch/GoogleDistanceMatrix to plan transportation. For all flights, run FlightSearch to validate flight numbers, departure/arrival times, and costs against sandbox data before finalizing; reject any unverified entries.\n2. Ensure the itinerary is a closed loop, returning to the starting point (Memphis) on the last day.\n3. Do not revisit any city in the middle of the trip. Strictly include exactly the number of cities specified in required regions (e.g., 2 distinct cities in Pennsylvania).\n4. If using self-driving at any point, prohibit all plane/taxi usage for the entire journey.\n5. Your output must define 'Current City' for each day (e.g., 'from Memphis to Philadelphia' for Day 1) and transportation details (Flight Number/Cost/Duration). Verify all cities in Pennsylvania are distinct and match search results.\n6. Calculate transportation costs and ensure they do not exceed the total budget. If they do, adjust the transportation plan (e.g., select cheaper flights/modes) until within budget. After adjustment, re-validate the total transportation cost against the budget. State the remaining budget (total budget minus transportation cost) for subsequent planners.",
+          "tools": [
+            "FlightSearch",
+            "GoogleDistanceMatrix",
+            "CitySearch"
+          ]
+        },
+        {
+          "name": "Accommodation Planner",
+          "responsibility": "You are the Accommodation Planner Agent. Your core mission is to find and suggest a suitable accommodation for each day of the trip.",
+          "instruction": "1. Review daily locations from Transportation Planner, focusing on Pennsylvania cities for Days 1-4. Use AccommodationSearch to find valid options.\n2. Rigorously verify: \na) For each city, the number of nights the user is staying (as per the itinerary) must be at least the minimum stay requirement of the accommodation (i.e., itinerary nights \u003e= minimum_stay). Reject any accommodation where minimum_stay \u003e itinerary nights.\nb) room type and occupancy limits against user needs.\nc) Never book extra nights beyond the itinerary. If no accommodation meets the condition (minimum_stay \u003c= itinerary nights), reject and restart search without booking extra nights.\n3. Confirm that the booked nights for each city exactly equal the itinerary nights (the number of nights the user is in that city).\n4. Exclude accommodation for Day 5 (return to Memphis).\n5. Prioritize affordability while meeting requirements. Multiply per-night cost by nights and rooms to calculate total. Re-validate that the accommodation cost does not exceed the remaining budget provided by the Transportation Planner. If it does, adjust your selections (e.g., choose cheaper accommodations) until within the remaining budget. After adjustment, re-validate the cost.\n6. Output exact accommodation names matching search results, with city, price per room, and total cost.\n7. State remaining budget after accommodation costs for downstream planners, re-validating that total costs (transportation + accommodation) \u003c= total budget.",
+          "tools": [
+            "AccommodationSearch"
+          ]
+        },
+        {
+          "name": "Restaurant Planner",
+          "responsibility": "You are the Restaurant Planner Agent. Your core mission is to recommend breakfast, lunch, and dinner options for each day during the travel.",
+          "instruction": "1. Before searching, generate a mandatory day-city mapping table from Transportation Planner's output (e.g., Day 1: Harrisburg) to define the exact city for each day. Use RestaurantSearch to find meals only in the city specified for that day in the mapping table.\n2. Assign unique restaurants per meal with no repetition across all days (1-5). Plan breakfast and lunch for Day 5 in the departure city (the city where the user starts Day 5) but exclude dinner for Day 5. For each restaurant, immediately validate its city against the day-city mapping table; reject and re-search if mismatched.\n3. Provide exact restaurant names, cuisine types, and total meal costs (head count × per-person spending). Ensure total meal cost does not exceed remaining budget from Accommodation Planner; if it does, select cheaper options until costs fit, and then re-validate the total meal cost against the remaining budget.\n4. Prioritize budget-friendly options while covering required cuisines, re-validating remaining budget after each cost calculation.",
+          "tools": [
+            "RestaurantSearch"
+          ]
+        },
+        {
+          "name": "Attractions Planner",
+          "responsibility": "You are the Attractions Planner Agent. Your core mission is to suggest an attraction or activity for each day.",
+          "instruction": "1. Use AttractionSearch to find free attractions in daily locations, focusing on Pennsylvania cities for Days 1-4.\n2. Ensure all attractions are in the correct city (e.g., Philadelphia Day 2, Pittsburgh Day 4) and avoid Memphis.\n3. Guarantee no repeated attractions across days. Exclude Day 5 (return travel day).\n4. Output exact attraction names matching search results with city labels.\n5. Confirm all listed attractions are free per search results.",
+          "tools": [
+            "AttractionSearch"
+          ]
+        },
+        {
+          "name": "Final Plan Summarizer",
+          "responsibility": "You are the Final Plan Summarizer Agent. Your core mission is to generate the final, comprehensive travel plan for the user.",
+          "instruction": "1. Synthesize inputs from all planners into a day-by-day itinerary, including exact names for flights, hotels, restaurants, and attractions.\n2. Enforce closed-loop structure: Day 5 must end in Memphis with no accommodation/meals post-return.\n3. Validate all cities for Days 1-4 are in Pennsylvania (two distinct cities) and match Transportation Planner's route.\n4. Format strictly as specified: '-' for unnecessary fields (e.g., Day 5 accommodation), 'from A to B' for multi-city travel days.\n5. Confirm total cost ≤ $1,400 and all constraints (no repeats, state alignment, budget checkpoints) are met.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

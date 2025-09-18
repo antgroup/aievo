@@ -63,6 +63,9 @@ func initializeAIEvo(e *AIEvo, o *options) {
 	} else {
 		e.Environment.WatcherActionInterval = 6 // 默认值
 	}
+	// 设置MaxWatcherUses，如果用户指定了则使用用户指定的值，否则默认为0（不限制）
+	e.Environment.MaxWatcherUses = o.maxWatcherUses
+	e.Environment.WatcherUsedCount = 0 // 初始化使用计数为0
 	e.Handler = Chain(e.BuildPlan, e.BuildSOP, e.Watch, e.Scheduler)
 }
 

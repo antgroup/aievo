@@ -36,6 +36,10 @@ The multi-agent system you are currently monitoring operates based on the follow
 ~~~
 
 ## Agents Tool Usage History:
+Note that:
+1. All available tools in system are: ["GOOGLE Search"]. 
+2. The agent will see the execution results, but for the sake of brevity, they are invisible to the Watcher.
+The Tool Usage History is as below:
 ~~~
 {{.action_history}}
 ~~~
@@ -238,11 +242,6 @@ You have access to the following tools:
 {{.tool_descriptions}}
 ~~~{{end}}
 
-{{if .refcase}}
-### Relevant Case for Reference:
-Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes.
-{{.refcase}}{{end}}
-
 ### Current Task: Conversation History
 ~~~
 {{.history}}
@@ -277,14 +276,14 @@ Please note that the above JSON formats are different. Only one format is select
 DO NOT invoke an agent while using a tool. {{end}}
 `
 
+// {{if .refcase}}
+// ### Relevant Case for Reference:
+// Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes.
+// {{.refcase}}{{end}}
+
 const NewEndBaseInstructions = `
 ### Instructions
 {{.role}}
-
-{{if .refcase}}
-## Relevant Case for Reference:
-Here you have access to a historical failure case that contains the user's question, and reflective insights from your experiences. You can reference these to avoid making similar mistakes..
-{{.refcase}}{{end}}
 
 ### Current Task & Conversation History:
 ~~~

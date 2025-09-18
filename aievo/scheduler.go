@@ -45,12 +45,19 @@ func (e *AIEvo) Watch(ctx context.Context, _ string, opts ...llm.GenerateOption)
 					e.WatchChanDone <- struct{}{}
 					continue
 				}
+				// 检查watcher使用次数是否超出限制
+				if e.Environment.MaxWatcherUses > 0 && e.Environment.WatcherUsedCount >= e.Environment.MaxWatcherUses {
+					e.WatchChanDone <- struct{}{}
+					continue
+				}
 				generation, err := e.Watcher.Run(ctx,
 					e.LoadMemory(ctx, e.Watcher), opts...)
 				if err != nil {
 					e.WatchChanDone <- struct{}{}
 					continue
 				}
+				// 增加watcher使用计数
+				e.Environment.WatcherUsedCount++
 				_ = e.Produce(ctx, generation.Messages...)
 				e.WatchChanDone <- struct{}{}
 			}

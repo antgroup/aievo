@@ -25,6 +25,8 @@ type Environment struct {
 	WatchCondition        func(message schema.Message, memory schema.Memory, turn int) bool
 	WatcherInterval       int // 每几轮对话后触发一次watcher
 	WatcherActionInterval int // 每几轮动作后触发一次watcher
+	MaxWatcherUses        int // watcher的最大使用次数
+	WatcherUsedCount      int // 当前已使用的watcher次数
 	WatchChan             chan schema.Message
 	WatchChanDone         chan struct{}
 	Memory                schema.Memory

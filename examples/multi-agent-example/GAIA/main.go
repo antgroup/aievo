@@ -71,7 +71,7 @@ func loadGaiaDataset(filePath string) ([]GaiaQuestion, error) {
 	return questions, nil
 }
 
-func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
+func createEvo(client llm.LLM, ts []tool.Tool, logFilePath string) (*aievo.AIEvo, error) {
 	callbackHandler := &CallbackHandler{}
 
 	// 实例化Agents
@@ -84,6 +84,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	FileA, _ := agent.NewBaseAgent(
@@ -94,6 +95,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(FileSuffix),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	//
@@ -106,6 +108,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithTools(ts),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	AnswerA, _ := agent.NewBaseAgent(
@@ -116,6 +119,7 @@ func createEvo(client llm.LLM, ts []tool.Tool) (*aievo.AIEvo, error) {
 		agent.WithLLM(client),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(NULLSuffix),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	env := environment.NewEnv()
@@ -160,7 +164,7 @@ type SOPFile struct {
 	SOPs     []SOP  `json:"sops"`
 }
 
-func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int, watcherActionInterval int) (*aievo.AIEvo, error) {
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int, watcherActionInterval int, logFilePath string, maxWatcherUses int) (*aievo.AIEvo, error) {
 	var selectedSOP SOP
 
 	if sop != nil {
@@ -211,6 +215,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithEnv(env),
 			agent.WithCallback(callbackHandler),
 			agent.WithReflectionPath(reflectionPath),
+			agent.WithLogFilePath(logFilePath),
 		}
 
 		if strings.Contains(agentDetail.Name, "Web") || strings.Contains(agentDetail.Name, "web") {
@@ -265,6 +270,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(WatchSuffix),
 		agent.WithReflectionPath(reflectionPath),
+		agent.WithLogFilePath(logFilePath),
 	)
 
 	opts := []aievo.Option{
@@ -284,6 +290,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		}),
 		aievo.WithWatcherInterval(watcherInterval),
 		aievo.WithWatcherActionInterval(watcherActionInterval),
+		aievo.WithMaxWatcherUses(maxWatcherUses),
 	}
 
 	return aievo.NewAIEvo(opts...)
@@ -685,13 +692,15 @@ func main() {
 		correctCount := 0
 		totalCount := 0
 		timeStamp := time.Now().Format("20060102150405")
-		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr6new_%s.json", level, timeStamp)
-		logFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
+		resultsFilename := fmt.Sprintf("eval/eval_level_%d_v6_twq_wgr5+5nn_nopep_%s.json", level, timeStamp)
+		ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
+		logFilename := "log/" + strings.TrimSuffix(resultsFilename[5:], ".json") + ".log"
 		start_time := time.Now()
 		start_id := 0
 		//end_id := len(questions)
 		watcherInterval := 5
-		watcherActionInterval := 4 // 默认值
+		watcherActionInterval := 5 // 默认值
+		maxWatcherUses := -1      // 设置watcher最大使用次数
 		// watcherInterval := level + 3
 		//if level == 3 {
 		//	watcherInterval = 7
@@ -752,13 +761,13 @@ func main() {
 					if err != nil {
 						log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 						// Fallback to default SOP if generation fails
-						evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval)
+						evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 						if err != nil {
 							panic(err)
 						}
 					} else {
 						log.Printf("Using generated SOP for question %d", i)
-						evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval, watcherActionInterval)
+						evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 						if err != nil {
 							panic(err)
 						}
@@ -767,7 +776,7 @@ func main() {
 					sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v6.1_L0_q%d.json", i)
 					reflectionPath := fmt.Sprintf("SOP/reflect/ref_v6.1_L%d_q%d.json", level, i)
 					//sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v1_L%d_q%d.json", level, i)
-					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval)
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
 					// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v6_L%d_q%d.json", level, i)
 					// writeToFile := true // 训练集：生成SOP并写入文件
@@ -789,7 +798,7 @@ func main() {
 					// }
 				}
 			} else { // 手动构建团队
-				evo, err = createEvo(client, tools)
+				evo, err = createEvo(client, tools, logFilename)
 			}
 
 			if err != nil {
@@ -798,16 +807,24 @@ func main() {
 
 			fmt.Printf("\n==================Processing question ID: %d (Level %d)\n", i, level)
 			totalCount++
+			// 记录开始处理的信息到日志文件
+			logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+			if logErr == nil {
+				defer logFile.Close()
+				logEntry := fmt.Sprintf("\n\n===============Processing question ID: %d (Level %d)\n", i, level)
+				logFile.WriteString(logEntry)
+			}
+
 			gen, err := evo.Run(context.Background(), question,
 				llm.WithTemperature(0.6), llm.WithTopP(0.95))
 			if err != nil {
 				log.Printf("Error running engineer for task %s: %v", q.TaskID, err)
-				// 记录错误信息到log文件
-				logFile, logErr := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+				// 记录错误信息到错误log文件
+				ErrorlogFile, logErr := os.OpenFile(ErrorlogFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 				if logErr == nil {
-					defer logFile.Close()
+					defer ErrorlogFile.Close()
 					logEntry := fmt.Sprintf("-----Level: %d, ID: %d, TaskID: %s\n---Question:%s\n---Error: %v\n\n", level, i, q.TaskID, q.Question, err)
-					logFile.WriteString(logEntry)
+					ErrorlogFile.WriteString(logEntry)
 				}
 				gen = "NULL"
 			}

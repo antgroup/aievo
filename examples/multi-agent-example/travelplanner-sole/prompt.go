@@ -105,17 +105,17 @@ The Final Important Note:
 
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-- The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+- Given a query from user and relevant reference information, the system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
 - There are some important considerations for making the plan:
-1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
-2.  Do not revisit any city in the middle of the trip.
-3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
-4.  Restaurants for each day and each meal must not be repeated.
-5.  Attractions for each day must not be repeated.
-6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
-7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
-8.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
-9.  The information in the plan must strictly match the information found through search, especially for the flight number,the names of hotels, restaurants, and attractions.
+1.  The information in the plan must strictly match the given reference information, especially for the flight number,the names of hotels, restaurants, and attractions.
+2.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+3.  Do not revisit any city in the middle of the trip.
+4.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+5.  Restaurants for each day and each meal must not be repeated.
+6.  Attractions for each day must not be repeated.
+7.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+8.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+9.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
 10. The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
 11. The selected room type and constraints must meet the user's conditions (if any).
 12. The selected restaurants must cover the cuisines the user wants (if any).
@@ -132,7 +132,6 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
-  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---
@@ -146,7 +145,7 @@ In addition to these instructions, you can add new instructions or elaborate on 
  
 Now, analyze the following user's query to design the system.
 
-User's query: "%s"
+User's query: "%s" (the reference information is omitted here for brevity)
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
@@ -289,23 +288,13 @@ Please strictly follow the workflow in the SOP by forwarding the message to the 
 ### Instructions
 {{.role}}
 
-{{if .tool_descriptions}}
-### Available Tools
-You have access to the following tools:
-~~~
-{{.tool_descriptions}}
-~~~{{end}}
-
 ### Current Task: Conversation History
 ~~~
 {{.history}}
 ~~~
 
 ### Output Format
-Your entire response MUST be in JSON format. Do not add any text outside of the JSON structure.
-
-#### 1. Sending Messages
-When you need to send messages to one or more agents, please use the following format:
+Your entire response (a message send to one or more agents) MUST be in JSON format as shown below. Do not add any text outside of the JSON structure.:
 ~~~
 {
   "thought": "Clearly describe why you think the conversation should be sent to the receiver agent.",
@@ -314,19 +303,6 @@ When you need to send messages to one or more agents, please use the following f
   "content": "A clear, self-contained, and informative message for the receiver agent."
 }
 ~~~
-{{if .tool_descriptions}}
-#### 2. Using a Tool
-When you want to use a tool, you must respond with JSON format like below:
-~~~
-{
-	"thought": "you should always think about what to do",
-	"action": "the action to take, action must be one of [{{.tool_names}}]",
-	"input": "the input to the action, MUST be json string format like {"query": "xxx"}",
-	"persistence": "the persistence to store the results, Must be bool, only persistence the important information"
-}
-~~~
-Please note that the above JSON formats are different. Only one format is selected for output each time.
-DO NOT invoke an agent while using a tool. {{end}}
 `
 
 // {{if .refcase}}
