@@ -3,9 +3,7 @@ package main
 const (
 	ReflectionPrompt = `You are an expert in analyzing and refining multi-agent systems for travel planning tasks. Your task is to reflect on a travel planning attempt by a team of agents and identify areas for improvement.
 Your goal is to identify the root causes of issues and provide concrete, actionable feedback to improve the system's performance for future travel planning tasks.
-Pay special attention to:
-- Constraint violations shown in the evaluation results
-- Communication efficiency between agents
+Pay special attention to constraint violations shown in the evaluation results
 
 ## Example of Input-Output
 ~~~
@@ -36,14 +34,14 @@ Output:
 {
   "failure_reason": "1. The flight number is invalid in the sandbox.  2. The accommodation does not obey the minumum nights rule.",
   "sop_critique": {
-    "weaknesses": "The instructions for the Transportation Planner did not emphasize the importance of searching transportation details in the sandbox data. The Accommodation Planner's instructions lacked clarity on adhering to accommodation constraints, such as minimum stay requirements.",
-    "suggestions": "1. Update the Transportation Planner's instructions to include a mandatory use of provided tools to search for all transportation details. 2. Revise the Accommodation Planner's instructions to explicitly state the need to comply with all accommodation constraints, including minimum stay requirements."
+    "weaknesses": "The instructions for the Transportation Planner did not emphasize the importance of using the information provided. The Accommodation Planner's instructions lacked clarity on adhering to accommodation constraints, such as minimum stay requirements.",
+    "suggestions": "1. Update the Transportation Planner's instructions to include a mandatory match all transportation details with given reference information. 2. Revise the Accommodation Planner's instructions to explicitly state the need to comply with all accommodation constraints, including minimum stay requirements."
   },
   "agent_guidance": [
     {
       "agent_name": "Transportation Planner",
       "feedback": "The agent failed to ensure that the flight number provided was valid according to the sandbox data.",
-      "new_instruction": "If plan to take the plane, always use the FlightSearch tool to search for all transportation details, including flight numbers, departure times, and arrival times, and deliver all these details to the following agents."
+      "new_instruction": "If plan to take the plane, always use the given reference information for all transportation details, including flight numbers, departure times, and arrival times, and deliver all these details to the following agents."
     },
     {
       "agent_name": "Accommodation Planner",
@@ -102,22 +100,23 @@ const (
 	RevisionPrompt = `You are an expert multi-agent system designer.
 The system is designed to provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
 - There are some important considerations for making the plan, which must be strictly followed by all agents in the team:
-1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
-2.  Do not revisit any city in the middle of the trip.
-3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
-4.  Restaurants for each day and each meal must not be repeated.
-5.  Attractions for each day must not be repeated.
-6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
-7.  Accommodations, restaurants, and attractions must match the city you are in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
-8.  The information in the plan must strictly match the information found through search, especially for the names of hotels, restaurants, and attractions.
-9.  The total cost must be within budget, and all attractions are free here.
-10. The selected room type and constraints must meet the user's conditions (if any).
-11. The selected restaurants must cover the cuisines the user wants (if any).
-12. The chosen mode of transportation must meet the user's preferences (if any).
-13. Use the exact city name without adding its state.
-14. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
+1.  The information in the plan must strictly match the given reference information, especially for the flight number,the names of hotels, restaurants, and attractions.
+2.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+3.  Do not revisit any city in the middle of the trip.
+4.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+5.  Restaurants for each day and each meal must not be repeated.
+6.  Attractions for each day must not be repeated.
+7.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+8.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+9.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
+10. The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
+11. The selected room type and constraints must meet the user's conditions (if any).
+12. The selected restaurants must cover the cuisines the user wants (if any).
+13. The chosen mode of transportation must meet the user's preferences (if any).
+14. Use the exact city name without adding its state.
+15. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
-There is a team of agents working together to create a travel plan based on a user's request. The agents can use various tools to search necessary information. The agents must follow a Standard Operating Procedure (SOP) that defines their roles, instructions, and workflow.
+There is a team of agents working together to create a travel plan based on a user's request. The agents must follow a Standard Operating Procedure (SOP) that defines their roles, instructions, and workflow.
 Your task is to revise a past Standard Operating Procedure (SOP) based on a critical reflection of a past failure.
 The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
@@ -126,7 +125,6 @@ The main components of the SOP are:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
-  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---

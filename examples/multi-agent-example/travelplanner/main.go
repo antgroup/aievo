@@ -132,7 +132,7 @@ type SOPFile struct {
 	SOPs     []SOP  `json:"sops"`
 }
 
-func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPath string, watcherInterval int, watcherActionInterval int, logFilePath string, maxWatcherUses int) (*aievo.AIEvo, error) {
+func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, reflectionPaths []string, watcherInterval int, watcherActionInterval int, logFilePath string, maxWatcherUses int) (*aievo.AIEvo, error) {
 	var selectedSOP SOP
 
 	if sop != nil {
@@ -183,7 +183,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 			agent.WithEnv(env),
 			agent.WithCallback(callbackHandler),
 			agent.WithSuffix(NULLSuffix),
-			agent.WithReflectionPath(reflectionPath),
+			agent.WithReflectionPaths(reflectionPaths),
 			agent.WithLogFilePath(logFilePath),
 		}
 
@@ -240,7 +240,11 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		teamLeader = agentsMap[selectedSOP.Team[0]]
 	}
 
-	// Use WatcherAgent
+	// Use WatcherAgent - Watcher只使用第一个反思文件
+	var watcherReflectionPath string
+	if len(reflectionPaths) > 0 {
+		watcherReflectionPath = reflectionPaths[0]
+	}
 	watcher, _ := agent.NewWatcherAgent(
 		agent.WithLLM(client),
 		agent.WithEnv(env),
@@ -248,7 +252,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		agent.WithInstruction(WatchInstructions),
 		agent.WithCallback(callbackHandler),
 		agent.WithSuffix(WatchSuffix),
-		agent.WithReflectionPath(reflectionPath),
+		agent.WithReflectionPath(watcherReflectionPath),
 		agent.WithLogFilePath(logFilePath),
 	)
 
@@ -263,9 +267,9 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
 		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory, turn int) bool {
-			// messages := memory.Load(context.Background(), nil)
-			// msgCount := len(messages)
-			msgCount := turn
+			messages := memory.Load(context.Background(), nil)
+			msgCount := len(messages)
+			// msgCount := turn
 			return msgCount > 0 && msgCount%watcherInterval == 0
 		}),
 		aievo.WithWatcherInterval(watcherInterval),
@@ -423,8 +427,8 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 	return &newSop, nil
 }
 
-// retrieveSOPFile retrieves the top SOP number from the retrieval results.
-func retrieveSOPFile(mode string, questionID int) (int, error) {
+// retrieveSOPFile retrieves the top 3 SOP numbers from the retrieval results.
+func retrieveSOPFile(mode string, questionID int) ([]int, error) {
 	var retrievalPath string
 	switch mode {
 	case "eval":
@@ -435,7 +439,7 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 
 	retrievalFile, err := os.ReadFile(retrievalPath)
 	if err != nil {
-		return 0, fmt.Errorf("failed to read retrieval file %s: %w", retrievalPath, err)
+		return nil, fmt.Errorf("failed to read retrieval file %s: %w", retrievalPath, err)
 	}
 
 	type RetrievalResult struct {
@@ -448,22 +452,24 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 	}
 	var retrievalData []RetrievalEntry
 	if err := json.Unmarshal(retrievalFile, &retrievalData); err != nil {
-		return 0, fmt.Errorf("failed to parse retrieval file %s: %w", retrievalPath, err)
+		return nil, fmt.Errorf("failed to parse retrieval file %s: %w", retrievalPath, err)
 	}
 
 	for _, entry := range retrievalData {
 		if entry.ID == questionID {
-			// if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
-			// return entry.RetrievalResults.WeightedSimilarity[0], nil
-			// }
 			if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
-				return entry.RetrievalResults.AnalysisSimilarity[0], nil
+				// 返回前三个数字，如果不足三个则返回所有
+				maxCount := 3
+				if len(entry.RetrievalResults.AnalysisSimilarity) < maxCount {
+					maxCount = len(entry.RetrievalResults.AnalysisSimilarity)
+				}
+				return entry.RetrievalResults.AnalysisSimilarity[:maxCount], nil
 			}
-			return 0, fmt.Errorf("found entry for question ID %d, but weighted_similarity is empty", questionID)
+			return nil, fmt.Errorf("found entry for question ID %d, but analysis_similarity is empty", questionID)
 		}
 	}
 
-	return 0, fmt.Errorf("could not find entry for question ID %d in %s", questionID, retrievalPath)
+	return nil, fmt.Errorf("could not find entry for question ID %d in %s", questionID, retrievalPath)
 }
 
 func main() {
@@ -555,13 +561,13 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_rep3_tan_wgr2+6m2_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_rep3_tan_wgr_m362_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
 	//end_id := 1 //len(questions)
-	watcherInterval := 2
+	watcherInterval := 3
 	watcherActionInterval := 6
 	maxWatcherUses := 2 // 设置watcher最大使用次数
 	//test_id := []int{9, 10, 11}
@@ -608,44 +614,49 @@ func main() {
 			}
 			if generateNewSOP { // 评估集：LLM生成SOP
 				newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v3_q%d.json", i)
-				reflectionPath := ""
+				reflectionPaths := []string{} // 修改为字符串数组
 				// Set writeToFile to true if you want to save the generated SOP.
 				writeToFile := false
 				rag := true
 				if rag { // RAG模式：从检索SOP作为引导生成SOP
-					retrievedQuestionNumber, err := retrieveSOPFile(mode, i)
+					retrievedQuestionNumbers, err := retrieveSOPFile(mode, i)
 					if err != nil {
 						log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 					} else {
-						// retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
-						retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v3_q%d.json", retrievedQuestionNumber)
-						log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
-						sopPath = retrievedSopPath
-
-						reflectionPath = fmt.Sprintf("SOP/refrepo/ref_rep_v3_q%d.json", retrievedQuestionNumber)
+						// 处理多个检索到的问题编号
+						for j, retrievedQuestionNumber := range retrievedQuestionNumbers {
+							// retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
+							retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v3_q%d.json", retrievedQuestionNumber)
+							log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
+							if j == 0 {
+								sopPath = retrievedSopPath
+							}
+							reflectionPath := fmt.Sprintf("SOP/refrepo/ref_rep_v3_q%d.json", retrievedQuestionNumber)
+							reflectionPaths = append(reflectionPaths, reflectionPath)
+						}
 					}
 				} // 依据通用模板 / rag 生成SOP
 				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
 				if err != nil {
 					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 					// Fallback to default SOP if generation fails
-					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPaths, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 					if err != nil {
 						panic(err)
 					}
 				} else {
 					log.Printf("Using generated SOP for question %d", i)
-					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, reflectionPaths, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 					if err != nil {
 						panic(err)
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
 				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1.1_q%d.json", i)
-				reflectionPath := ""
+				reflectionPaths := []string{} // 训练集使用空的反思路径列表
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", i)
-				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPaths, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件

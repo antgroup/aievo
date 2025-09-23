@@ -99,8 +99,9 @@ const WatchSuffix = `
 Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response.
 The Final Important Note:
 1. If an agent has just completed a search but has not yet had time to forward the message, do not replace this agent!
-2. As an objective watcher, do not introduce any of your own opinions (such as location information about accommodation or restaurant you know).
+2. Currently, the system is in a virtual environment. The results provided by the search tool may not correspond to real-world data. So do not introduce any of your knowledge about real-world (such as location information about accommodation or restaurant you know).
 3. Do not create any constraints that have not been mentioned (e.g., do not arbitrarily set a maximum distance limit for self-driving)!
+4. If the final plan has already been presented, prioritize checking this plan. If the plan does not violate any constraints, do not replace any agent. If there are problems with the plan, then hold the corresponding agent accountable.
 `
 
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.

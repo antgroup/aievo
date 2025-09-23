@@ -35,8 +35,9 @@ type Options struct {
 	Vars             map[string]string
 	SOPGraph         string
 	Driver           driver.Driver
-	ReflectionPath   string // 反思文件路径
-	LogFilePath      string // 日志文件路径
+	ReflectionPath   string   // 反思文件路径 (保留单个路径兼容性)
+	ReflectionPaths  []string // 反思文件路径数组
+	LogFilePath      string   // 日志文件路径
 
 	MaxIterations int
 }
@@ -155,6 +156,12 @@ func WithDriver(dri driver.Driver) Option {
 func WithReflectionPath(path string) Option {
 	return func(opt *Options) {
 		opt.ReflectionPath = path
+	}
+}
+
+func WithReflectionPaths(paths []string) Option {
+	return func(opt *Options) {
+		opt.ReflectionPaths = paths
 	}
 }
 

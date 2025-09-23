@@ -122,7 +122,6 @@ type AgentDetail struct {
 	Name           string   `json:"name"`
 	Responsibility string   `json:"responsibility"`
 	Instruction    string   `json:"instruction"`
-	Tools          []string `json:"tools"`
 }
 
 // SOPFile defines the structure of the generated SOP JSON file.
@@ -232,9 +231,9 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 		aievo.WithUserProxy(nil),
 		aievo.WithSubMode(environment.ALLSubMode),
 		aievo.WithWatcher(watcher, func(message schema.Message, memory schema.Memory, turn int) bool {
-			// messages := memory.Load(context.Background(), nil)
-			// msgCount := len(messages)
-			msgCount := turn
+			messages := memory.Load(context.Background(), nil)
+			msgCount := len(messages)
+			// msgCount := turn
 			return msgCount > 0 && msgCount%watcherInterval == 0
 		}),
 		aievo.WithWatcherInterval(watcherInterval),
@@ -453,7 +452,7 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 0 // 0 for training, 2 for evaluation
+	eval := 1 // 0 for training, 2 for evaluation
 	switch eval {
 	case 0:
 		mode = "train"
@@ -481,32 +480,32 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_v3_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_rev3.1_tan_wm32_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
-	//end_id := 1 //len(questions)
-	watcherInterval := 29
-	watcherActionInterval := 89
-	maxWatcherUses := -1 // 设置watcher最大使用次数
-	//test_id := []int{9, 10, 11}
+	// end_id := 22 //len(questions)
+	watcherInterval := 3
+	watcherActionInterval := 6
+	maxWatcherUses := 2 // 设置watcher最大使用次数
+	// test_id := []int{20, 22}
 
 	for i, q := range questions {
 
 		// if test_id not contains i, continue
-		//testIDSet := make(map[int]struct{})
-		//for _, id := range test_id {
-		//	testIDSet[id] = struct{}{}
-		//}
-		//if _, found := testIDSet[i]; !found {
-		//	continue
-		//}
+		// testIDSet := make(map[int]struct{})
+		// for _, id := range test_id {
+		// 	testIDSet[id] = struct{}{}
+		// }
+		// if _, found := testIDSet[i]; !found {
+		// 	continue
+		// }
 		if i < start_id {
 			continue
 		}
 		// if i >= end_id {
-		// break
+		// 	break
 		// }
 
 		question := q.Query
@@ -544,11 +543,11 @@ func main() {
 						log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 					} else {
 						// retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
-						retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", retrievedQuestionNumber)
+						retrievedSopPath := fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", retrievedQuestionNumber)
 						log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 						sopPath = retrievedSopPath
 
-						reflectionPath = fmt.Sprintf("SOP/refrepo/ref_rep_v3_q%d.json", retrievedQuestionNumber)
+						reflectionPath = fmt.Sprintf("SOP/reflect/ref_rep_v3_q%d.json", retrievedQuestionNumber)
 					}
 				} // 依据通用模板 / rag 生成SOP
 				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
@@ -567,31 +566,31 @@ func main() {
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1.1_q%d.json", i)
-				// reflectionPath := ""
+				sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", i)
+				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", i)
-				// evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
-				newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
-				writeToFile := true // 训练集：生成SOP并写入文件
-				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
-				// generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
-				if err != nil {
-					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-					// Fallback to default SOP if generation fails
-					evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
-					if err != nil {
-						panic(err)
-					}
-				} else {
-					log.Printf("Using generated SOP for question %d", i)
-					// Use the generated SOP for the current question
-					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
-					if err != nil {
-						panic(err)
-					}
-				}
+				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
+				// writeToFile := true // 训练集：生成SOP并写入文件
+				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
+				// if err != nil {
+				// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+				// 	// Fallback to default SOP if generation fails
+				// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+				// 	if err != nil {
+				// 		panic(err)
+				// 	}
+				// } else {
+				// 	log.Printf("Using generated SOP for question %d", i)
+				// 	// Use the generated SOP for the current question
+				// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+				// 	if err != nil {
+				// 		panic(err)
+				// 	}
+				// }
 			}
 		} else { // 手动构建团队
 			evo, err = createEvo(client, tools, logFilename)

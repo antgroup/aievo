@@ -42,10 +42,11 @@ type BaseAgent struct {
 	filterMemoryFunc func([]schema.Message) []schema.Message
 	parseOutputFunc  func(string, *llm.Generation) ([]schema.StepAction, []schema.Message, error)
 
-	MaxIterations  int
-	vars           map[string]string
-	reflectionPath string // 反思文件路径
-	logFilePath    string // 日志文件路径
+	MaxIterations   int
+	vars            map[string]string
+	reflectionPath  string   // 反思文件路径 (兼容性保留)
+	reflectionPaths []string // 反思文件路径数组
+	logFilePath     string   // 日志文件路径
 }
 
 func NewBaseAgent(opts ...Option) (*BaseAgent, error) {
@@ -91,10 +92,11 @@ func NewBaseAgent(opts ...Option) (*BaseAgent, error) {
 		filterMemoryFunc: options.FilterMemoryFunc,
 		parseOutputFunc:  options.ParseOutputFunc,
 
-		prompt:         template,
-		vars:           options.Vars,
-		reflectionPath: options.ReflectionPath,
-		logFilePath:    options.LogFilePath,
+		prompt:          template,
+		vars:            options.Vars,
+		reflectionPath:  options.ReflectionPath,
+		reflectionPaths: options.ReflectionPaths,
+		logFilePath:     options.LogFilePath,
 	}
 	return base, nil
 }
@@ -237,8 +239,44 @@ func (ba *BaseAgent) Plan(ctx context.Context, messages []schema.Message,
 	}
 
 	// 如果有反思文件路径，则解析反思文件并添加到输入中
-	if ba.reflectionPath != "" && ba.reflectionPath != "null" {
-		reflect := ba.parseReflectionFile(ba.reflectionPath)
+	if (ba.reflectionPath != "" && ba.reflectionPath != "null") || len(ba.reflectionPaths) > 0 {
+		var reflect string
+
+		// 如果是WatcherAgent，只使用第一个反思文件
+		if strings.ToLower(ba.name) == "watcheragent" {
+			if len(ba.reflectionPaths) > 0 {
+				reflect = ba.parseReflectionFile(ba.reflectionPaths[0])
+			} else if ba.reflectionPath != "" && ba.reflectionPath != "null" {
+				reflect = ba.parseReflectionFile(ba.reflectionPath)
+			}
+		} else {
+			// 对于非Watcher agent，遍历所有反思文件路径并合并内容
+			var allReflections []string
+
+			// 处理新的反思文件路径数组
+			for _, path := range ba.reflectionPaths {
+				if path != "" && path != "null" {
+					singleReflect := ba.parseReflectionFile(path)
+					if singleReflect != "" {
+						allReflections = append(allReflections, singleReflect)
+					}
+				}
+			}
+
+			// 兼容旧的单个反思文件路径
+			if ba.reflectionPath != "" && ba.reflectionPath != "null" {
+				singleReflect := ba.parseReflectionFile(ba.reflectionPath)
+				if singleReflect != "" {
+					allReflections = append(allReflections, singleReflect)
+				}
+			}
+
+			// 合并所有反思内容
+			if len(allReflections) > 0 {
+				reflect = strings.Join(allReflections, "\n---\n")
+			}
+		}
+
 		if reflect != "" {
 			inputs["refcase"] = reflect
 		}

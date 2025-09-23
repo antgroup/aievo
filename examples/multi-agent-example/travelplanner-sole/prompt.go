@@ -3,7 +3,7 @@ package main
 const WatchPrompt = `
 You are the "Watcher", a specialized supervisory agent within a multi-agent LLM system. The system's purpose is to leverage multiple agents working in collaboration to provide a complete travel plan for the user. 
 Your primary role is to closely oversee the outputs of all participating agents, safeguarding the system's overall integrity, coherence, and efficiency.
-Based on the agents' conversation history and, where available, their tool usage history, you need to detect any agent exhibiting abnormal behavior and determine whether it should be removed and replaced.
+Based on the agents' conversation history, you need to detect any agent exhibiting abnormal behavior and determine whether it should be removed and replaced.
 If you identify an agent that should be replaced, you should provide the guidance for the replacement agent in the "guidance" field of your response, so that the new agent would not repeat the same mistakes.
 `
 
@@ -14,29 +14,25 @@ You must be vigilant based on the following critical error conditions:
 -  Repetitive Output: The agent becomes stuck in a loop, repeatedly generating identical or semantically equivalent content across multiple turns. This also includes two agents continuously passing the similar message back and forth without progress.
 -  Severe Workflow Violation: The agent drastically deviates from the prescribed operational workflow, such as skipping essential steps. Please note that the agent is allowed to communicate with other agents it is messaging with to obtain necessary information.
 -  Significant Contradiction: The agent's output contains information that directly and materially contradicts factual data or the verified outputs of other agents.
--  Missing tool usage: The agent failed to use the provided tools and instead fabricated information on transportation, accommodation, restaurants, or attractions.
 -  Severe constraint violation: The plan must meet multiple constraint requirements, including:
-1.  The itinerary must be a closed loop, meaning user must return to starting point on the last day.
-2.  Do not revisit any city in the middle of the trip.
-3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
-4.  The chosen mode of transportation must meet the user's preferences (if any).
-5.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
-6.  The selected room type and constraints must meet the user's conditions (if any).
-7.  Restaurants for each day and each meal must not be repeated.
-8.  The selected restaurants must cover the cuisines the user wants (if any).
-9.  Attractions for each day must not be repeated.
-10. Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
-11. Do not arrange any accommodations, restaurants, or attractions for the departure city.
-12. The information in the plan must strictly match the information found through search, especially for the flight number, the names of hotels, restaurants, and attractions.
-13. The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
+1.  The information in the plan must strictly match the given reference information, especially for the flight number,the names of hotels, restaurants, and attractions.
+2.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+3.  Do not revisit any city in the middle of the trip.
+4.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+5.  Restaurants for each day and each meal must not be repeated.
+6.  Attractions for each day must not be repeated.
+7.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+8.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+9.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
+10. The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
+11. The selected room type and constraints must meet the user's conditions (if any).
+12. The selected restaurants must cover the cuisines the user wants (if any).
+13. The chosen mode of transportation must meet the user's preferences (if any).
 14. Use the exact city name without adding its state.
 15. The number of people the user initially mentioned is the total number of people, so do not add the number of children to it.
 
 ** Important Note of Normal Situations:**
-- You are supervising a task in progress, so some actions (such as the search process) or communications may not have been completed yet.
-For example, if an agent has just completed a search but has not yet had time to forward the message, do not replace this agent.
-And if the agent requires multi-step actions to execute and the current performance is satisfactory, do not replace this agent during the process.
-- In addition, communication messages between agents do not include the process of them using tools (e.g., searching process). Therefore, do not force them to provide related processes in their communication.
+- You are supervising a task in progress, so some communications may not have been completed yet.
 - It is acceptable for agents to have some flexibility when providing information. For example, when a planning agent provides accommodation cost information in the following format, it is considered normal and reasonable: {"name":"Private room close to the center of Williamburg","nights":2,"price_per_night":231,"total_cost":462,"city":"Dallas"}.
 - If certain constraints consistently cannot be met or a consensus cannot be reached, inform the corresponding agent that they can appropriately relax the requirements. The top priority is to submit the plan on time (within 20 turns of conversation).
 
@@ -45,9 +41,6 @@ And if the agent requires multi-step actions to execute and the current performa
 Here you have access to a historical reference case that contains the user's question, the corresponding workflow for that problem, and reflective insights from different agents'experiences (optional). You can reference these relevant experiences to provide better guidance for agent improvement.
 In addition, a standard plan (the ground truth) for that case is provided as a reference. As can be seen, such a plan perfectly meets all the constraints. And the entire system is required to submit a similar plan.
 {{.refcase}}{{end}}
-
-## Current User's Query:
-{{.question}}
 
 ## Operational Workflow of Current System:
 The multi-agent system you are currently monitoring operates based on the following workflow:
@@ -60,21 +53,9 @@ Note that:
 1. The below history also contains your previous messages of watching and guidance.
 2. Every agent only needs to convey the information it provides. There is no need to repeat the information already provided by predecessors.
 3. The communication is still in progress, so it is normal for some messages not to be forwarded or for some agents not to have sent messages yet. The conversation ends when the final plan is sent to the user.
-4. Do not use your own common sense to judge whether what the agent says is correct. Instead, check the tools it has used (see it below). If it has called the correct tool, then consider its content as correct.
 The Conversation History is as below:
 ~~~
 {{.history}}
-~~~
-
-## Agents Tool Usage History:
-Note that:
-1. All available tools in system are: ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch"]. 
-The "GoogleDistanceMatrix" tool can provide driving distance, time and cost information between two cities.
-2. Each agent will see the execution results, but for the sake of brevity, they are invisible to the Watcher.
-3. It is used to check whether the agent using the tool properly. For example, if the Transportation Planner provides information on self-driving or taking a taxi, it must use the GoogleDistanceMatrix tool. Using only CitySearch would be a severe error. 
-The Tool Usage History is as below:
-~~~
-{{.action_history}}
 ~~~
 
 ## Response Format:
@@ -98,9 +79,9 @@ If you find multiple agents that need to be replaced, you can provide correspond
 const WatchSuffix = `
 Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response.
 The Final Important Note:
-1. If an agent has just completed a search but has not yet had time to forward the message, do not replace this agent!
-2. As an objective watcher, do not introduce any of your own opinions (such as location information about accommodation or restaurant you know).
-3. Do not create any constraints that have not been mentioned (e.g., do not arbitrarily set a maximum distance limit for self-driving)!
+1. Currently, the system is in a virtual environment. The results provided by the search tool may not correspond to real-world data. So do not introduce any of your knowledge about real-world (such as location information about accommodation or restaurant you know).
+2. Do not create any constraints that have not been mentioned (e.g., do not arbitrarily set a maximum distance limit for self-driving)!
+3. If the final plan has already been presented, prioritize checking this plan. If the plan does not violate any constraints, do not replace any agent. If there are problems with the plan, then hold the corresponding agent accountable.
 `
 
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
@@ -159,17 +140,17 @@ Your entire response MUST be in a single JSON object with the following format. 
 
 const SOPGeneratorPrompt_rag = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-- The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+- Given a query from user and relevant reference information, the system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
 - There are some important considerations for making the plan:
-1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
-2.  Do not revisit any city in the middle of the trip.
-3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
-4.  Restaurants for each day and each meal must not be repeated.
-5.  Attractions for each day must not be repeated.
-6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
-7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
-8.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
-9.  The information in the plan must strictly match the information found through search, especially for the flight number,the names of hotels, restaurants, and attractions.
+1.  The information in the plan must strictly match the given reference information, especially for the flight number,the names of hotels, restaurants, and attractions.
+2.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+3.  Do not revisit any city in the middle of the trip.
+4.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+5.  Restaurants for each day and each meal must not be repeated.
+6.  Attractions for each day must not be repeated.
+7.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+8.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+9.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
 10. The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
 11. The selected room type and constraints must meet the user's conditions (if any).
 12. The selected restaurants must cover the cuisines the user wants (if any).
@@ -186,7 +167,6 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
-  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 **Important Note:** 
 The agent instructions within the following example contain important information. 
@@ -216,17 +196,17 @@ User: "%s"
 
 const SOPGeneratorPrompt_temp_rag = `Your task is to act as an expert in designing multi-agent systems to generate a travel plan for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
-- The system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
+- Given a query from user and relevant reference information, the system must provide a complete plan for the user, including transportation, restaurant names, accommodation names, and attraction names, even if the user does not explicitly state these requirements.
 - There are some important considerations for making the plan:
-1.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
-2.  Do not revisit any city in the middle of the trip.
-3.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
-4.  Restaurants for each day and each meal must not be repeated.
-5.  Attractions for each day must not be repeated.
-6.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
-7.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
-8.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
-9.  The information in the plan must strictly match the information found through search, especially for the flight number,the names of hotels, restaurants, and attractions.
+1.  The information in the plan must strictly match the given reference information, especially for the flight number,the names of hotels, restaurants, and attractions.
+2.  The itinerary must be a closed loop, meaning user needs to return to starting point on the last day.
+3.  Do not revisit any city in the middle of the trip.
+4.  If using a self-driving at any point, it is not allowed to use planes or taxis for the entire journey.
+5.  Restaurants for each day and each meal must not be repeated.
+6.  Attractions for each day must not be repeated.
+7.  When arranging accommodations, it must meet the minimum stay requirements of each hotel.
+8.  Accommodations, restaurants, and attractions must match the city the user is in on that day. However, if the user have not yet departed or have already returned to starting point, no meals or accommodations need to be arranged.
+9.  Do not arrange any accommodations, restaurants, or attractions for the departure city.
 10. The total cost must be within budget, and it can be confirmed that the attractions provided in the search results are all free.
 11. The selected room type and constraints must meet the user's conditions (if any).
 12. The selected restaurants must cover the cuisines the user wants (if any).
@@ -243,7 +223,6 @@ You must follow the structure of the provided template exactly. The main compone
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
-  - "tools": A list of tools that the agents can use to perform its tasks. Available tools are:  ["FlightSearch", "GoogleDistanceMatrix", "CitySearch", "AccommodationSearch", "RestaurantSearch", "AttractionSearch", "CostEnquiry"].
 
 Here is a template for you to follow:
 --- TEMPLATE START ---

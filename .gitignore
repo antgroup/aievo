@@ -30,4 +30,10 @@ examples/multi-agent-example/travelplanner/SOP/rev_sop
 examples/multi-agent-example/travelplanner/SOP/gen_sop
 examples/multi-agent-example/travelplanner/log
 
+examples/multi-agent-example/travelplanner-sole/SOP/reflect
+examples/multi-agent-example/travelplanner-sole/SOP/rev_sop
+examples/multi-agent-example/travelplanner-sole/SOP/gen_sop
+examples/multi-agent-example/travelplanner-sole/log
+examples/multi-agent-example/travelplanner-sole/output
+examples/multi-agent-example/travelplanner-sole/results
 

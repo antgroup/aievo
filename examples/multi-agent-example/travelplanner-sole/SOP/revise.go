@@ -69,7 +69,6 @@ type AgentDetail struct {
 	Name           string   `json:"name"`
 	Responsibility string   `json:"responsibility"`
 	Instruction    string   `json:"instruction"`
-	Tools          []string `json:"tools"`
 }
 
 // ReflectionOutput defines the structure for the reflection JSON file.
@@ -475,10 +474,10 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 func main() {
 	// --- CONFIGURATION ---
 
-	evalLogPath := "../output/train_rep3.1_20250908103053.json"
+	evalLogPath := "../output/train_v3_20250918193921.json"
 	trainDataPath := "../../../../dataset/travelplanner/train/travelplanner_train_split.json"
-	evaluationResultsPath := "../results/train_rep3.1_20250908103053_per_results_20250908.jsonl"
-	// sopDir := "./gen_sop/"
+	evaluationResultsPath := "../results/train_v3_20250918193921_per_results_20250919.jsonl"
+	sopDir := "./gen_sop/"
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
 	// --- END CONFIGURATION ---
@@ -538,11 +537,11 @@ func main() {
 	for i, result := range results {
 		fmt.Printf("\n==================Processing question ID: %d\n", i)
 
-		// sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_q%d.json", result.ID))
-		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1_q%d.json", result.ID))
+		sopPath := filepath.Join(sopDir, fmt.Sprintf("gen_sop_v3_q%d.json", result.ID))
+		// sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1_q%d.json", result.ID))
 		// sopPath := filepath.Join(fmt.Sprintf("repo/repo_sop_v3_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rep_v3.1_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1.1_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rep_v3_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_rep_v3.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
