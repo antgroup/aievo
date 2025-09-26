@@ -533,7 +533,7 @@ func main() {
 
 	var mode string
 	datasetPath := ""
-	eval := 1 // 0 for training, 2 for evaluation
+	eval := 2 // 0 for training, 2 for evaluation
 	switch eval {
 	case 0:
 		mode = "train"
@@ -561,7 +561,7 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_rep3_tan_wgr_m362_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_rep3_tan_wgr_m363_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
@@ -569,7 +569,7 @@ func main() {
 	//end_id := 1 //len(questions)
 	watcherInterval := 3
 	watcherActionInterval := 6
-	maxWatcherUses := 2 // 设置watcher最大使用次数
+	maxWatcherUses := 3 // 设置watcher最大使用次数
 	//test_id := []int{9, 10, 11}
 
 	for i, q := range questions {

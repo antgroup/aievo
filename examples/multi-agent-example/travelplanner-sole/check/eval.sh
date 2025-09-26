@@ -2,7 +2,7 @@
 
 set -e
 
-INPUT_FILE=../output/eval_rev3.1_tan_20250923145424.json
+INPUT_FILE=../output/eval_rev3.1_tan_wm33_20250924114708.json
 
 # 路径配置
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

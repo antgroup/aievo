@@ -110,7 +110,7 @@ func (e *Environment) mngInfoStrategy(ctx context.Context, msg *schema.Message) 
 							if targetAgent != nil {
 								// 将对应的guidance添加到agent的role中
 								currentRole := targetAgent.GetRole()
-								targetAgent.SetRole(currentRole + "\nImportant Note: " + guidance)
+								targetAgent.SetRole(currentRole + "\n**Important Note:**\n" + guidance)
 							}
 						}
 					}

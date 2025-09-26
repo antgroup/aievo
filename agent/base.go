@@ -711,29 +711,29 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 	// 如果是watcher，使用原有的完整反思提示词
 	if strings.ToLower(ba.name) == "watcheragent" {
 		// 构建反思案例提示词
-		refcasePrompt := fmt.Sprintf("**Question:** %s\n\n**SOP:** %s\n",
+		refcasePrompt := fmt.Sprintf("Question: %s\nSOP: %s\n",
 			reflectionData.Question, reflectionData.SOP)
 
 		// 添加失败原因（放在agent_guidance之前）
 		if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
-			refcasePrompt += fmt.Sprintf("**Reflection Insights:**\n**Failure Reason:** %s\n", failureReason)
+			refcasePrompt += fmt.Sprintf("**Reflection Insights:**\nFailure Reason: %s\n", failureReason)
 		}
 
 		// 添加Agent指导内容
 		if agentGuidance, ok := reflectionData.LLMReflection["agent_guidance"].([]interface{}); ok {
-			refcasePrompt += "**Agent Guidance:**\n"
+			refcasePrompt += "Agent Guidance:\n"
 			for _, guidance := range agentGuidance {
 				if guidanceMap, ok := guidance.(map[string]interface{}); ok {
 					if agentName, ok := guidanceMap["agent_name"].(string); ok {
 						if feedback, ok := guidanceMap["feedback"].(string); ok {
 							if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
-								refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Improved Instruction:* %s\n",
+								refcasePrompt += fmt.Sprintf("- %s: %s\n  Improved Instruction: %s\n",
 									agentName, feedback, revisedInstruction)
 							} else if newInstruction, ok := guidanceMap["new_instruction"].(string); ok {
-								refcasePrompt += fmt.Sprintf("- **%s:** %s\n  *Improved Instruction:* %s\n",
+								refcasePrompt += fmt.Sprintf("- %s: %s\n  Improved Instruction: %s\n",
 									agentName, feedback, newInstruction)
 							} else {
-								refcasePrompt += fmt.Sprintf("- **%s:** %s\n",
+								refcasePrompt += fmt.Sprintf("- %s: %s\n",
 									agentName, feedback)
 							}
 						}
@@ -744,7 +744,7 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 
 		// 添加ground_truth部分（如果有）
 		if reflectionData.GroundTruth != "" {
-			refcasePrompt += fmt.Sprintf("\n**Ground Truth:** %s\n", reflectionData.GroundTruth)
+			refcasePrompt += fmt.Sprintf("\nGround Truth: %s\n", reflectionData.GroundTruth)
 		}
 
 		return refcasePrompt
@@ -762,24 +762,24 @@ func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 					if agentName == ba.name {
 						agentHasGuidance = true
 						// 构建简化的反思提示词，只包含question, failure_reason和该agent的feedback
-						agentRefcasePrompt = fmt.Sprintf("**Question:** %s\n\n", reflectionData.Question)
+						agentRefcasePrompt = fmt.Sprintf("Question: %s\n", reflectionData.Question)
 
 						// 添加失败原因
-						if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
-							agentRefcasePrompt += fmt.Sprintf("**Failure Reason:** %s\n\n", failureReason)
-						}
+						// if failureReason, ok := reflectionData.LLMReflection["failure_reason"].(string); ok {
+							// agentRefcasePrompt += fmt.Sprintf("Failure Reason: %s\n\n", failureReason)
+						// }
 
 						// 添加该agent的feedback
 						if feedback, ok := guidanceMap["feedback"].(string); ok {
-							agentRefcasePrompt += fmt.Sprintf("**Agent Feedback:** %s\n", feedback)
+							agentRefcasePrompt += fmt.Sprintf("Agent Feedback: %s\n", feedback)
 						}
 
 						// 添加该agent的新增指令
 						if newIns, ok := guidanceMap["new_instruction"].(string); ok {
-							agentRefcasePrompt += fmt.Sprintf("**Improved Instruction:** %s\n", newIns)
+							agentRefcasePrompt += fmt.Sprintf("Improved Instruction: %s\n", newIns)
 						} else {
 							if revisedInstruction, ok := guidanceMap["revised_instruction"].(string); ok {
-								agentRefcasePrompt += fmt.Sprintf("**Improved Instruction:** %s\n", revisedInstruction)
+								agentRefcasePrompt += fmt.Sprintf("Improved Instruction: %s\n", revisedInstruction)
 							}
 						}
 

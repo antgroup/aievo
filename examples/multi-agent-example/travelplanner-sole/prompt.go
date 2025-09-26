@@ -79,7 +79,7 @@ If you find multiple agents that need to be replaced, you can provide correspond
 const WatchSuffix = `
 Now, it is your turn to give your answer. Analyze the provided conversation history and return your JSON response.
 The Final Important Note:
-1. Currently, the system is in a virtual environment. The results provided by the search tool may not correspond to real-world data. So do not introduce any of your knowledge about real-world (such as location information about accommodation or restaurant you know).
+1. Currently, the system is in a virtual environment. So do not introduce any of your knowledge about real-world (such as location information about accommodation or restaurant you know).
 2. Do not create any constraints that have not been mentioned (e.g., do not arbitrarily set a maximum distance limit for self-driving)!
 3. If the final plan has already been presented, prioritize checking this plan. If the plan does not violate any constraints, do not replace any agent. If there are problems with the plan, then hold the corresponding agent accountable.
 `
