@@ -1,0 +1,165 @@
+{"id": 0, "task_id": "HumanEval/0", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 11, in <module>\nNameError: name 'has_close_elements' is not defined\n"}
+{"id": 1, "task_id": "HumanEval/1", "status": "pass", "error": null}
+{"id": 2, "task_id": "HumanEval/2", "status": "pass", "error": null}
+{"id": 3, "task_id": "HumanEval/3", "status": "pass", "error": null}
+{"id": 4, "task_id": "HumanEval/4", "status": "pass", "error": null}
+{"id": 5, "task_id": "HumanEval/5", "status": "pass", "error": null}
+{"id": 6, "task_id": "HumanEval/6", "status": "pass", "error": null}
+{"id": 7, "task_id": "HumanEval/7", "status": "pass", "error": null}
+{"id": 8, "task_id": "HumanEval/8", "status": "pass", "error": null}
+{"id": 9, "task_id": "HumanEval/9", "status": "pass", "error": null}
+{"id": 10, "task_id": "HumanEval/10", "status": "pass", "error": null}
+{"id": 11, "task_id": "HumanEval/11", "status": "pass", "error": null}
+{"id": 12, "task_id": "HumanEval/12", "status": "pass", "error": null}
+{"id": 13, "task_id": "HumanEval/13", "status": "pass", "error": null}
+{"id": 14, "task_id": "HumanEval/14", "status": "pass", "error": null}
+{"id": 15, "task_id": "HumanEval/15", "status": "pass", "error": null}
+{"id": 16, "task_id": "HumanEval/16", "status": "pass", "error": null}
+{"id": 17, "task_id": "HumanEval/17", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 20, in <module>\nNameError: name 'parse_music' is not defined\n"}
+{"id": 18, "task_id": "HumanEval/18", "status": "pass", "error": null}
+{"id": 19, "task_id": "HumanEval/19", "status": "pass", "error": null}
+{"id": 20, "task_id": "HumanEval/20", "status": "pass", "error": null}
+{"id": 21, "task_id": "HumanEval/21", "status": "pass", "error": null}
+{"id": 22, "task_id": "HumanEval/22", "status": "pass", "error": null}
+{"id": 23, "task_id": "HumanEval/23", "status": "pass", "error": null}
+{"id": 24, "task_id": "HumanEval/24", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 7, in <module>\nNameError: name 'largest_divisor' is not defined\n"}
+{"id": 25, "task_id": "HumanEval/25", "status": "pass", "error": null}
+{"id": 26, "task_id": "HumanEval/26", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 21, in check\nAssertionError\n"}
+{"id": 27, "task_id": "HumanEval/27", "status": "pass", "error": null}
+{"id": 28, "task_id": "HumanEval/28", "status": "pass", "error": null}
+{"id": 29, "task_id": "HumanEval/29", "status": "pass", "error": null}
+{"id": 30, "task_id": "HumanEval/30", "status": "pass", "error": null}
+{"id": 31, "task_id": "HumanEval/31", "status": "pass", "error": null}
+{"id": 32, "task_id": "HumanEval/32", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 61, in check\nAssertionError\n"}
+{"id": 33, "task_id": "HumanEval/33", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 24, in check\nNameError: name 'sort_third' is not defined\n"}
+{"id": 34, "task_id": "HumanEval/34", "status": "pass", "error": null}
+{"id": 35, "task_id": "HumanEval/35", "status": "pass", "error": null}
+{"id": 36, "task_id": "HumanEval/36", "status": "pass", "error": null}
+{"id": 37, "task_id": "HumanEval/37", "status": "pass", "error": null}
+{"id": 38, "task_id": "HumanEval/38", "status": "pass", "error": null}
+{"id": 39, "task_id": "HumanEval/39", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 35, in <module>\nNameError: name 'prime_fib' is not defined\n"}
+{"id": 40, "task_id": "HumanEval/40", "status": "pass", "error": null}
+{"id": 41, "task_id": "HumanEval/41", "status": "pass", "error": null}
+{"id": 42, "task_id": "HumanEval/42", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 5, in <module>\nNameError: name 'incr_list' is not defined\n"}
+{"id": 43, "task_id": "HumanEval/43", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 10, in <module>\nNameError: name 'pairs_sum_to_zero' is not defined\n"}
+{"id": 44, "task_id": "HumanEval/44", "status": "pass", "error": null}
+{"id": 45, "task_id": "HumanEval/45", "status": "pass", "error": null}
+{"id": 46, "task_id": "HumanEval/46", "status": "pass", "error": null}
+{"id": 47, "task_id": "HumanEval/47", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 10, in <module>\nNameError: name 'median' is not defined\n"}
+{"id": 48, "task_id": "HumanEval/48", "status": "pass", "error": null}
+{"id": 49, "task_id": "HumanEval/49", "status": "pass", "error": null}
+{"id": 50, "task_id": "HumanEval/50", "status": "pass", "error": null}
+{"id": 51, "task_id": "HumanEval/51", "status": "pass", "error": null}
+{"id": 52, "task_id": "HumanEval/52", "status": "pass", "error": null}
+{"id": 53, "task_id": "HumanEval/53", "status": "pass", "error": null}
+{"id": 54, "task_id": "HumanEval/54", "status": "pass", "error": null}
+{"id": 55, "task_id": "HumanEval/55", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 13, in <module>\nNameError: name 'fib' is not defined\n"}
+{"id": 56, "task_id": "HumanEval/56", "status": "pass", "error": null}
+{"id": 57, "task_id": "HumanEval/57", "status": "pass", "error": null}
+{"id": 58, "task_id": "HumanEval/58", "status": "pass", "error": null}
+{"id": 59, "task_id": "HumanEval/59", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 11, in <module>\nNameError: name 'largest_prime_factor' is not defined\n"}
+{"id": 60, "task_id": "HumanEval/60", "status": "pass", "error": null}
+{"id": 61, "task_id": "HumanEval/61", "status": "pass", "error": null}
+{"id": 62, "task_id": "HumanEval/62", "status": "pass", "error": null}
+{"id": 63, "task_id": "HumanEval/63", "status": "pass", "error": null}
+{"id": 64, "task_id": "HumanEval/64", "status": "pass", "error": null}
+{"id": 65, "task_id": "HumanEval/65", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 13, in check\nAssertionError\n"}
+{"id": 66, "task_id": "HumanEval/66", "status": "pass", "error": null}
+{"id": 67, "task_id": "HumanEval/67", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 12, in <module>\nNameError: name 'fruit_distribution' is not defined\n"}
+{"id": 68, "task_id": "HumanEval/68", "status": "pass", "error": null}
+{"id": 69, "task_id": "HumanEval/69", "status": "pass", "error": null}
+{"id": 70, "task_id": "HumanEval/70", "status": "pass", "error": null}
+{"id": 71, "task_id": "HumanEval/71", "status": "pass", "error": null}
+{"id": 72, "task_id": "HumanEval/72", "status": "pass", "error": null}
+{"id": 73, "task_id": "HumanEval/73", "status": "pass", "error": null}
+{"id": 74, "task_id": "HumanEval/74", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 13, in <module>\nNameError: name 'total_match' is not defined\n"}
+{"id": 75, "task_id": "HumanEval/75", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 31, in check\nAssertionError\n"}
+{"id": 76, "task_id": "HumanEval/76", "status": "pass", "error": null}
+{"id": 77, "task_id": "HumanEval/77", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 11, in check\n  File \"<string>\", line 4, in candidate\nTypeError: type complex doesn't define __round__ method\n"}
+{"id": 78, "task_id": "HumanEval/78", "status": "pass", "error": null}
+{"id": 79, "task_id": "HumanEval/79", "status": "pass", "error": null}
+{"id": 80, "task_id": "HumanEval/80", "status": "pass", "error": null}
+{"id": 81, "task_id": "HumanEval/81", "status": "pass", "error": null}
+{"id": 82, "task_id": "HumanEval/82", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 12, in <module>\nNameError: name 'prime_length' is not defined\n"}
+{"id": 83, "task_id": "HumanEval/83", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 24, in check\nAssertionError\n"}
+{"id": 84, "task_id": "HumanEval/84", "status": "pass", "error": null}
+{"id": 85, "task_id": "HumanEval/85", "status": "pass", "error": null}
+{"id": 86, "task_id": "HumanEval/86", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 20, in check\nAssertionError\n"}
+{"id": 87, "task_id": "HumanEval/87", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 12, in <module>\nNameError: name 'get_row' is not defined\n"}
+{"id": 88, "task_id": "HumanEval/88", "status": "pass", "error": null}
+{"id": 89, "task_id": "HumanEval/89", "status": "pass", "error": null}
+{"id": 90, "task_id": "HumanEval/90", "status": "pass", "error": null}
+{"id": 91, "task_id": "HumanEval/91", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 20, in check\nAssertionError: Test 2\n"}
+{"id": 92, "task_id": "HumanEval/92", "status": "pass", "error": null}
+{"id": 93, "task_id": "HumanEval/93", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 14, in <module>\nNameError: name 'encode' is not defined\n"}
+{"id": 94, "task_id": "HumanEval/94", "status": "fail", "error": "Missing required symbol(s): candidate"}
+{"id": 95, "task_id": "HumanEval/95", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 12, in check\nAssertionError: Third test error: True\n"}
+{"id": 96, "task_id": "HumanEval/96", "status": "pass", "error": null}
+{"id": 97, "task_id": "HumanEval/97", "status": "pass", "error": null}
+{"id": 98, "task_id": "HumanEval/98", "status": "pass", "error": null}
+{"id": 99, "task_id": "HumanEval/99", "status": "pass", "error": null}
+{"id": 100, "task_id": "HumanEval/100", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 13, in <module>\nNameError: name 'make_a_pile' is not defined\n"}
+{"id": 101, "task_id": "HumanEval/101", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 11, in check\nAssertionError\n"}
+{"id": 102, "task_id": "HumanEval/102", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 22, in check\nAssertionError\n"}
+{"id": 103, "task_id": "HumanEval/103", "status": "pass", "error": null}
+{"id": 104, "task_id": "HumanEval/104", "status": "pass", "error": null}
+{"id": 105, "task_id": "HumanEval/105", "status": "pass", "error": null}
+{"id": 106, "task_id": "HumanEval/106", "status": "pass", "error": null}
+{"id": 107, "task_id": "HumanEval/107", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 15, in <module>\nNameError: name 'even_odd_palindrome' is not defined\n"}
+{"id": 108, "task_id": "HumanEval/108", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 14, in check\nAssertionError\n"}
+{"id": 109, "task_id": "HumanEval/109", "status": "pass", "error": null}
+{"id": 110, "task_id": "HumanEval/110", "status": "pass", "error": null}
+{"id": 111, "task_id": "HumanEval/111", "status": "pass", "error": null}
+{"id": 112, "task_id": "HumanEval/112", "status": "pass", "error": null}
+{"id": 113, "task_id": "HumanEval/113", "status": "pass", "error": null}
+{"id": 114, "task_id": "HumanEval/114", "status": "pass", "error": null}
+{"id": 116, "task_id": "HumanEval/116", "status": "pass", "error": null}
+{"id": 117, "task_id": "HumanEval/117", "status": "pass", "error": null}
+{"id": 118, "task_id": "HumanEval/118", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 9, in <module>\nNameError: name 'get_closest_vowel' is not defined\n"}
+{"id": 119, "task_id": "HumanEval/119", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 17, in <module>\nNameError: name 'match_parens' is not defined\n"}
+{"id": 120, "task_id": "HumanEval/120", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 27, in check\nAssertionError\n"}
+{"id": 121, "task_id": "HumanEval/121", "status": "pass", "error": null}
+{"id": 122, "task_id": "HumanEval/122", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 9, in check\nAssertionError\n"}
+{"id": 123, "task_id": "HumanEval/123", "status": "pass", "error": null}
+{"id": 124, "task_id": "HumanEval/124", "status": "pass", "error": null}
+{"id": 125, "task_id": "HumanEval/125", "status": "pass", "error": null}
+{"id": 126, "task_id": "HumanEval/126", "status": "pass", "error": null}
+{"id": 127, "task_id": "HumanEval/127", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 29, in check\nAssertionError\n"}
+{"id": 128, "task_id": "HumanEval/128", "status": "pass", "error": null}
+{"id": 129, "task_id": "HumanEval/129", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 26, in check\nAssertionError\n"}
+{"id": 130, "task_id": "HumanEval/130", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 16, in check\nAssertionError\n"}
+{"id": 131, "task_id": "HumanEval/131", "status": "pass", "error": null}
+{"id": 132, "task_id": "HumanEval/132", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 15, in check\nAssertionError\n"}
+{"id": 133, "task_id": "HumanEval/133", "status": "pass", "error": null}
+{"id": 134, "task_id": "HumanEval/134", "status": "pass", "error": null}
+{"id": 135, "task_id": "HumanEval/135", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 21, in check\nAssertionError\n"}
+{"id": 136, "task_id": "HumanEval/136", "status": "pass", "error": null}
+{"id": 137, "task_id": "HumanEval/137", "status": "pass", "error": null}
+{"id": 138, "task_id": "HumanEval/138", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 8, in <module>\nNameError: name 'is_equal_to_sum_even' is not defined\n"}
+{"id": 139, "task_id": "HumanEval/139", "status": "pass", "error": null}
+{"id": 140, "task_id": "HumanEval/140", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 13, in check\nAssertionError: This prints if this assert fails 3 (good for debugging!)\n"}
+{"id": 141, "task_id": "HumanEval/141", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 12, in check\nAssertionError\n"}
+{"id": 142, "task_id": "HumanEval/142", "status": "pass", "error": null}
+{"id": 143, "task_id": "HumanEval/143", "status": "pass", "error": null}
+{"id": 144, "task_id": "HumanEval/144", "status": "pass", "error": null}
+{"id": 145, "task_id": "HumanEval/145", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 9, in check\nAssertionError\n"}
+{"id": 146, "task_id": "HumanEval/146", "status": "pass", "error": null}
+{"id": 147, "task_id": "HumanEval/147", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 19, in <module>\nNameError: name 'get_max_triples' is not defined\n"}
+{"id": 148, "task_id": "HumanEval/148", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 9, in <module>\nNameError: name 'bf' is not defined\n"}
+{"id": 149, "task_id": "HumanEval/149", "status": "pass", "error": null}
+{"id": 150, "task_id": "HumanEval/150", "status": "pass", "error": null}
+{"id": 151, "task_id": "HumanEval/151", "status": "fail", "error": "Execution failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 100, in check_correctness\n    exec(full_code_str, exec_globals)\n  File \"<string>\", line 9, in <module>\nNameError: name 'double_the_difference' is not defined\n"}
+{"id": 152, "task_id": "HumanEval/152", "status": "pass", "error": null}
+{"id": 153, "task_id": "HumanEval/153", "status": "pass", "error": null}
+{"id": 154, "task_id": "HumanEval/154", "status": "pass", "error": null}
+{"id": 155, "task_id": "HumanEval/155", "status": "pass", "error": null}
+{"id": 156, "task_id": "HumanEval/156", "status": "pass", "error": null}
+{"id": 157, "task_id": "HumanEval/157", "status": "pass", "error": null}
+{"id": 158, "task_id": "HumanEval/158", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 14, in check\nAssertionError: t2\n"}
+{"id": 159, "task_id": "HumanEval/159", "status": "pass", "error": null}
+{"id": 160, "task_id": "HumanEval/160", "status": "pass", "error": null}
+{"id": 161, "task_id": "HumanEval/161", "status": "pass", "error": null}
+{"id": 162, "task_id": "HumanEval/162", "status": "pass", "error": null}
+{"id": 163, "task_id": "HumanEval/163", "status": "fail", "error": "Test failed:\nTraceback (most recent call last):\n  File \"/Users/liuxiansheng/Agent/aievo/examples/multi-agent-example/humaneval/check/eval.py\", line 118, in check_correctness\n    check_fn(candidate_fn)\n  File \"<string>\", line 13, in check\nAssertionError: Test 1\n"}
+
+Total Problems Evaluated: 164, 115 Passed. Success Rate: 70.122%
