@@ -42,3 +42,4 @@ examples/multi-agent-example/humaneval/log
 examples/multi-agent-example/humaneval/results
 examples/multi-agent-example/humaneval/*.py
 examples/multi-agent-example/humaneval/__pycache__/
+examples/multi-agent-example/humaneval/SOP/gen_sop

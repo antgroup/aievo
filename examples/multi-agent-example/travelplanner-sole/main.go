@@ -480,11 +480,11 @@ func main() {
 	var results []TravelPlannerResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_rev3.1_tan_wm33_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_rev3.1_tan_wm32_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
-	start_id := 128
+	start_id := 0
 	// end_id := 22 //len(questions)
 	watcherInterval := 3
 	watcherActionInterval := 6
