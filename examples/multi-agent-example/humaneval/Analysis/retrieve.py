@@ -148,7 +148,7 @@ def retrieve_and_rank(model_name='qwen'):
         repo_as_emb = np.load(os.path.join(embedding_dir, "repo_as_emb.npy"), allow_pickle=True)
         with open("anal_train.json", 'r') as f:
             repo_data = json.load(f)
-        repo_ids = [ (item.get('task_id') or f"train_{item.get('id', idx)}") for idx, item in enumerate(repo_data) ]
+        repo_ids = [ item.get('id') for idx, item in enumerate(repo_data) ]
         if len(repo_ids) != repo_qs_emb.shape[0]:
             print("Warning: Mismatch between number of train items and repo embeddings. Embeddings and data must align.")
 
