@@ -35,15 +35,16 @@ def _strip_code_fences(code: str) -> str:
     return text
 
 def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: str) -> str:
-    """Construct executable code so that a single function named `candidate` is defined.
+    """Construct executable code so that a single function named `candidate` is defined,
+    while keeping helper functions from prompt and providing a back-compat alias for tests.
 
-    Rules:
-    - If generated_code already contains a full function definition, prefer it and
-      rename `def {entry_point}(` to `def candidate(`.
-    - Otherwise, treat generated_code as the body and attach it under the prompt's
-      function signature after renaming to `candidate`.
+    Changes vs. previous behavior:
+    - Always include the prompt so helper functions (e.g., encode_cyclic) are available.
+    - Rename `def {entry_point}(` from either prompt or generated code to `def candidate(`.
+    - Add `{entry_point} = candidate` alias so tests that reference the original name don't fail.
     """
-    # Always prepare a candidate-style prompt header (no canonical solution)
+    # Prepare a candidate-style prompt header (no canonical solution in prompt)
+    # Only rename the entrypoint signature; other helpers remain.
     prompt_candidate = prompt.replace(f"def {entry_point}", "def candidate")
 
     def indent_body(body: str) -> str:
@@ -61,6 +62,8 @@ def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: s
     # Clean possible Markdown code fences from model output first
     generated_code = _strip_code_fences(generated_code)
 
+    alias_line = f"\n{entry_point} = candidate\n"
+
     # Heuristic: if generated code defines a function, rely on it and just rename.
     if "def " in generated_code:
         gen = generated_code
@@ -68,11 +71,12 @@ def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: s
         gen = gen.replace(f"def {entry_point}(", "def candidate(")
         # Also handle potential spaces before parenthesis (rare, but safe)
         gen = gen.replace(f"def {entry_point} (", "def candidate (")
-        full = gen + "\n" + test
+        # Always include prompt first (to provide helpers), then model code, alias, then tests
+        full = prompt_candidate + "\n" + gen + alias_line + test
     else:
         # Treat as body and attach under the prompt header (now named candidate).
         body = indent_body(generated_code)
-        full = prompt_candidate + "\n" + body + "\n" + test
+        full = prompt_candidate + "\n" + body + alias_line + test
     return full
 
 
@@ -180,7 +184,12 @@ def main():
     # --- Configuration ---
     model_output_path = args.model_output_path
     per_problem_timeout = args.timeout
-    dataset_path = '../../../../dataset/humaneval/test.jsonl'
+    if 'train' in model_output_path:
+        dataset_path = '../../../../dataset/humaneval/train.jsonl'
+    elif 'valid' in model_output_path or 'eval' in model_output_path:
+        dataset_path = '../../../../dataset/humaneval/valid.jsonl'
+    else:
+        dataset_path = '../../../../dataset/humaneval/test.jsonl'
     results_output_path = '../results/' + model_output_path[10:] + '_results.jsonl'
     # --- End Configuration ---
 

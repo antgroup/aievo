@@ -37,3 +37,8 @@ examples/multi-agent-example/travelplanner-sole/log
 examples/multi-agent-example/travelplanner-sole/output
 examples/multi-agent-example/travelplanner-sole/results
 
+examples/multi-agent-example/humaneval/output
+examples/multi-agent-example/humaneval/log
+examples/multi-agent-example/humaneval/results
+examples/multi-agent-example/humaneval/*.py
+examples/multi-agent-example/humaneval/__pycache__/

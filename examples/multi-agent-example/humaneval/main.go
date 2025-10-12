@@ -452,7 +452,7 @@ func main() {
 	client, err := openai.New(
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
 		openai.WithModel(os.Getenv("OPENAI_MODEL")),
-		//openai.WithModel("Qwen2.5-72B-Instruct"),
+		// openai.WithModel("Qwen2.5-72B-Instruct"),
 		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
 	if err != nil {
 		log.Fatal(err)
@@ -464,19 +464,9 @@ func main() {
 	}
 	tools := []tool.Tool{bashTool}
 
-	datasetPath := "../../../dataset/humaneval/test.jsonl"
-
-	fmt.Printf("\n################## Starting Evaluation for HumanEval ##################\n")
-	fmt.Printf("Loading dataset from: %s\n", datasetPath)
-
-	questions, err := loadHumanEvalDataset(datasetPath)
-	if err != nil {
-		log.Printf("Failed to load HumanEval dataset, exiting: %v", err)
-		return
-	}
-
+	var datasetPath string
 	var mode string
-	eval := 2
+	eval := 1
 	switch eval {
 	case 0:
 		mode = "train"
@@ -492,20 +482,29 @@ func main() {
 	var results []HumanEvalResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/t1n_%s.json", timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_v3_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
-	start_id := 0
+	start_id := 98
 	// end_id := 22 //len(questions)
 	watcherInterval := 30
 	watcherActionInterval := 30
 	maxWatcherUses := 1 // 设置watcher最大使用次数
-	// test_id := []int{20, 22}
+	// test_id := []int{76,87}
+
+	fmt.Printf("\n################## Starting Evaluation for HumanEval ##################\n")
+	fmt.Printf("Loading dataset from: %s\n", datasetPath)
+
+	questions, err := loadHumanEvalDataset(datasetPath)
+	if err != nil {
+		log.Printf("Failed to load HumanEval dataset, exiting: %v", err)
+		return
+	}
 
 	for i, q := range questions {
 
-		// if test_id not contains i, continue
+		// // if test_id not contains i, continue
 		// testIDSet := make(map[int]struct{})
 		// for _, id := range test_id {
 		// 	testIDSet[id] = struct{}{}
@@ -513,6 +512,7 @@ func main() {
 		// if _, found := testIDSet[i]; !found {
 		// 	continue
 		// }
+
 		if i < start_id {
 			continue
 		}
@@ -534,18 +534,18 @@ func main() {
 		}
 
 		if fromsop {
-			sopPath := "SOP/v2.json"
+			sopPath := "SOP/v3.json"
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
-				generateNewSOP = false // For eval set, true to enable generation
+				generateNewSOP = true // For eval set, true to enable generation
 			}
 			if generateNewSOP { // 评估集：LLM生成SOP
 				newSopPath := fmt.Sprintf("SOP/val_sop/gen_sop_v1_q%d.json", i)
 				reflectionPath := ""
 				// Set writeToFile to true if you want to save the generated SOP.
 				writeToFile := false
-				rag := true
+				rag := false
 				if rag { // RAG模式：从检索SOP作为引导生成SOP
 					retrievedQuestionNumber, err := retrieveSOPFile(mode, i)
 					if err != nil {
@@ -576,30 +576,30 @@ func main() {
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
 				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", i)
-				reflectionPath := ""
+				// reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v3.5_q%d.json", i)
-				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+				// evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
-				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
-				// writeToFile := true // 训练集：生成SOP并写入文件
-				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
-				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
-				// if err != nil {
-				// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
-				// 	// Fallback to default SOP if generation fails
-				// 	evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
-				// 	if err != nil {
-				// 		panic(err)
-				// 	}
-				// } else {
-				// 	log.Printf("Using generated SOP for question %d", i)
-				// 	// Use the generated SOP for the current question
-				// 	evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
-				// 	if err != nil {
-				// 		panic(err)
-				// 	}
-				// }
+				newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
+				writeToFile := true // 训练集：生成SOP并写入文件
+				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				// generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
+				if err != nil {
+					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
+					// Fallback to default SOP if generation fails
+					evo, err = createEvoFromSOP(client, tools, sopPath, nil, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+					if err != nil {
+						panic(err)
+					}
+				} else {
+					log.Printf("Using generated SOP for question %d", i)
+					// Use the generated SOP for the current question
+					evo, err = createEvoFromSOP(client, tools, "", generatedSOP, "", watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
+					if err != nil {
+						panic(err)
+					}
+				}
 			}
 		} else { // 手动构建团队
 			evo, err = createEvo(client, tools, logFilename)
@@ -615,7 +615,7 @@ func main() {
 			logFile, logErr := os.OpenFile(ErrorlogFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if logErr == nil {
 				defer logFile.Close()
-				logEntry := fmt.Sprintf("-----ID: %s\n---Query:%s\n---Error: %v\n\n", q.TaskID, q.Prompt, err)
+				logEntry := fmt.Sprintf("-----ID: %d  Tsak ID:%s\n---Query:%s\n---Error: %v\n\n", i, q.TaskID, q.Prompt, err)
 				logFile.WriteString(logEntry)
 			}
 			gen = "NULL"

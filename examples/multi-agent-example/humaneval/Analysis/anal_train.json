@@ -1,0 +1,38 @@
+[
+  {
+    "id": 0,
+    "task_id": "HumanEval/8",
+    "question": "from typing import List, Tuple\n\n\ndef sum_product(numbers: List[int]) -\u003e Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    \u003e\u003e\u003e sum_product([])\n    (0, 1)\n    \u003e\u003e\u003e sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"\n",
+    "analysis": "The user's query is a straightforward coding task requiring implementation of a function to compute sum and product of integers with specific edge cases. Given the simplicity of the problem (no complex algorithm design or multi-step validation needed), a single agent suffices. Only an AnswerAgent can directly analyze the requirements, write the code. Introducing additional agents would overcomplicate this simple workflow."
+  },
+  {
+    "id": 1,
+    "task_id": "HumanEval/32",
+    "question": "import math\n\n\ndef poly(xs: list, x: float):\n    \"\"\"\n    Evaluates polynomial with coefficients xs at point x.\n    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n\n    \"\"\"\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n\n\ndef find_zero(xs: list):\n    \"\"\" xs are coefficients of a polynomial.\n    find_zero find x such that poly(x) = 0.\n    find_zero returns only only zero point, even if there are many.\n    Moreover, find_zero only takes list xs having even number of coefficients\n    and largest non zero coefficient as it guarantees\n    a solution.\n    \u003e\u003e\u003e round(find_zero([1, 2]), 2) # f(x) = 1 + 2x\n    -0.5\n    \u003e\u003e\u003e round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3\n    1.0\n    \"\"\"\n",
+    "analysis": "The user's query requires implementing a numerical root-finding algorithm for polynomials with guaranteed real roots (due to odd degree from even coefficient count). This involves non-trivial algorithm design (e.g., bisection with dynamic interval expansion), precise floating-point handling, and validation against mathematical edge cases. A multi-agent system is necessary: an Algorithm Designer to select/validate the numerical method, a Programming Expert to implement interval search and convergence logic, a Test Analyst to verify robustness across polynomials (including sign changes and precision), and an AnswerAgent for final solution synthesis. Single-agent approach risks missing numerical stability considerations."
+  },
+  {
+    "id": 2,
+    "task_id": "HumanEval/60",
+    "question": "\n\ndef sum_to_n(n: int):\n    \"\"\"sum_to_n is a function that sums numbers from 1 to n.\n    \u003e\u003e\u003e sum_to_n(30)\n    465\n    \u003e\u003e\u003e sum_to_n(100)\n    5050\n    \u003e\u003e\u003e sum_to_n(5)\n    15\n    \u003e\u003e\u003e sum_to_n(10)\n    55\n    \u003e\u003e\u003e sum_to_n(1)\n    1\n    \"\"\"\n",
+    "analysis": "The user's query requires implementing a simple arithmetic function to sum integers from 1 to n using a well-known mathematical formula (n*(n+1)/2). Given the trivial nature of the problem (no complex logic, edge cases beyond n=1, or validation requirements beyond basic arithmetic), a single agent suffices. The AnswerAgent can directly derive the formula, implement it efficiently, and verify against provided examples without needing specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 3,
+    "task_id": "HumanEval/92",
+    "question": "\ndef any_int(x, y, z):\n    '''\n    Create a function that takes 3 numbers.\n    Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.\n    Returns false in any other cases.\n    \n    Examples\n    any_int(5, 2, 7) ➞ True\n    \n    any_int(3, 2, 2) ➞ False\n\n    any_int(3, -2, 1) ➞ True\n    \n    any_int(3.6, -2.2, 2) ➞ False\n  \n\n    \n    '''\n",
+    "analysis": "The user's query requires implementing a function that checks integer validation and sum conditions with specific edge cases (negative numbers, non-integers). Though the logic is simple, ensuring correctness across all scenarios demands rigorous testing. A multi-agent system is appropriate: a Programming Expert to implement core logic (integer checks and sum validation), a Test Analyst to validate against provided examples and edge cases (e.g., floats, negatives), and an AnswerAgent to deliver the final verified solution. This分工 ensures robustness without overcomplicating the workflow for a moderately simple task."
+  },
+  {
+    "id": 4,
+    "task_id": "HumanEval/128",
+    "question": "\ndef prod_signs(arr):\n    \"\"\"\n    You are given an array arr of integers and you need to return\n    sum of magnitudes of integers multiplied by product of all signs\n    of each number in the array, represented by 1, -1 or 0.\n    Note: return None for empty arr.\n\n    Example:\n    \u003e\u003e\u003e prod_signs([1, 2, 2, -4]) == -9\n    \u003e\u003e\u003e prod_signs([0, 1]) == 0\n    \u003e\u003e\u003e prod_signs([]) == None\n    \"\"\"\n",
+    "analysis": "The user's query involves computing a value based on the product of signs and sum of magnitudes of an integer array, with specific edge cases (empty array, zeros). The logic requires straightforward iteration, sign handling, and arithmetic operations. Given the clear problem structure and manageable edge cases (similar to Example 1's simplicity), a single AnswerAgent can implement the solution directly by checking for empty input, calculating sign products, and summing magnitudes without requiring specialized roles for algorithm design or rigorous testing."
+  },
+  {
+    "id": 5,
+    "task_id": "HumanEval/163",
+    "question": "\ndef generate_integers(a, b):\n    \"\"\"\n    Given two positive integers a and b, return the even digits between a\n    and b, in ascending order.\n\n    For example:\n    generate_integers(2, 8) =\u003e [2, 4, 6, 8]\n    generate_integers(8, 2) =\u003e [2, 4, 6, 8]\n    generate_integers(10, 14) =\u003e []\n    \"\"\"\n",
+    "analysis": "The user's query requires implementing a function to return even single-digit numbers (2,4,6,8) within a normalized range [min(a,b), max(a,b)]. The problem is straightforward with clear examples and edge cases (like range [10,14] yielding empty list). The implementation involves a fixed list of candidates and a simple range check, making it suitable for a single AnswerAgent without additional roles for algorithm design or testing, as the logic is trivial and verifiable by the provided examples."
+  }
+]

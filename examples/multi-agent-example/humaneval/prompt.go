@@ -80,26 +80,22 @@ The Final Important Note:
 const SOPGeneratorPrompt = `Your task is to act as an expert in designing multi-agent systems to generate Python code for the user. You need to generate a Standard Operating Procedure (SOP) in JSON format.
 
 You need to design a SOP, which defines the team of agents, their roles, and their collaboration workflow to solve the user's query.
-
 You must follow the structure of the provided template exactly. The main components of the SOP are:
 - "team": A list of agent names that will be part of the team.
 - "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
-  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
+  - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction. 
   - "tools": A list of tools that the agents can use to perform its tasks. Available tools are: ["bash"].
 
-Here is a template for you to follow:
+Here is a template for you to reference:
 --- TEMPLATE START ---
 %s
 --- TEMPLATE END ---
 
-**Important Note:**
-The agent instructions within the template contain important information.
-You MUST reuse this information as more as possible.
-In addition to these instructions, you can add new instructions or elaborate on certain instructions based on user needs.
-
+You can formulate SOP based on the complexity of user queries. 
+For instance, for simple programming questions, only an Answer Agent may suffice. For more complex issues, it might be necessary to introduce new roles, such as algorithm designer or test analyst, and you can handle these flexibly.
 Now, analyze the following user's query to design the system.
 
 User's query: "%s"

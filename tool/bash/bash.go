@@ -54,8 +54,13 @@ func (t *Tool) Description() string {
 	bytes, _ := json.Marshal(t.Schema())
 	return fmt.Sprintf("Run shell commands on this %s machine.", platform()) + `
 Input Format:` + string(bytes) + `
-Example Input: {"command": "ls -l"}`
+Example Input: {\"command\": \"ls -l\"}
+Example Input: "{\"command\": \"echo 'from typing import List\\nprint(\\\"test!\\\")' > test.py && python3 test.py\"}"`
 }
+
+// Example Input: {"command": "python -c 'print(\"hello world\")'}`
+// Example Input: {\"command\": \"python -c 'print(\\\"All tests passed\\\")'\"}`
+// Example Input: "{\"command\": \"echo 'from typing import List\\nprint(\\\"test!\\\")' > test.py && python3 test.py\"}"`
 
 // Schema returns the JSON schema for the tool's input.
 func (t *Tool) Schema() *tool.PropertiesSchema {
