@@ -1,0 +1,36 @@
+{
+  "question": "\ndef any_int(x, y, z):\n    '''\n    Create a function that takes 3 numbers.\n    Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.\n    Returns false in any other cases.\n    \n    Examples\n    any_int(5, 2, 7) ➞ True\n    \n    any_int(3, 2, 2) ➞ False\n\n    any_int(3, -2, 1) ➞ True\n    \n    any_int(3.6, -2.2, 2) ➞ False\n  \n\n    \n    '''\n",
+  "analysis": "The user's query requires implementing a Python function with specific conditions (integer check and sum validation) and handling edge cases like negative numbers and non-integers. A multi-agent approach ensures robustness: the Programming Expert writes the initial implementation, the Test Analyst validates it against comprehensive test cases (including edge cases from the problem statement), and the AnswerAgent delivers the final solution. This workflow guarantees correctness through iterative testing and avoids premature delivery of unverified code.",
+  "sops": [
+    {
+      "team": [
+        "Programming Expert",
+        "Test Analyst",
+        "AnswerAgent"
+      ],
+      "workflow": "1. User -\u003e Programming Expert; 2. Programming Expert -\u003e Test Analyst; 3. Test Analyst -\u003e Programming Expert (if errors) | AnswerAgent (if correct); 4. AnswerAgent -\u003e End.\n\nDescription:\nFirst, the Programming Expert implements the 'any_int' function to check integer validity and sum conditions. Next, the Test Analyst generates test cases covering integers, non-integers, negatives, and boundary scenarios. If tests fail, the workflow loops back for fixes. Once all tests pass, the AnswerAgent delivers the validated code.",
+      "details": [
+        {
+          "name": "Programming Expert",
+          "responsibility": "You are a programming expert. Given a function signature and its docstring by the user, your task is to write the complete and correct code implementation.",
+          "instruction": "1. Write your full implementation based on the function signature and docstring provided.\n2. Use a Python code block for your response.\n3. Do not change the original function names or input variable types.",
+          "tools": []
+        },
+        {
+          "name": "Test Analyst",
+          "responsibility": "You are a test analyst. Given a function signature, its docstring, and the candidate solution, your task is to validate the code's correctness for integer checks and sum conditions.",
+          "instruction": "1. Generate test cases covering integers, non-integers, negative values, and all sum permutations as described in the problem.\n2. Use the terminal tool to execute tests and verify edge cases.\n3. If failures occur, return detailed feedback to the Programming Expert. If all tests pass, forward the solution to the AnswerAgent.",
+          "tools": [
+            "bash"
+          ]
+        },
+        {
+          "name": "AnswerAgent",
+          "responsibility": "You are an AnswerAgent. Your task is to deliver the final validated code to the user.",
+          "instruction": "Present the final code to the user, ensuring it meets all requirements specified in the docstring and has passed all validation tests.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

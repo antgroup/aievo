@@ -280,7 +280,7 @@ func createEvoFromSOP(client llm.LLM, ts []tool.Tool, sopPath string, sop *SOP, 
 	return aievo.NewAIEvo(opts...)
 }
 
-func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath string, writeToFile bool) (*SOP, error) {
+func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath string, logFilePath string, writeToFile bool) (*SOP, error) {
 	log.Println("Starting SOP generation...")
 
 	// 1. Load the SOP template file
@@ -369,6 +369,7 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		agent.WithLLM(client),
 		agent.WithInstruction(""),
 		agent.WithSuffix(NULLSuffix), // Use a null suffix
+		agent.WithLogFilePath(logFilePath),
 	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create SOPGenerator agent: %w", err)
@@ -636,7 +637,7 @@ func main() {
 						}
 					}
 				} // 依据通用模板 / rag 生成SOP
-				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, logFilename, writeToFile)
 				if err != nil {
 					log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)
 					// Fallback to default SOP if generation fails
@@ -660,7 +661,7 @@ func main() {
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件
-				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, writeToFile)
+				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, logFilename, writeToFile)
 				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
 				// if err != nil {
 				// 	log.Printf("ERROR: Failed to generate SOP for question %d, falling back to default: %v", i, err)

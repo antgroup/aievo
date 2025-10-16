@@ -1,0 +1,29 @@
+{
+  "question": "\n\ndef sum_to_n(n: int):\n    \"\"\"sum_to_n is a function that sums numbers from 1 to n.\n    \u003e\u003e\u003e sum_to_n(30)\n    465\n    \u003e\u003e\u003e sum_to_n(100)\n    5050\n    \u003e\u003e\u003e sum_to_n(5)\n    15\n    \u003e\u003e\u003e sum_to_n(10)\n    55\n    \u003e\u003e\u003e sum_to_n(1)\n    1\n    \"\"\"\n",
+  "analysis": "The user's query is a straightforward programming task requiring implementation of a summation function with provided doctests. Given the simplicity of the problem (calculating sum from 1 to n), a two-agent system is sufficient: one to generate and validate the code, and another to finalize the output. The CoderAgent will handle code creation and testing using bash to verify against the given examples, while the AnswerAgent ensures clean delivery of the final solution without additional processing.",
+  "sops": [
+    {
+      "team": [
+        "CoderAgent",
+        "AnswerAgent"
+      ],
+      "workflow": "1. User -\u003e CoderAgent; 2. CoderAgent -\u003e AnswerAgent; 3. AnswerAgent -\u003e End;",
+      "details": [
+        {
+          "name": "CoderAgent",
+          "responsibility": "You are a Python code implementation specialist. Your task is to create an efficient solution for summing integers from 1 to n while validating against provided test cases.",
+          "instruction": "Analyze the mathematical requirements and doctest examples to implement the most efficient solution. Use the bash tool to execute test cases and verify correctness before proceeding. Prioritize algorithmic efficiency over iterative approaches.",
+          "tools": [
+            "bash"
+          ]
+        },
+        {
+          "name": "AnswerAgent",
+          "responsibility": "You are the solution delivery specialist. Your core mission is to provide the verified Python code in a clean, production-ready format.",
+          "instruction": "Receive the validated code from CoderAgent and present it as the final solution without modifications. Ensure the code includes proper documentation and matches the requested function signature exactly.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

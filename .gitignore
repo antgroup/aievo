@@ -44,3 +44,11 @@ examples/multi-agent-example/humaneval/*.py
 examples/multi-agent-example/humaneval/__pycache__/
 examples/multi-agent-example/humaneval/Analysis/embedding_qwen
 examples/multi-agent-example/humaneval/SOP/gen_sop
+tp_t0_train_case.json
+examples/multi-agent-example/MBPP/output
+examples/multi-agent-example/MBPP/log
+examples/multi-agent-example/MBPP/results
+examples/multi-agent-example/MBPP/*.py
+examples/multi-agent-example/MBPP/__pycache__/
+examples/multi-agent-example/MBPP/Analysis/embedding_qwen
+examples/multi-agent-example/MBPP/SOP/gen_sop

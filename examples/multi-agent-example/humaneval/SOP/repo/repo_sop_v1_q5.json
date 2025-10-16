@@ -1,0 +1,22 @@
+{
+  "question": "\ndef generate_integers(a, b):\n    \"\"\"\n    Given two positive integers a and b, return the even digits between a\n    and b, in ascending order.\n\n    For example:\n    generate_integers(2, 8) =\u003e [2, 4, 6, 8]\n    generate_integers(8, 2) =\u003e [2, 4, 6, 8]\n    generate_integers(10, 14) =\u003e []\n    \"\"\"\n",
+  "analysis": "The user's query requires implementing a straightforward Python function that processes input ranges to return even digits. Given the simplicity of the task—determining even digits (2,4,6,8) within a range and handling edge cases like reversed bounds—a single agent suffices. The problem does not require complex algorithm design or multi-step validation, making a dedicated 'AnswerAgent' optimal. This agent can directly generate, test via bash, and finalize the code without intermediate roles.",
+  "sops": [
+    {
+      "team": [
+        "AnswerAgent"
+      ],
+      "workflow": "1. User -\u003e AnswerAgent; 2. AnswerAgent -\u003e End;",
+      "details": [
+        {
+          "name": "AnswerAgent",
+          "responsibility": "You are a Python programming assistant. Your task is to generate the final, complete Python code for the user's question.",
+          "instruction": "Analyze the user's request and write the Python code to solve the problem. Ensure the solution handles range normalization and correctly filters even digits between 2-8. Use the bash tool to validate logic if necessary.",
+          "tools": [
+            "bash"
+          ]
+        }
+      ]
+    }
+  ]
+}

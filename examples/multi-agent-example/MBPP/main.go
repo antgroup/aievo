@@ -21,13 +21,16 @@ import (
 	"github.com/antgroup/aievo/tool/bash"
 )
 
-// HumanEvalQuestion represents a single question from the HumanEval dataset
-type HumanEvalQuestion struct {
-	TaskID            string `json:"task_id"`
-	Prompt            string `json:"prompt"`
-	CanonicalSolution string `json:"canonical_solution"`
-	Test              string `json:"test"`
-	EntryPoin         string `json:"entry_point"`
+// MBPPQuestion represents a single question from the MBPP dataset
+// Example fields reference: dataset/MBPP/mbpp_validate.jsonl | mbpp_test.jsonl
+type MBPPQuestion struct {
+	TaskID      int      `json:"task_id"`
+	Prompt      string   `json:"prompt"`
+	Code        string   `json:"code"`
+	TestImports []string `json:"test_imports"`
+	TestList    []string `json:"test_list"`
+	EntryPoint  string   `json:"entry_point"`
+	Test        string   `json:"test"`
 }
 
 // HumanEvalResultLog represents the evaluation result for a single question
@@ -40,18 +43,18 @@ type HumanEvalResultLog struct {
 	Time                 string           `json:"time"`
 }
 
-// loadHumanEvalDataset loads the HumanEval dataset from a JSONL file
-func loadHumanEvalDataset(filePath string) ([]HumanEvalQuestion, error) {
+// loadMBPPDataset loads the MBPP dataset from a JSONL file
+func loadMBPPDataset(filePath string) ([]MBPPQuestion, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	var questions []HumanEvalQuestion
+	var questions []MBPPQuestion
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		var question HumanEvalQuestion
+		var question MBPPQuestion
 		if err := json.Unmarshal(scanner.Bytes(), &question); err != nil {
 			return nil, err
 		}
@@ -465,23 +468,24 @@ func main() {
 
 	var datasetPath string
 	var mode string
-	eval := 1
+	eval := 2
 	switch eval {
 	case 0:
+		// MBPP doesn't have a standard train split here; reuse validate for development
 		mode = "train"
-		datasetPath = "../../../dataset/humaneval/train.jsonl"
+		datasetPath = "../../../dataset/MBPP/mbpp_validate.jsonl"
 	case 1:
 		mode = "eval"
-		datasetPath = "../../../dataset/humaneval/valid.jsonl"
+		datasetPath = "../../../dataset/MBPP/mbpp_validate.jsonl"
 	case 2:
 		mode = "test"
-		datasetPath = "../../../dataset/humaneval/test.jsonl"
+		datasetPath = "../../../dataset/MBPP/mbpp_test.jsonl"
 	}
 
 	var results []HumanEvalResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_repv1_ta_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_t0_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
@@ -490,27 +494,27 @@ func main() {
 	watcherInterval := 30
 	watcherActionInterval := 50
 	maxWatcherUses := 2 // 设置watcher最大使用次数
-	//test_id := []int{27}
+	// test_id := []int{287, 288, 300, 301}
 
-	fmt.Printf("\n################## Starting Evaluation for HumanEval ##################\n")
+	fmt.Printf("\n################## Starting Evaluation for MBPP ##################\n")
 	fmt.Printf("Loading dataset from: %s\n", datasetPath)
 
-	questions, err := loadHumanEvalDataset(datasetPath)
+	questions, err := loadMBPPDataset(datasetPath)
 	if err != nil {
-		log.Printf("Failed to load HumanEval dataset, exiting: %v", err)
+		log.Printf("Failed to load MBPP dataset, exiting: %v", err)
 		return
 	}
 
 	for i, q := range questions {
 
 		// test test_id_set
-		//testIDSet := make(map[int]struct{})
-		//for _, id := range test_id {
-		//	testIDSet[id] = struct{}{}
-		//}
-		//if _, found := testIDSet[i]; !found {
-		//	continue
-		//}
+		// testIDSet := make(map[int]struct{})
+		// for _, id := range test_id {
+		// 	testIDSet[id] = struct{}{}
+		// }
+		// if _, found := testIDSet[i]; !found {
+		// 	continue
+		// }
 
 		if i < start_id {
 			continue
@@ -533,7 +537,7 @@ func main() {
 		}
 
 		if fromsop {
-			sopPath := "SOP/v2.json"
+			sopPath := "SOP/v0.json"
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
@@ -576,7 +580,7 @@ func main() {
 				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", i)
 				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
-				sopPath = fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", i)
+				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
@@ -613,7 +617,7 @@ func main() {
 			logFile, logErr := os.OpenFile(ErrorlogFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if logErr == nil {
 				defer logFile.Close()
-				logEntry := fmt.Sprintf("-----ID: %d  Tsak ID:%s\n---Query:%s\n---Error: %v\n\n", i, q.TaskID, q.Prompt, err)
+				logEntry := fmt.Sprintf("-----ID: %d  Task ID:%v\n---Query:%s\n---Error: %v\n\n", i, q.TaskID, q.Prompt, err)
 				logFile.WriteString(logEntry)
 			}
 			gen = "NULL"
@@ -650,5 +654,5 @@ func main() {
 		fmt.Printf("\n===========Total Count: %d\n", totalCount)
 	}
 
-	fmt.Printf("\nEvaluation finished for HumanEval. Results saved to %s\n", resultsFilename)
+	fmt.Printf("\nEvaluation finished for MBPP. Results saved to %s\n", resultsFilename)
 }

@@ -237,19 +237,12 @@ You are part of a multi-agent system. Your name is {{ .name }} in team. Here is 
 ### Example of Final Code
 Here is an example of the input query and output code, and your output code should be similar to the example.
 ** Example **
-Query: from typing import List
-def has_close_elements(numbers: List[float], threshold: float) -> bool:
-    """ Check if in given list of numbers, are any two numbers closer to each other than
-    given threshold.
-    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
-    False
-    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
-    True
-    """
+Query: Write a function to that check if in given list of numbers, are any two numbers closer to each other than given threshold.
+def has_close_elements(numbers, threshold):
 
 Output Code:
 from typing import List
-def has_close_elements(numbers: List[float], threshold: float) -> bool:
+def has_close_elements(numbers, threshold):
     for idx, elem in enumerate(numbers):
         for idx2, elem2 in enumerate(numbers):
             if idx != idx2:
@@ -259,8 +252,9 @@ def has_close_elements(numbers: List[float], threshold: float) -> bool:
     return False
 ** End of Example **
 ** Important Note:**
-1. If the user provides other complete functions, they must also be integrated into your output (do not include only the functions that need to be completed).
-2. DO NOT include any test code or main function in your output. Only provide the required function(s).
+1. Strictly use the function name provided in the query.
+2. The function must have a return value.
+3. DO NOT include any test code or main function in your output. Only provide the required function(s).
 
 ### Current Task & Conversation History:
 ~~~

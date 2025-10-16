@@ -1,0 +1,248 @@
+import argparse
+import json
+import os
+import sys
+import traceback
+from contextlib import redirect_stdout
+import io
+from multiprocessing import Process, Queue
+from tqdm import tqdm
+
+def read_jsonl(path):
+    """Reads a .jsonl file and returns a list of dictionaries."""
+    with open(path, 'r', encoding='utf-8') as f:
+        return [json.loads(line) for line in f]
+
+def read_json(path):
+    """Reads a .json file and returns a dictionary or list."""
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def _strip_code_fences(code: str) -> str:
+    """Remove Markdown code fences like ```python ... ``` or ``` ... ``` around the model output."""
+    if not isinstance(code, str):
+        return code
+    text = code.strip()
+    if text.startswith("```"):
+        lines = text.splitlines()
+        # drop first fence line
+        if lines and lines[0].lstrip().startswith("```"):
+            lines = lines[1:]
+        # drop last fence line if present
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        text = "\n".join(lines).strip()
+    return text
+
+def _build_full_code(generated_code: str, test_imports, test_list) -> str:
+    """Construct executable code using exactly three parts:
+    1) model generated code (expected to include the target function definition)
+    2) dataset's test_imports (list of import lines)
+    3) dataset's test_list (may contain either a def check(...) or plain asserts)
+
+    If test_list doesn't define a check function, we wrap its lines into a def check(): block.
+    """
+    # Normalize inputs
+    if test_imports is None:
+        test_imports = []
+    if test_list is None:
+        test_list = []
+
+    # Clean model code fences
+    generated_code = _strip_code_fences(generated_code or "")
+
+    # Build imports
+    imports_block = "\n".join(test_imports).strip()
+
+    # Build tests
+    has_check = any(isinstance(ln, str) and ln.strip().startswith("def check") for ln in test_list)
+    if has_check:
+        tests_block = "\n".join(test_list)
+    else:
+        # Build a check() that runs each assertion separately and reports which one failed
+        raw_lines = [ln if isinstance(ln, str) else str(ln) for ln in test_list]
+        # Represent each line as a proper Python string literal
+        literal_lines = ",\n        ".join([repr(ln) for ln in raw_lines])
+        tests_block = (
+            "def check():\n"
+            "    tests = [\n"
+            "        " + literal_lines + "\n"
+            "    ]\n"
+            "    for idx, code_line in enumerate(tests, start=1):\n"
+            "        try:\n"
+            "            exec(code_line, globals())\n"
+            "        except Exception as e:\n"
+            "            raise AssertionError(f'Test #{idx} failed: {code_line}\\n{e}')\n"
+        )
+
+    parts = []
+    if imports_block:
+        parts.append(imports_block)
+    parts.append(generated_code)
+    parts.append(tests_block)
+    return "\n\n".join(parts)
+
+
+def _worker_run(full_code_str: str, q: Queue):
+    """Worker process: exec combined code, then run check(candidate). Put result into Queue."""
+    try:
+        # Suppress prints from test/code to avoid polluting parent output
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            exec_globals = {}
+            # Define symbols
+            exec(full_code_str, exec_globals)
+            # Optional check(): if provided, call it; if not, assumes top-level asserts (if any) already executed
+            check_fn = exec_globals.get("check")
+            if check_fn is not None:
+                try:
+                    import inspect
+                    sig = None
+                    try:
+                        sig = inspect.signature(check_fn)
+                    except Exception:
+                        sig = None
+                    if sig and len(sig.parameters) >= 1:
+                        # We don't know expected callable; try best-effort: pass None
+                        check_fn(None)
+                    else:
+                        check_fn()
+                except Exception:
+                    error_info = traceback.format_exc()
+                    q.put({
+                        "status": "fail",
+                        "error": f"Test failed:\n{error_info}"
+                    })
+                    return
+            # If no exceptions so far, consider pass
+            q.put({"status": "pass"})
+    except Exception:
+        error_info = traceback.format_exc()
+        q.put({
+            "status": "fail",
+            "error": f"Execution failed:\n{error_info}"
+        })
+
+
+def check_correctness(generated_code: str, test_imports, test_list, timeout: int = 30) -> dict:
+    """
+    Evaluates the generated code against the test cases.
+
+    Args:
+        prompt (str): The function signature and docstring, with the function name replaced by 'candidate'.
+        generated_code (str): The code generated by the model (the function body).
+        test (str): The test code from the dataset.
+
+    Returns:
+        dict: A dictionary containing the status ('pass' or 'fail') and any error information.
+    """
+    # Build final code from model output + dataset tests
+    full_code_str = _build_full_code(generated_code, test_imports, test_list)
+
+    # Run evaluation in a separate process and enforce timeout
+    q: Queue = Queue()
+    p = Process(target=_worker_run, args=(full_code_str, q))
+    p.start()
+    p.join(timeout)
+    if p.is_alive():
+        # Timeout
+        p.terminate()
+        p.join()
+        return {
+            "status": "fail",
+            "error": f"Timeout: evaluation exceeded {timeout}s"
+        }
+    # Process finished; attempt to retrieve result
+    if not q.empty():
+        return q.get()
+    # Shouldn't happen, but guard just in case
+    return {
+        "status": "fail",
+        "error": "Unknown error: no result returned from worker"
+    }
+
+
+def main():
+    """
+    Main function to run the evaluation.
+    """
+    parser = argparse.ArgumentParser(description="Evaluate MBPP model outputs (model code + test_imports + test_list).")
+    parser.add_argument(
+        '--model_output_path',
+        type=str,
+        required=True,
+        help='Path to the model output JSON file.'
+    )
+    parser.add_argument(
+        '--timeout',
+        type=int,
+        default=30,
+        help='Per-problem evaluation timeout in seconds (default: 30).'
+    )
+    args = parser.parse_args()
+
+    # --- Configuration ---
+    model_output_path = args.model_output_path
+    per_problem_timeout = args.timeout
+    # Infer MBPP split by filename
+    if 'train' in model_output_path:
+        dataset_path = '../../../../dataset/MBPP/mbpp_validate.jsonl'
+    elif 'valid' in model_output_path or 'eval' in model_output_path:
+        dataset_path = '../../../../dataset/MBPP/mbpp_validate.jsonl'
+    else:
+        dataset_path = '../../../../dataset/MBPP/mbpp_test.jsonl'
+    results_output_path = '../results/' + model_output_path[10:] + '_results.jsonl'
+    # --- End Configuration ---
+
+    if not os.path.exists(model_output_path):
+        print(f"Error: Model output file not found at '{model_output_path}'")
+        sys.exit(1)
+
+    model_outputs = read_json(model_output_path)
+    dataset = read_jsonl(dataset_path)
+    n_true = 0
+    n_total = 0
+
+    if len(model_outputs) > len(dataset):
+        print(f"Warning: There are more model outputs ({len(model_outputs)}) than dataset problems ({len(dataset)}).")
+        print("Evaluation will only run for the available problems in the dataset.")
+
+    with open(results_output_path, 'w', encoding='utf-8') as f_out:
+        for i, model_result in tqdm(enumerate(model_outputs), total=len(model_outputs)):
+            if i >= len(dataset):
+                break
+            
+            # print(f"\n=============Evaluating Problem {i}...")
+            n_total += 1
+            problem = dataset[i]
+            
+            task_id = problem.get("task_id")
+            generated_code = model_result.get("model_output")
+            test_imports = problem.get("test_imports", [])
+            test_list = problem.get("test_list", [])
+
+            if not all([task_id is not None, generated_code is not None]):
+                print(f"Skipping problem {i} due to missing data.")
+                continue
+
+            result = check_correctness(generated_code, test_imports, test_list, timeout=per_problem_timeout)
+            
+            # print(f"Result: {result['status'].upper()}")
+            n_true += (result['status'] == 'pass')
+
+            # Write the result to the output file
+            eval_log = {
+                "id": i,
+                "task_id": task_id,
+                "status": result['status'],
+                "error": result.get("error", None)
+            }
+            f_out.write(json.dumps(eval_log) + '\n')
+
+        f_out.write(f'\nTotal Problems Evaluated: {n_total}, {n_true} Passed. Success Rate: {n_true / n_total:.3%}\n')
+    
+    print(f"\nTotal Problems Evaluated: {n_total}, {n_true} Passed. Success Rate: {n_true / n_total:.3%}")
+    print(f"Evaluation complete. Results saved to '{results_output_path}'")
+
+if __name__ == '__main__':
+    main()

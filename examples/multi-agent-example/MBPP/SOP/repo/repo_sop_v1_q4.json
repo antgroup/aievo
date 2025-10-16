@@ -1,0 +1,36 @@
+{
+  "question": "\ndef prod_signs(arr):\n    \"\"\"\n    You are given an array arr of integers and you need to return\n    sum of magnitudes of integers multiplied by product of all signs\n    of each number in the array, represented by 1, -1 or 0.\n    Note: return None for empty arr.\n\n    Example:\n    \u003e\u003e\u003e prod_signs([1, 2, 2, -4]) == -9\n    \u003e\u003e\u003e prod_signs([0, 1]) == 0\n    \u003e\u003e\u003e prod_signs([]) == None\n    \"\"\"\n",
+  "analysis": "The user's query requires implementing a Python function with specific edge cases (empty array, zero values) and validation against provided examples. To ensure correctness, a multi-agent system is designed with three roles: a CoderAgent to write the initial implementation, a TesterAgent to validate against test cases using bash execution, and an AnswerAgent to deliver the final verified code. This separation of concerns ensures robust handling of edge cases and verification before final output.",
+  "sops": [
+    {
+      "team": [
+        "CoderAgent",
+        "TesterAgent",
+        "AnswerAgent"
+      ],
+      "workflow": "1. User -\u003e CoderAgent; 2. CoderAgent -\u003e TesterAgent; 3. TesterAgent -\u003e AnswerAgent; 4. AnswerAgent -\u003e End;",
+      "details": [
+        {
+          "name": "CoderAgent",
+          "responsibility": "You are a Python development specialist. Your task is to write accurate and efficient Python code based on the problem specification.",
+          "instruction": "Implement the prod_signs function exactly as described, handling edge cases such as empty arrays and zero values. Ensure the code computes the product of signs (1, -1, 0) and the sum of magnitudes correctly. Do not include any test code within the function.",
+          "tools": []
+        },
+        {
+          "name": "TesterAgent",
+          "responsibility": "You are a test validation agent. Your purpose is to verify the correctness of the generated code against provided examples.",
+          "instruction": "Execute the code using the bash tool to run all provided example test cases. Confirm that the outputs match the expected results. If all tests pass, proceed to the AnswerAgent. Do not modify the code.",
+          "tools": [
+            "bash"
+          ]
+        },
+        {
+          "name": "AnswerAgent",
+          "responsibility": "You are the final code delivery agent. Your role is to present the verified Python code to the user.",
+          "instruction": "Provide the final, tested code to the user in the required format without any additional commentary.",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
