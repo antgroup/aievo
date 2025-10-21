@@ -1,0 +1,7163 @@
+[
+    {
+        "id": 0,
+        "query_question": "Write a function to convert a given tuple of positive integers into a single integer.\n\ndef tuple_to_int(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                11,
+                2,
+                9
+            ],
+            "weighted_similarity": [
+                2,
+                11,
+                9
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "query_question": "Write a function that takes in two numbers and returns a tuple with the second number and then the first number.\n\ndef swap_numbers(a,b):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                16,
+                21
+            ],
+            "analysis_similarity": [
+                16,
+                11,
+                14
+            ],
+            "weighted_similarity": [
+                16,
+                14,
+                11
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "query_question": "Write a python function to find the last digit of a given number.\n\ndef last_Digit(n) :",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                4,
+                25
+            ],
+            "analysis_similarity": [
+                6,
+                8,
+                14
+            ],
+            "weighted_similarity": [
+                13,
+                8,
+                4
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "query_question": "Write a function to check whether it follows the sequence given in the patterns array.\n\ndef is_samepatterns(colors, patterns):    ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                24,
+                8
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                12
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                24
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "query_question": "Write a python function to check whether the given number can be represented as sum of non-zero powers of 2 or not.\n\ndef is_Sum_Of_Powers_Of_Two(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                17,
+                19
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                12
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                12
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "query_question": "Write a python function to find sum of products of all possible sublists of a given list. https://www.geeksforgeeks.org/sum-of-products-of-all-possible-subarrays/\n\ndef sum_Of_Subarray_Prod(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                20,
+                7
+            ],
+            "analysis_similarity": [
+                15,
+                26,
+                7
+            ],
+            "weighted_similarity": [
+                15,
+                26,
+                20
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "query_question": "Write a function to calculate the maximum aggregate from the list of tuples.\nfrom collections import defaultdict\ndef max_aggregate(stdata):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                9,
+                14
+            ],
+            "analysis_similarity": [
+                9,
+                16,
+                11
+            ],
+            "weighted_similarity": [
+                16,
+                9,
+                11
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "query_question": "Write a function to find the directrix of a parabola.\n\ndef parabola_directrix(a, b, c): ",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                5,
+                22
+            ],
+            "analysis_similarity": [
+                12,
+                3,
+                18
+            ],
+            "weighted_similarity": [
+                3,
+                12,
+                14
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "query_question": "Write function to find the sum of all items in the given dictionary.\n\ndef return_sum(dict):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                29,
+                20
+            ],
+            "analysis_similarity": [
+                15,
+                29,
+                19
+            ],
+            "weighted_similarity": [
+                15,
+                29,
+                7
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "query_question": "Write a python function to find the sum of the product of consecutive binomial co-efficients.\n\ndef sum_Of_product(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                15,
+                12
+            ],
+            "analysis_similarity": [
+                12,
+                19,
+                13
+            ],
+            "weighted_similarity": [
+                19,
+                12,
+                15
+            ]
+        }
+    },
+    {
+        "id": 10,
+        "query_question": "Write a function to sort the given list.\nimport heapq as hq\ndef heap_sort(iterable):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                25,
+                0
+            ],
+            "analysis_similarity": [
+                16,
+                15,
+                21
+            ],
+            "weighted_similarity": [
+                16,
+                21,
+                25
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "query_question": "Write a function to move all the numbers to the end of the given string.\n\ndef move_num(test_str):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                10
+            ],
+            "analysis_similarity": [
+                20,
+                10,
+                17
+            ],
+            "weighted_similarity": [
+                10,
+                20,
+                2
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "query_question": "Write a function to find squares of individual elements in a list.\n\ndef square_nums(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                4,
+                7
+            ],
+            "analysis_similarity": [
+                7,
+                28,
+                18
+            ],
+            "weighted_similarity": [
+                7,
+                28,
+                18
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "query_question": "Write a function to check if a string is present as a substring in a given list of string values.\n\ndef find_substring(str1, sub_str):",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                10,
+                2
+            ],
+            "analysis_similarity": [
+                20,
+                28,
+                24
+            ],
+            "weighted_similarity": [
+                20,
+                28,
+                10
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "query_question": "Write a function to remove leading zeroes from an ip address.\nimport re\ndef removezero_ip(ip):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                17,
+                23
+            ],
+            "analysis_similarity": [
+                20,
+                26,
+                17
+            ],
+            "weighted_similarity": [
+                20,
+                17,
+                24
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "query_question": "Write a function to replace whitespaces with an underscore and vice versa in a given string.\n\ndef replace_spaces(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                10,
+                17
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                20
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                17
+            ]
+        }
+    },
+    {
+        "id": 16,
+        "query_question": "Write a function to find area of a sector. The function takes the radius and angle as inputs. Function should return None if the angle is larger than 360 degrees.\nimport math\ndef sector_area(r,a):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                22,
+                14
+            ],
+            "analysis_similarity": [
+                3,
+                22,
+                18
+            ],
+            "weighted_similarity": [
+                3,
+                22,
+                18
+            ]
+        }
+    },
+    {
+        "id": 17,
+        "query_question": "Write a python function to find the sum of the per-digit difference between two integers.\n\ndef digit_distance_nums(n1, n2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                27,
+                19
+            ],
+            "analysis_similarity": [
+                20,
+                17,
+                27
+            ],
+            "weighted_similarity": [
+                28,
+                27,
+                20
+            ]
+        }
+    },
+    {
+        "id": 18,
+        "query_question": "Write a python function to find the largest number that can be formed with the given list of digits.\n\ndef find_Max_Num(arr) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                14,
+                15
+            ],
+            "analysis_similarity": [
+                14,
+                7,
+                27
+            ],
+            "weighted_similarity": [
+                14,
+                27,
+                15
+            ]
+        }
+    },
+    {
+        "id": 19,
+        "query_question": "Write a function to count those characters which have vowels as their neighbors in the given string.\n\ndef count_vowels(test_str):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                20,
+                2
+            ],
+            "analysis_similarity": [
+                10,
+                20,
+                17
+            ],
+            "weighted_similarity": [
+                10,
+                20,
+                17
+            ]
+        }
+    },
+    {
+        "id": 20,
+        "query_question": "Write a python function that takes in a non-negative number and returns the number of prime numbers less than the given non-negative number.\n\ndef count_Primes_nums(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                25,
+                8
+            ],
+            "analysis_similarity": [
+                12,
+                4,
+                20
+            ],
+            "weighted_similarity": [
+                4,
+                12,
+                25
+            ]
+        }
+    },
+    {
+        "id": 21,
+        "query_question": "Write a function to find sum and average of first n natural numbers.\n\ndef sum_average(number):",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                4,
+                15
+            ],
+            "analysis_similarity": [
+                15,
+                19,
+                12
+            ],
+            "weighted_similarity": [
+                19,
+                15,
+                4
+            ]
+        }
+    },
+    {
+        "id": 22,
+        "query_question": "Write a python function to check whether the two numbers differ at one bit position only or not.\n\ndef differ_At_One_Bit_Pos(a,b): ",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                8,
+                17
+            ],
+            "analysis_similarity": [
+                8,
+                17,
+                28
+            ],
+            "weighted_similarity": [
+                8,
+                28,
+                17
+            ]
+        }
+    },
+    {
+        "id": 23,
+        "query_question": "Write a function to find the nth octagonal number.\n\ndef is_octagonal(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                13
+            ],
+            "analysis_similarity": [
+                25,
+                4,
+                13
+            ],
+            "weighted_similarity": [
+                25,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 24,
+        "query_question": "Write a python function to find the smallest missing number from a sorted list of natural numbers.\n\ndef find_First_Missing(array,start=0,end=None):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                0,
+                15
+            ],
+            "analysis_similarity": [
+                21,
+                0,
+                15
+            ],
+            "weighted_similarity": [
+                21,
+                0,
+                15
+            ]
+        }
+    },
+    {
+        "id": 25,
+        "query_question": "Write a function to append the given list to the given tuples.\n\ndef add_lists(test_list, test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                6,
+                9,
+                11
+            ],
+            "weighted_similarity": [
+                6,
+                9,
+                11
+            ]
+        }
+    },
+    {
+        "id": 26,
+        "query_question": "Write a function to caluclate the area of a tetrahedron.\nimport math\ndef area_tetrahedron(side):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                18,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                22,
+                18
+            ],
+            "weighted_similarity": [
+                3,
+                22,
+                18
+            ]
+        }
+    },
+    {
+        "id": 27,
+        "query_question": "Write a function to find all possible combinations of the elements of a given list.\n\ndef combinations_list(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                28,
+                7
+            ],
+            "analysis_similarity": [
+                28,
+                26,
+                9
+            ],
+            "weighted_similarity": [
+                28,
+                29,
+                26
+            ]
+        }
+    },
+    {
+        "id": 28,
+        "query_question": "Write a function to find the common elements in given nested lists.\n\ndef common_in_nested_lists(nestedlist):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                29,
+                9
+            ],
+            "analysis_similarity": [
+                28,
+                9,
+                26
+            ],
+            "weighted_similarity": [
+                28,
+                9,
+                29
+            ]
+        }
+    },
+    {
+        "id": 29,
+        "query_question": "Write a function that takes in a string and character, replaces blank spaces in the string with the character, and returns the string.\n\ndef replace_blank(str1,char):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                10,
+                23
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                10,
+                23
+            ]
+        }
+    },
+    {
+        "id": 30,
+        "query_question": "Write a function to check if the given tuples contain the k or not.\n\ndef check_K(test_tup, K):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                9,
+                6
+            ],
+            "analysis_similarity": [
+                9,
+                11,
+                2
+            ],
+            "weighted_similarity": [
+                11,
+                9,
+                2
+            ]
+        }
+    },
+    {
+        "id": 31,
+        "query_question": "Write a function to find the minimum product from the pairs of tuples within a given list.\n\ndef min_product_tuple(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                9,
+                6
+            ],
+            "analysis_similarity": [
+                16,
+                26,
+                1
+            ],
+            "weighted_similarity": [
+                16,
+                26,
+                6
+            ]
+        }
+    },
+    {
+        "id": 32,
+        "query_question": "Write a function to sort a list of elements.\n\ndef comb_sort(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                16,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                12,
+                21
+            ],
+            "weighted_similarity": [
+                0,
+                21,
+                16
+            ]
+        }
+    },
+    {
+        "id": 33,
+        "query_question": "Write a function to check for the number of jumps required of given length to reach a point of form (d, 0) from origin in a 2d plane.\n\ndef min_Jumps(steps, d): ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                20,
+                21
+            ],
+            "weighted_similarity": [
+                0,
+                17,
+                20
+            ]
+        }
+    },
+    {
+        "id": 34,
+        "query_question": "Write a function to extract the nth element from a given list of tuples.\n\ndef extract_nth_element(list1, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                9,
+                16
+            ],
+            "analysis_similarity": [
+                6,
+                16,
+                9
+            ],
+            "weighted_similarity": [
+                6,
+                9,
+                16
+            ]
+        }
+    },
+    {
+        "id": 35,
+        "query_question": "Write a python function to find the cube sum of first n even natural numbers.\n\ndef cube_Sum(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                19,
+                4
+            ],
+            "analysis_similarity": [
+                18,
+                4,
+                19
+            ],
+            "weighted_similarity": [
+                18,
+                4,
+                19
+            ]
+        }
+    },
+    {
+        "id": 36,
+        "query_question": "Write a python function to check whether the given array is monotonic or not.\n\ndef is_Monotonic(A): ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                27,
+                0
+            ],
+            "analysis_similarity": [
+                15,
+                17,
+                21
+            ],
+            "weighted_similarity": [
+                17,
+                15,
+                0
+            ]
+        }
+    },
+    {
+        "id": 37,
+        "query_question": "Write a python function to remove first and last occurrence of a given character from the string.\n\ndef remove_Occ(s,ch): ",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                10,
+                24
+            ],
+            "analysis_similarity": [
+                10,
+                23,
+                28
+            ],
+            "weighted_similarity": [
+                10,
+                23,
+                2
+            ]
+        }
+    },
+    {
+        "id": 38,
+        "query_question": "Write a function to find the product of first even and odd number of a given list.\n\ndef mul_even_odd(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                7,
+                1
+            ],
+            "analysis_similarity": [
+                26,
+                1,
+                21
+            ],
+            "weighted_similarity": [
+                26,
+                1,
+                7
+            ]
+        }
+    },
+    {
+        "id": 39,
+        "query_question": "Write a python function to find the product of the array multiplication modulo n.\n\ndef find_remainder(arr, n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                0,
+                13
+            ],
+            "analysis_similarity": [
+                26,
+                1,
+                15
+            ],
+            "weighted_similarity": [
+                15,
+                26,
+                1
+            ]
+        }
+    },
+    {
+        "id": 40,
+        "query_question": "Write a python function to check whether all the bits are unset in the given range or not.\n\ndef all_Bits_Set_In_The_Given_Range(n,l,r):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                13
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                12
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                12
+            ]
+        }
+    },
+    {
+        "id": 41,
+        "query_question": "Write a function to find the perimeter of a regular pentagon from the length of its sides.\nimport math\ndef perimeter_pentagon(a):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                25,
+                18
+            ],
+            "analysis_similarity": [
+                25,
+                18,
+                5
+            ],
+            "weighted_similarity": [
+                25,
+                18,
+                3
+            ]
+        }
+    },
+    {
+        "id": 42,
+        "query_question": "Write a function that checks if a strings contains 'z', except at the start and end of the word.\nimport re\ndef text_match_wordz_middle(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                23,
+                10
+            ],
+            "analysis_similarity": [
+                24,
+                10,
+                20
+            ],
+            "weighted_similarity": [
+                24,
+                10,
+                17
+            ]
+        }
+    },
+    {
+        "id": 43,
+        "query_question": "Write a function to find the combinations of sums with tuples in the given tuple list. https://www.geeksforgeeks.org/python-combinations-of-sum-with-tuples-in-tuple-list/\nfrom itertools import combinations \ndef find_combinations(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                11
+            ],
+            "analysis_similarity": [
+                6,
+                9,
+                16
+            ],
+            "weighted_similarity": [
+                9,
+                6,
+                16
+            ]
+        }
+    },
+    {
+        "id": 44,
+        "query_question": "Write a function that takes in two lists and replaces the last element of the first list with the elements of the second list.\n\ndef replace_list(list1,list2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                6,
+                21
+            ],
+            "analysis_similarity": [
+                6,
+                28,
+                16
+            ],
+            "weighted_similarity": [
+                6,
+                28,
+                21
+            ]
+        }
+    },
+    {
+        "id": 45,
+        "query_question": "Write a python function to set all even bits of a given number.\n\ndef even_bit_set_number(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                8,
+                17
+            ],
+            "analysis_similarity": [
+                12,
+                17,
+                20
+            ],
+            "weighted_similarity": [
+                12,
+                17,
+                8
+            ]
+        }
+    },
+    {
+        "id": 46,
+        "query_question": "Write a function to calculate a dog's age in dog's years.\n\ndef dog_age(h_age):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                19,
+                22
+            ],
+            "analysis_similarity": [
+                14,
+                8,
+                1
+            ],
+            "weighted_similarity": [
+                1,
+                25,
+                19
+            ]
+        }
+    },
+    {
+        "id": 47,
+        "query_question": "Write a python function which takes a list of lists, where each sublist has two elements, and returns a list of two lists where the first list has the first element of each sublist and the second one has the second.\n\ndef merge(lst):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                28,
+                16
+            ],
+            "analysis_similarity": [
+                16,
+                28,
+                11
+            ],
+            "weighted_similarity": [
+                16,
+                28,
+                6
+            ]
+        }
+    },
+    {
+        "id": 48,
+        "query_question": "Write a function to interleave 3 lists of the same length into a single flat list.\n\ndef interleave_lists(list1,list2,list3):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                7,
+                29
+            ],
+            "analysis_similarity": [
+                28,
+                17,
+                7
+            ],
+            "weighted_similarity": [
+                28,
+                7,
+                17
+            ]
+        }
+    },
+    {
+        "id": 49,
+        "query_question": "Write a function that checks whether a string contains the 'a' character followed by two or three 'b' characters.\nimport re\ndef text_match_two_three(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                24,
+                17
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                24
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                24
+            ]
+        }
+    },
+    {
+        "id": 50,
+        "query_question": "Write a function to count lists within a list. The function should return a dictionary where every list is converted to a tuple and the value of such tuple is the number of its occurencies in the original list.\n\ndef unique_sublists(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                29,
+                20
+            ],
+            "analysis_similarity": [
+                9,
+                29,
+                20
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                20
+            ]
+        }
+    },
+    {
+        "id": 51,
+        "query_question": "Write a python function to check whether the count of divisors is even. https://www.w3resource.com/python-exercises/basic/python-basic-1-exercise-24.php\nimport math \ndef count_divisors(n) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                17,
+                3
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                12
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                12
+            ]
+        }
+    },
+    {
+        "id": 52,
+        "query_question": "Write a python function to check whether a list of numbers contains only one distinct element or not.\n\ndef unique_Element(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                17,
+                9
+            ],
+            "analysis_similarity": [
+                26,
+                29,
+                9
+            ],
+            "weighted_similarity": [
+                26,
+                9,
+                17
+            ]
+        }
+    },
+    {
+        "id": 53,
+        "query_question": "Write a python function to check if the elements of a given list are unique or not.\n\ndef all_unique(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                9,
+                17
+            ],
+            "analysis_similarity": [
+                9,
+                26,
+                28
+            ],
+            "weighted_similarity": [
+                9,
+                26,
+                29
+            ]
+        }
+    },
+    {
+        "id": 54,
+        "query_question": "Write a python function to find the highest power of 2 that is less than or equal to n.\n\ndef highest_Power_of_2(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                8,
+                21
+            ],
+            "analysis_similarity": [
+                14,
+                21,
+                12
+            ],
+            "weighted_similarity": [
+                14,
+                21,
+                8
+            ]
+        }
+    },
+    {
+        "id": 55,
+        "query_question": "Write a function that takes in an array and an integer n, and re-arranges the first n elements of the given array so that all negative elements appear before positive ones, and where the relative order among negative and positive elements is preserved.\n\ndef re_arrange_array(arr, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                0,
+                15,
+                12
+            ],
+            "weighted_similarity": [
+                0,
+                15,
+                27
+            ]
+        }
+    },
+    {
+        "id": 56,
+        "query_question": "Write a function that matches a string that has an a followed by three 'b'.\nimport re\ndef text_match_three(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                14,
+                5
+            ],
+            "analysis_similarity": [
+                17,
+                18,
+                24
+            ],
+            "weighted_similarity": [
+                17,
+                24,
+                18
+            ]
+        }
+    },
+    {
+        "id": 57,
+        "query_question": "Write a function to check whether an element exists within a tuple.\n\ndef check_tuplex(tuplex,tuple1): ",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                2,
+                11
+            ]
+        }
+    },
+    {
+        "id": 58,
+        "query_question": "Write a function to remove consecutive duplicates of a given list.\nfrom itertools import groupby\ndef consecutive_duplicates(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                9,
+                17
+            ],
+            "analysis_similarity": [
+                26,
+                28,
+                9
+            ],
+            "weighted_similarity": [
+                26,
+                9,
+                28
+            ]
+        }
+    },
+    {
+        "id": 59,
+        "query_question": "Write a python function to split a string into characters.\n\ndef split(word): ",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                2,
+                24
+            ],
+            "analysis_similarity": [
+                2,
+                23,
+                29
+            ],
+            "weighted_similarity": [
+                2,
+                23,
+                24
+            ]
+        }
+    },
+    {
+        "id": 60,
+        "query_question": "Write a function to find the ratio of zeroes to non-zeroes in an array of integers.\nfrom array import array\ndef zero_count(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                15,
+                26,
+                12
+            ],
+            "weighted_similarity": [
+                15,
+                0,
+                12
+            ]
+        }
+    },
+    {
+        "id": 61,
+        "query_question": "Write a python function to find the sublist having minimum length.\n\ndef Find_Min(lst): ",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                13,
+                5
+            ],
+            "analysis_similarity": [
+                21,
+                28,
+                16
+            ],
+            "weighted_similarity": [
+                21,
+                28,
+                20
+            ]
+        }
+    },
+    {
+        "id": 62,
+        "query_question": "Write a function to concatenate each element of tuple by the delimiter.\n\ndef concatenate_tuple(test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                2,
+                11,
+                16
+            ],
+            "weighted_similarity": [
+                2,
+                11,
+                6
+            ]
+        }
+    },
+    {
+        "id": 63,
+        "query_question": "Write a python function to find the sum of common divisors of two given numbers.\n\ndef sum(a,b): ",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                15,
+                19
+            ],
+            "analysis_similarity": [
+                15,
+                12,
+                20
+            ],
+            "weighted_similarity": [
+                14,
+                15,
+                20
+            ]
+        }
+    },
+    {
+        "id": 64,
+        "query_question": "Write a python function to check whether any value in a sequence exists in a sequence or not.\n\ndef overlapping(list1,list2):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                17,
+                21
+            ],
+            "analysis_similarity": [
+                28,
+                14,
+                26
+            ],
+            "weighted_similarity": [
+                28,
+                17,
+                21
+            ]
+        }
+    },
+    {
+        "id": 65,
+        "query_question": "Write a function to subtract two lists element-wise.\n\ndef sub_list(nums1,nums2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                21,
+                27
+            ],
+            "analysis_similarity": [
+                28,
+                26,
+                1
+            ],
+            "weighted_similarity": [
+                28,
+                27,
+                21
+            ]
+        }
+    },
+    {
+        "id": 66,
+        "query_question": "Write a function to count the total number of characters in a string.\n\ndef count_charac(str1):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                20,
+                10
+            ],
+            "analysis_similarity": [
+                20,
+                15,
+                29
+            ],
+            "weighted_similarity": [
+                20,
+                2,
+                29
+            ]
+        }
+    },
+    {
+        "id": 67,
+        "query_question": "Write a python function to count minimum number of swaps required to convert one binary number represented as a string to another.\n\ndef min_Swaps(str1,str2) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                10
+            ],
+            "analysis_similarity": [
+                20,
+                0,
+                17
+            ],
+            "weighted_similarity": [
+                0,
+                20,
+                8
+            ]
+        }
+    },
+    {
+        "id": 68,
+        "query_question": "Write a function to count the number of lists within a list. The function should return a dictionary, where every list is turned to a tuple, and the value of the tuple is the number of its occurrences.\n\ndef unique_sublists(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                29,
+                20
+            ],
+            "analysis_similarity": [
+                9,
+                29,
+                20
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                20
+            ]
+        }
+    },
+    {
+        "id": 69,
+        "query_question": "Write a python function to find the sum of xor of all pairs of numbers in the given list.\n\ndef pair_xor_Sum(arr,n) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                27,
+                0
+            ],
+            "analysis_similarity": [
+                15,
+                12,
+                7
+            ],
+            "weighted_similarity": [
+                15,
+                12,
+                7
+            ]
+        }
+    },
+    {
+        "id": 70,
+        "query_question": "Write a function to pack consecutive duplicates of a given list elements into sublists.\nfrom itertools import groupby\ndef pack_consecutive_duplicates(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                9,
+                28
+            ],
+            "analysis_similarity": [
+                9,
+                28,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                28
+            ]
+        }
+    },
+    {
+        "id": 71,
+        "query_question": "Write a function to create a new tuple from the given string and list.\n\ndef new_tuple(test_list, test_str):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                2,
+                11,
+                6
+            ],
+            "weighted_similarity": [
+                2,
+                11,
+                9
+            ]
+        }
+    },
+    {
+        "id": 72,
+        "query_question": "Write a function to check whether the product of numbers in a list is even or not.\n\ndef is_product_even(arr): ",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                15,
+                17
+            ],
+            "analysis_similarity": [
+                26,
+                1,
+                17
+            ],
+            "weighted_similarity": [
+                26,
+                17,
+                1
+            ]
+        }
+    },
+    {
+        "id": 73,
+        "query_question": "Write a function to find the maximum sum of increasing subsequence from prefix until ith index and also including a given kth element which is after i, i.e., k > i .\n\ndef max_sum_increasing_subseq(a, n, index, k):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                27,
+                15
+            ],
+            "analysis_similarity": [
+                27,
+                20,
+                0
+            ],
+            "weighted_similarity": [
+                27,
+                14,
+                20
+            ]
+        }
+    },
+    {
+        "id": 74,
+        "query_question": "Write a function to count the pairs of reverse strings in the given string list. https://www.geeksforgeeks.org/python-program-to-count-the-pairs-of-reverse-strings/\n\ndef count_reverse_pairs(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                9,
+                8
+            ],
+            "analysis_similarity": [
+                10,
+                29,
+                9
+            ],
+            "weighted_similarity": [
+                10,
+                29,
+                9
+            ]
+        }
+    },
+    {
+        "id": 75,
+        "query_question": "The input is defined as two lists of the same length. Write a function to count indices where the lists have the same values.\nfrom operator import eq\ndef count_same_pair(nums1, nums2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                9,
+                29
+            ],
+            "analysis_similarity": [
+                9,
+                28,
+                29
+            ],
+            "weighted_similarity": [
+                9,
+                28,
+                29
+            ]
+        }
+    },
+    {
+        "id": 76,
+        "query_question": "Write a function to find the volume of a sphere.\nimport math\ndef volume_sphere(r):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                18,
+                22
+            ],
+            "analysis_similarity": [
+                3,
+                18,
+                22
+            ],
+            "weighted_similarity": [
+                3,
+                18,
+                22
+            ]
+        }
+    },
+    {
+        "id": 77,
+        "query_question": "Write a function to find the lateral surface area of a cube given its side length.\n\ndef lateralsurface_cube(l):",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                3,
+                22
+            ],
+            "analysis_similarity": [
+                3,
+                18,
+                22
+            ],
+            "weighted_similarity": [
+                18,
+                3,
+                22
+            ]
+        }
+    },
+    {
+        "id": 78,
+        "query_question": "Write a function to search a string for a regex pattern. The function should return the matching subtring, a start index and an end index.\nimport re\ndef find_literals(text, pattern):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                13,
+                20
+            ],
+            "analysis_similarity": [
+                20,
+                23,
+                24
+            ],
+            "weighted_similarity": [
+                24,
+                20,
+                23
+            ]
+        }
+    },
+    {
+        "id": 79,
+        "query_question": "Write a function to locate the right insertion point for a specified value in sorted order.\nimport bisect\ndef right_insertion(a, x):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                21,
+                0,
+                14
+            ],
+            "weighted_similarity": [
+                0,
+                14,
+                21
+            ]
+        }
+    },
+    {
+        "id": 80,
+        "query_question": "Write a function to join a list of multiple integers into a single integer.\n\ndef multiple_to_single(L):",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                7,
+                26
+            ],
+            "analysis_similarity": [
+                7,
+                26,
+                15
+            ],
+            "weighted_similarity": [
+                7,
+                1,
+                26
+            ]
+        }
+    },
+    {
+        "id": 81,
+        "query_question": "Write a function to find the first adverb and their positions in a given sentence.\nimport re\ndef find_adverb_position(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                13,
+                4
+            ],
+            "analysis_similarity": [
+                24,
+                10,
+                23
+            ],
+            "weighted_similarity": [
+                24,
+                10,
+                23
+            ]
+        }
+    },
+    {
+        "id": 82,
+        "query_question": "Write a python function to count true booleans in the given list.\n\ndef count(lst):   ",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                9,
+                0
+            ],
+            "analysis_similarity": [
+                9,
+                29,
+                12
+            ],
+            "weighted_similarity": [
+                29,
+                9,
+                7
+            ]
+        }
+    },
+    {
+        "id": 83,
+        "query_question": "Write a function that takes in a list and an integer n and returns a list containing the n largest items from the list.\nimport heapq\ndef larg_nnum(list1,n):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                19,
+                29
+            ],
+            "analysis_similarity": [
+                14,
+                27,
+                29
+            ],
+            "weighted_similarity": [
+                14,
+                29,
+                27
+            ]
+        }
+    },
+    {
+        "id": 84,
+        "query_question": "Write a python function to find the difference between the sum of cubes of the first n natural numbers and the sum of the first n natural numbers.\n\ndef difference(n) :  ",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                19,
+                4
+            ],
+            "analysis_similarity": [
+                18,
+                28,
+                4
+            ],
+            "weighted_similarity": [
+                18,
+                28,
+                4
+            ]
+        }
+    },
+    {
+        "id": 85,
+        "query_question": "Write a function to find minimum k records from tuple list. https://www.geeksforgeeks.org/python-find-minimum-k-records-from-tuple-list/ - in this case a verbatim copy of test cases\n\ndef min_k(test_list, K):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                16,
+                6
+            ],
+            "analysis_similarity": [
+                16,
+                6,
+                9
+            ],
+            "weighted_similarity": [
+                16,
+                6,
+                9
+            ]
+        }
+    },
+    {
+        "id": 86,
+        "query_question": "Write a python function to find the minimum number of rotations (greater than 0) required to get the same string.\n\ndef find_Rotations(str): ",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                20,
+                21
+            ],
+            "analysis_similarity": [
+                0,
+                20,
+                21
+            ],
+            "weighted_similarity": [
+                0,
+                20,
+                21
+            ]
+        }
+    },
+    {
+        "id": 87,
+        "query_question": "Write a python function to check whether every even index contains even numbers of a given list.\n\ndef even_position(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                21
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                21
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                21
+            ]
+        }
+    },
+    {
+        "id": 88,
+        "query_question": "Write a python function to find the difference between largest and smallest value in a given list.\n\ndef big_diff(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                28,
+                21
+            ],
+            "analysis_similarity": [
+                27,
+                28,
+                14
+            ],
+            "weighted_similarity": [
+                27,
+                28,
+                14
+            ]
+        }
+    },
+    {
+        "id": 89,
+        "query_question": "Write a function to find the largest sum of a contiguous array in the modified array which is formed by repeating the given array k times.\n\ndef max_sub_array_sum_repeated(a, n, k): ",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                27,
+                0
+            ],
+            "analysis_similarity": [
+                0,
+                20,
+                15
+            ],
+            "weighted_similarity": [
+                15,
+                27,
+                0
+            ]
+        }
+    },
+    {
+        "id": 90,
+        "query_question": "Write a function to find the number of elements that occurs before the tuple element in the given tuple.\n\ndef count_first_elements(test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                11,
+                6
+            ],
+            "analysis_similarity": [
+                9,
+                11,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                11,
+                6
+            ]
+        }
+    },
+    {
+        "id": 91,
+        "query_question": "Write a function to that returns true if the input string contains sequences of lowercase letters joined with an underscore and false otherwise.\nimport re\ndef text_lowercase_underscore(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                23,
+                24
+            ],
+            "analysis_similarity": [
+                23,
+                17,
+                20
+            ],
+            "weighted_similarity": [
+                23,
+                17,
+                24
+            ]
+        }
+    },
+    {
+        "id": 92,
+        "query_question": "Write a function that matches a string that has an a followed by one or more b's.\nimport re\ndef text_match_one(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                14,
+                10
+            ],
+            "analysis_similarity": [
+                17,
+                20,
+                24
+            ],
+            "weighted_similarity": [
+                24,
+                17,
+                14
+            ]
+        }
+    },
+    {
+        "id": 93,
+        "query_question": "Write a function to check if all the elements in tuple have same data type or not.\n\ndef check_type(test_tuple):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                2,
+                11
+            ]
+        }
+    },
+    {
+        "id": 94,
+        "query_question": "Write a function to calculate the sum of the negative numbers of a given list of numbers.\n\ndef sum_negativenum(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                19,
+                15
+            ],
+            "analysis_similarity": [
+                15,
+                7,
+                19
+            ],
+            "weighted_similarity": [
+                15,
+                7,
+                19
+            ]
+        }
+    },
+    {
+        "id": 95,
+        "query_question": "Write a function to extract specified size of strings from a given list of string values.\n\ndef extract_string(string_list, size):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                2
+            ],
+            "analysis_similarity": [
+                24,
+                7,
+                28
+            ],
+            "weighted_similarity": [
+                24,
+                7,
+                9
+            ]
+        }
+    },
+    {
+        "id": 96,
+        "query_question": "Write a python function which takes a list and returns a list with the same elements, but the k'th element removed.\n\ndef remove_kth_element(list1, L):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                29,
+                6
+            ],
+            "analysis_similarity": [
+                28,
+                6,
+                29
+            ],
+            "weighted_similarity": [
+                28,
+                6,
+                29
+            ]
+        }
+    },
+    {
+        "id": 97,
+        "query_question": "Write a function to flatten a given nested list structure.\n\ndef flatten_list(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                28,
+                7
+            ],
+            "analysis_similarity": [
+                26,
+                21,
+                28
+            ],
+            "weighted_similarity": [
+                28,
+                7,
+                29
+            ]
+        }
+    },
+    {
+        "id": 98,
+        "query_question": "Write a python function to find the sum of all odd length subarrays. https://www.geeksforgeeks.org/sum-of-all-odd-length-subarrays/\n\ndef odd_length_sum(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                20,
+                7
+            ],
+            "analysis_similarity": [
+                15,
+                20,
+                7
+            ],
+            "weighted_similarity": [
+                15,
+                20,
+                7
+            ]
+        }
+    },
+    {
+        "id": 99,
+        "query_question": "Write a function that gives loss amount on a sale if the given amount has loss else return 0.\n\ndef loss_amount(actual_cost,sale_amount): ",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                14,
+                18
+            ],
+            "analysis_similarity": [
+                14,
+                28,
+                27
+            ],
+            "weighted_similarity": [
+                14,
+                27,
+                18
+            ]
+        }
+    },
+    {
+        "id": 100,
+        "query_question": "Write a python function to get the first element of each sublist.\n\ndef Extract(lst): ",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                9,
+                28
+            ],
+            "analysis_similarity": [
+                6,
+                28,
+                29
+            ],
+            "weighted_similarity": [
+                6,
+                28,
+                29
+            ]
+        }
+    },
+    {
+        "id": 101,
+        "query_question": "Write a function to perform index wise addition of tuple elements in the given two nested tuples.\n\ndef add_nested_tuples(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                6,
+                9
+            ],
+            "analysis_similarity": [
+                9,
+                15,
+                16
+            ],
+            "weighted_similarity": [
+                11,
+                9,
+                6
+            ]
+        }
+    },
+    {
+        "id": 102,
+        "query_question": "Write a function to find the index of the first occurrence of a given number in a sorted array.\n\ndef find_first_occurrence(A, x):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                21
+            ],
+            "analysis_similarity": [
+                0,
+                21,
+                15
+            ],
+            "weighted_similarity": [
+                0,
+                21,
+                15
+            ]
+        }
+    },
+    {
+        "id": 103,
+        "query_question": "Write a function to find number of lists present in the given tuple.\n\ndef find_lists(Input): ",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                16
+            ],
+            "analysis_similarity": [
+                9,
+                6,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                6,
+                2
+            ]
+        }
+    },
+    {
+        "id": 104,
+        "query_question": "Write a python function to find the surface area of a square pyramid with a given base edge and height.\n\ndef surface_Area(b,s): ",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                22,
+                5
+            ],
+            "analysis_similarity": [
+                22,
+                3,
+                5
+            ],
+            "weighted_similarity": [
+                22,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 105,
+        "query_question": "Write a function to find the third side of a right angled triangle.\nimport math\ndef otherside_rightangle(w,h):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                18,
+                3
+            ],
+            "analysis_similarity": [
+                18,
+                5,
+                22
+            ],
+            "weighted_similarity": [
+                18,
+                5,
+                22
+            ]
+        }
+    },
+    {
+        "id": 106,
+        "query_question": "Write a python function to find the average of cubes of first n natural numbers.\n\ndef find_Average_Of_Cube(n):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                13,
+                4
+            ],
+            "analysis_similarity": [
+                18,
+                19,
+                4
+            ],
+            "weighted_similarity": [
+                18,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 107,
+        "query_question": "Write a python function that takes in a positive integer n and finds the sum of even index binomial coefficients.\nimport math  \ndef even_binomial_Coeff_Sum( n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                12,
+                4
+            ],
+            "analysis_similarity": [
+                12,
+                19,
+                15
+            ],
+            "weighted_similarity": [
+                19,
+                12,
+                15
+            ]
+        }
+    },
+    {
+        "id": 108,
+        "query_question": "Write a function to find the n largest integers from a given list of numbers, returned in descending order.\nimport heapq as hq\ndef heap_queue_largest(nums,n):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                21,
+                14
+            ],
+            "analysis_similarity": [
+                14,
+                27,
+                21
+            ],
+            "weighted_similarity": [
+                14,
+                25,
+                21
+            ]
+        }
+    },
+    {
+        "id": 109,
+        "query_question": "Write a function to remove all elements from a given list present in another list.\n\ndef remove_elements(list1, list2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                29,
+                27
+            ],
+            "analysis_similarity": [
+                28,
+                26,
+                24
+            ],
+            "weighted_similarity": [
+                28,
+                26,
+                29
+            ]
+        }
+    },
+    {
+        "id": 110,
+        "query_question": "Write a python function to find the element that appears only once in a sorted array.\n\ndef search(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                0,
+                21,
+                26
+            ],
+            "weighted_similarity": [
+                0,
+                21,
+                15
+            ]
+        }
+    },
+    {
+        "id": 111,
+        "query_question": "Write a function to find the surface area of a cube of a given size.\n\ndef surfacearea_cube(l):",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                3,
+                22
+            ],
+            "analysis_similarity": [
+                18,
+                22,
+                3
+            ],
+            "weighted_similarity": [
+                18,
+                3,
+                22
+            ]
+        }
+    },
+    {
+        "id": 112,
+        "query_question": "Write a function to find the length of the longest palindromic subsequence in the given string.\n\ndef lps(str): ",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                13,
+                18
+            ],
+            "analysis_similarity": [
+                20,
+                12,
+                17
+            ],
+            "weighted_similarity": [
+                20,
+                13,
+                10
+            ]
+        }
+    },
+    {
+        "id": 113,
+        "query_question": "Write a function to count the number of characters in a string that occur at the same position in the string as in the English alphabet (case insensitive).\n\ndef count_char_position(str1): ",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                2,
+                20
+            ],
+            "analysis_similarity": [
+                20,
+                10,
+                29
+            ],
+            "weighted_similarity": [
+                10,
+                20,
+                2
+            ]
+        }
+    },
+    {
+        "id": 114,
+        "query_question": "Write a python function to find the sum of even numbers at even positions of a list.\n\ndef sum_even_and_even_index(arr):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                7,
+                0
+            ],
+            "analysis_similarity": [
+                15,
+                7,
+                26
+            ],
+            "weighted_similarity": [
+                15,
+                7,
+                21
+            ]
+        }
+    },
+    {
+        "id": 115,
+        "query_question": "Write a function to find the median of two sorted lists of same size.\n\ndef get_median(arr1, arr2, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                28,
+                27
+            ],
+            "analysis_similarity": [
+                21,
+                0,
+                12
+            ],
+            "weighted_similarity": [
+                21,
+                0,
+                28
+            ]
+        }
+    },
+    {
+        "id": 116,
+        "query_question": "Write a function to remove uppercase substrings from a given string.\nimport re\ndef remove_uppercase(str1):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                23,
+                2
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                24
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 117,
+        "query_question": "Write a function that counts the number of pairs of integers in a list that xor to an even number.\n\ndef find_even_pair(A): ",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                14,
+                4
+            ],
+            "analysis_similarity": [
+                9,
+                17,
+                29
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                21
+            ]
+        }
+    },
+    {
+        "id": 118,
+        "query_question": "Write a function to remove lowercase substrings from a given string.\nimport re\ndef remove_lowercase(str1):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                23,
+                2
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                20
+            ],
+            "weighted_similarity": [
+                10,
+                23,
+                24
+            ]
+        }
+    },
+    {
+        "id": 119,
+        "query_question": "Write a function to convert a string to a list of strings split on the space character.\n\ndef string_to_list(string): ",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                23,
+                24
+            ],
+            "analysis_similarity": [
+                23,
+                2,
+                20
+            ],
+            "weighted_similarity": [
+                2,
+                23,
+                10
+            ]
+        }
+    },
+    {
+        "id": 120,
+        "query_question": "Write a function to flatten a list and sum all of its elements.\n\ndef recursive_list_sum(data_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                15,
+                26
+            ],
+            "analysis_similarity": [
+                15,
+                7,
+                19
+            ],
+            "weighted_similarity": [
+                7,
+                15,
+                26
+            ]
+        }
+    },
+    {
+        "id": 121,
+        "query_question": "Write a python function to find the character made by adding the ASCII value of all the characters of the given string modulo 26.\n\ndef get_Char(strr):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                20,
+                10
+            ],
+            "analysis_similarity": [
+                10,
+                2,
+                15
+            ],
+            "weighted_similarity": [
+                2,
+                10,
+                23
+            ]
+        }
+    },
+    {
+        "id": 122,
+        "query_question": "Write a python function that takes in an integer n and finds the sum of the first n even natural numbers that are raised to the fifth power.\n\ndef even_Power_Sum(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                19,
+                25
+            ],
+            "analysis_similarity": [
+                19,
+                13,
+                4
+            ],
+            "weighted_similarity": [
+                19,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 123,
+        "query_question": "Write a function for computing square roots using the babylonian method.\n\ndef babylonian_squareroot(number):",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                25,
+                4
+            ],
+            "analysis_similarity": [
+                12,
+                18,
+                21
+            ],
+            "weighted_similarity": [
+                12,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 124,
+        "query_question": "Write a python function to find the largest negative number from the given list.\n\ndef largest_neg(list1): ",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                14,
+                27
+            ],
+            "analysis_similarity": [
+                21,
+                14,
+                27
+            ],
+            "weighted_similarity": [
+                21,
+                14,
+                27
+            ]
+        }
+    },
+    {
+        "id": 125,
+        "query_question": "Write a python function to remove odd numbers from a given list.\n\ndef remove_odd(l):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                26,
+                21
+            ],
+            "analysis_similarity": [
+                28,
+                7,
+                26
+            ],
+            "weighted_similarity": [
+                28,
+                26,
+                7
+            ]
+        }
+    },
+    {
+        "id": 126,
+        "query_question": "Write a function to apply a given format string to all of the elements in a list.\n\ndef add_string(list_, string):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                7,
+                29
+            ],
+            "analysis_similarity": [
+                28,
+                29,
+                7
+            ],
+            "weighted_similarity": [
+                7,
+                29,
+                28
+            ]
+        }
+    },
+    {
+        "id": 127,
+        "query_question": "Write a function to convert all possible convertible elements in a list of lists to floats.\n\ndef list_to_float(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                9,
+                29
+            ],
+            "analysis_similarity": [
+                7,
+                21,
+                6
+            ],
+            "weighted_similarity": [
+                7,
+                6,
+                29
+            ]
+        }
+    },
+    {
+        "id": 128,
+        "query_question": "Write a function to remove the parenthesis and what is inbetween them from a string.\nimport re\ndef remove_parenthesis(items):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                2,
+                6
+            ],
+            "analysis_similarity": [
+                10,
+                2,
+                28
+            ],
+            "weighted_similarity": [
+                24,
+                2,
+                10
+            ]
+        }
+    },
+    {
+        "id": 129,
+        "query_question": "Write a python function to toggle bits of the number except the first and the last bit. https://www.geeksforgeeks.org/toggle-bits-number-expect-first-last-bits/\n\ndef toggle_middle_bits(n):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                17,
+                13
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                0
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                0
+            ]
+        }
+    },
+    {
+        "id": 130,
+        "query_question": "Write a python function to count the upper case characters in a given string.\n\ndef upper_ctr(str):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                2,
+                10
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                29
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 131,
+        "query_question": "Write a function to find the maximum product formed by multiplying numbers of an increasing subsequence of that array.\n\ndef max_product(arr):   ",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                14,
+                15
+            ],
+            "analysis_similarity": [
+                26,
+                1,
+                27
+            ],
+            "weighted_similarity": [
+                26,
+                27,
+                14
+            ]
+        }
+    },
+    {
+        "id": 132,
+        "query_question": "Write a function to find the longest common subsequence for the given three string sequence. https://www.geeksforgeeks.org/lcs-longest-common-subsequence-three-strings/\n\ndef lcs_of_three(X, Y, Z): ",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                5,
+                20
+            ],
+            "analysis_similarity": [
+                20,
+                12,
+                18
+            ],
+            "weighted_similarity": [
+                20,
+                18,
+                13
+            ]
+        }
+    },
+    {
+        "id": 133,
+        "query_question": "Write a function to check whether the given number is armstrong or not.\n\ndef armstrong_number(number):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                4
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                18
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                4
+            ]
+        }
+    },
+    {
+        "id": 134,
+        "query_question": "Write a function to find the intersection of two arrays.\n\ndef intersection_array(array_nums1,array_nums2):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                27,
+                28
+            ],
+            "analysis_similarity": [
+                28,
+                26,
+                15
+            ],
+            "weighted_similarity": [
+                28,
+                15,
+                27
+            ]
+        }
+    },
+    {
+        "id": 135,
+        "query_question": "Write a function that takes in two tuples and subtracts the elements of the first tuple by the elements of the second tuple with the same index.\n\ndef substract_elements(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                16,
+                11
+            ],
+            "analysis_similarity": [
+                6,
+                11,
+                28
+            ],
+            "weighted_similarity": [
+                6,
+                11,
+                16
+            ]
+        }
+    },
+    {
+        "id": 136,
+        "query_question": "Write a python function to interchange the first and last element in a given list.\n\ndef swap_List(newList): ",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                28,
+                29
+            ],
+            "analysis_similarity": [
+                6,
+                28,
+                26
+            ],
+            "weighted_similarity": [
+                6,
+                28,
+                7
+            ]
+        }
+    },
+    {
+        "id": 137,
+        "query_question": "Write a function to flatten the list of lists into a single set of numbers.\n\ndef extract_singly(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                26
+            ],
+            "analysis_similarity": [
+                9,
+                26,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                26,
+                6
+            ]
+        }
+    },
+    {
+        "id": 138,
+        "query_question": "Write a python function to find the index of smallest triangular number with n digits. https://www.geeksforgeeks.org/index-of-smallest-triangular-number-with-n-digits/\nimport math \ndef find_Index(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                25,
+                5
+            ],
+            "analysis_similarity": [
+                25,
+                5,
+                4
+            ],
+            "weighted_similarity": [
+                4,
+                25,
+                5
+            ]
+        }
+    },
+    {
+        "id": 139,
+        "query_question": "Write a function that takes two lists and returns true if they have at least one common element.\n\ndef common_element(list1, list2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                29,
+                21
+            ],
+            "analysis_similarity": [
+                28,
+                29,
+                15
+            ],
+            "weighted_similarity": [
+                28,
+                29,
+                21
+            ]
+        }
+    },
+    {
+        "id": 140,
+        "query_question": "Write a function to find the dissimilar elements in the given two tuples.\n\ndef find_dissimilar(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                28,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                28,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                28,
+                6
+            ]
+        }
+    },
+    {
+        "id": 141,
+        "query_question": "Write a function to calculate the geometric sum of n-1. https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-recursion-exercise-9.php\n\ndef geometric_sum(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                25,
+                15
+            ],
+            "analysis_similarity": [
+                19,
+                13,
+                12
+            ],
+            "weighted_similarity": [
+                19,
+                13,
+                25
+            ]
+        }
+    },
+    {
+        "id": 142,
+        "query_question": "Write a function to find the area of a rectangle.\n\ndef rectangle_area(l,b):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                22,
+                3
+            ],
+            "analysis_similarity": [
+                22,
+                18,
+                3
+            ],
+            "weighted_similarity": [
+                5,
+                22,
+                3
+            ]
+        }
+    },
+    {
+        "id": 143,
+        "query_question": "Write a function to sort each sublist of strings in a given list of lists.\n\ndef sort_sublists(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                28,
+                20
+            ],
+            "analysis_similarity": [
+                16,
+                6,
+                28
+            ],
+            "weighted_similarity": [
+                16,
+                28,
+                20
+            ]
+        }
+    },
+    {
+        "id": 144,
+        "query_question": "Write a function to find the size of the largest subset of a list of numbers so that every pair is divisible.\n\ndef largest_subset(a):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                27,
+                21
+            ],
+            "analysis_similarity": [
+                21,
+                26,
+                27
+            ],
+            "weighted_similarity": [
+                14,
+                21,
+                27
+            ]
+        }
+    },
+    {
+        "id": 145,
+        "query_question": "Write a function to convert more than one list to nested dictionary.\n\ndef convert_list_dictionary(l1, l2, l3):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                29,
+                28
+            ],
+            "analysis_similarity": [
+                29,
+                11,
+                28
+            ],
+            "weighted_similarity": [
+                29,
+                11,
+                28
+            ]
+        }
+    },
+    {
+        "id": 146,
+        "query_question": "Write a python function to count the occurence of all elements of list in a tuple.\nfrom collections import Counter \ndef count_Occurrence(tup, lst): ",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                29,
+                9,
+                11
+            ],
+            "weighted_similarity": [
+                29,
+                9,
+                11
+            ]
+        }
+    },
+    {
+        "id": 147,
+        "query_question": "Write a function to extract values between quotation marks \" \" of the given string.\nimport re\ndef extract_quotation(text1):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                10,
+                24
+            ],
+            "analysis_similarity": [
+                20,
+                24,
+                21
+            ],
+            "weighted_similarity": [
+                24,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 148,
+        "query_question": "Write a function to convert tuple string to integer tuple.\n\ndef tuple_str_int(test_str):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                2,
+                11,
+                6
+            ],
+            "weighted_similarity": [
+                2,
+                11,
+                9
+            ]
+        }
+    },
+    {
+        "id": 149,
+        "query_question": "Write a function to find the size in bytes of the given tuple.\nimport sys \ndef tuple_size(tuple_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                2,
+                9,
+                11
+            ],
+            "weighted_similarity": [
+                2,
+                9,
+                11
+            ]
+        }
+    },
+    {
+        "id": 150,
+        "query_question": "Write a python function that returns the number of integer elements in a given list.\n\ndef count_integer(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                7,
+                1
+            ],
+            "analysis_similarity": [
+                29,
+                7,
+                9
+            ],
+            "weighted_similarity": [
+                29,
+                7,
+                1
+            ]
+        }
+    },
+    {
+        "id": 151,
+        "query_question": "Write a function to find the nth number in the newman conway sequence.\n\ndef sequence(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                4,
+                25
+            ],
+            "analysis_similarity": [
+                12,
+                13,
+                4
+            ],
+            "weighted_similarity": [
+                13,
+                12,
+                4
+            ]
+        }
+    },
+    {
+        "id": 152,
+        "query_question": "Write a function that returns the perimeter of a square given its side length as input.\n\ndef square_perimeter(a):",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                3,
+                14
+            ],
+            "analysis_similarity": [
+                18,
+                3,
+                22
+            ],
+            "weighted_similarity": [
+                18,
+                3,
+                22
+            ]
+        }
+    },
+    {
+        "id": 153,
+        "query_question": "Write a function which returns nth catalan number.\n\ndef catalan_number(num):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                12
+            ],
+            "analysis_similarity": [
+                12,
+                13,
+                4
+            ],
+            "weighted_similarity": [
+                12,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 154,
+        "query_question": "Write a function to find the list with maximum length.\n\ndef max_length_list(input_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                7,
+                27
+            ],
+            "analysis_similarity": [
+                14,
+                28,
+                7
+            ],
+            "weighted_similarity": [
+                14,
+                7,
+                28
+            ]
+        }
+    },
+    {
+        "id": 155,
+        "query_question": "Write a function to find the first adverb ending with ly and its positions in a given string.\nimport re\ndef find_adverbs(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                13,
+                10
+            ],
+            "analysis_similarity": [
+                24,
+                10,
+                23
+            ],
+            "weighted_similarity": [
+                24,
+                10,
+                23
+            ]
+        }
+    },
+    {
+        "id": 156,
+        "query_question": "Write a function to extract values between quotation marks from a string.\nimport re\ndef extract_values(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                9,
+                6
+            ],
+            "analysis_similarity": [
+                20,
+                21,
+                23
+            ],
+            "weighted_similarity": [
+                24,
+                6,
+                20
+            ]
+        }
+    },
+    {
+        "id": 157,
+        "query_question": "Write a function to find the lateral surface area of a cylinder.\n\ndef lateralsuface_cylinder(r,h):",
+        "retrieval_results": {
+            "question_similarity": [
+                22,
+                3,
+                18
+            ],
+            "analysis_similarity": [
+                22,
+                3,
+                18
+            ],
+            "weighted_similarity": [
+                22,
+                3,
+                18
+            ]
+        }
+    },
+    {
+        "id": 158,
+        "query_question": "Write a function to find the volume of a cone.\nimport math\ndef volume_cone(r,h):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                22,
+                5
+            ],
+            "analysis_similarity": [
+                22,
+                5,
+                18
+            ],
+            "weighted_similarity": [
+                22,
+                5,
+                3
+            ]
+        }
+    },
+    {
+        "id": 159,
+        "query_question": "Write a python function to convert the given string to lower case.\n\ndef is_lower(string):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                2,
+                10
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                2
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 160,
+        "query_question": "Write a function to check if the given integer is a prime number.\n\ndef prime_num(num):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                4
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                21
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                4
+            ]
+        }
+    },
+    {
+        "id": 161,
+        "query_question": "Write a function to divide two lists element wise.\n\ndef div_list(nums1,nums2):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                21,
+                7
+            ],
+            "analysis_similarity": [
+                28,
+                21,
+                26
+            ],
+            "weighted_similarity": [
+                28,
+                21,
+                7
+            ]
+        }
+    },
+    {
+        "id": 162,
+        "query_question": "Write a function to calculate the wind chill index rounded to the next integer given the wind velocity in km/h and a temperature in celsius.\nimport math\ndef wind_chill(v,t):",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                18,
+                22
+            ],
+            "weighted_similarity": [
+                18,
+                3,
+                22
+            ]
+        }
+    },
+    {
+        "id": 163,
+        "query_question": "Write a function that takes in positive integers m and n and finds the number of possible sequences of length n, such that each element is a positive integer and is greater than or equal to twice the previous element but less than or equal to m.\n\ndef get_total_number_of_sequences(m,n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                12,
+                4
+            ],
+            "analysis_similarity": [
+                12,
+                20,
+                13
+            ],
+            "weighted_similarity": [
+                12,
+                20,
+                13
+            ]
+        }
+    },
+    {
+        "id": 164,
+        "query_question": "Write a python function to check whether every odd index contains odd numbers of a given list.\n\ndef odd_position(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                21
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                7
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                21
+            ]
+        }
+    },
+    {
+        "id": 165,
+        "query_question": "Write a function to convert polar coordinates to rectangular coordinates.\nimport cmath\ndef polar_rect(x,y):",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                22,
+                3
+            ],
+            "analysis_similarity": [
+                22,
+                3,
+                5
+            ],
+            "weighted_similarity": [
+                22,
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "id": 166,
+        "query_question": "Write a python function to find the last position of an element in a sorted array.\n\ndef last(arr,x):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                0,
+                21,
+                6
+            ],
+            "weighted_similarity": [
+                0,
+                21,
+                15
+            ]
+        }
+    },
+    {
+        "id": 167,
+        "query_question": "Write a python function to find the first repeated character in a given string.\n\ndef first_repeated_char(str1):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                10,
+                29
+            ],
+            "analysis_similarity": [
+                29,
+                26,
+                21
+            ],
+            "weighted_similarity": [
+                2,
+                10,
+                29
+            ]
+        }
+    },
+    {
+        "id": 168,
+        "query_question": "Write a function to perform index wise multiplication of tuple elements in the given two tuples.\n\ndef index_multiplication(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                1,
+                6
+            ],
+            "analysis_similarity": [
+                1,
+                16,
+                11
+            ],
+            "weighted_similarity": [
+                1,
+                11,
+                6
+            ]
+        }
+    },
+    {
+        "id": 169,
+        "query_question": "Write a python function to count the number of pairs whose sum is equal to \u2018sum\u2019. The funtion gets as input a list of numbers and the sum,\n\ndef get_pairs_count(arr, sum):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                0,
+                20
+            ],
+            "analysis_similarity": [
+                12,
+                20,
+                0
+            ],
+            "weighted_similarity": [
+                15,
+                0,
+                20
+            ]
+        }
+    },
+    {
+        "id": 170,
+        "query_question": "Write a python function to find the sum of all odd natural numbers within the range l and r.\n\ndef sum_in_range(l,r): ",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                7,
+                19
+            ],
+            "analysis_similarity": [
+                19,
+                15,
+                7
+            ],
+            "weighted_similarity": [
+                19,
+                15,
+                7
+            ]
+        }
+    },
+    {
+        "id": 171,
+        "query_question": "Write a function to find the maximum value in a given heterogeneous list.\n\ndef max_val(listval):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                27,
+                28
+            ],
+            "analysis_similarity": [
+                27,
+                14,
+                21
+            ],
+            "weighted_similarity": [
+                14,
+                27,
+                21
+            ]
+        }
+    },
+    {
+        "id": 172,
+        "query_question": "Write a function that takes in a list and an integer L and splits the given list into two parts where the length of the first part of the list is L, and returns the resulting lists in a tuple.\n\ndef split_two_parts(list1, L):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                28,
+                16
+            ],
+            "analysis_similarity": [
+                7,
+                28,
+                21
+            ],
+            "weighted_similarity": [
+                28,
+                7,
+                6
+            ]
+        }
+    },
+    {
+        "id": 173,
+        "query_question": "Write a function to create the next bigger number by rearranging the digits of a given number.\n\ndef rearrange_bigger(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                8,
+                12
+            ],
+            "analysis_similarity": [
+                21,
+                17,
+                0
+            ],
+            "weighted_similarity": [
+                0,
+                17,
+                8
+            ]
+        }
+    },
+    {
+        "id": 174,
+        "query_question": "Write a function to replace characters in a string.\n\ndef replace_char(str1,ch,newch):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                10,
+                23
+            ],
+            "analysis_similarity": [
+                10,
+                2,
+                23
+            ],
+            "weighted_similarity": [
+                10,
+                2,
+                23
+            ]
+        }
+    },
+    {
+        "id": 175,
+        "query_question": "Write a function to trim each tuple by k in the given tuple list.\n\ndef trim_tuple(test_list, K):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                6,
+                9,
+                16
+            ],
+            "weighted_similarity": [
+                6,
+                9,
+                16
+            ]
+        }
+    },
+    {
+        "id": 176,
+        "query_question": "Write a function that takes in a list of tuples and returns a dictionary mapping each unique tuple to the number of times it occurs in the list.\nfrom collections import Counter \ndef check_occurences(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                29,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                29,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                11
+            ]
+        }
+    },
+    {
+        "id": 177,
+        "query_question": "Write a python function to find the next perfect square greater than a given number.\nimport math  \ndef next_Perfect_Square(N): ",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                4,
+                25
+            ],
+            "analysis_similarity": [
+                18,
+                21,
+                3
+            ],
+            "weighted_similarity": [
+                3,
+                25,
+                4
+            ]
+        }
+    },
+    {
+        "id": 178,
+        "query_question": "Write a python function to return the negative numbers in a list.\n\ndef neg_nos(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                21,
+                7
+            ],
+            "analysis_similarity": [
+                28,
+                7,
+                21
+            ],
+            "weighted_similarity": [
+                28,
+                7,
+                21
+            ]
+        }
+    },
+    {
+        "id": 179,
+        "query_question": "Write a function to sort a given list of strings of numbers numerically. https://www.geeksforgeeks.org/python-sort-numeric-strings-in-a-list/\n\ndef sort_numeric_strings(nums_str):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                16,
+                2
+            ],
+            "analysis_similarity": [
+                16,
+                21,
+                7
+            ],
+            "weighted_similarity": [
+                16,
+                21,
+                20
+            ]
+        }
+    },
+    {
+        "id": 180,
+        "query_question": "Write a function to remove uneven elements in the nested mixed tuple.\n\ndef extract_even(test_tuple): ",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                11,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                6,
+                11
+            ]
+        }
+    },
+    {
+        "id": 181,
+        "query_question": "Write a function that takes in a list and an element and inserts the element before each element in the list, and returns the resulting list.\n\ndef insert_element(list,element):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                29,
+                7
+            ],
+            "analysis_similarity": [
+                6,
+                7,
+                28
+            ],
+            "weighted_similarity": [
+                6,
+                7,
+                28
+            ]
+        }
+    },
+    {
+        "id": 182,
+        "query_question": "Write a function to find the lateral surface area of a cone given radius r and the height h.\nimport math\ndef lateralsurface_cone(r,h):",
+        "retrieval_results": {
+            "question_similarity": [
+                22,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                22,
+                3,
+                18
+            ],
+            "weighted_similarity": [
+                22,
+                3,
+                18
+            ]
+        }
+    },
+    {
+        "id": 183,
+        "query_question": "Write a function to find minimum of three numbers.\n\ndef min_of_three(a,b,c): ",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                21,
+                5
+            ],
+            "analysis_similarity": [
+                14,
+                21,
+                18
+            ],
+            "weighted_similarity": [
+                14,
+                21,
+                5
+            ]
+        }
+    },
+    {
+        "id": 184,
+        "query_question": "Write a function to find the cumulative sum of all the values that are present in the given tuple list.\n\ndef cummulative_sum(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                7,
+                15
+            ],
+            "analysis_similarity": [
+                9,
+                6,
+                15
+            ],
+            "weighted_similarity": [
+                9,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "id": 185,
+        "query_question": "Write a function to maximize the given two tuples.\n\ndef maximize_elements(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                11,
+                6
+            ],
+            "analysis_similarity": [
+                14,
+                16,
+                6
+            ],
+            "weighted_similarity": [
+                14,
+                16,
+                6
+            ]
+        }
+    },
+    {
+        "id": 186,
+        "query_question": "Write a function to convert degrees to radians.\nimport math\ndef radian_degree(degree):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                22,
+                7
+            ],
+            "analysis_similarity": [
+                3,
+                18,
+                22
+            ],
+            "weighted_similarity": [
+                3,
+                22,
+                18
+            ]
+        }
+    },
+    {
+        "id": 187,
+        "query_question": "Write a python function to find the length of the longest word.\n\ndef len_log(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                29,
+                14
+            ],
+            "analysis_similarity": [
+                7,
+                27,
+                26
+            ],
+            "weighted_similarity": [
+                7,
+                29,
+                14
+            ]
+        }
+    },
+    {
+        "id": 188,
+        "query_question": "Write a function to find the occurrence and position of the substrings within a string. Return None if there is no match.\nimport re\ndef occurance_substring(text,pattern):",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                24,
+                13
+            ],
+            "analysis_similarity": [
+                24,
+                20,
+                15
+            ],
+            "weighted_similarity": [
+                24,
+                20,
+                10
+            ]
+        }
+    },
+    {
+        "id": 189,
+        "query_question": "Write a function to check whether all dictionaries in a list are empty or not.\n\ndef empty_dit(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                28,
+                17
+            ],
+            "analysis_similarity": [
+                29,
+                15,
+                28
+            ],
+            "weighted_similarity": [
+                29,
+                28,
+                7
+            ]
+        }
+    },
+    {
+        "id": 190,
+        "query_question": "Write a function to find the circumference of a circle.\n\ndef circle_circumference(r):",
+        "retrieval_results": {
+            "question_similarity": [
+                22,
+                3,
+                7
+            ],
+            "analysis_similarity": [
+                3,
+                22,
+                18
+            ],
+            "weighted_similarity": [
+                22,
+                3,
+                18
+            ]
+        }
+    },
+    {
+        "id": 191,
+        "query_question": "Write a function to check whether the given month number contains 31 days or not.\n\ndef check_monthnumb_number(monthnum2):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                25
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                18
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                25
+            ]
+        }
+    },
+    {
+        "id": 192,
+        "query_question": "Write a function to check if given tuple contains no duplicates.\n\ndef check_distinct(test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                11,
+                2
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                11,
+                2
+            ]
+        }
+    },
+    {
+        "id": 193,
+        "query_question": "Write a python function takes in an integer n and returns the sum of squares of first n even natural numbers.\n\ndef square_Sum(n):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                15,
+                4
+            ],
+            "analysis_similarity": [
+                15,
+                7,
+                19
+            ],
+            "weighted_similarity": [
+                19,
+                15,
+                4
+            ]
+        }
+    },
+    {
+        "id": 194,
+        "query_question": "Write a function to remove characters from the first string which are present in the second string.\n\ndef remove_dirty_chars(string, second_string): ",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                2,
+                28
+            ],
+            "analysis_similarity": [
+                28,
+                21,
+                26
+            ],
+            "weighted_similarity": [
+                28,
+                21,
+                2
+            ]
+        }
+    },
+    {
+        "id": 195,
+        "query_question": "Write a function to find the nth tetrahedral number.\n\ndef tetrahedral_number(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                13
+            ],
+            "analysis_similarity": [
+                25,
+                4,
+                12
+            ],
+            "weighted_similarity": [
+                25,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "id": 196,
+        "query_question": "Write a function to find whether all the given tuples have equal length or not.\n\ndef get_equal(Input):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                2,
+                6
+            ],
+            "analysis_similarity": [
+                9,
+                6,
+                16
+            ],
+            "weighted_similarity": [
+                9,
+                6,
+                16
+            ]
+        }
+    },
+    {
+        "id": 197,
+        "query_question": "Write a function to find the depth of a dictionary.\n\ndef dict_depth(d):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                20,
+                14
+            ],
+            "analysis_similarity": [
+                12,
+                29,
+                15
+            ],
+            "weighted_similarity": [
+                29,
+                12,
+                14
+            ]
+        }
+    },
+    {
+        "id": 198,
+        "query_question": "Write a function to find the ascii value of a character.\n\ndef ascii_value(k):",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                14,
+                15,
+                18
+            ],
+            "weighted_similarity": [
+                18,
+                14,
+                15
+            ]
+        }
+    },
+    {
+        "id": 199,
+        "query_question": "Write a function to find the nth nonagonal number.\n\ndef is_nonagonal(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                17
+            ],
+            "analysis_similarity": [
+                25,
+                4,
+                13
+            ],
+            "weighted_similarity": [
+                25,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 200,
+        "query_question": "Write a function to find the n most expensive items in a given dataset.\nimport heapq\ndef expensive_items(items,n):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                14,
+                27
+            ],
+            "analysis_similarity": [
+                27,
+                14,
+                16
+            ],
+            "weighted_similarity": [
+                27,
+                14,
+                25
+            ]
+        }
+    },
+    {
+        "id": 201,
+        "query_question": "Write a function to check whether the entered number is greater than the elements of the given array.\n\ndef check_greater(arr, number):",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                17,
+                27
+            ],
+            "analysis_similarity": [
+                14,
+                27,
+                15
+            ],
+            "weighted_similarity": [
+                27,
+                15,
+                14
+            ]
+        }
+    },
+    {
+        "id": 202,
+        "query_question": "Write a function to determine if the sum of the divisors of two integers are the same.\nimport math \ndef are_equivalent(num1, num2)",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                19
+            ],
+            "analysis_similarity": [
+                15,
+                12,
+                19
+            ],
+            "weighted_similarity": [
+                15,
+                19,
+                12
+            ]
+        }
+    },
+    {
+        "id": 203,
+        "query_question": "Write a function to find frequency of each element in a flattened list of lists, returned in a dictionary.\n\ndef frequency_lists(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                9,
+                28
+            ],
+            "analysis_similarity": [
+                29,
+                9,
+                28
+            ],
+            "weighted_similarity": [
+                29,
+                9,
+                28
+            ]
+        }
+    },
+    {
+        "id": 204,
+        "query_question": "Write a python function to find the sum of even factors of a number.\nimport math \ndef sumofFactors(n) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                15,
+                3
+            ],
+            "analysis_similarity": [
+                12,
+                15,
+                20
+            ],
+            "weighted_similarity": [
+                12,
+                15,
+                19
+            ]
+        }
+    },
+    {
+        "id": 205,
+        "query_question": "Write a python function to find the minimum difference between any two elements in a given array. https://www.geeksforgeeks.org/find-minimum-difference-pair/\n\ndef find_min_diff(arr:tuple,n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                28,
+                21
+            ],
+            "analysis_similarity": [
+                27,
+                21,
+                28
+            ],
+            "weighted_similarity": [
+                27,
+                28,
+                21
+            ]
+        }
+    },
+    {
+        "id": 206,
+        "query_question": "Write a function to compute the n-th power of each number in a list.\n\ndef nth_nums(nums,n):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                13
+            ],
+            "analysis_similarity": [
+                7,
+                13,
+                18
+            ],
+            "weighted_similarity": [
+                7,
+                13,
+                4
+            ]
+        }
+    },
+    {
+        "id": 207,
+        "query_question": "Write a python function to set the left most unset bit.\n\ndef set_left_most_unset_bit(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                12,
+                17
+            ],
+            "analysis_similarity": [
+                12,
+                0,
+                21
+            ],
+            "weighted_similarity": [
+                12,
+                21,
+                0
+            ]
+        }
+    },
+    {
+        "id": 208,
+        "query_question": "Write a function to merge three dictionaries into a single dictionary.\nimport collections as ct\ndef merge_dictionaries_three(dict1,dict2, dict3):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                11,
+                20
+            ],
+            "analysis_similarity": [
+                11,
+                29,
+                18
+            ],
+            "weighted_similarity": [
+                29,
+                11,
+                18
+            ]
+        }
+    },
+    {
+        "id": 209,
+        "query_question": "Write a function to extract all the adjacent coordinates of the given coordinate tuple.\n\ndef get_coordinates(test_tup): ",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                6,
+                9
+            ],
+            "analysis_similarity": [
+                11,
+                9,
+                6
+            ],
+            "weighted_similarity": [
+                11,
+                9,
+                6
+            ]
+        }
+    },
+    {
+        "id": 210,
+        "query_question": "Write a function to find common first element in given list of tuple.\n\ndef group_tuples(Input): ",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                2
+            ],
+            "analysis_similarity": [
+                16,
+                11,
+                9
+            ],
+            "weighted_similarity": [
+                9,
+                16,
+                11
+            ]
+        }
+    },
+    {
+        "id": 211,
+        "query_question": "Write a python function to check whether a list is sublist of another or not.\n\ndef is_Sub_Array(A,B): ",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                20,
+                17
+            ],
+            "analysis_similarity": [
+                28,
+                21,
+                20
+            ],
+            "weighted_similarity": [
+                28,
+                20,
+                17
+            ]
+        }
+    },
+    {
+        "id": 212,
+        "query_question": "Write a function to find the pairwise addition of the neighboring elements of the given tuple.\n\ndef add_pairwise(test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                6,
+                9
+            ],
+            "analysis_similarity": [
+                11,
+                16,
+                9
+            ],
+            "weighted_similarity": [
+                11,
+                9,
+                6
+            ]
+        }
+    },
+    {
+        "id": 213,
+        "query_question": "Write a function to replace all occurrences of spaces, commas, or dots with a colon.\nimport re\ndef replace_specialchar(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                23,
+                10
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                2
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                24
+            ]
+        }
+    },
+    {
+        "id": 214,
+        "query_question": "Write a function to find all words which are at least 4 characters long in a string.\nimport re\ndef find_char_long(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                20,
+                23
+            ],
+            "analysis_similarity": [
+                24,
+                18,
+                23
+            ],
+            "weighted_similarity": [
+                24,
+                23,
+                20
+            ]
+        }
+    },
+    {
+        "id": 215,
+        "query_question": "Write a python function to check whether the given list contains consecutive numbers or not.\n\ndef check_Consecutive(l): ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                21
+            ],
+            "analysis_similarity": [
+                17,
+                28,
+                21
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                21
+            ]
+        }
+    },
+    {
+        "id": 216,
+        "query_question": "Write a function to check whether the given month number contains 30 days or not. Months are given as number from 1 to 12.\n\ndef check_monthnumber_number(monthnum3):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                25
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                18
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                25
+            ]
+        }
+    },
+    {
+        "id": 217,
+        "query_question": "Write a function to find the sum of numbers in a list within a range specified by two indices.\n\ndef sum_range_list(list1, m, n):                                                                                                                                                                                                ",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                15,
+                19
+            ],
+            "analysis_similarity": [
+                15,
+                7,
+                19
+            ],
+            "weighted_similarity": [
+                15,
+                7,
+                19
+            ]
+        }
+    },
+    {
+        "id": 218,
+        "query_question": "Write a function to count bidirectional tuple pairs.\n\ndef count_bidirectional(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                11,
+                29
+            ],
+            "analysis_similarity": [
+                9,
+                16,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                11,
+                29
+            ]
+        }
+    },
+    {
+        "id": 219,
+        "query_question": "Write a function to rotate a given list by specified number of items to the right direction. https://www.geeksforgeeks.org/python-program-right-rotate-list-n/\n\ndef rotate_right(list, m):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                7,
+                6
+            ],
+            "analysis_similarity": [
+                0,
+                7,
+                26
+            ],
+            "weighted_similarity": [
+                0,
+                7,
+                28
+            ]
+        }
+    },
+    {
+        "id": 220,
+        "query_question": "Write a function to count the number of sublists containing a particular element.\n\ndef count_element_in_list(list1, x): ",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                20,
+                28
+            ],
+            "analysis_similarity": [
+                9,
+                29,
+                20
+            ],
+            "weighted_similarity": [
+                29,
+                9,
+                20
+            ]
+        }
+    },
+    {
+        "id": 221,
+        "query_question": "Write a python function to find element at a given index after number of rotations.\n\ndef find_Element(arr,ranges,rotations,index) :  ",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                0,
+                20,
+                7
+            ],
+            "weighted_similarity": [
+                0,
+                15,
+                27
+            ]
+        }
+    },
+    {
+        "id": 222,
+        "query_question": "Write a python function to find the smallest power of 2 greater than or equal to n.\n\ndef next_power_of_2(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                8,
+                4
+            ],
+            "analysis_similarity": [
+                21,
+                8,
+                14
+            ],
+            "weighted_similarity": [
+                21,
+                8,
+                13
+            ]
+        }
+    },
+    {
+        "id": 223,
+        "query_question": "Write a python function to split a list at the nth eelment and add the first part to the end.\n\ndef split_Arr(l, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                13
+            ],
+            "analysis_similarity": [
+                7,
+                28,
+                0
+            ],
+            "weighted_similarity": [
+                0,
+                7,
+                15
+            ]
+        }
+    },
+    {
+        "id": 224,
+        "query_question": "Write a function to convert a date of yyyy-mm-dd format to dd-mm-yyyy format.\nimport re\ndef change_date_format(dt):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                23,
+                2
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                18
+            ],
+            "weighted_similarity": [
+                10,
+                23,
+                17
+            ]
+        }
+    },
+    {
+        "id": 225,
+        "query_question": "Write a function to merge three lists into a single sorted list.\nimport heapq\ndef merge_sorted_list(num1,num2,num3):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                21,
+                25
+            ],
+            "analysis_similarity": [
+                16,
+                0,
+                21
+            ],
+            "weighted_similarity": [
+                16,
+                21,
+                0
+            ]
+        }
+    },
+    {
+        "id": 226,
+        "query_question": "Write a function to calculate the value of 'a' to the power 'b'.\n\ndef power(a,b):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                5,
+                18
+            ],
+            "analysis_similarity": [
+                18,
+                14,
+                15
+            ],
+            "weighted_similarity": [
+                14,
+                18,
+                5
+            ]
+        }
+    },
+    {
+        "id": 227,
+        "query_question": "Write a function to find tuples which have all elements divisible by k from the given list of tuples.\n\ndef find_tuples(test_list, K):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                6,
+                16
+            ],
+            "weighted_similarity": [
+                9,
+                6,
+                11
+            ]
+        }
+    },
+    {
+        "id": 228,
+        "query_question": "Write a function to toggle the case of all characters in a string.\n\ndef toggle_string(string):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                23,
+                10
+            ],
+            "analysis_similarity": [
+                10,
+                23,
+                2
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 229,
+        "query_question": "Write a function to find the minimum value in a given heterogeneous list.\n\ndef min_val(listval):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                28,
+                5
+            ],
+            "analysis_similarity": [
+                21,
+                27,
+                26
+            ],
+            "weighted_similarity": [
+                21,
+                27,
+                28
+            ]
+        }
+    },
+    {
+        "id": 230,
+        "query_question": "Write a function to check whether a given string is a decimal number with a precision of 2.\n\ndef is_decimal(num):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                25
+            ],
+            "analysis_similarity": [
+                17,
+                8,
+                20
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                21
+            ]
+        }
+    },
+    {
+        "id": 231,
+        "query_question": "Write a function to check whether a list contains the given sublist or not.\n\ndef is_sublist(l, s):",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                17,
+                28
+            ],
+            "analysis_similarity": [
+                28,
+                20,
+                21
+            ],
+            "weighted_similarity": [
+                28,
+                20,
+                17
+            ]
+        }
+    },
+    {
+        "id": 232,
+        "query_question": "Write a python function to move all zeroes to the end of the given list.\n\ndef move_zero(num_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                21,
+                0
+            ],
+            "analysis_similarity": [
+                15,
+                26,
+                0
+            ],
+            "weighted_similarity": [
+                15,
+                26,
+                0
+            ]
+        }
+    },
+    {
+        "id": 233,
+        "query_question": "Write a function to find the ration of positive numbers in an array of integers.\nfrom array import array\ndef positive_count(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                15,
+                7,
+                26
+            ],
+            "weighted_similarity": [
+                15,
+                0,
+                7
+            ]
+        }
+    },
+    {
+        "id": 234,
+        "query_question": "Write a python function to find the sum of the largest and smallest value in a given array.\n\ndef big_sum(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                27,
+                21
+            ],
+            "analysis_similarity": [
+                14,
+                15,
+                27
+            ],
+            "weighted_similarity": [
+                15,
+                14,
+                27
+            ]
+        }
+    },
+    {
+        "id": 235,
+        "query_question": "Write a function to check if a dictionary is empty\n\ndef my_dict(dict1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                17,
+                11
+            ],
+            "analysis_similarity": [
+                29,
+                15,
+                8
+            ],
+            "weighted_similarity": [
+                29,
+                8,
+                17
+            ]
+        }
+    },
+    {
+        "id": 236,
+        "query_question": "Write a python function to find quotient of two numbers (rounded down to the nearest integer).\n\ndef find(n,m):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                4,
+                14
+            ],
+            "analysis_similarity": [
+                14,
+                1,
+                7
+            ],
+            "weighted_similarity": [
+                14,
+                21,
+                7
+            ]
+        }
+    },
+    {
+        "id": 237,
+        "query_question": "Write a function to return a list of all pairs of consecutive items in a given list.\n\ndef pair_wise(l1):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                29,
+                6
+            ],
+            "analysis_similarity": [
+                11,
+                16,
+                6
+            ],
+            "weighted_similarity": [
+                28,
+                6,
+                11
+            ]
+        }
+    },
+    {
+        "id": 238,
+        "query_question": "Write a function that takes in a list and an integer n and splits a list for every nth element, returning a list of the resulting lists.\n\ndef list_split(S, step):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                4,
+                7
+            ],
+            "analysis_similarity": [
+                28,
+                6,
+                29
+            ],
+            "weighted_similarity": [
+                28,
+                29,
+                7
+            ]
+        }
+    },
+    {
+        "id": 239,
+        "query_question": "Write a python function to find the number of numbers with an odd value when rotating a binary string the given number of times.\n\ndef odd_Equivalent(s,n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                8,
+                20
+            ],
+            "analysis_similarity": [
+                20,
+                0,
+                17
+            ],
+            "weighted_similarity": [
+                0,
+                20,
+                17
+            ]
+        }
+    },
+    {
+        "id": 240,
+        "query_question": "Write a function that takes in two tuples and performs mathematical division operation element-wise across the given tuples.\n\ndef division_elements(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                6,
+                9
+            ],
+            "analysis_similarity": [
+                11,
+                9,
+                16
+            ],
+            "weighted_similarity": [
+                11,
+                6,
+                9
+            ]
+        }
+    },
+    {
+        "id": 241,
+        "query_question": "Write a python function to convert complex numbers to polar coordinates.\nimport cmath  \ndef convert(numbers):    ",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                25,
+                2
+            ],
+            "analysis_similarity": [
+                22,
+                11,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                22,
+                25
+            ]
+        }
+    },
+    {
+        "id": 242,
+        "query_question": "Write a function to sort a given matrix in ascending order according to the sum of its rows.\n\ndef sort_matrix(M):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                16,
+                0
+            ],
+            "analysis_similarity": [
+                15,
+                16,
+                7
+            ],
+            "weighted_similarity": [
+                15,
+                16,
+                7
+            ]
+        }
+    },
+    {
+        "id": 243,
+        "query_question": "Write a python function to convert a given string to uppercase.\n\ndef is_upper(string):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                2,
+                10
+            ],
+            "analysis_similarity": [
+                23,
+                2,
+                10
+            ],
+            "weighted_similarity": [
+                23,
+                2,
+                10
+            ]
+        }
+    },
+    {
+        "id": 244,
+        "query_question": "Write a function to check if a string represents an integer or not.\n\ndef check_integer(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                1
+            ],
+            "analysis_similarity": [
+                8,
+                20,
+                17
+            ],
+            "weighted_similarity": [
+                8,
+                17,
+                1
+            ]
+        }
+    },
+    {
+        "id": 245,
+        "query_question": "Write a function to find the difference of the first even and first odd number of a given list.\n\ndef diff_even_odd(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                27,
+                21
+            ],
+            "analysis_similarity": [
+                28,
+                27,
+                21
+            ],
+            "weighted_similarity": [
+                28,
+                27,
+                21
+            ]
+        }
+    },
+    {
+        "id": 246,
+        "query_question": "Write a function to check if the given number is woodball or not.\n\ndef is_woodall(x): ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                25
+            ],
+            "analysis_similarity": [
+                8,
+                17,
+                25
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                25
+            ]
+        }
+    },
+    {
+        "id": 247,
+        "query_question": "Write a function that takes in a list and element and checks whether all items in the list are equal to the given element.\n\ndef check_element(list,element):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                17,
+                28
+            ],
+            "analysis_similarity": [
+                26,
+                28,
+                29
+            ],
+            "weighted_similarity": [
+                29,
+                28,
+                26
+            ]
+        }
+    },
+    {
+        "id": 248,
+        "query_question": "Write a function to find nth centered hexagonal number.\n\ndef centered_hexagonal_number(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                19
+            ],
+            "analysis_similarity": [
+                25,
+                4,
+                18
+            ],
+            "weighted_similarity": [
+                25,
+                4,
+                19
+            ]
+        }
+    },
+    {
+        "id": 249,
+        "query_question": "Write a function to remove all the words with k length in the given string.\n\ndef remove_length(test_str, K):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                20,
+                23
+            ],
+            "analysis_similarity": [
+                24,
+                23,
+                20
+            ],
+            "weighted_similarity": [
+                24,
+                23,
+                20
+            ]
+        }
+    },
+    {
+        "id": 250,
+        "query_question": "The input is given as - a dictionary with a student name as a key and a tuple of float (student_height, student_weight) as a value, - minimal height, - minimal weight. Write a function to filter students that have height and weight above the minimum.\n\ndef filter_data(students,h,w):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                11,
+                21
+            ],
+            "analysis_similarity": [
+                29,
+                24,
+                18
+            ],
+            "weighted_similarity": [
+                16,
+                11,
+                21
+            ]
+        }
+    },
+    {
+        "id": 251,
+        "query_question": "Write a function to sort the given array by using shell sort.\n\ndef shell_sort(my_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                16,
+                15
+            ],
+            "analysis_similarity": [
+                0,
+                21,
+                16
+            ],
+            "weighted_similarity": [
+                0,
+                16,
+                21
+            ]
+        }
+    },
+    {
+        "id": 252,
+        "query_question": "Write a python function to remove duplicate numbers from a given number of lists.\n\ndef two_unique_nums(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                26,
+                9,
+                28
+            ],
+            "analysis_similarity": [
+                21,
+                28,
+                26
+            ],
+            "weighted_similarity": [
+                26,
+                28,
+                21
+            ]
+        }
+    },
+    {
+        "id": 253,
+        "query_question": "Write a function to put spaces between words starting with capital letters in a given string.\nimport re\ndef capital_words_spaces(str1):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                24,
+                10
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                2
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                24
+            ]
+        }
+    },
+    {
+        "id": 254,
+        "query_question": "Write a function to check whether the given amount has no profit and no loss\n\ndef noprofit_noloss(actual_cost,sale_amount): ",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                14
+            ],
+            "analysis_similarity": [
+                8,
+                18,
+                14
+            ],
+            "weighted_similarity": [
+                8,
+                17,
+                14
+            ]
+        }
+    },
+    {
+        "id": 255,
+        "query_question": "Write a function to calculate the sum of perrin numbers.\n\ndef cal_sum(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                15,
+                7
+            ],
+            "analysis_similarity": [
+                12,
+                19,
+                13
+            ],
+            "weighted_similarity": [
+                19,
+                12,
+                15
+            ]
+        }
+    },
+    {
+        "id": 256,
+        "query_question": "Write a python function to find the element of a list having maximum length.\n\ndef Find_Max(lst): ",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                27,
+                13
+            ],
+            "analysis_similarity": [
+                14,
+                27,
+                29
+            ],
+            "weighted_similarity": [
+                14,
+                27,
+                7
+            ]
+        }
+    },
+    {
+        "id": 257,
+        "query_question": "Write a function to extract only the rear index element of each string in the given tuple.\n\ndef extract_rear(test_tuple):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                9,
+                2
+            ],
+            "analysis_similarity": [
+                6,
+                2,
+                11
+            ],
+            "weighted_similarity": [
+                6,
+                2,
+                9
+            ]
+        }
+    },
+    {
+        "id": 258,
+        "query_question": "Write a function to find perfect squares between two given numbers.\n\ndef perfect_squares(a, b):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                21,
+                4
+            ],
+            "analysis_similarity": [
+                21,
+                12,
+                18
+            ],
+            "weighted_similarity": [
+                14,
+                21,
+                3
+            ]
+        }
+    },
+    {
+        "id": 259,
+        "query_question": "Write a python function to find the sum of fourth power of first n odd natural numbers.\n\ndef odd_num_sum(n) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                19,
+                25
+            ],
+            "analysis_similarity": [
+                19,
+                13,
+                12
+            ],
+            "weighted_similarity": [
+                19,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 260,
+        "query_question": "Write a function to check if all values are same in a dictionary.\n\ndef check_value(dict, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                29
+            ],
+            "analysis_similarity": [
+                29,
+                8,
+                26
+            ],
+            "weighted_similarity": [
+                17,
+                8,
+                29
+            ]
+        }
+    },
+    {
+        "id": 261,
+        "query_question": "Write a function to remove all whitespaces from a string.\nimport re\ndef remove_all_spaces(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                23,
+                10
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                15
+            ],
+            "weighted_similarity": [
+                23,
+                24,
+                10
+            ]
+        }
+    },
+    {
+        "id": 262,
+        "query_question": "Write a function to check if the given expression is balanced or not. https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/\nfrom collections import deque\ndef check_expression(exp):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                20
+            ],
+            "analysis_similarity": [
+                17,
+                20,
+                12
+            ],
+            "weighted_similarity": [
+                17,
+                20,
+                8
+            ]
+        }
+    },
+    {
+        "id": 263,
+        "query_question": "Write a function to find kth element from the given two sorted arrays.\n\ndef find_kth(arr1, arr2, k):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                27,
+                0
+            ],
+            "analysis_similarity": [
+                21,
+                0,
+                27
+            ],
+            "weighted_similarity": [
+                21,
+                0,
+                27
+            ]
+        }
+    },
+    {
+        "id": 264,
+        "query_question": "Write a function to find the sum of the largest contiguous sublist in the given list.\n\ndef max_sub_array_sum(a, size):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                14,
+                27
+            ],
+            "analysis_similarity": [
+                15,
+                20,
+                27
+            ],
+            "weighted_similarity": [
+                15,
+                27,
+                14
+            ]
+        }
+    },
+    {
+        "id": 265,
+        "query_question": "Write a function to convert the given snake case string to camel case string.\nimport re\ndef snake_to_camel(word):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                24,
+                2
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                2
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 266,
+        "query_question": "Write a function to find out the number of ways of painting the fence such that at most 2 adjacent posts have the same color for the given fence with n posts and k colors.\n\ndef count_no_of_ways(n, k): ",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                17,
+                13
+            ],
+            "analysis_similarity": [
+                12,
+                13,
+                17
+            ],
+            "weighted_similarity": [
+                12,
+                13,
+                17
+            ]
+        }
+    },
+    {
+        "id": 267,
+        "query_question": "Write a function to find the closest smaller number than n.\n\ndef closest_num(N):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                4,
+                13
+            ],
+            "analysis_similarity": [
+                19,
+                8,
+                4
+            ],
+            "weighted_similarity": [
+                4,
+                21,
+                13
+            ]
+        }
+    },
+    {
+        "id": 268,
+        "query_question": "Write a function to extract the elementwise and tuples from the given two tuples.\n\ndef and_tuples(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                11,
+                16,
+                9
+            ],
+            "weighted_similarity": [
+                11,
+                6,
+                9
+            ]
+        }
+    },
+    {
+        "id": 269,
+        "query_question": "Write a function to compute the sum of digits of each number of a given list.\n\ndef sum_of_digits(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                20,
+                15
+            ],
+            "analysis_similarity": [
+                7,
+                15,
+                19
+            ],
+            "weighted_similarity": [
+                7,
+                15,
+                20
+            ]
+        }
+    },
+    {
+        "id": 270,
+        "query_question": "Write a function to reverse words seperated by spaces in a given string.\n\ndef reverse_words(s):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                24,
+                23
+            ],
+            "analysis_similarity": [
+                10,
+                23,
+                2
+            ],
+            "weighted_similarity": [
+                10,
+                23,
+                24
+            ]
+        }
+    },
+    {
+        "id": 271,
+        "query_question": "Write a function to sort a dictionary by value.\nfrom collections import Counter\ndef sort_counter(dict1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                0,
+                16
+            ],
+            "analysis_similarity": [
+                16,
+                11,
+                29
+            ],
+            "weighted_similarity": [
+                29,
+                16,
+                11
+            ]
+        }
+    },
+    {
+        "id": 272,
+        "query_question": "Write a python function to count the number of set bits (binary digits with value 1) in a given number.\n\ndef count_Set_Bits(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                4,
+                20
+            ],
+            "analysis_similarity": [
+                12,
+                9,
+                8
+            ],
+            "weighted_similarity": [
+                12,
+                20,
+                4
+            ]
+        }
+    },
+    {
+        "id": 273,
+        "query_question": "Write a function to convert the given decimal number to its binary equivalent, represented as a string with no leading zeros.\n\ndef decimal_to_binary(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                25,
+                12
+            ],
+            "analysis_similarity": [
+                20,
+                8,
+                17
+            ],
+            "weighted_similarity": [
+                8,
+                20,
+                17
+            ]
+        }
+    },
+    {
+        "id": 274,
+        "query_question": "Write a python function to identify non-prime numbers.\nimport math\ndef is_not_prime(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                25,
+                4
+            ],
+            "analysis_similarity": [
+                21,
+                12,
+                17
+            ],
+            "weighted_similarity": [
+                17,
+                21,
+                25
+            ]
+        }
+    },
+    {
+        "id": 275,
+        "query_question": "Write a function that matches a string that has an 'a' followed by anything, ending in 'b'.\nimport re\ndef text_starta_endb(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                14,
+                10
+            ],
+            "analysis_similarity": [
+                17,
+                18,
+                24
+            ],
+            "weighted_similarity": [
+                24,
+                14,
+                17
+            ]
+        }
+    },
+    {
+        "id": 276,
+        "query_question": "Write a python function to find the length of the smallest list in a list of lists.\n\ndef Find_Min_Length(lst):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                13,
+                5
+            ],
+            "analysis_similarity": [
+                21,
+                28,
+                6
+            ],
+            "weighted_similarity": [
+                21,
+                7,
+                28
+            ]
+        }
+    },
+    {
+        "id": 277,
+        "query_question": "Write a function to convert a tuple to a string.\n\ndef tup_string(tup1):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                2,
+                11,
+                16
+            ],
+            "weighted_similarity": [
+                2,
+                11,
+                9
+            ]
+        }
+    },
+    {
+        "id": 278,
+        "query_question": "Write a python function to find a pair with highest product from a given array of integers.\n\ndef max_Product(arr): ",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                14,
+                15
+            ],
+            "analysis_similarity": [
+                27,
+                14,
+                0
+            ],
+            "weighted_similarity": [
+                27,
+                14,
+                26
+            ]
+        }
+    },
+    {
+        "id": 279,
+        "query_question": "Write a python function to check whether the length of the word is odd or not.\n\ndef word_len(s): ",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                17,
+                23
+            ],
+            "analysis_similarity": [
+                17,
+                18,
+                8
+            ],
+            "weighted_similarity": [
+                17,
+                20,
+                8
+            ]
+        }
+    },
+    {
+        "id": 280,
+        "query_question": "Write a python function to find the first digit of a given number.\n\ndef first_Digit(n) :  ",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                13,
+                25
+            ],
+            "analysis_similarity": [
+                8,
+                21,
+                17
+            ],
+            "weighted_similarity": [
+                8,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 281,
+        "query_question": "Write a function to check if the given tuple has any none value or not.\n\ndef check_none(test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                9,
+                2
+            ],
+            "analysis_similarity": [
+                9,
+                2,
+                11
+            ],
+            "weighted_similarity": [
+                9,
+                11,
+                2
+            ]
+        }
+    },
+    {
+        "id": 282,
+        "query_question": "Write a function that returns integers x and y that satisfy ax + by = n as a tuple, or return None if no solution exists.\n\ndef find_solution(a, b, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                4,
+                14
+            ],
+            "analysis_similarity": [
+                1,
+                12,
+                8
+            ],
+            "weighted_similarity": [
+                4,
+                1,
+                13
+            ]
+        }
+    },
+    {
+        "id": 283,
+        "query_question": "Write a function to sum the length of the names of a given list of names after removing the names that start with a lowercase letter.\n\ndef sample_nam(sample_names):",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                24,
+                23
+            ],
+            "analysis_similarity": [
+                23,
+                24,
+                7
+            ],
+            "weighted_similarity": [
+                23,
+                24,
+                7
+            ]
+        }
+    },
+    {
+        "id": 284,
+        "query_question": "Write a function to multiply all the numbers in a list and divide with the length of the list.\n\ndef multiply_num(numbers):  ",
+        "retrieval_results": {
+            "question_similarity": [
+                7,
+                26,
+                1
+            ],
+            "analysis_similarity": [
+                26,
+                7,
+                15
+            ],
+            "weighted_similarity": [
+                7,
+                26,
+                1
+            ]
+        }
+    },
+    {
+        "id": 285,
+        "query_question": "Given a square matrix of size N*N given as a list of lists, where each cell is associated with a specific cost. A path is defined as a specific sequence of cells that starts from the top-left cell move only right or down and ends on bottom right cell. We want to find a path with the maximum average over all existing paths. Average is computed as total cost divided by the number of cells visited in the path.\n\ndef maxAverageOfPath(cost):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                27,
+                15
+            ],
+            "analysis_similarity": [
+                27,
+                12,
+                14
+            ],
+            "weighted_similarity": [
+                27,
+                14,
+                12
+            ]
+        }
+    },
+    {
+        "id": 286,
+        "query_question": "Write a python function which takes a list of integers and only returns the odd ones.\n\ndef Split(list): ",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                24,
+                26
+            ],
+            "analysis_similarity": [
+                28,
+                24,
+                7
+            ],
+            "weighted_similarity": [
+                28,
+                24,
+                7
+            ]
+        }
+    },
+    {
+        "id": 287,
+        "query_question": "Write a function that matches a word containing 'z'.\nimport re\ndef text_match_wordz(text):",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                23,
+                10
+            ],
+            "analysis_similarity": [
+                24,
+                26,
+                10
+            ],
+            "weighted_similarity": [
+                24,
+                23,
+                10
+            ]
+        }
+    },
+    {
+        "id": 288,
+        "query_question": "Write a function to find whether a given array of integers contains any duplicate element.\n\ndef test_duplicate(arraynums):",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                15,
+                27
+            ],
+            "analysis_similarity": [
+                15,
+                26,
+                28
+            ],
+            "weighted_similarity": [
+                15,
+                17,
+                0
+            ]
+        }
+    },
+    {
+        "id": 289,
+        "query_question": "Write a function which given a matrix represented as a list of lists returns the max of the n'th column.\n\ndef max_of_nth(test_list, N):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                27,
+                13
+            ],
+            "analysis_similarity": [
+                14,
+                27,
+                15
+            ],
+            "weighted_similarity": [
+                14,
+                27,
+                21
+            ]
+        }
+    },
+    {
+        "id": 290,
+        "query_question": "Write a function to count number items that are identical in the same position of three given lists.\n\ndef count_samepair(list1,list2,list3):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                9,
+                28
+            ],
+            "analysis_similarity": [
+                9,
+                29,
+                28
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                28
+            ]
+        }
+    },
+    {
+        "id": 291,
+        "query_question": "Write a python function which takes a list of integers and counts the number of possible unordered pairs where both elements are unequal.\n\ndef count_Pairs(arr,n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                9,
+                27
+            ],
+            "analysis_similarity": [
+                9,
+                12,
+                26
+            ],
+            "weighted_similarity": [
+                9,
+                0,
+                12
+            ]
+        }
+    },
+    {
+        "id": 292,
+        "query_question": "Write a python function to count inversions in an array.\n\ndef get_Inv_Count(arr): ",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                29
+            ],
+            "analysis_similarity": [
+                0,
+                12,
+                15
+            ],
+            "weighted_similarity": [
+                0,
+                15,
+                29
+            ]
+        }
+    },
+    {
+        "id": 293,
+        "query_question": "Write a python function to find the area of the largest triangle that can be inscribed in a semicircle with a given radius.\n\ndef triangle_area(r) :  ",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                22,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                22,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        "id": 294,
+        "query_question": "Write a function to check whether the given number is a perfect square or not. https://www.geeksforgeeks.org/check-if-given-number-is-perfect-square-in-cpp/\n\ndef is_perfect_square(n) :",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                8,
+                4
+            ],
+            "analysis_similarity": [
+                8,
+                18,
+                17
+            ],
+            "weighted_similarity": [
+                8,
+                17,
+                4
+            ]
+        }
+    },
+    {
+        "id": 295,
+        "query_question": "Write a function to find the nth newman\u2013shanks\u2013williams prime number.\n\ndef newman_prime(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                13,
+                25
+            ],
+            "analysis_similarity": [
+                13,
+                4,
+                12
+            ],
+            "weighted_similarity": [
+                4,
+                13,
+                25
+            ]
+        }
+    },
+    {
+        "id": 296,
+        "query_question": "Write a python function to check whether the given number is even or not.\n\ndef is_Even(n) : ",
+        "retrieval_results": {
+            "question_similarity": [
+                8,
+                17,
+                4
+            ],
+            "analysis_similarity": [
+                8,
+                17,
+                14
+            ],
+            "weighted_similarity": [
+                8,
+                17,
+                4
+            ]
+        }
+    },
+    {
+        "id": 297,
+        "query_question": "Write a python function to count the number of lists in a given number of lists.\n\ndef count_list(input_list): ",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                7,
+                9
+            ],
+            "analysis_similarity": [
+                29,
+                9,
+                28
+            ],
+            "weighted_similarity": [
+                29,
+                9,
+                7
+            ]
+        }
+    },
+    {
+        "id": 298,
+        "query_question": "Write a function which takes two tuples of the same length and performs the element wise modulo.\n\ndef tuple_modulo(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                6,
+                11,
+                16
+            ],
+            "weighted_similarity": [
+                6,
+                11,
+                9
+            ]
+        }
+    },
+    {
+        "id": 299,
+        "query_question": "Write a function to reverse each string in a given list of string values.\n\ndef reverse_string_list(stringlist):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                2,
+                6
+            ],
+            "analysis_similarity": [
+                10,
+                6,
+                28
+            ],
+            "weighted_similarity": [
+                10,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "id": 300,
+        "query_question": "Write a function to find the next smallest palindrome of a specified integer, returned as an integer.\nimport sys\ndef next_smallest_palindrome(num):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                4,
+                8
+            ],
+            "analysis_similarity": [
+                21,
+                8,
+                17
+            ],
+            "weighted_similarity": [
+                21,
+                8,
+                17
+            ]
+        }
+    },
+    {
+        "id": 301,
+        "query_question": "Write a python function to check whether all the characters are same or not.\n\ndef all_Characters_Same(s) :",
+        "retrieval_results": {
+            "question_similarity": [
+                17,
+                2,
+                20
+            ],
+            "analysis_similarity": [
+                2,
+                26,
+                17
+            ],
+            "weighted_similarity": [
+                17,
+                2,
+                20
+            ]
+        }
+    },
+    {
+        "id": 302,
+        "query_question": "Write a python function to find the number of divisors of a given integer.\n\ndef divisor(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                13,
+                25
+            ],
+            "analysis_similarity": [
+                12,
+                20,
+                21
+            ],
+            "weighted_similarity": [
+                12,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 303,
+        "query_question": "Write a function to get a colon of a tuple.\nfrom copy import deepcopy\ndef colon_tuplex(tuplex,m,n):",
+        "retrieval_results": {
+            "question_similarity": [
+                6,
+                2,
+                9
+            ],
+            "analysis_similarity": [
+                11,
+                16,
+                2
+            ],
+            "weighted_similarity": [
+                11,
+                6,
+                16
+            ]
+        }
+    },
+    {
+        "id": 304,
+        "query_question": "Write a function to find the median of three numbers.\n\ndef median_numbers(a,b,c):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                21,
+                4
+            ],
+            "analysis_similarity": [
+                21,
+                14,
+                18
+            ],
+            "weighted_similarity": [
+                14,
+                21,
+                5
+            ]
+        }
+    },
+    {
+        "id": 305,
+        "query_question": "Write a python function to find the first odd number in a given list of numbers.\n\ndef first_odd(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                4,
+                13
+            ],
+            "analysis_similarity": [
+                21,
+                26,
+                7
+            ],
+            "weighted_similarity": [
+                21,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 306,
+        "query_question": "Write a python function to find the first non-repeated character in a given string.\n\ndef first_non_repeating_character(str1):",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                2,
+                29
+            ],
+            "analysis_similarity": [
+                29,
+                26,
+                10
+            ],
+            "weighted_similarity": [
+                10,
+                29,
+                2
+            ]
+        }
+    },
+    {
+        "id": 307,
+        "query_question": "Write a function to find the count of all binary sequences of length 2n such that sum of first n bits is same as sum of last n bits.\n\ndef count_binary_seq(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                20,
+                19
+            ],
+            "analysis_similarity": [
+                12,
+                20,
+                19
+            ],
+            "weighted_similarity": [
+                12,
+                20,
+                19
+            ]
+        }
+    },
+    {
+        "id": 308,
+        "query_question": "Write a function to sort each sublist of strings in a given list of lists.\n\ndef sort_sublists(input_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                20,
+                28
+            ],
+            "analysis_similarity": [
+                16,
+                6,
+                28
+            ],
+            "weighted_similarity": [
+                16,
+                28,
+                20
+            ]
+        }
+    },
+    {
+        "id": 309,
+        "query_question": "Given a list of tuples, write a function that returns the first value of the tuple with the smallest second value.\nfrom operator import itemgetter \ndef index_minimum(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                16,
+                6
+            ],
+            "analysis_similarity": [
+                16,
+                6,
+                21
+            ],
+            "weighted_similarity": [
+                16,
+                21,
+                6
+            ]
+        }
+    },
+    {
+        "id": 310,
+        "query_question": "Write a function to add a dictionary to the tuple. The output should be a tuple.\n\ndef add_dict_to_tuple(test_tup, test_dict):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                2,
+                9
+            ],
+            "analysis_similarity": [
+                11,
+                2,
+                9
+            ],
+            "weighted_similarity": [
+                11,
+                2,
+                9
+            ]
+        }
+    },
+    {
+        "id": 311,
+        "query_question": "Write a function to find cubes of individual elements in a list.\n\ndef cube_nums(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                18,
+                7,
+                4
+            ],
+            "analysis_similarity": [
+                18,
+                7,
+                28
+            ],
+            "weighted_similarity": [
+                18,
+                7,
+                29
+            ]
+        }
+    },
+    {
+        "id": 312,
+        "query_question": "Write a function to drop empty items from a given dictionary.\n\ndef drop_empty(dict1):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                11,
+                28
+            ],
+            "analysis_similarity": [
+                29,
+                11,
+                28
+            ],
+            "weighted_similarity": [
+                29,
+                11,
+                28
+            ]
+        }
+    },
+    {
+        "id": 313,
+        "query_question": "Write a function to find the maximum difference between available pairs in the given tuple list.\n\ndef max_difference(test_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                27,
+                28,
+                9
+            ],
+            "analysis_similarity": [
+                27,
+                28,
+                6
+            ],
+            "weighted_similarity": [
+                27,
+                28,
+                6
+            ]
+        }
+    },
+    {
+        "id": 314,
+        "query_question": "Write a python function to find nth bell number.\n\ndef bell_Number(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                12,
+                4,
+                13
+            ],
+            "analysis_similarity": [
+                12,
+                13,
+                4
+            ],
+            "weighted_similarity": [
+                12,
+                13,
+                4
+            ]
+        }
+    },
+    {
+        "id": 315,
+        "query_question": "Write a function to find the list of maximum length in a list of lists.\n\ndef max_length(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                14,
+                7,
+                28
+            ],
+            "analysis_similarity": [
+                6,
+                21,
+                27
+            ],
+            "weighted_similarity": [
+                7,
+                14,
+                28
+            ]
+        }
+    },
+    {
+        "id": 316,
+        "query_question": "Write a function to check whether a specified list is sorted or not.\n\ndef issort_list(list1):",
+        "retrieval_results": {
+            "question_similarity": [
+                28,
+                17,
+                16
+            ],
+            "analysis_similarity": [
+                16,
+                7,
+                21
+            ],
+            "weighted_similarity": [
+                16,
+                28,
+                7
+            ]
+        }
+    },
+    {
+        "id": 317,
+        "query_question": "Write a function to perform the mathematical bitwise xor operation across the given tuples.\n\ndef bitwise_xor(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                11,
+                2
+            ],
+            "analysis_similarity": [
+                11,
+                16,
+                9
+            ],
+            "weighted_similarity": [
+                11,
+                9,
+                6
+            ]
+        }
+    },
+    {
+        "id": 318,
+        "query_question": "Write a python function to count number of digits in a given string.\n\ndef number_ctr(str):",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                4,
+                0
+            ],
+            "analysis_similarity": [
+                20,
+                8,
+                17
+            ],
+            "weighted_similarity": [
+                20,
+                17,
+                29
+            ]
+        }
+    },
+    {
+        "id": 319,
+        "query_question": "Write a function to convert a list to a tuple.\n\ndef list_tuple(listx):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                11,
+                9
+            ],
+            "analysis_similarity": [
+                2,
+                11,
+                9
+            ],
+            "weighted_similarity": [
+                2,
+                11,
+                9
+            ]
+        }
+    },
+    {
+        "id": 320,
+        "query_question": "Write a python function to reverse an array upto a given position.\n\ndef reverse_Array_Upto_K(input, k): ",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                15,
+                10
+            ],
+            "analysis_similarity": [
+                0,
+                10,
+                15
+            ],
+            "weighted_similarity": [
+                0,
+                15,
+                10
+            ]
+        }
+    },
+    {
+        "id": 321,
+        "query_question": "Write a function to find the tuple intersection of elements in the given tuple list irrespective of their order.\n\ndef tuple_intersection(test_list1, test_list2):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                6,
+                11
+            ],
+            "analysis_similarity": [
+                9,
+                16,
+                6
+            ],
+            "weighted_similarity": [
+                9,
+                16,
+                6
+            ]
+        }
+    },
+    {
+        "id": 322,
+        "query_question": "Write a function to get all lucid numbers smaller than or equal to a given integer.\n\ndef get_ludic(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                13,
+                17,
+                4
+            ],
+            "analysis_similarity": [
+                13,
+                21,
+                12
+            ],
+            "weighted_similarity": [
+                13,
+                17,
+                21
+            ]
+        }
+    },
+    {
+        "id": 323,
+        "query_question": "Write a function that takes in a dictionary and integer n and filters the dictionary to only include entries with values greater than or equal to n.\n\ndef dict_filter(dict,n):",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                4,
+                17
+            ],
+            "analysis_similarity": [
+                29,
+                24,
+                21
+            ],
+            "weighted_similarity": [
+                29,
+                24,
+                21
+            ]
+        }
+    },
+    {
+        "id": 324,
+        "query_question": "Write a function that takes in a list and length n, and generates all combinations (with repetition) of the elements of the list and returns a list with a tuple for each combination.\nfrom itertools import combinations_with_replacement \ndef combinations_colors(l, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                9,
+                29,
+                6
+            ],
+            "analysis_similarity": [
+                26,
+                12,
+                7
+            ],
+            "weighted_similarity": [
+                9,
+                29,
+                26
+            ]
+        }
+    },
+    {
+        "id": 325,
+        "query_question": "Write a function to find the nth decagonal number.\n\ndef is_num_decagonal(n): ",
+        "retrieval_results": {
+            "question_similarity": [
+                25,
+                4,
+                17
+            ],
+            "analysis_similarity": [
+                25,
+                4,
+                13
+            ],
+            "weighted_similarity": [
+                25,
+                4,
+                13
+            ]
+        }
+    },
+    {
+        "id": 326,
+        "query_question": "Write a function to check whether the given string is starting with a vowel or not using regex.\nimport re \ndef check_str(string): ",
+        "retrieval_results": {
+            "question_similarity": [
+                10,
+                24,
+                17
+            ],
+            "analysis_similarity": [
+                10,
+                23,
+                24
+            ],
+            "weighted_similarity": [
+                10,
+                24,
+                23
+            ]
+        }
+    },
+    {
+        "id": 327,
+        "query_question": "Write a function to count the number of occurrences of a number in a given list.\n\ndef frequency(a,x): ",
+        "retrieval_results": {
+            "question_similarity": [
+                29,
+                9,
+                0
+            ],
+            "analysis_similarity": [
+                29,
+                9,
+                7
+            ],
+            "weighted_similarity": [
+                29,
+                9,
+                0
+            ]
+        }
+    },
+    {
+        "id": 328,
+        "query_question": "Write a function to add the given tuple to the given list.\n\ndef add_tuple(test_list, test_tup):",
+        "retrieval_results": {
+            "question_similarity": [
+                11,
+                9,
+                2
+            ],
+            "analysis_similarity": [
+                16,
+                9,
+                6
+            ],
+            "weighted_similarity": [
+                11,
+                9,
+                6
+            ]
+        }
+    },
+    {
+        "id": 329,
+        "query_question": "Write a function to sort a list of elements.\n\ndef pancake_sort(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                21,
+                16
+            ],
+            "analysis_similarity": [
+                0,
+                21,
+                16
+            ],
+            "weighted_similarity": [
+                0,
+                21,
+                16
+            ]
+        }
+    },
+    {
+        "id": 330,
+        "query_question": "Write a function to replace all spaces in the given string with '%20'.\n\ndef replace_spaces(string):",
+        "retrieval_results": {
+            "question_similarity": [
+                23,
+                10,
+                2
+            ],
+            "analysis_similarity": [
+                23,
+                10,
+                15
+            ],
+            "weighted_similarity": [
+                23,
+                10,
+                2
+            ]
+        }
+    },
+    {
+        "id": 331,
+        "query_question": "Write a function to filter odd numbers.\n\ndef filter_oddnumbers(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                17,
+                4
+            ],
+            "analysis_similarity": [
+                28,
+                21,
+                26
+            ],
+            "weighted_similarity": [
+                21,
+                17,
+                28
+            ]
+        }
+    },
+    {
+        "id": 332,
+        "query_question": "Write a function that takes an array and finds the maximum sum of a bitonic subsequence for the given array, where a sequence is bitonic if it is first increasing and then decreasing.\n\ndef max_sum(arr): ",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                27,
+                14
+            ],
+            "analysis_similarity": [
+                27,
+                12,
+                20
+            ],
+            "weighted_similarity": [
+                27,
+                15,
+                14
+            ]
+        }
+    },
+    {
+        "id": 333,
+        "query_question": "Write a function to check if each element of second tuple is smaller than its corresponding element in the first tuple.\n\ndef check_smaller(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                21,
+                6
+            ],
+            "analysis_similarity": [
+                16,
+                11,
+                9
+            ],
+            "weighted_similarity": [
+                16,
+                11,
+                6
+            ]
+        }
+    },
+    {
+        "id": 334,
+        "query_question": "Write a python function to find smallest number in a list.\n\ndef smallest_num(xs):",
+        "retrieval_results": {
+            "question_similarity": [
+                21,
+                4,
+                14
+            ],
+            "analysis_similarity": [
+                21,
+                14,
+                28
+            ],
+            "weighted_similarity": [
+                21,
+                14,
+                15
+            ]
+        }
+    },
+    {
+        "id": 335,
+        "query_question": "Write a function to check whether the given string starts and ends with the same character or not.\nimport re  \ndef check_char(string): ",
+        "retrieval_results": {
+            "question_similarity": [
+                24,
+                17,
+                10
+            ],
+            "analysis_similarity": [
+                8,
+                10,
+                17
+            ],
+            "weighted_similarity": [
+                8,
+                17,
+                10
+            ]
+        }
+    },
+    {
+        "id": 336,
+        "query_question": "Write a function to sum all amicable numbers from 1 to a specified number.\n\ndef amicable_numbers_sum(limit):",
+        "retrieval_results": {
+            "question_similarity": [
+                19,
+                15,
+                7
+            ],
+            "analysis_similarity": [
+                19,
+                12,
+                21
+            ],
+            "weighted_similarity": [
+                19,
+                15,
+                12
+            ]
+        }
+    },
+    {
+        "id": 337,
+        "query_question": "Write a python function to remove the characters which have odd index values of a given string.\n\ndef odd_values_string(str):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                10,
+                23
+            ],
+            "analysis_similarity": [
+                10,
+                2,
+                28
+            ],
+            "weighted_similarity": [
+                10,
+                2,
+                23
+            ]
+        }
+    },
+    {
+        "id": 338,
+        "query_question": "Write a function to find the union of the elements of two given tuples and output them in sorted order.\n\ndef union_elements(test_tup1, test_tup2):",
+        "retrieval_results": {
+            "question_similarity": [
+                16,
+                9,
+                11
+            ],
+            "analysis_similarity": [
+                16,
+                9,
+                11
+            ],
+            "weighted_similarity": [
+                16,
+                9,
+                11
+            ]
+        }
+    },
+    {
+        "id": 339,
+        "query_question": "Write a function that takes base and power as arguments and calculate the sum of all digits of the base to the specified power.\n\ndef power_base_sum(base, power):",
+        "retrieval_results": {
+            "question_similarity": [
+                15,
+                20,
+                19
+            ],
+            "analysis_similarity": [
+                15,
+                18,
+                20
+            ],
+            "weighted_similarity": [
+                15,
+                20,
+                19
+            ]
+        }
+    },
+    {
+        "id": 340,
+        "query_question": "Write a function to count the number of occurence of the string 'std' in a given string.\n\ndef count_occurance(s):",
+        "retrieval_results": {
+            "question_similarity": [
+                20,
+                29,
+                4
+            ],
+            "analysis_similarity": [
+                20,
+                29,
+                4
+            ],
+            "weighted_similarity": [
+                20,
+                29,
+                4
+            ]
+        }
+    }
+]
