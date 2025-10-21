@@ -10,7 +10,7 @@
       {
         "name": "Programming Expert",
         "responsibility": "You are a programming expert. Given a function signature and its docstring by the user, your task is to write the complete and correct code implementation.",
-        "instruction": "1. Write your full implementation based on the function signature and docstring provided.\n2. Use a Python code block for your response.\n3. Do not change the original function names or input variable types.",
+        "instruction": "1. Carefully analysis the user's query, and write the full code based on the function signature.\n2. Note that the function must have a return value.\n3. Do not change the original function names or input variable types.",
         "tools": []
       },
       {

@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/antgroup/aievo/agent"
 	"github.com/antgroup/aievo/llm"
@@ -15,29 +16,41 @@ import (
 	"github.com/antgroup/aievo/schema"
 )
 
-// HumanEvalQuestion represents a single question from the HumanEval dataset
-type HumanEvalQuestion struct {
-	TaskID            string `json:"task_id"`
-	Prompt            string `json:"prompt"`
-	CanonicalSolution string `json:"canonical_solution"`
-	Test              string `json:"test"`
-	EntryPoint        string `json:"entry_point"`
+// MBPPQuestion represents a single question from the MBPP dataset (train/valid/test JSONL)
+type MBPPQuestion struct {
+	ID          int      `json:"id"`
+	TaskID      int      `json:"task_id"`
+	Prompt      string   `json:"prompt"`
+	Code        string   `json:"code"`
+	Test        string   `json:"test"`
+	EntryPoint  string   `json:"entry_point"`
+	TestImports []string `json:"test_imports"`
+	TestList    []string `json:"test_list"`
 }
 
-// HumanEvalResultLog represents the execution result for a single question
-type HumanEvalResultLog struct {
+// Minimal message structure extracted from logs
+type MinimalMessage struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
+	Content  string `json:"content"`
+}
+
+// MBPPResultLog represents the execution result for a single MBPP task (from output/*.json)
+type MBPPResultLog struct {
 	ID                   int              `json:"id"`
 	Query                string           `json:"query"`
 	ModelOutput          string           `json:"model_output"`
-	CommunicationHistory []schema.Message `json:"communication_history"`
+	CommunicationHistory []MinimalMessage `json:"communication_history"`
 	TotalCount           int              `json:"total_count"`
 	Time                 string           `json:"time"`
 }
 
-// HumanEvalEvaluationResult represents the evaluation result with test outcomes
-type HumanEvalEvaluationResult struct {
+// MBPPEvaluationResult represents the evaluation result with test outcomes (from results/*_results.jsonl)
+type MBPPEvaluationResult struct {
 	ID          int    `json:"id"`
-	TaskID      string `json:"task_id"`
+	TaskID      int    `json:"task_id"`
+	Status      string `json:"status"` // "pass" | "fail"
+	Error       string `json:"error"`
 	TestResults string `json:"test_results"`
 	Success     bool   `json:"success"`
 }
@@ -83,23 +96,28 @@ func loadFile(path string, v interface{}) error {
 	return nil
 }
 
-// loadHumanEvalDataset loads the HumanEval dataset from a JSONL file
-func loadHumanEvalDataset(filePath string) (map[int]HumanEvalQuestion, error) {
+// loadMBPPDataset loads the MBPP dataset from a JSONL file and returns a map by id
+func loadMBPPDataset(filePath string) (map[int]MBPPQuestion, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	questions := make(map[int]HumanEvalQuestion)
+	questions := make(map[int]MBPPQuestion)
 	scanner := bufio.NewScanner(file)
 	i := 0
 	for scanner.Scan() {
-		var question HumanEvalQuestion
+		var question MBPPQuestion
 		if err := json.Unmarshal(scanner.Bytes(), &question); err != nil {
 			return nil, err
 		}
-		questions[i] = question
+		// Prefer explicit ID from file if present; fallback to index
+		id := question.ID
+		if id == 0 && question.TaskID == 0 {
+			id = i
+		}
+		questions[id] = question
 		i++
 	}
 
@@ -110,15 +128,15 @@ func loadHumanEvalDataset(filePath string) (map[int]HumanEvalQuestion, error) {
 	return questions, nil
 }
 
-// loadEvaluationResults reads the JSONL evaluation results file
-func loadEvaluationResults(filePath string) (map[int]HumanEvalEvaluationResult, error) {
+// loadEvaluationResults reads the JSONL evaluation results file for MBPP
+func loadEvaluationResults(filePath string) (map[int]MBPPEvaluationResult, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open evaluation file %s: %w", filePath, err)
 	}
 	defer file.Close()
 
-	results := make(map[int]HumanEvalEvaluationResult)
+	results := make(map[int]MBPPEvaluationResult)
 	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
@@ -127,12 +145,32 @@ func loadEvaluationResults(filePath string) (map[int]HumanEvalEvaluationResult, 
 			continue
 		}
 
-		var evalResult HumanEvalEvaluationResult
-		if err := json.Unmarshal([]byte(line), &evalResult); err != nil {
+		var tmp struct {
+			ID     int    `json:"id"`
+			TaskID int    `json:"task_id"`
+			Status string `json:"status"`
+			Error  string `json:"error"`
+		}
+		if err := json.Unmarshal([]byte(line), &tmp); err != nil {
 			log.Printf("Warning: failed to unmarshal evaluation result line: %v", err)
 			continue
 		}
-
+		evalResult := MBPPEvaluationResult{
+			ID:      tmp.ID,
+			TaskID:  tmp.TaskID,
+			Status:  tmp.Status,
+			Error:   tmp.Error,
+			Success: strings.EqualFold(tmp.Status, "pass"),
+			TestResults: func() string {
+				if tmp.Error != "" {
+					return tmp.Error
+				}
+				if strings.EqualFold(tmp.Status, "pass") {
+					return "pass"
+				}
+				return tmp.Status
+			}(),
+		}
 		results[evalResult.ID] = evalResult
 	}
 
@@ -144,7 +182,7 @@ func loadEvaluationResults(filePath string) (map[int]HumanEvalEvaluationResult, 
 }
 
 // filterCommunicationHistory filters the communication history to only include Sender, Receiver, and Content
-func filterCommunicationHistory(messages []schema.Message) []map[string]string {
+func filterCommunicationHistory(messages []MinimalMessage) []map[string]string {
 	filtered := make([]map[string]string, len(messages))
 	for i, msg := range messages {
 		filtered[i] = map[string]string{
@@ -156,8 +194,8 @@ func filterCommunicationHistory(messages []schema.Message) []map[string]string {
 	return filtered
 }
 
-func performReflection(client llm.LLM, sopContent string, historyString string, question HumanEvalQuestion, evalResult HumanEvalEvaluationResult, modelOutput string, outputPath string) error {
-	log.Printf("Performing reflection for task ID: %s", question.TaskID)
+func performReflection(client llm.LLM, sopContent string, historyString string, question MBPPQuestion, evalResult MBPPEvaluationResult, modelOutput string, outputPath string) error {
+	log.Printf("Performing reflection for id: %d, task_id: %d", question.ID, question.TaskID)
 
 	constraintInfo := map[string]interface{}{
 		"test_results": evalResult.TestResults,
@@ -169,8 +207,11 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 	}
 	constraintString := string(constraintBytes)
 
+	// ReflectionPrompt parameters order (see prompt.go):
+	// 1 user's problem, 2 standard answer, 3 system code, 4 evaluation results, 5 SOP used, 6 communication history
 	prompt := fmt.Sprintf(ReflectionPrompt,
 		question.Prompt,
+		question.Code,
 		modelOutput,
 		constraintString,
 		sopContent,
@@ -214,18 +255,26 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 		llmReflection = json.RawMessage(escapedString)
 	}
 
+	// Try new-format SOP file, then old-format []SOP
 	var sopFile SOPFile
-	if err := json.Unmarshal([]byte(sopContent), &sopFile); err != nil {
-		log.Printf("Warning: could not unmarshal original SOP content: %v", err)
-		sopFile.SOPs = []SOP{}
+	var workflowStr string
+	if err := json.Unmarshal([]byte(sopContent), &sopFile); err == nil && len(sopFile.SOPs) > 0 {
+		workflowStr = sopFile.SOPs[0].Workflow
+	} else {
+		var sops []SOP
+		if err := json.Unmarshal([]byte(sopContent), &sops); err == nil && len(sops) > 0 {
+			workflowStr = sops[0].Workflow
+		} else {
+			log.Printf("Warning: could not parse original SOP content as SOPFile or []SOP")
+		}
 	}
 
 	outputData := ReflectionOutput{
 		Question:      question.Prompt,
-		OriginalSOP:   sopFile.SOPs[0].Workflow,
+		OriginalSOP:   workflowStr,
 		HistoryString: historyString,
 		LLMReflection: llmReflection,
-		GroundTruth:   question.CanonicalSolution,
+		GroundTruth:   question.Code,
 	}
 
 	prettyJSON, err := json.MarshalIndent(outputData, "", "  ")
@@ -241,14 +290,20 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 	return nil
 }
 
-func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []byte, outputPath string) error {
+func performRevision(client llm.LLM, questionPrompt string, originalSopBytes []byte, reflectionBytes []byte, outputPath string) error {
 	log.Printf("Performing revision for SOP: %s", outputPath)
 
-	template_path := "humaneval_sop.json"
+	// Use a MBPP SOP template present in this directory (e.g., v2.json)
+	template_path := "v2.json"
 	templateBytes, _ := os.ReadFile(template_path)
 	var sopTemplate SOP
 	if err := json.Unmarshal(templateBytes, &sopTemplate); err != nil {
-		return fmt.Errorf("failed to unmarshal SOP template: %w", err)
+		// try as array
+		var sopArr []SOP
+		if err2 := json.Unmarshal(templateBytes, &sopArr); err2 != nil || len(sopArr) == 0 {
+			return fmt.Errorf("failed to unmarshal SOP template from %s: %v | %v", template_path, err, err2)
+		}
+		sopTemplate = sopArr[0]
 	}
 	templateBytes, err := json.MarshalIndent(sopTemplate, "", "  ")
 	if err != nil {
@@ -302,9 +357,75 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 	}
 
 	revisedSopJSON := gen.Messages[0].Content
+
+	// The RevisionPrompt requires a wrapper with fields: thought, content (SOP), cate
+	var wrapper struct {
+		Thought string          `json:"thought"`
+		Content json.RawMessage `json:"content"`
+		Cate    string          `json:"cate"`
+	}
+
+	// Try to parse wrapper first
 	var sopFile SOPFile
-	if err := json.Unmarshal([]byte(revisedSopJSON), &sopFile); err != nil {
-		return fmt.Errorf("failed to parse LLM response as SOPFile. Content was:\n%s", revisedSopJSON)
+	if err := json.Unmarshal([]byte(revisedSopJSON), &wrapper); err == nil && len(wrapper.Content) > 0 && string(wrapper.Content) != "null" {
+		var sop SOP
+		// content might be a single SOP or an array with one
+		if err2 := json.Unmarshal(wrapper.Content, &sop); err2 != nil {
+			var sopArr []SOP
+			if err3 := json.Unmarshal(wrapper.Content, &sopArr); err3 == nil && len(sopArr) > 0 {
+				sop = sopArr[0]
+			} else {
+				return fmt.Errorf("failed to parse SOP content from wrapper: %v | %v\ncontent: %s", err2, err3, string(wrapper.Content))
+			}
+		}
+		sopFile = SOPFile{
+			Question: questionPrompt,
+			Analysis: "",
+			SOPs:     []SOP{sop},
+		}
+	} else {
+		// fallback: try to extract `content` field generically, then parse SOP or []SOP
+		var generic map[string]json.RawMessage
+		if err2 := json.Unmarshal([]byte(revisedSopJSON), &generic); err2 == nil {
+			if c, ok := generic["content"]; ok && len(c) > 0 && string(c) != "null" {
+				var sop SOP
+				if err3 := json.Unmarshal(c, &sop); err3 != nil {
+					var sopArr []SOP
+					if err4 := json.Unmarshal(c, &sopArr); err4 == nil && len(sopArr) > 0 {
+						sop = sopArr[0]
+					} else {
+						return fmt.Errorf("failed to parse SOP from generic content: %v | %v\ncontent: %s", err3, err4, string(c))
+					}
+				}
+				sopFile = SOPFile{Question: questionPrompt, Analysis: "", SOPs: []SOP{sop}}
+			} else {
+				// no content field: try direct SOP or []SOP
+				var sop SOP
+				if err3 := json.Unmarshal([]byte(revisedSopJSON), &sop); err3 == nil && (len(sop.Team) > 0 || sop.Workflow != "" || len(sop.Details) > 0) {
+					sopFile = SOPFile{Question: questionPrompt, Analysis: "", SOPs: []SOP{sop}}
+				} else {
+					var sopArr []SOP
+					if err4 := json.Unmarshal([]byte(revisedSopJSON), &sopArr); err4 == nil && len(sopArr) > 0 {
+						sopFile = SOPFile{Question: questionPrompt, Analysis: "", SOPs: []SOP{sopArr[0]}}
+					} else {
+						return fmt.Errorf("failed to parse LLM response as SOP. wrapperErr=%v genericErr=%v sopErr=%v sopArrErr=%v. Content was:\n%s", err, err2, err3, err4, revisedSopJSON)
+					}
+				}
+			}
+		} else {
+			// as a last resort, try direct SOP or []SOP
+			var sop SOP
+			if err3 := json.Unmarshal([]byte(revisedSopJSON), &sop); err3 == nil && (len(sop.Team) > 0 || sop.Workflow != "" || len(sop.Details) > 0) {
+				sopFile = SOPFile{Question: questionPrompt, Analysis: "", SOPs: []SOP{sop}}
+			} else {
+				var sopArr []SOP
+				if err4 := json.Unmarshal([]byte(revisedSopJSON), &sopArr); err4 == nil && len(sopArr) > 0 {
+					sopFile = SOPFile{Question: questionPrompt, Analysis: "", SOPs: []SOP{sopArr[0]}}
+				} else {
+					return fmt.Errorf("failed to parse LLM response as SOP (no generic). wrapperErr=%v directSopErr=%v directArrErr=%v. Content was:\n%s", err, err3, err4, revisedSopJSON)
+				}
+			}
+		}
 	}
 
 	prettyJSON, err := json.MarshalIndent(sopFile, "", "  ")
@@ -321,11 +442,18 @@ func performRevision(client llm.LLM, originalSopBytes []byte, reflectionBytes []
 }
 
 func main() {
-	// --- CONFIGURATION ---
-	evalLogPath := "../output/humaneval_results_20250926120000.json" // Placeholder
-	datasetPath := "../../../dataset/humaneval/test.jsonl"
-	evaluationResultsPath := "../results/humaneval_eval_results.jsonl" // Placeholder
-	sopDir := "./"
+	// --- CONFIGURATION (MBPP) ---
+	// Prefer latest generated files in MBPP/output and MBPP/results
+	outputDir := filepath.Join("..", "output")
+	resultsDir := filepath.Join("..", "results")
+	// Default to latest "train_*.json" or "test_*.json" under output
+	// evalLogPath := findLatestFile(outputDir, []string{"train_*.json", "test_*.json", "valid*_*.json"})
+	datasetPath := filepath.Join("../../../../dataset/MBPP", "mbpp_train.jsonl")
+	filename := "train_rev0_20251019103218.json"
+	evalLogPath := filepath.Join(outputDir, filename)
+	evaluationResultsPath := filepath.Join(resultsDir, filename+"_results.jsonl")
+
+	// sopDir := "./gen_sop/" // current SOP directory
 	reflectionOutDir := "./reflect/"
 	revisionOutDir := "./rev_sop/"
 	// --- END CONFIGURATION ---
@@ -345,14 +473,14 @@ func main() {
 		log.Fatalf("Failed to create revision directory: %v", err)
 	}
 
-	var results []HumanEvalResultLog
+	var results []MBPPResultLog
 	if err := loadFile(evalLogPath, &results); err != nil {
 		log.Fatalf("Error loading eval log: %v", err)
 	}
 
-	questions, err := loadHumanEvalDataset(datasetPath)
+	questions, err := loadMBPPDataset(datasetPath)
 	if err != nil {
-		log.Fatalf("Error loading humaneval dataset: %v", err)
+		log.Fatalf("Error loading MBPP dataset: %v", err)
 	}
 
 	evaluationResults, err := loadEvaluationResults(evaluationResultsPath)
@@ -373,9 +501,16 @@ func main() {
 	for i, result := range results {
 		fmt.Printf("\n==================Processing result ID: %d\n", result.ID)
 
-		sopPath := filepath.Join(sopDir, "humaneval_sop.json")
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_humaneval_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_humaneval_q%d.json", result.ID))
+		if i < 20 {
+			continue
+		}
+
+		// Choose a SOP file in this directory; prefer v2.json
+		// sopPath := filepath.Join(sopDir, "v2.json")
+		// sopPath := filepath.Join("./gen_sop/", fmt.Sprintf("gen_sop_v0_q%d.json", result.ID))
+		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v0_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rev_v0_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v0.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -396,7 +531,13 @@ func main() {
 		}
 
 		if evalResult.Success {
-			log.Printf("Query ID %d was successful. Skipping reflection and revision.", result.ID)
+			log.Printf("Query ID %d was successful according to evaluation. Copying successful SOP to rev_sop folder.", result.ID)
+			successfulSopPath := revisedSopPath
+			if err := os.WriteFile(successfulSopPath, sopBytes, 0644); err != nil {
+				log.Printf("ERROR: Failed to copy successful SOP for query %d to %s: %v", result.ID, successfulSopPath, err)
+			} else {
+				log.Printf("Successfully copied SOP for query %d to %s", result.ID, successfulSopPath)
+			}
 			continue
 		}
 
@@ -417,10 +558,10 @@ func main() {
 			continue
 		}
 
-		if err := performRevision(client, sopBytes, reflectionBytes, revisedSopPath); err != nil {
+		if err := performRevision(client, question.Prompt, sopBytes, reflectionBytes, revisedSopPath); err != nil {
 			log.Printf("ERROR: Failed to perform revision for query %d: %v", i, err)
 		}
 	}
 
-	log.Println("Revision process finished for humaneval.")
+	log.Println("Revision process finished for MBPP.")
 }

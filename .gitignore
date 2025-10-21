@@ -52,3 +52,6 @@ examples/multi-agent-example/MBPP/*.py
 examples/multi-agent-example/MBPP/__pycache__/
 examples/multi-agent-example/MBPP/Analysis/embedding_qwen
 examples/multi-agent-example/MBPP/SOP/gen_sop
+examples/multi-agent-example/MBPP/SOP/rev_sop
+examples/multi-agent-example/MBPP/SOP/log
+examples/multi-agent-example/MBPP/SOP/reflect

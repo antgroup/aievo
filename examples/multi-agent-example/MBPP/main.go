@@ -468,15 +468,15 @@ func main() {
 
 	var datasetPath string
 	var mode string
-	eval := 2
+	eval := 0
 	switch eval {
 	case 0:
 		// MBPP doesn't have a standard train split here; reuse validate for development
 		mode = "train"
-		datasetPath = "../../../dataset/MBPP/mbpp_validate.jsonl"
+		datasetPath = "../../../dataset/MBPP/mbpp_train.jsonl"
 	case 1:
 		mode = "eval"
-		datasetPath = "../../../dataset/MBPP/mbpp_validate.jsonl"
+		datasetPath = "../../../dataset/MBPP/mbpp_eval.jsonl"
 	case 2:
 		mode = "test"
 		datasetPath = "../../../dataset/MBPP/mbpp_test.jsonl"
@@ -485,16 +485,16 @@ func main() {
 	var results []HumanEvalResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_t0_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_v0_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
 	start_id := 0
-	// end_id := 22 //len(questions)
+	// end_id := 1 //len(questions)
 	watcherInterval := 30
 	watcherActionInterval := 50
 	maxWatcherUses := 2 // 设置watcher最大使用次数
-	// test_id := []int{287, 288, 300, 301}
+	// test_id := []int{43,48,50,138,198,244, 282}
 
 	fmt.Printf("\n################## Starting Evaluation for MBPP ##################\n")
 	fmt.Printf("Loading dataset from: %s\n", datasetPath)
@@ -519,6 +519,9 @@ func main() {
 		if i < start_id {
 			continue
 		}
+		// if i >= end_id {
+		// 	break
+		// }
 
 		question := q.Prompt
 
@@ -548,7 +551,7 @@ func main() {
 				reflectionPath := ""
 				// Set writeToFile to true if you want to save the generated SOP.
 				writeToFile := false
-				rag := true
+				rag := false
 				if rag { // RAG模式：从检索SOP作为引导生成SOP
 					retrievedQuestionNumber, err := retrieveSOPFile(mode, i)
 					if err != nil {
@@ -577,13 +580,13 @@ func main() {
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", i)
+				sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v0_q%d.json", i)
 				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
-				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
+				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v0_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件
 				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, logFilename, writeToFile)
 				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)

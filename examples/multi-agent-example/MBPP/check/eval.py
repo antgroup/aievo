@@ -186,9 +186,9 @@ def main():
     per_problem_timeout = args.timeout
     # Infer MBPP split by filename
     if 'train' in model_output_path:
-        dataset_path = '../../../../dataset/MBPP/mbpp_validate.jsonl'
-    elif 'valid' in model_output_path or 'eval' in model_output_path:
-        dataset_path = '../../../../dataset/MBPP/mbpp_validate.jsonl'
+        dataset_path = '../../../../dataset/MBPP/mbpp_train.jsonl'
+    elif 'eval' in model_output_path:
+        dataset_path = '../../../../dataset/MBPP/mbpp_eval.jsonl'
     else:
         dataset_path = '../../../../dataset/MBPP/mbpp_test.jsonl'
     results_output_path = '../results/' + model_output_path[10:] + '_results.jsonl'

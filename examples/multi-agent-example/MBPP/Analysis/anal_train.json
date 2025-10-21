@@ -1,38 +1,182 @@
 [
   {
     "id": 0,
-    "task_id": "HumanEval/8",
-    "question": "from typing import List, Tuple\n\n\ndef sum_product(numbers: List[int]) -\u003e Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    \u003e\u003e\u003e sum_product([])\n    (0, 1)\n    \u003e\u003e\u003e sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"\n",
-    "analysis": "The user's query is a straightforward coding task requiring implementation of a function to compute sum and product of integers with specific edge cases. Given the simplicity of the problem (no complex algorithm design or multi-step validation needed), a single agent suffices. Only an AnswerAgent can directly analyze the requirements, write the code. Introducing additional agents would overcomplicate this simple workflow."
+    "task_id": 802,
+    "question": "Write a python function to count the number of rotations required to generate a sorted array.\n\ndef count_rotation(arr):   ",
+    "analysis": "The user's query requires determining the number of rotations needed to restore a sorted array from a rotated version, which involves identifying the pivot point (minimum element's index) efficiently. This problem demands algorithmic design (binary search for O(log n) solution), careful implementation to handle edge cases (e.g., non-rotated arrays, duplicates), and rigorous validation. A multi-agent system is warranted: an Algorithm Designer to outline the binary search logic, a Programming Expert to implement the solution with edge-case handling, and a Test Analyst to verify correctness across scenarios like empty arrays, single elements, and fully rotated inputs. This分工 ensures robustness and correctness through iterative refinement."
   },
   {
     "id": 1,
-    "task_id": "HumanEval/32",
-    "question": "import math\n\n\ndef poly(xs: list, x: float):\n    \"\"\"\n    Evaluates polynomial with coefficients xs at point x.\n    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n\n    \"\"\"\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n\n\ndef find_zero(xs: list):\n    \"\"\" xs are coefficients of a polynomial.\n    find_zero find x such that poly(x) = 0.\n    find_zero returns only only zero point, even if there are many.\n    Moreover, find_zero only takes list xs having even number of coefficients\n    and largest non zero coefficient as it guarantees\n    a solution.\n    \u003e\u003e\u003e round(find_zero([1, 2]), 2) # f(x) = 1 + 2x\n    -0.5\n    \u003e\u003e\u003e round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3\n    1.0\n    \"\"\"\n",
-    "analysis": "The user's query requires implementing a numerical root-finding algorithm for polynomials with guaranteed real roots (due to odd degree from even coefficient count). This involves non-trivial algorithm design (e.g., bisection with dynamic interval expansion), precise floating-point handling, and validation against mathematical edge cases. A multi-agent system is necessary: an Algorithm Designer to select/validate the numerical method, a Programming Expert to implement interval search and convergence logic, a Test Analyst to verify robustness across polynomials (including sign changes and precision), and an AnswerAgent for final solution synthesis. Single-agent approach risks missing numerical stability considerations."
+    "task_id": 127,
+    "question": "Write a function to multiply two integers.\n\ndef multiply_int(x, y):",
+    "analysis": "The user's query is a trivial coding task requiring basic arithmetic operation implementation. Multiplying two integers in Python is a one-liner using the * operator with no edge cases or complex logic involved. Given the extreme simplicity (even simpler than Example 1's sum_product), only an AnswerAgent is needed to directly output the correct implementation without requiring algorithm design, testing validation, or specialized roles."
   },
   {
     "id": 2,
-    "task_id": "HumanEval/60",
-    "question": "\n\ndef sum_to_n(n: int):\n    \"\"\"sum_to_n is a function that sums numbers from 1 to n.\n    \u003e\u003e\u003e sum_to_n(30)\n    465\n    \u003e\u003e\u003e sum_to_n(100)\n    5050\n    \u003e\u003e\u003e sum_to_n(5)\n    15\n    \u003e\u003e\u003e sum_to_n(10)\n    55\n    \u003e\u003e\u003e sum_to_n(1)\n    1\n    \"\"\"\n",
-    "analysis": "The user's query requires implementing a simple arithmetic function to sum integers from 1 to n using a well-known mathematical formula (n*(n+1)/2). Given the trivial nature of the problem (no complex logic, edge cases beyond n=1, or validation requirements beyond basic arithmetic), a single agent suffices. The AnswerAgent can directly derive the formula, implement it efficiently, and verify against provided examples without needing specialized roles for algorithm design or testing."
+    "task_id": 310,
+    "question": "Write a function to convert a given string to a tuple of characters.\n\ndef string_to_tuple(str1):",
+    "analysis": "The user's query requires converting a string into a tuple of individual characters, a task that directly leverages Python's built-in tuple() function for iterable conversion. Given the simplicity of the operation (no edge cases beyond empty strings, which tuple() handles correctly), a single AnswerAgent suffices to implement the one-liner solution without needing algorithm design or test validation roles."
   },
   {
     "id": 3,
-    "task_id": "HumanEval/92",
-    "question": "\ndef any_int(x, y, z):\n    '''\n    Create a function that takes 3 numbers.\n    Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.\n    Returns false in any other cases.\n    \n    Examples\n    any_int(5, 2, 7) ➞ True\n    \n    any_int(3, 2, 2) ➞ False\n\n    any_int(3, -2, 1) ➞ True\n    \n    any_int(3.6, -2.2, 2) ➞ False\n  \n\n    \n    '''\n",
-    "analysis": "The user's query requires implementing a function that checks integer validation and sum conditions with specific edge cases (negative numbers, non-integers). Though the logic is simple, ensuring correctness across all scenarios demands rigorous testing. A multi-agent system is appropriate: a Programming Expert to implement core logic (integer checks and sum validation), a Test Analyst to validate against provided examples and edge cases (e.g., floats, negatives), and an AnswerAgent to deliver the final verified solution. This分工 ensures robustness without overcomplicating the workflow for a moderately simple task."
+    "task_id": 85,
+    "question": "Write a function to find the surface area of a sphere.\nimport math\ndef surfacearea_sphere(r):",
+    "analysis": "The user's query requires implementing a basic mathematical formula for sphere surface area (4 * π * r²). Given the simplicity of translating this well-known formula into code with no complex edge cases or algorithmic decisions, a single agent can directly implement the solution. No additional roles like algorithm designer or test analyst are needed since the problem involves straightforward computation without iterative refinement or extensive validation scenarios."
   },
   {
     "id": 4,
-    "task_id": "HumanEval/128",
-    "question": "\ndef prod_signs(arr):\n    \"\"\"\n    You are given an array arr of integers and you need to return\n    sum of magnitudes of integers multiplied by product of all signs\n    of each number in the array, represented by 1, -1 or 0.\n    Note: return None for empty arr.\n\n    Example:\n    \u003e\u003e\u003e prod_signs([1, 2, 2, -4]) == -9\n    \u003e\u003e\u003e prod_signs([0, 1]) == 0\n    \u003e\u003e\u003e prod_signs([]) == None\n    \"\"\"\n",
-    "analysis": "The user's query involves computing a value based on the product of signs and sum of magnitudes of an integer array, with specific edge cases (empty array, zeros). The logic requires straightforward iteration, sign handling, and arithmetic operations. Given the clear problem structure and manageable edge cases (similar to Example 1's simplicity), a single AnswerAgent can implement the solution directly by checking for empty input, calculating sign products, and summing magnitudes without requiring specialized roles for algorithm design or rigorous testing."
+    "task_id": 268,
+    "question": "Write a function to find the n'th star number.\n\ndef find_star_num(n): ",
+    "analysis": "The user's query requires implementing a mathematical formula for star numbers, which follow the sequence defined by 6n(n-1) + 1. This is a straightforward calculation with no complex algorithmic design, edge cases beyond basic integer handling, or iterative validation needed. A single AnswerAgent can directly apply the known formula and deliver the correct implementation without requiring specialized roles for design, testing, or analysis."
   },
   {
     "id": 5,
-    "task_id": "HumanEval/163",
-    "question": "\ndef generate_integers(a, b):\n    \"\"\"\n    Given two positive integers a and b, return the even digits between a\n    and b, in ascending order.\n\n    For example:\n    generate_integers(2, 8) =\u003e [2, 4, 6, 8]\n    generate_integers(8, 2) =\u003e [2, 4, 6, 8]\n    generate_integers(10, 14) =\u003e []\n    \"\"\"\n",
-    "analysis": "The user's query requires implementing a function to return even single-digit numbers (2,4,6,8) within a normalized range [min(a,b), max(a,b)]. The problem is straightforward with clear examples and edge cases (like range [10,14] yielding empty list). The implementation involves a fixed list of candidates and a simple range check, making it suitable for a single AnswerAgent without additional roles for algorithm design or testing, as the logic is trivial and verifiable by the provided examples."
+    "task_id": 14,
+    "question": "Write a python function to find the volume of a triangular prism.\n\ndef find_Volume(l,b,h) : ",
+    "analysis": "The user's query requires implementing a straightforward mathematical formula for calculating the volume of a triangular prism (Volume = (base * height * length) / 2). Given the simplicity of the problem—no complex algorithm design, edge case handling beyond basic arithmetic, or validation requirements—a single agent suffices. The AnswerAgent can directly translate the formula into a Python function without needing specialized roles for testing or algorithm design, as the solution is deterministic and involves only basic arithmetic operations."
+  },
+  {
+    "id": 6,
+    "task_id": 272,
+    "question": "Write a function that takes in a list of tuples and returns a list containing the rear element of each tuple.\n\ndef rear_extract(test_list):",
+    "analysis": "The user's query requires extracting the last element from each tuple in a list, a task involving basic iteration and index access. Given the simplicity of the operation (no complex logic, edge cases like empty tuples are either undefined or trivial to handle with standard Python syntax), a single agent suffices. An AnswerAgent can directly implement the solution using a list comprehension (e.g., `[t[-1] for t in test_list]`), as the problem demands no algorithm design, validation beyond basic syntax, or iterative refinement."
+  },
+  {
+    "id": 7,
+    "task_id": 419,
+    "question": "Write a function to round every number of a given list of numbers and print the total sum multiplied by the length of the list.\n\ndef round_and_sum(list1):",
+    "analysis": "The user's query requires implementing a function that rounds each number in a list, sums the rounded values, and multiplies the result by the list's length. This involves basic list operations (rounding, summation) and arithmetic, with straightforward edge cases (e.g., empty list). Given the simplicity of the logic and absence of complex algorithmic design or nuanced validation, a single AnswerAgent can directly implement the solution without requiring specialized roles for testing or algorithm design."
+  },
+  {
+    "id": 8,
+    "task_id": 56,
+    "question": "Write a python function to check if a given number is one less than twice its reverse.\n\ndef check_answer(n):    ",
+    "analysis": "The user's query requires implementing a function to check if a number equals twice its digit-reversed value minus one. This involves straightforward string manipulation for digit reversal and a simple arithmetic comparison. Given the problem's simplicity (no complex edge cases beyond standard integer reversal and basic math), a single AnswerAgent can directly implement the logic by converting the number to a string, reversing it, and validating the condition. Additional agents are unnecessary as the solution lacks algorithmic complexity or multi-step validation requirements."
+  },
+  {
+    "id": 9,
+    "task_id": 400,
+    "question": "Write a function to extract the number of unique tuples in the given list.\n\ndef extract_freq(test_list):",
+    "analysis": "The user's query requires counting unique tuples in a list, which is a straightforward task involving set conversion to eliminate duplicates and returning the length. Given the simplicity of the problem (no complex logic, edge cases are trivially handled by Python's set), a single AnswerAgent can directly implement the solution by converting the list to a set and returning its length. No additional agents are needed as there are no algorithmic challenges or testing complexities beyond basic validation."
+  },
+  {
+    "id": 10,
+    "task_id": 131,
+    "question": "Write a python function to reverse only the vowels of a given string (where y is not a vowel).\n\ndef reverse_vowels(str1):",
+    "analysis": "The user's query requires reversing vowels in a string while preserving case and consonant positions, handling edge cases like no vowels, mixed case, and empty strings. This involves algorithm design (two-pointer technique for in-place reversal), case-sensitive vowel identification, and rigorous edge-case testing. A multi-agent system ensures robustness: a Programming Expert implements the logic, a Test Analyst validates against cases like 'aA'→'Aa' or non-vowel strings, and an AnswerAgent delivers the final solution. This分工 prevents oversight of subtle requirements like case preservation."
+  },
+  {
+    "id": 11,
+    "task_id": 740,
+    "question": "Write a function to convert the given tuple to a key-value dictionary using adjacent elements.\n\ndef tuple_to_dict(test_tup):",
+    "analysis": "The user's query requires converting a tuple into a dictionary by pairing adjacent elements as key-value pairs. This is a straightforward task involving basic tuple slicing and dictionary construction with no complex algorithmic decisions or edge cases beyond handling even-length tuples. A single AnswerAgent can directly implement the solution using Python's built-in functions (e.g., `zip` with slicing), as the problem demands minimal logic and no iterative refinement."
+  },
+  {
+    "id": 12,
+    "task_id": 67,
+    "question": "Write a function to find the number of ways to partition a set of Bell numbers.\n\ndef bell_number(n):   ",
+    "analysis": "The user's query requires implementing a function to compute Bell numbers, which count the number of set partitions for a given size n. This involves non-trivial combinatorial mathematics (e.g., Bell triangle method or recurrence relations with Stirling numbers) and dynamic programming. A multi-agent system is necessary: an Algorithm Designer to select the optimal approach (e.g., Bell triangle for O(n²) efficiency), a Programming Expert to implement edge cases (n=0 returns 1) and dynamic logic, and a Test Analyst to validate against known Bell number sequences (e.g., n=3→5, n=4→15). This ensures correctness through specialized role collaboration."
+  },
+  {
+    "id": 13,
+    "task_id": 389,
+    "question": "Write a function to find the n'th lucas number.\n\ndef find_lucas(n): ",
+    "analysis": "The user's query requires implementing a function to compute the nth Lucas number, which follows a recurrence relation similar to Fibonacci but with distinct initial values (L0=2, L1=1). This is a standard sequence problem requiring handling base cases and iterative/recursive computation. Given the straightforward nature of the recurrence and absence of complex constraints (e.g., large n optimization or edge cases beyond basic validation), a single agent can directly implement the solution using iterative logic. Introducing additional roles would be unnecessary for this well-defined, elementary problem."
+  },
+  {
+    "id": 14,
+    "task_id": 309,
+    "question": "Write a python function to find the maximum of two numbers.\n\ndef maximum(a,b):   ",
+    "analysis": "The user's query is a trivial coding task requiring a function to return the maximum of two numbers. Given the extreme simplicity (no edge cases beyond basic numeric comparison, no algorithmic complexity, and no validation requirements), a single AnswerAgent suffices. The solution can be implemented in one line using built-in max() or a ternary operator, eliminating the need for specialized roles like algorithm designer or test analyst. Introducing multiple agents would be unnecessary over-engineering for this fundamental operation."
+  },
+  {
+    "id": 15,
+    "task_id": 798,
+    "question": "Write a python function to find the sum of an array.\n\ndef _sum(arr):  ",
+    "analysis": "The user's query is a basic coding task requiring a function to compute the sum of an array elements, with the empty array case naturally handled by Python's built-in sum() returning 0. Given the simplicity (no algorithmic complexity, edge cases covered by standard functionality), a single AnswerAgent can directly implement the solution using Python's sum() without requiring specialized roles for design or testing."
+  },
+  {
+    "id": 16,
+    "task_id": 64,
+    "question": "Write a function to sort a list of tuples using the second value of each tuple.\n\ndef subject_marks(subjectmarks):",
+    "analysis": "The user's query requires implementing a function to sort a list of tuples based on the second element, which is a straightforward task involving basic Python sorting with a key function. Given the simplicity of the problem (no complex edge cases, algorithmic choices, or validation requirements beyond standard sorting behavior), a single AnswerAgent can directly implement the solution using `sorted()` with a lambda key. Introducing additional specialized agents would be unnecessary overhead for this trivial operation."
+  },
+  {
+    "id": 17,
+    "task_id": 92,
+    "question": "Write a function to check whether the given number is undulating or not.\n\ndef is_undulating(n): ",
+    "analysis": "The problem requires checking if a number has an alternating pattern of two distinct digits with at least three digits. This involves string manipulation, edge case handling (e.g., length \u003c3, non-alternating sequences, identical digits), and pattern validation. While the core logic is straightforward, ensuring robustness against all edge cases (like 121 vs 122 or 111) benefits from a multi-agent approach: a Programming Expert implements the digit-pattern checks, a Test Analyst validates against critical edge cases (short numbers, repeating digits, invalid patterns), and an AnswerAgent delivers the final verified solution. This workflow prevents oversight of subtle failure modes in the alternating sequence logic."
+  },
+  {
+    "id": 18,
+    "task_id": 234,
+    "question": "Write a function to find the volume of a cube given its side length.\n\ndef volume_cube(l):",
+    "analysis": "The user's query requires implementing a basic mathematical function to compute the volume of a cube (side length cubed). This is a trivial calculation with no edge cases beyond ensuring numerical input handling. Given the simplicity of the formula (l^3) and absence of complex validation requirements, a single AnswerAgent can directly implement the solution without needing specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 19,
+    "task_id": 248,
+    "question": "Write a function that takes in an integer n and calculates the harmonic sum of n-1.\n\ndef harmonic_sum(n):",
+    "analysis": "The user's query requires implementing a function to compute the harmonic sum up to n-1, which involves a straightforward loop summing reciprocals of integers from 1 to n-1. The problem has clear edge cases (e.g., n ≤ 1 returns 0) but no complex algorithmic design or multi-step validation. A single AnswerAgent can directly translate the mathematical definition into code, as the solution involves basic iteration and arithmetic without ambiguity or need for specialized testing roles."
+  },
+  {
+    "id": 20,
+    "task_id": 61,
+    "question": "Write a python function to count the number of substrings with the sum of digits equal to their length.\nfrom collections import defaultdict\ndef count_Substrings(s):",
+    "analysis": "The problem requires counting substrings where the sum of digits equals their length, which involves transforming the condition into a prefix sum problem (sum of (digit-1) equals zero) and efficiently counting subarrays with zero sum using a hash map. This demands algorithmic insight for optimization (O(n) solution vs. brute-force O(n^2)), correct implementation with edge-case handling (e.g., empty strings, leading zeros), and rigorous testing. A multi-agent system is necessary: an Algorithm Designer to devise the prefix-sum transformation strategy, a Programming Expert to implement the optimized logic using defaultdict, and a Test Analyst to validate against diverse cases (e.g., '112', '0', '1')."
+  },
+  {
+    "id": 21,
+    "task_id": 755,
+    "question": "Write a function to find the second smallest number in a list.\n\ndef second_smallest(numbers):",
+    "analysis": "The user's query requires implementing a function to find the second smallest number in a list, which involves handling edge cases (e.g., lists with fewer than two elements, duplicates, or all identical values) and ensuring correct logic for identifying the second smallest value. A multi-agent approach ensures robustness: an Algorithm Designer to determine the optimal approach (e.g., single-pass iteration vs. sorting with deduplication), a Programming Expert to implement the solution, a Test Analyst to validate against edge cases (like [1,1,2] or [5,5,5]), and an AnswerAgent for final delivery. This workflow prevents oversight of critical scenarios and guarantees correctness through iterative testing."
+  },
+  {
+    "id": 22,
+    "task_id": 574,
+    "question": "Write a function to find the surface area of a cylinder.\n\ndef surfacearea_cylinder(r,h):",
+    "analysis": "The user's query requires implementing a straightforward mathematical formula for calculating the surface area of a cylinder (2πr(r + h)). This involves basic arithmetic operations and knowledge of the geometric formula. Given the simplicity of the problem (no complex edge cases, algorithm design, or validation logic beyond standard formula application), a single AnswerAgent can directly translate the formula into code. Introducing additional agents would be unnecessary overhead for this trivial computation task."
+  },
+  {
+    "id": 23,
+    "task_id": 102,
+    "question": "Write a function to convert a snake case string to camel case string.\n\ndef snake_to_camel(word):",
+    "analysis": "The user's query requires converting a snake_case string to camelCase, involving string splitting, capitalization of subsequent words, and joining. This is a straightforward string manipulation task with minimal edge cases (e.g., empty strings, multiple underscores). A single AnswerAgent suffices to implement the logic directly, as the problem lacks complex algorithmic requirements or extensive validation needs that would necessitate specialized roles like Test Analyst or Algorithm Designer."
+  },
+  {
+    "id": 24,
+    "task_id": 305,
+    "question": "Write a function to return two words from a list of words starting with letter 'p'.\nimport re\ndef start_withp(words):",
+    "analysis": "The user's query requires filtering a list of words to return up to two elements starting with 'p' (case-sensitive per problem statement). This involves basic list comprehension, regex validation (as hinted by the provided import), and edge case handling (e.g., fewer than two matches). Given the simplicity of the logic—no complex algorithm design or iterative testing needed—a single AnswerAgent can directly implement the solution by filtering with `re.match('^p', word)` and slicing the result to two items."
+  },
+  {
+    "id": 25,
+    "task_id": 135,
+    "question": "Write a function to find the nth hexagonal number.\n\ndef hexagonal_num(n): ",
+    "analysis": "The user's query requires implementing a mathematical formula for hexagonal numbers (H(n) = n*(2n - 1)), which is a straightforward calculation with no complex logic or edge cases beyond basic integer input. Given the simplicity of the problem (direct formula application without algorithmic design or multi-step validation), a single AnswerAgent can implement the solution directly. Introducing additional agents would be unnecessary overhead for this trivial computation."
+  },
+  {
+    "id": 26,
+    "task_id": 573,
+    "question": "Write a python function to calculate the product of the unique numbers in a given list.\n\ndef unique_product(list_data):",
+    "analysis": "The user's query requires implementing a function to compute the product of unique elements in a list, which involves basic set operations and iterative multiplication. The problem is straightforward with clear edge cases (empty list, duplicates, zeros) but doesn't require complex algorithm design or multi-step validation. A single AnswerAgent can directly handle requirements analysis, code implementation, and edge case verification without needing specialized roles."
+  },
+  {
+    "id": 27,
+    "task_id": 145,
+    "question": "Write a python function to find the maximum difference between any two elements in a given array.\n\ndef max_Abs_Diff(arr): ",
+    "analysis": "The user's query is a straightforward coding task requiring computation of the maximum difference between any two elements in an array, which simplifies to max(arr) - min(arr). Given the simplicity of the problem (no complex algorithm design or multi-step validation needed), a single agent suffices. Only an AnswerAgent can directly analyze the requirements, write the code, and handle the implied constraint of at least two elements without requiring additional edge case specifications."
+  },
+  {
+    "id": 28,
+    "task_id": 769,
+    "question": "Write a python function to get the difference between two lists.\n\ndef Diff(li1,li2):",
+    "analysis": "The user's query requires implementing a function to compute the difference between two lists, a common task typically interpreted as elements in the first list not present in the second. This involves straightforward logic (e.g., list comprehension with set conversion for efficiency) and minimal edge cases (e.g., handling duplicates). Given the simplicity and well-defined nature of the problem—no complex algorithm design, numerical methods, or ambiguous requirements—a single AnswerAgent can directly implement the solution without needing specialized roles for testing or algorithm design."
+  },
+  {
+    "id": 29,
+    "task_id": 88,
+    "question": "Write a function to get the frequency of all the elements in a list, returned as a dictionary.\nimport collections\ndef freq_count(list1):",
+    "analysis": "The user's query requires implementing a function to count element frequencies in a list and return a dictionary. This is a straightforward task solvable with Python's built-in `collections.Counter`, which directly converts to a dictionary. The problem involves no complex algorithm design, edge cases (empty list is handled natively by Counter), or multi-step validation. A single AnswerAgent can implement the solution efficiently by leveraging standard library functionality without requiring specialized roles for algorithm design or testing."
   }
 ]

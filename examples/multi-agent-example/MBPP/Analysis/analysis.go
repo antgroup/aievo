@@ -16,33 +16,34 @@ import (
 	"github.com/antgroup/aievo/schema"
 )
 
-// HumanEvalQuestion represents a single question from the HumanEval dataset
-type HumanEvalQuestion struct {
-	TaskID            string `json:"task_id"`
-	Prompt            string `json:"prompt"`
-	CanonicalSolution string `json:"canonical_solution"`
-	Test              string `json:"test"`
-	EntryPoint        string `json:"entry_point"`
+type MBPPQuestion struct {
+	TaskID      int      `json:"task_id"`
+	Prompt      string   `json:"prompt"`
+	Code        string   `json:"code"`
+	TestImports []string `json:"test_imports"`
+	TestList    []string `json:"test_list"`
+	EntryPoint  string   `json:"entry_point"`
+	Test        string   `json:"test"`
 }
 type ResultLog struct {
 	ID       int    `json:"id"`
-	TaskID   string `json:"task_id"`
+	TaskID   int `json:"task_id"`
 	Question string `json:"question"`
 	Analysis string `json:"analysis"`
 }
 
-// loadHumanEvalDataset loads the HumanEval dataset from a JSONL file
-func loadHumanEvalDataset(filePath string) ([]HumanEvalQuestion, error) {
+// loadMBPPDataset loads the MBPP dataset from a JSONL file
+func loadMBPPDataset(filePath string) ([]MBPPQuestion, error) {
 	f, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
 
-	var questions []HumanEvalQuestion
+	var questions []MBPPQuestion
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		var q HumanEvalQuestion
+		var q MBPPQuestion
 		if err := json.Unmarshal(scanner.Bytes(), &q); err != nil {
 			// Skip malformed lines but continue processing others
 			log.Printf("skip malformed jsonl line: %v", err)
@@ -80,19 +81,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	modes := []string{"train", "valid"}
+	modes := []string{"train", "eval", "test"}
 	for _, mode := range modes {
-		rel := filepath.Join("dataset", "humaneval", fmt.Sprintf("%s.jsonl", mode))
+		rel := filepath.Join("dataset", "MBPP", fmt.Sprintf("mbpp_%s.jsonl", mode))
 		datasetPath, err := tryResolveDataset(rel)
 		if err != nil {
-			log.Printf("Failed to locate HumanEval %s dataset: %v", mode, err)
+			log.Printf("Failed to locate MBPP %s dataset: %v", mode, err)
 			continue
 		}
-		fmt.Printf("Loading HumanEval %s dataset from: %s\n", mode, datasetPath)
+		fmt.Printf("Loading MBPP %s dataset from: %s\n", mode, datasetPath)
 
-		questions, err := loadHumanEvalDataset(datasetPath)
+		questions, err := loadMBPPDataset(datasetPath)
 		if err != nil {
-			log.Printf("Failed to load HumanEval dataset for %s, skipping: %v", mode, err)
+			log.Printf("Failed to load MBPP dataset for %s, skipping: %v", mode, err)
 			continue
 		}
 
@@ -108,7 +109,7 @@ func main() {
 
 			baseAgent, err := agent.NewBaseAgent(
 				agent.WithName("AnalysisAgent"),
-				agent.WithDesc("An agent that analyzes a HumanEval prompt, estimates difficulty, and proposes roles."),
+				agent.WithDesc("An agent that analyzes a MBPP prompt, estimates difficulty, and proposes roles."),
 				agent.WithPrompt(prompt),
 				agent.WithLLM(client),
 				agent.WithInstruction(""),
@@ -125,7 +126,7 @@ func main() {
 				},
 			}, llm.WithTemperature(0.6), llm.WithTopP(0.95))
 			if err != nil {
-				log.Printf("Error running agent for task %s: %v", q.TaskID, err)
+				log.Printf("Error running agent for task %d: %v", q.TaskID, err)
 				continue
 			}
 
