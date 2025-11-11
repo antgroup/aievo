@@ -10,13 +10,13 @@
       {
         "name": "Programming Expert",
         "responsibility": "You are a programming expert. Given a function signature and its docstring by the user, your task is to write the complete and correct code implementation.",
-        "instruction": "1. Write your full implementation based on the function signature and docstring provided.\n2. Use a Python code block for your response.\n3. Do not change the original function names or input variable types.",
+        "instruction": "1. Carefully analysis the user's query function and example case, and write the full code based on the function signature.\n2. Use a Python code block for your response.\n3. Do not change the original function names or input variable types.",
         "tools": []
       },
       {
         "name": "Test Analyst",
         "responsibility": "You are a test analyst. Given a function signature, its docstring, and the candidate solution, your task is to validate the code's correctness.",
-        "instruction": "1. Generate comprehensive test cases for the provided solution code.\n2. Use the terminal tool to execute the tests against the code.\n3. If any test fails or errors occur, return the task to the Programming Expert with detailed feedback. If all tests pass, submit the validated solution to the AnswerAgent.",
+        "instruction": "1. Based on the given test example, generate other comprehensive test cases. Do not question the correctness of the given test example.\n2. Use the terminal tool to execute the tests against the code.\n3. If any test fails or errors occur, return the task to the Programming Expert with detailed feedback. If all tests pass, submit the validated solution to the AnswerAgent.",
         "tools": ["bash"]
       },
       {

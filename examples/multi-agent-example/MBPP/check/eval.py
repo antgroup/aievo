@@ -166,7 +166,7 @@ def main():
     """
     Main function to run the evaluation.
     """
-    parser = argparse.ArgumentParser(description="Evaluate MBPP model outputs (model code + test_imports + test_list).")
+    parser = argparse.ArgumentParser(description="Evaluate MBPP model outputs (model code + test_imports + test_list). Support train/eval/test (jsonl) and pro (json).")
     parser.add_argument(
         '--model_output_path',
         type=str,
@@ -184,12 +184,18 @@ def main():
     # --- Configuration ---
     model_output_path = args.model_output_path
     per_problem_timeout = args.timeout
-    # Infer MBPP split by filename
+    # Infer MBPP split by filename (supports 'pro')
     if 'train' in model_output_path:
+        mode = 'train'
         dataset_path = '../../../../dataset/MBPP/mbpp_train.jsonl'
     elif 'eval' in model_output_path:
+        mode = 'eval'
         dataset_path = '../../../../dataset/MBPP/mbpp_eval.jsonl'
+    elif 'pro' in model_output_path:
+        mode = 'pro'
+        dataset_path = '../../../../dataset/MBPP/mbpp_pro.json'
     else:
+        mode = 'test'
         dataset_path = '../../../../dataset/MBPP/mbpp_test.jsonl'
     results_output_path = '../results/' + model_output_path[10:] + '_results.jsonl'
     # --- End Configuration ---
@@ -199,7 +205,11 @@ def main():
         sys.exit(1)
 
     model_outputs = read_json(model_output_path)
-    dataset = read_jsonl(dataset_path)
+    # Load dataset depending on mode/format
+    if mode == 'pro':
+        dataset = read_json(dataset_path)
+    else:
+        dataset = read_jsonl(dataset_path)
     n_true = 0
     n_total = 0
 
@@ -215,15 +225,26 @@ def main():
             # print(f"\n=============Evaluating Problem {i}...")
             n_total += 1
             problem = dataset[i]
-            
-            task_id = problem.get("task_id")
-            generated_code = model_result.get("model_output")
-            test_imports = problem.get("test_imports", [])
-            test_list = problem.get("test_list", [])
 
-            if not all([task_id is not None, generated_code is not None]):
-                print(f"Skipping problem {i} due to missing data.")
+            generated_code = model_result.get("model_output")
+            if generated_code is None:
+                print(f"Skipping problem {i} due to missing generated_code.")
                 continue
+
+            if mode == 'pro':
+                # pro dataset: {"new_problem": str, "test_code": str}
+                task_id = None
+                test_imports = []
+                test_code = problem.get("test_code", "") or ""
+                # Split test_code by lines into list; keep non-empty lines only
+                test_list = [ln for ln in (test_code.split("\n") if isinstance(test_code, str) else []) if ln.strip()]
+            else:
+                task_id = problem.get("task_id")
+                test_imports = problem.get("test_imports", [])
+                test_list = problem.get("test_list", [])
+                if task_id is None:
+                    print(f"Skipping problem {i} due to missing task_id.")
+                    continue
 
             result = check_correctness(generated_code, test_imports, test_list, timeout=per_problem_timeout)
             
@@ -233,10 +254,11 @@ def main():
             # Write the result to the output file
             eval_log = {
                 "id": i,
-                "task_id": task_id,
                 "status": result['status'],
                 "error": result.get("error", None)
             }
+            if task_id is not None:
+                eval_log["task_id"] = task_id
             f_out.write(json.dumps(eval_log) + '\n')
 
         f_out.write(f'\nTotal Problems Evaluated: {n_total}, {n_true} Passed. Success Rate: {n_true / n_total:.3%}\n')

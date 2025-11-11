@@ -294,7 +294,8 @@ func generateSOP(client llm.LLM, userQuestion, sopTemplatePath, newSopOutputPath
 		// prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
 
 		// 2.1.2 RAG + templete
-		template_path := "SOP/v2.json"
+		// template_path := "SOP/v2.json"
+		template_path := sopTemplatePath
 		templateBytes, err := os.ReadFile(template_path)
 		if err != nil {
 			prompt = fmt.Sprintf(SOPGeneratorPrompt_rag, exampleQuestion, exampleAnalysis, exampleSOPString, userQuestion)
@@ -414,7 +415,9 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 	var retrievalPath string
 	switch mode {
 	case "eval":
-		retrievalPath = "Analysis/retri_results_valid_qwen.json"
+		retrievalPath = "Analysis/retri_results_eval_qwen.json"
+	case "test":
+		retrievalPath = "Analysis/retri_results_test_qwen.json"
 	}
 
 	retrievalFile, err := os.ReadFile(retrievalPath)
@@ -437,12 +440,12 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 
 	for _, entry := range retrievalData {
 		if entry.ID == questionID {
-			//if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
-			//	return entry.RetrievalResults.WeightedSimilarity[0], nil
-			//}
-			if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
-				return entry.RetrievalResults.AnalysisSimilarity[0], nil
+			if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
+				return entry.RetrievalResults.WeightedSimilarity[0], nil
 			}
+			// if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
+			// return entry.RetrievalResults.AnalysisSimilarity[0], nil
+			// }
 			return 0, fmt.Errorf("found entry for question ID %d, but weighted_similarity is empty", questionID)
 		}
 	}
@@ -468,7 +471,7 @@ func main() {
 
 	var datasetPath string
 	var mode string
-	eval := 0
+	eval := 3
 	switch eval {
 	case 0:
 		// MBPP doesn't have a standard train split here; reuse validate for development
@@ -480,21 +483,24 @@ func main() {
 	case 2:
 		mode = "test"
 		datasetPath = "../../../dataset/MBPP/mbpp_test.jsonl"
+	case 3:
+		mode = "pro"
+		datasetPath = "../../../dataset/MBPP/mbpp_pro.jsonl"
 	}
 
 	var results []HumanEvalResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_v0_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_qt_v2_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
-	start_id := 0
+	start_id := 325
 	// end_id := 1 //len(questions)
 	watcherInterval := 30
 	watcherActionInterval := 50
 	maxWatcherUses := 2 // 设置watcher最大使用次数
-	// test_id := []int{43,48,50,138,198,244, 282}
+	// test_id := []int{6, 7, 14, 19, 24}
 
 	fmt.Printf("\n################## Starting Evaluation for MBPP ##################\n")
 	fmt.Printf("Loading dataset from: %s\n", datasetPath)
@@ -524,6 +530,7 @@ func main() {
 		// }
 
 		question := q.Prompt
+		question += "\nExample:" + q.TestList[0] + "\n"
 
 		fromsop := true
 		var evo *aievo.AIEvo
@@ -540,7 +547,7 @@ func main() {
 		}
 
 		if fromsop {
-			sopPath := "SOP/v0.json"
+			sopPath := "SOP/v2.json"
 			if eval == 0 {
 				generateNewSOP = false //
 			} else {
@@ -557,11 +564,11 @@ func main() {
 					if err != nil {
 						log.Printf("WARNING: RAG mode failed to retrieve SOP file: %v. Falling back to default SOP.", err)
 					} else {
-						// retrievedSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", retrievedQuestionNumber)
-						retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", retrievedQuestionNumber)
+						retrievedSopPath := fmt.Sprintf("SOP/rev_sop/rev_sop_v1.1_q%d.json", retrievedQuestionNumber)
+						// retrievedSopPath := fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", retrievedQuestionNumber)
 						log.Printf("RAG mode: refer to retrieved SOP: %s", retrievedSopPath)
 						sopPath = retrievedSopPath
-						// reflectionPath = fmt.Sprintf("SOP/reflect/ref_rep_v3_q%d.json", retrievedQuestionNumber)
+						reflectionPath = fmt.Sprintf("SOP/reflect/ref_sop_v0_q%d.json", retrievedQuestionNumber)
 					}
 				} // 依据通用模板 / rag 生成SOP
 				generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, logFilename, writeToFile)
@@ -580,13 +587,13 @@ func main() {
 					}
 				}
 			} else { // 训练集：不生成SOP，直接使用已有的SOP
-				sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v0_q%d.json", i)
+				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_sop_v1.1_q%d.json", i)
 				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
 				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
-				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v0_q%d.json", i)
+				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v1_q%d.json", i)
 				// writeToFile := true // 训练集：生成SOP并写入文件
 				// generatedSOP, err := generateSOP(client, question, sopPath, newSopPath, logFilename, writeToFile)
 				// // generatedSOP, err := generateSOP_train(client, question, q.AnnotatedPlan, sopPath, newSopPath, writeToFile)
@@ -620,7 +627,7 @@ func main() {
 			logFile, logErr := os.OpenFile(ErrorlogFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if logErr == nil {
 				defer logFile.Close()
-				logEntry := fmt.Sprintf("-----ID: %d  Task ID:%v\n---Query:%s\n---Error: %v\n\n", i, q.TaskID, q.Prompt, err)
+				logEntry := fmt.Sprintf("-----ID: %d\n---Query:%s\n---Error: %v\n\n", i, question, err)
 				logFile.WriteString(logEntry)
 			}
 			gen = "NULL"
@@ -637,7 +644,7 @@ func main() {
 
 		results = append(results, HumanEvalResultLog{
 			ID:                   i,
-			Query:                q.Prompt,
+			Query:                question,
 			ModelOutput:          modelOutputContent,
 			CommunicationHistory: communicationHistory,
 			TotalCount:           totalCount,

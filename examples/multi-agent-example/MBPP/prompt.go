@@ -19,6 +19,12 @@ You must be vigilant based on the following critical error conditions:
 ** Important Note of Normal Situations:**
 - You are supervising a task in progress, so some actions or communications may not have been completed yet.
 
+{{if .refcase}}
+## Relevant Case for Reference:
+Here you have access to a historical reference case that contains the user's question, the corresponding workflow for that problem, and reflective insights from different agents'experiences (optional). You can reference these relevant experiences to provide better guidance for agent improvement.
+In addition, a standard plan (the ground truth) for that case is provided as a reference. As can be seen, such a plan perfectly meets all the constraints. And the entire system is required to submit a similar plan.
+{{.refcase}}{{end}}
+
 ## Current User's Query:
 {{.question}}
 
@@ -88,6 +94,7 @@ Here is a template for you to reference:
 
 You can formulate SOP based on the complexity of user queries. 
 For instance, for simple programming questions, only an Answer Agent may suffice. For more complex issues, it might be necessary to introduce new roles, such as algorithm designer or test analyst, and you can handle these flexibly.
+Note that the user's query might not be entirely clear; in such cases, it's necessary to refer to the provided examples to infer the actual intent.
 Now, analyze the following user's query to design the system.
 
 User's query: "%s"
@@ -115,6 +122,7 @@ You must follow the structure of the provided template exactly. The main compone
 
 You can formulate SOP based on the complexity of user queries. 
 For instance, for simple programming questions, only an Answer Agent may suffice. For more complex issues, it might be necessary to introduce new roles, such as algorithm designer or test analyst, and you can handle these flexibly.
+Note that the user's query might not be entirely clear; in such cases, it's necessary to refer to the provided examples to infer the actual intent.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~
@@ -145,7 +153,7 @@ You must follow the structure of the provided template exactly. The main compone
 - "workflow": A description of the workflow, showing how agents interact with each other.
 - "details": A list of objects, where each object defines an agent with:
   - "name": The agent's name (must match a name in the "team" list).
-  - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
+  - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……".
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction. 
   - "tools": A list of tools that the agents can use to perform its tasks. Available tools are: ["bash"].
 
@@ -156,6 +164,8 @@ Here is a template for you to reference:
 
 You can formulate SOP based on the complexity of user queries. 
 For instance, for simple programming questions, only an Answer Agent may suffice. For more complex issues, it might be necessary to introduce new roles, such as algorithm designer or test analyst, and you can handle these flexibly.
+** Important Note:**
+The user's query might not be entirely clear; in such cases, it's necessary to refer to the provided example to infer the actual intent.
 
 Your entire response MUST be in a single JSON object with the following format. Do not add any text outside of this JSON structure:
 ~~~

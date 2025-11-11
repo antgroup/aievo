@@ -81,7 +81,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	modes := []string{"train", "eval", "test"}
+	// modes := []string{"train", "eval", "test"}
+	modes := []string{"pro"}
 	for _, mode := range modes {
 		rel := filepath.Join("dataset", "MBPP", fmt.Sprintf("mbpp_%s.jsonl", mode))
 		datasetPath, err := tryResolveDataset(rel)

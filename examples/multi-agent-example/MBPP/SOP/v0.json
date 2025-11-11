@@ -4,12 +4,12 @@
         "CoderAgent",
         "AnswerAgent"
     ],
-    "workflow": "1. User -> CoderAgent; 2. CoderAgent -> AnswerAgent; 3. AnswerAgent -> End;",
+    "workflow": "1. User -> CoderAgent; 2. CoderAgent -> AnswerAgent; 3. AnswerAgent -> End.\n**Description:** First, the CoderAgent analyzes the task and writes the Python code. Then, the AnswerAgent reviews the code and presents it as the final answer to the user.",
     "details": [
         {
             "name": "CoderAgent",
             "responsibility": "You are a Python programming assistant. Your task is to carefully analyze the user's coding needs, and write the Python code.",
-            "instruction": "Analyze the user's request and write the python code to solve the problem.",
+            "instruction": "Analyze the user's request and example carefully, and write the python code to solve the problem.",
             "tools": [
             ]
         },

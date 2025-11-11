@@ -270,7 +270,7 @@ func performReflection(client llm.LLM, sopContent string, historyString string, 
 	}
 
 	outputData := ReflectionOutput{
-		Question:      question.Prompt,
+		Question:      question.Prompt + "\nExample: " + question.TestList[0],
 		OriginalSOP:   workflowStr,
 		HistoryString: historyString,
 		LLMReflection: llmReflection,
@@ -294,7 +294,7 @@ func performRevision(client llm.LLM, questionPrompt string, originalSopBytes []b
 	log.Printf("Performing revision for SOP: %s", outputPath)
 
 	// Use a MBPP SOP template present in this directory (e.g., v2.json)
-	template_path := "v2.json"
+	template_path := "v0.json"
 	templateBytes, _ := os.ReadFile(template_path)
 	var sopTemplate SOP
 	if err := json.Unmarshal(templateBytes, &sopTemplate); err != nil {
@@ -323,9 +323,18 @@ func performRevision(client llm.LLM, questionPrompt string, originalSopBytes []b
 
 	originalSopContent := string(originalSopBytes)
 
+	// Build section **1. User's Query and Original SOP:**
+	userAndSOP := fmt.Sprintf("Question:\n%s\nOriginal SOP:\n%s", questionPrompt, originalSopContent)
+
+	// Build section **3. Standard Answer for the User's Query:** from reflection (ground truth)
+	standardAnswer := reflectionInput.GroundTruth
+	if strings.TrimSpace(standardAnswer) == "" {
+		standardAnswer = "" // keep empty but present
+	}
+
 	prompt := fmt.Sprintf(RevisionPrompt,
 		templateString,
-		originalSopContent,
+		userAndSOP,
 		reflectionContent,
 	)
 
@@ -449,7 +458,7 @@ func main() {
 	// Default to latest "train_*.json" or "test_*.json" under output
 	// evalLogPath := findLatestFile(outputDir, []string{"train_*.json", "test_*.json", "valid*_*.json"})
 	datasetPath := filepath.Join("../../../../dataset/MBPP", "mbpp_train.jsonl")
-	filename := "train_rev0_20251019103218.json"
+	filename := "train_qt_v1_20251031172559.json"
 	evalLogPath := filepath.Join(outputDir, filename)
 	evaluationResultsPath := filepath.Join(resultsDir, filename+"_results.jsonl")
 
@@ -501,16 +510,16 @@ func main() {
 	for i, result := range results {
 		fmt.Printf("\n==================Processing result ID: %d\n", result.ID)
 
-		if i < 20 {
-			continue
-		}
+		// if i < 20 {
+		// 	continue
+		// }
 
 		// Choose a SOP file in this directory; prefer v2.json
 		// sopPath := filepath.Join(sopDir, "v2.json")
-		// sopPath := filepath.Join("./gen_sop/", fmt.Sprintf("gen_sop_v0_q%d.json", result.ID))
-		sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v0_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_rev_v0_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v0.1_q%d.json", result.ID))
+		sopPath := filepath.Join("./gen_sop/", fmt.Sprintf("gen_sop_v1_q%d.json", result.ID))
+		// sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_sop_v1_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {
@@ -558,7 +567,8 @@ func main() {
 			continue
 		}
 
-		if err := performRevision(client, question.Prompt, sopBytes, reflectionBytes, revisedSopPath); err != nil {
+		questionPrompt := question.Prompt + "\nExample: " + question.TestList[0]
+		if err := performRevision(client, questionPrompt, sopBytes, reflectionBytes, revisedSopPath); err != nil {
 			log.Printf("ERROR: Failed to perform revision for query %d: %v", i, err)
 		}
 	}

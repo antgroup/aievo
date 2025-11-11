@@ -27,6 +27,10 @@ Pay special attention to:
 **6. The full communication history of the agent team during the attempt:**
 %s
 
+## Importan Note:
+1. Do not directly reveal the correct answer. Instead, you need to elevate the overall collaboration process by guiding the agent through instructions to complete the answer better.
+2. You need to make the agent understand that the example provided by the user is extremely important, and its correctness should not be questioned.
+
 ## Ouput Requirements
 Your output must follow the JSON format below. Do not add any text outside the JSON structure.
 **Output Format (JSON):**
@@ -115,9 +119,9 @@ The main components of the SOP are:
   - "name": The agent's name (must match a name in the "team" list).
   - "responsibility": A concise description of the agent's main role and purpose. Must start with "You are ……"."
   - "instruction": A detailed guide and important notes on how the agent should perform its task. DO NOT specify the output format for agent. DO NOT include any example in the instruction.
-  - "tools": A list of tools that the agents can use. The only available tool is "bash".
+  - "tools": A list of tools that the agents can use. The only available tool is ["bash"].
 
-Here is a template for you to reference:
+Here is a template for you to reference the format of the SOP:
 --- TEMPLATE START ---
 %s
 --- TEMPLATE END ---
@@ -147,3 +151,7 @@ Your entire response MUST be in a single JSON object with the following format. 
 ~~~
 `
 )
+
+
+// **3. Standard Answer for the User's Query:**
+// %s

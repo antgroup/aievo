@@ -685,7 +685,7 @@ func (ba *BaseAgent) ReflectionPath() string {
 func (ba *BaseAgent) parseReflectionFile(reflectionPath string) string {
 	reflectionContent, err := os.ReadFile(reflectionPath)
 	if err != nil {
-		fmt.Printf("Error reading reflection file %s: %v\n", reflectionPath, err)
+		// fmt.Printf("Error reading reflection file %s: %v\n", reflectionPath, err)
 		return ""
 	}
 
