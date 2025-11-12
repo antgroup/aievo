@@ -5,6 +5,9 @@ import torch
 from sentence_transformers import SentenceTransformer, util
 from FlagEmbedding import BGEM3FlagModel
 
+# Define a global device variable
+device = "cuda:7"
+
 
 def create_query_embeddings(model_name='qwen'):
     """
@@ -18,14 +21,15 @@ def create_query_embeddings(model_name='qwen'):
 
     # Load the sentence transformer model
     if model_name == 'qwen':
-        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
+        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device=device)
     elif model_name == 'bge':
-        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device=device)
     else:
         raise ValueError("Unsupported model_name. Choose 'qwen' or 'bge'.")
 
     # List of files to process (queries come from validation set)
-    files_to_process = ["anal_valid.json"]
+    # files_to_process = ["anal_valid.json"]
+    files_to_process = ["anal_pro.json"]
 
     for filename in files_to_process:
         print(f"Processing {filename} with {model_name} model...")
@@ -81,9 +85,9 @@ def create_repo_embeddings(model_name='qwen'):
 
     # Load the sentence transformer model
     if model_name == 'qwen':
-        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:2")
+        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device=device)
     elif model_name == 'bge':
-        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device=device)
     else:
         raise ValueError("Unsupported model_name. Choose 'qwen' or 'bge'.")
 
@@ -158,13 +162,15 @@ def retrieve_and_rank(model_name='qwen'):
 
     # Load model for bge similarity calculation
     if model_name == 'bge':
-        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device=device)
 
+    # mode = "valid"
+    mode = "pro"
     # Load query embeddings and query data from anal_valid.json
     try:
-        query_qs_emb = np.load(os.path.join(embedding_dir, "valid_qs_emb.npy"), allow_pickle=True)
-        query_as_emb = np.load(os.path.join(embedding_dir, "valid_as_emb.npy"), allow_pickle=True)
-        with open("anal_valid.json", 'r') as f:
+        query_qs_emb = np.load(os.path.join(embedding_dir, f"{mode}_qs_emb.npy"), allow_pickle=True)
+        query_as_emb = np.load(os.path.join(embedding_dir, f"{mode}_as_emb.npy"), allow_pickle=True)
+        with open(f"anal_{mode}.json", 'r') as f:
             queries_data = json.load(f)
     except FileNotFoundError:
         print(f"Error: Embeddings or data file for valid set not found. Please run 'create_query_embeddings(model_name=\"{model_name}\")' first.")
@@ -221,7 +227,7 @@ def retrieve_and_rank(model_name='qwen'):
         })
 
     # Save results for the valid set to a JSON file
-    output_filename = f"retri_results_valid_{model_name}.json"
+    output_filename = f"retri_results_{mode}_{model_name}.json"
     with open(output_filename, 'w') as f:
         json.dump(results, f, indent=4)
 
@@ -234,5 +240,5 @@ if __name__ == "__main__":
     model_to_use = 'qwen' 
 
     create_query_embeddings(model_name=model_to_use)
-    create_repo_embeddings(model_name=model_to_use)
+    # create_repo_embeddings(model_name=model_to_use)
     retrieve_and_rank(model_name=model_to_use)

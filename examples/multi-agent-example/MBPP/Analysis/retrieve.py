@@ -5,6 +5,9 @@ import torch
 from sentence_transformers import SentenceTransformer, util
 from FlagEmbedding import BGEM3FlagModel
 
+# Define a global device variable
+device = "cuda:6"
+
 
 def create_query_embeddings(model_name='qwen'):
     """
@@ -18,14 +21,15 @@ def create_query_embeddings(model_name='qwen'):
 
     # Load the sentence transformer model
     if model_name == 'qwen':
-        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:4")
+        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device=device)
     elif model_name == 'bge':
-        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device=device)
     else:
         raise ValueError("Unsupported model_name. Choose 'qwen' or 'bge'.")
 
     # List of files to process (queries come from validation set)
-    files_to_process = ["anal_eval.json", "anal_test.json"]
+    # files_to_process = ["anal_eval.json", "anal_test.json"]
+    files_to_process = ["anal_pro.json"]
 
     for filename in files_to_process:
         print(f"Processing {filename} with {model_name} model...")
@@ -81,9 +85,9 @@ def create_repo_embeddings(model_name='qwen'):
 
     # Load the sentence transformer model
     if model_name == 'qwen':
-        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device="cuda:4")
+        model = SentenceTransformer("/home/liuguangyi/Qwen3-Embedding-8B", device=device)
     elif model_name == 'bge':
-        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device=device)
     else:
         raise ValueError("Unsupported model_name. Choose 'qwen' or 'bge'.")
 
@@ -158,9 +162,10 @@ def retrieve_and_rank(model_name='qwen'):
 
     # Load model for bge similarity calculation
     if model_name == 'bge':
-        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device="cuda:2")
+        model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True, device=device)
 
-    for mode in ['eval', 'test']:
+    # for mode in ['eval', 'test']:
+    for mode in ['pro']:
         # Load query embeddings and query data from anal_valid.json
         try:
             query_qs_emb = np.load(os.path.join(embedding_dir, f"{mode}_qs_emb.npy"), allow_pickle=True)
@@ -235,5 +240,5 @@ if __name__ == "__main__":
     model_to_use = 'qwen' 
 
     create_query_embeddings(model_name=model_to_use)
-    create_repo_embeddings(model_name=model_to_use)
+    # create_repo_embeddings(model_name=model_to_use)
     retrieve_and_rank(model_name=model_to_use)

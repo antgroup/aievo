@@ -1,0 +1,3446 @@
+[
+    {
+        "id": 0,
+        "query_question": "Given a list of lists of floats, determine if there exists any list where at least two numbers are closer to each other than a given threshold. If such a list exists, return the indices of the lists where this condition is met. If no such list exists, return an empty list.\ndef find_close_elements_lists(list_of_lists: List[List[float]], threshold: float) -> List[int]:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                1,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                1
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "query_question": "Given a string containing multiple groups of nested parentheses, your goal is to count the number of balanced groups and return the total count. Each group is balanced (each open brace is properly closed) and not nested within each other. Ignore any spaces in the input string.\n\ndef count_balanced_paren_groups(paren_string: str) -> int:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                0
+            ],
+            "analysis_similarity": [
+                1,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                3,
+                1,
+                0
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "query_question": "Given a list of positive floating point numbers, decompose each number into its integer part and decimal part. Then, calculate the sum of all the integer parts and the sum of all the decimal parts separately. Finally, return the product of these two sums.\nimport math\ndef sum_of_parts(numbers: list) -> float:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "query_question": "You are given a list of transactions where each transaction is a list of deposit and withdrawal operations on multiple bank accounts. Each sublist represents the operations for a single account, and the accounts are processed in the order they appear in the main list. Your task is to determine if any account falls below zero at any point during its operations. If any account falls below zero, the function should return True. Otherwise, it should return False.\nfrom typing import List\n\ndef below_zero(operations: List[int]) -> bool:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                4,
+                1
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                4,
+                0
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "query_question": "Given a list of lists of numbers, calculate the Mean Absolute Deviation (MAD) for each sublist and then find the overall Mean Absolute Deviation of these MADs. The overall MAD should be calculated around the mean of the MADs of the sublists.\ndef overall_mean_absolute_deviation(list_of_lists: List[List[float]]) -> float:",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                4,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "query_question": "Given a list of integers, intersperse a specified delimiter between every two consecutive elements of the list. Then, repeat this process with a different delimiter for the resulting list. Finally, return the list after both interspersing operations.\nfrom typing import List\n\n\ndef intersperse(numbers: List[int], delimeter: int) -> List[int]:",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "query_question": "Given a list of strings, each representing multiple groups of nested parentheses separated by spaces, return the sum of the deepest levels of nesting for each group in each string. For example, if a string contains '(()()) ((())) () ((())()())', the sum of the deepest levels of nesting is 2 + 3 + 1 + 3 = 9.\ndef sum_deepest_nesting(strings: List[str]) -> List[int]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "query_question": "Given a list of strings and a list of substrings, return a set of strings that contain at least one of the given substrings. If a string contains multiple substrings, it should only appear once in the result.\nfrom typing import List\ndef filter_by_multiple_substrings(strings: List[str], substrings: List[str]) -> List[str]:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "query_question": "Given a list of lists of integers, return a list of tuples where each tuple consists of the sum and product of the integers in the corresponding sublist. Additionally, calculate the total sum and total product of all integers across all sublists.\nfrom typing import List, Tuple\n\n\ndef sum_product_of_lists(lists: List[List[int]]) -> Tuple[List[Tuple[int, int]], int, int]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "query_question": "Given a list of lists of integers, generate a list of lists where each sublist contains the rolling maximum elements for the corresponding sublist in the input. Additionally, find the maximum element across all sublists at each rolling position and return this as a single list.\nfrom typing import List\n\n\ndef rolling_max_across_lists(list_of_lists: List[List[int]]) -> Tuple[List[List[int]], List[int]]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 10,
+        "query_question": "Given a list of strings, find the shortest palindrome for each string and then concatenate all the resulting palindromes into a single string. If the list is empty, return an empty string.\ndef concatenate_palindromes(strings: list) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                1,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                4
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "query_question": "Given a list of binary strings, perform a cumulative XOR operation on them. The cumulative XOR operation means that for each string in the list, XOR it with the result of all previous XOR operations. Return the final result as a string.\nfrom typing import List\n\n\ndef cumulative_xor(binary_strings: List[str]) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "query_question": "Given a list of lists of strings, return the longest string from each sublist. If a sublist is empty, return 'EMPTY' for that sublist. If there are multiple strings of the same length in a sublist, return the first one. Return a list of these longest strings.\ndef find_longest_strings(list_of_lists: List[List[str]]) -> List[str]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                1
+            ],
+            "analysis_similarity": [
+                4,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "query_question": "Given a list of integers, find the greatest common divisor (GCD) of all the integers in the list. You need to implement a function that takes a list of integers as input and returns their GCD.\n\nfrom typing import List\ndef gcd_of_list(lst: List[int]) -> int:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                3
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "query_question": "Given a list of strings, return a list of lists where each sublist contains all prefixes of the corresponding string in the input list, sorted from shortest to longest. If the input list is empty, return an empty list.\nfrom typing import List\n\n\ndef all_prefixes(string: str) -> List[str]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                5,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                4
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "query_question": "Given a list of integers, return a single string that concatenates the space-delimited sequences starting from 0 up to each integer in the list. If the list is empty, return an empty string.\nfrom typing import List\ndef concatenated_sequences(lst: List[int]) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                2
+            ],
+            "analysis_similarity": [
+                4,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                4
+            ]
+        }
+    },
+    {
+        "id": 16,
+        "query_question": "Given a list of strings, find out how many distinct characters (regardless of case) are present across all strings. For example, if the list is ['xyzXYZ', 'Jerry'], the output should be 6 because the distinct characters are 'x', 'y', 'z', 'j', 'e', 'r'.\ndef count_distinct_characters_across_strings(strings: list) -> int:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 17,
+        "query_question": "Given a list of musical note strings, each representing a measure in a piece of music, calculate the total number of beats for each measure and return the sum of all beats in the piece. Each measure is separated by a space and the notes within a measure are also separated by a space. Use the parse_music function to parse each measure and sum the beats.\nfrom typing import List\n\n\ndef total_beats(music_measures: List[str]) -> int:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 18,
+        "query_question": "Given a list of strings and a list of substrings, find the total number of times each substring appears in the list of strings. Return a dictionary where the keys are the substrings and the values are the total counts across all strings.\ndef total_substring_counts(strings: list, substrings: list) -> dict:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 19,
+        "query_question": "Given a list of space-delimited strings, each representing a sequence of numerals from 'zero' to 'nine', sort each individual string from smallest to largest and then concatenate the sorted strings into a single string, maintaining the original order of the strings. If any string contains an invalid numeral, it should be replaced with an empty string in the final result.\nfrom typing import List\n\n\ndef sort_and_concatenate(sequences: List[str]) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 20,
+        "query_question": "Given a list of lists of numbers, find the pair of numbers across all lists that are the closest to each other. Return the pair in the order (smaller number, larger number). If there are multiple pairs with the same smallest difference, return the first one found.\nfrom typing import List, Tuple\n\n\ndef find_closest_elements(numbers: List[float]) -> Tuple[float, float]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                1
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 21,
+        "query_question": "Given a list of lists of numbers (each sublist containing at least two elements), apply a linear transform to each sublist such that the smallest number in each sublist will become 0 and the largest will become 1. Then, combine all the transformed sublists into a single list and apply the same linear transform to this combined list, ensuring the smallest number in the combined list becomes 0 and the largest becomes 1.\nfrom typing import List\n\n\ndef rescale_to_unit(numbers: List[float]) -> List[float]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                5
+            ],
+            "analysis_similarity": [
+                5,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 22,
+        "query_question": "Given a list of lists containing any Python values, filter out all non-integer values from each sublist and return a new list of lists containing only the integers. If a sublist becomes empty after filtering, it should not be included in the final result.\nfrom typing import List, Any\n\n\ndef filter_integers(values: List[Any]) -> List[int]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 23,
+        "query_question": "Given a list of strings, write a function to return the total length of all strings combined. If the list is empty, return 0.\ndef total_length(strings: list) -> int:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                2
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                4
+            ]
+        }
+    },
+    {
+        "id": 24,
+        "query_question": "Given a list of integers, find the largest number that divides each of the numbers in the list evenly, smaller than the smallest number in the list.\ndef largest_common_divisor(numbers: list) -> int:\n    \"\"\" For a given list of integers, find the largest number that divides each of the numbers in the list evenly, smaller than the smallest number in the list\n    >>> largest_common_divisor([15, 30, 45])\n    15\n    \"\"\"",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "id": 25,
+        "query_question": "Given a list of integers, return a list of lists where each sublist contains the prime factors of the corresponding integer in the original list. The prime factors should be listed in ascending order, and each factor should appear as many times as it does in the factorization of the integer.\nfrom typing import List\n\n\ndef factorize_list(numbers: List[int]) -> List[List[int]]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                1
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 26,
+        "query_question": "Given a list of lists of integers, remove all elements that occur more than once across all lists. Keep the order of elements left the same as in the input. For example, given [[1, 2, 3, 2, 4], [2, 3, 5]], the output should be [[1, 4], [5]].\nfrom typing import List\ndef remove_duplicates_across_lists(lists: List[List[int]]) -> List[List[int]]:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 27,
+        "query_question": "Given a list of strings, flip the case of each character in each string and then concatenate all the strings together. Return the resulting string.\ndef flip_and_concatenate(strings: list) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 28,
+        "query_question": "Given a list of lists of strings, concatenate each sublist into a single string and then concatenate all the resulting strings into a single string. Return the final concatenated string.\nfrom typing import List\n\n\ndef concatenate(strings: List[str]) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 29,
+        "query_question": "f filter_by_multiple_prefixes(strings: List[str], prefixes: List[str]) -> List[str]:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 30,
+        "query_question": "Given a list of lists, return a list containing only the positive numbers from each sublist. If a sublist is empty, it should be ignored in the final result. The order of the numbers should be maintained as they appear in the original lists.\ndef get_all_positives(list_of_lists: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                4,
+                5,
+                3
+            ],
+            "weighted_similarity": [
+                4,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 31,
+        "query_question": "Write a function that takes a list of numbers and returns a list of tuples. Each tuple should contain a number from the input list and a boolean indicating whether the number is prime. The function should use the is_prime function to determine if a number is prime.\ndef prime_check_list(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                5,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 32,
+        "query_question": "Given a list of polynomials, each represented by their coefficients, find the common zero point for all polynomials if it exists. If no common zero point exists, return None. Note that each polynomial is guaranteed to have an even number of coefficients and the largest non-zero coefficient ensures a solution.\n\ndef find_common_zero(polys: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                1,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                1,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 33,
+        "query_question": "Given a list of lists, where each sublist contains integers, write a function that sorts every third sublist in ascending order. If a sublist has fewer than three elements, it should remain unchanged. The function should return the modified list of lists.\ndef sort_every_third_sublist(list_of_lists: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 34,
+        "query_question": "Given a list of lists, return a list of sorted unique elements from all sublists. Each sublist may contain duplicate elements, and the final list should not have any duplicates.\ndef unique_from_lists(lists: list[list]) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                5,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                2
+            ]
+        }
+    },
+    {
+        "id": 35,
+        "query_question": "Given a list of lists, return the maximum element among all the sublists. If the list of lists is empty, return None.\ndef max_element_in_lists(list_of_lists: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 36,
+        "query_question": "Given a list of integers, return the sum of the number of times the digit 7 appears in integers less than each integer in the list which are divisible by 11 or 13.\ndef new_fizz_buzz(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 37,
+        "query_question": "Given a list of lists, where each sublist contains integers, return a new list of lists where each sublist is transformed such that the even indexed elements are sorted and the odd indexed elements remain the same. The transformation should be applied to each sublist individually.\ndef transform_sublists(list_of_lists: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                1
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 38,
+        "query_question": "Given a list of strings, each encoded using the `encode_cyclic` function, decode all strings and concatenate the results. If the list contains an empty string, it should be ignored in the concatenation. Write a function `decode_all_cyclic` that takes a list of encoded strings and returns the concatenated decoded strings.\ndef decode_all_cyclic(encoded_strings: list) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 39,
+        "query_question": "Write a function `prime_fib_sum(n: int)` that returns the sum of the first `n` prime Fibonacci numbers. For example, if `n` is 3, the function should return the sum of the first 3 prime Fibonacci numbers, which are 2, 3, and 5, resulting in a sum of 10.\ndef prime_fib_sum(n: int):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                2,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 40,
+        "query_question": "Given a list of lists of integers, determine if there exists at least one sublist that contains three distinct elements summing to zero in each of the given lists. Return True if such a sublist exists in every list, and False otherwise.\ndef all_lists_have_triples_sum_to_zero(lists: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 41,
+        "query_question": "Imagine a circular racetrack with 2n cars, where n cars are driving clockwise and n cars are driving counterclockwise. The cars start at equal intervals around the racetrack and move at the same speed. A collision occurs when a car moving clockwise meets a car moving counterclockwise. Write a function that calculates the total number of collisions that will occur during a complete lap for all cars.\n# To solve this problem, we need to consider that each pair of cars moving in opposite directions will collide exactly once per lap. Since there are n cars moving clockwise and n cars moving counterclockwise, the total number of collisions is the number of ways to choose 2 cars out of n, which is given by the combination formula C(n, 2) = n * (n - 1) / 2. This can be implemented by calling the function `car_race_collision` twice, once for the clockwise cars and once for the counterclockwise cars, and then summing the results.\ndef car_race_collision(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                1
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 42,
+        "query_question": "Given a list of lists, increment each sublist by 1 and then increment the entire list of lists by 1. Return the final incremented list of lists.\ndef incr_nested_list(l: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                5,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "id": 43,
+        "query_question": "Given a list of lists of integers, determine if there exists a pair of integers in each sublist that sum to zero. Return True if all sublists contain such a pair, and False otherwise.\ndef all_pairs_sum_to_zero(list_of_lists):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 44,
+        "query_question": "Given a list of integers and a target base, convert each integer in the list to the target base and concatenate the results into a single string. If the list contains any number that cannot be represented in the given base (i.e., the number is negative or the base is less than 2), return 'Invalid input'. Finally, reverse the concatenated string and return it.\ndef convert_and_concatenate(numbers: list, base: int) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 45,
+        "query_question": "Given a list of tuples where each tuple contains the length of a side and the corresponding height of multiple triangles, calculate the total area of all the triangles combined.\ndef total_triangle_area(triangles):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 46,
+        "query_question": "The Fib4 number sequence is a sequence similar to the Fibonacci sequence that's defined as follows:",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                1,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                1,
+                0
+            ]
+        }
+    },
+    {
+        "id": 47,
+        "query_question": "Given a list of lists, where each sublist contains numbers, write a function to return the median of the medians of each sublist.\ndef median_of_medians(list_of_lists: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 48,
+        "query_question": "Given a list of strings, return the number of palindromic substrings in each string. A palindromic substring is a contiguous substring that reads the same forward and backward. For each string, find all possible substrings and count how many of them are palindromes.\ndef count_palindromic_substrings(strings: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                5
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                1,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 49,
+        "query_question": "Given a list of tuples where each tuple contains two integers (n, p), compute the sum of all 2^n modulo p for each tuple in the list. Return the final sum modulo 123.\ndef sum_modp_list(tuples_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 50,
+        "query_question": "Given a list of encoded messages, each encoded with the `encode_shift` function, decode all messages and concatenate the results into a single string. Then, encode this concatenated string using the `encode_shift` function again. Return the final encoded string.\ndef decode_and_reencode(encoded_messages: list) -> str:",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 51,
+        "query_question": "Create a function `remove_vowels_from_list` that takes a list of strings and returns a list of strings with all vowels removed from each string. The function should handle an empty list and lists containing empty strings.\ndef remove_vowels_from_list(texts):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                5,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                4
+            ]
+        }
+    },
+    {
+        "id": 52,
+        "query_question": "Given a list of lists, where each sublist contains numbers, determine if all numbers in each sublist are below a given threshold. Return a list of boolean values where each value corresponds to whether all numbers in the respective sublist are below the threshold.\ndef all_below_threshold(ll: list, t: int):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 53,
+        "query_question": "Given a list of tuples where each tuple contains two integers, write a function that returns the sum of the sums of all the tuples. For example, given [(1, 2), (3, 4)], the function should return 10 because (1+2) + (3+4) = 10.\ndef sum_of_tuples(tuples_list: list) -> int:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 54,
+        "query_question": "Given a list of words, determine if each word can be formed by rearranging the characters of any other word in the list. Return a list of boolean values indicating whether each word can be formed by rearranging the characters of any other word in the list.\ndef can_form_by_rearranging(words: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "id": 55,
+        "query_question": "Given a list of integers, return a list where each element at index i is the sum of the Fibonacci numbers of all elements in the original list except the element at index i. For example, if the input list is [1, 2, 3], the output should be [fib(2) + fib(3), fib(1) + fib(3), fib(1) + fib(2)].\nfrom typing import List\ndef sum_of_fibs_except_self(lst: List[int]) -> List[int]:    \n    result = []\n    for i in range(len(lst)):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 56,
+        "query_question": "Given a list of bracket strings, determine if each string in the list is correctly bracketed and then return a list of booleans indicating the correctness of each string. If the list is empty, return an empty list.\ndef check_bracket_strings(bracket_list: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 57,
+        "query_question": "Given a list of lists, determine if each sublist is monotonic and if the entire list of lists is also monotonic when concatenated. Return a tuple where the first element is a list of boolean values indicating whether each sublist is monotonic, and the second element is a boolean indicating whether the concatenated list is monotonic.\ndef check_monotonic_lists(lists: list[list]) -> tuple[list[bool], bool]:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 58,
+        "query_question": "Given a list of lists, find the sorted unique common elements across all lists. For example, given [[1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121], [5, 3, 2, 8]], the output should be [1, 2, 3, 5, 653].\n\ndef common_elements(lists: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                5,
+                4,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 59,
+        "query_question": "Given a list of integers, find the product of the largest prime factors of each integer. If an integer is less than or equal to 1 or is a prime number, ignore it. The function should return the product of the largest prime factors of the valid integers in the list.\ndef product_of_largest_prime_factors(numbers: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 60,
+        "query_question": "Given a list of integers, write a function that returns the sum of the sums of numbers from 1 to each integer in the list. For example, if the list is [3, 5], the function should return the sum of (1+2+3) and (1+2+3+4+5), which is 15 + 15 = 30.\ndef sum_of_sums_to_n(lst: list):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 61,
+        "query_question": "Given a list of bracket strings, determine if each string in the list is correctly bracketed. Return a list of boolean values indicating whether each string is correctly bracketed or not.\ndef check_bracket_strings(bracket_strings: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 62,
+        "query_question": "Given a list of polynomials, each represented by their coefficients, compute the second derivative of each polynomial. The second derivative is obtained by applying the derivative function twice. Return a list of the second derivatives for each polynomial.\ndef second_derivative(polynomials: list) -> list:",
+        "retrieval_results": {
+            "question_similarity": [
+                1,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                1,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                1,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 63,
+        "query_question": "Given a list of integers, where each integer represents the position in the FibFib sequence, write a function to return the sum of the FibFib numbers at those positions. The FibFib sequence is defined as follows:",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                2,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 64,
+        "query_question": "Write a function `total_vowels_count` that takes a list of strings as input and returns the total number of vowels in all the strings combined. The function should consider 'a', 'e', 'i', 'o', 'u' as vowels, and 'y' as a vowel only when it is at the end of any given string in the list.\ndef total_vowels_count(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 65,
+        "query_question": "Given a list of integers, perform a circular shift on each integer by a specified shift value. If the shift value is greater than the number of digits in the integer, reverse the digits. Return the list of transformed integers as strings.\ndef circular_shift_list(lst, shift):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                4,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 66,
+        "query_question": "Given a list of strings, write a function that returns the total sum of the ASCII codes of the uppercase characters in all the strings. If a string is empty, it should be ignored in the sum.\ndef totalUppercaseSum(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 67,
+        "query_question": "Given a list of strings, each representing the distribution of apples and oranges in multiple baskets, and a list of integers, each representing the total number of fruits in the corresponding basket, write a function to calculate the total number of mango fruits across all baskets. Each string follows the format 'X apples and Y oranges' where X and Y are integers.\ndef total_mangoes(distributions, totals):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 68,
+        "query_question": "Given a list of branches from a tree, where each branch is represented as an array of non-negative integer nodes, your task is to pluck the smallest even node from each branch and return a list of these plucked nodes. Each plucked node should be represented as a list containing the smallest even value and its index in the original branch. If a branch does not contain any even nodes, it should be represented as an empty list in the result. The final result should be a list of these lists, where each sublist corresponds to a branch from the input list.\ndef pluck_branches(branches):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                1,
+                0
+            ],
+            "analysis_similarity": [
+                5,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                1,
+                0
+            ]
+        }
+    },
+    {
+        "id": 69,
+        "query_question": "You are given a list of non-empty lists of positive integers. For each list, find the greatest integer that is greater than zero, and has a frequency greater than or equal to the value of the integer itself. Return a list of these integers for each input list. If no such integer exists for a list, append -1 to the result list. Finally, return the sum of all the integers in the result list.\ndef new_search(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 70,
+        "query_question": "Given a list of lists of integers, return a list of lists in a strange order. The strange order for each sublist should be calculated using the strange_sort_list function. Additionally, the final result should be sorted by the sum of the elements in each sublist in ascending order.\ndef strange_sort_lists(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 71,
+        "query_question": "Given a list of tuples, where each tuple contains the lengths of the three sides of a triangle, return the total area of all valid triangles. If no valid triangles are found, return -1. Each tuple should be processed using the `triangle_area` function to determine if it forms a valid triangle and to calculate its area.\ndef total_triangle_area(triangles):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 72,
+        "query_question": "Given a list of objects and their maximum possible weights, determine if each object can fly according to the rules of the `will_it_fly` function. Return a list of boolean values indicating whether each object can fly or not. If the input list is empty, return an empty list.\ndef can_objects_fly(objects, weights):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 73,
+        "query_question": "Given a 2D array of integers, find the minimum number of elements that need to be changed to make each row and each column of the array palindromic. A palindromic row or column is a row or column that is read the same backwards and forwards. In one change, you can change one element to any other element.\n\n\ndef smallest_change_2d(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                1,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 74,
+        "query_question": "Given a list of lists of strings, return the list of strings that has the smallest total number of characters across all its sublists. If there are multiple lists with the same smallest total number of characters, return the first one encountered.\ndef smallest_total_match(list_of_lists):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 75,
+        "query_question": "Write a function that takes a list of numbers and returns a list of numbers that are the multiplication of exactly 3 prime numbers, considering each number in the input list. The input list contains numbers less than 100.\ndef find_multiply_primes(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                5,
+                3
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 76,
+        "query_question": "Given a list of numbers and a base number, determine if each number in the list is a simple power of the base number. Return a list of boolean values indicating whether each number is a simple power of the base number or not.\ndef check_powers(numbers, base):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                1
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                1,
+                5
+            ]
+        }
+    },
+    {
+        "id": 77,
+        "query_question": "Given a list of integers, write a function that returns the sum of all the integers in the list that are cubes of some integer. You may assume the input list is always valid.\ndef sum_of_cubes(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 78,
+        "query_question": "You are given a list of hexadecimal numbers as strings. Your task is to write a function that calculates the total number of prime hexadecimal digits across all the given hexadecimal numbers. A prime hexadecimal digit is one of the following: 2, 3, 5, 7, B (decimal 11), D (decimal 13). The function should return the total count of these prime digits.\ndef total_prime_hex_digits(hex_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                5,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                5,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 79,
+        "query_question": "You are given a list of decimal numbers. Your task is to convert each decimal number to its binary form using the `decimal_to_binary` function, then concatenate all the binary strings together, and finally, convert the concatenated binary string back to a decimal number. The final result should be returned as a string with 'db' at the beginning and at the end, similar to the output format of the `decimal_to_binary` function.\ndef convert_decimals_to_binary_and_back(decimal_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 80,
+        "query_question": "You are given a list of strings. Your task is to determine the number of happy strings in the list. A string is happy if its length is at least 3 and every 3 consecutive letters are distinct. You need to implement a function `count_happy_strings(strings)` that returns the count of happy strings in the list.\ndef count_happy_strings(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 81,
+        "query_question": "The teacher now wants to analyze the overall performance of her students over the semester. She has provided you with a list of lists, where each sublist contains the GPAs of a student for each semester. Your task is to write a function that calculates the overall letter grade for each student based on their GPAs across all semesters. The overall GPA for a student should be the average of their GPAs across all semesters. Use the grading scale provided in the original problem to determine the letter grade for each student.\ndef overall_letter_grades(semester_gpas):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 82,
+        "query_question": "Given a list of strings, write a function that returns the count of strings with prime length and the sum of their lengths. The function should return a tuple where the first element is the count and the second element is the sum of the lengths.\ndef prime_length_count_sum(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 83,
+        "query_question": "Given a positive integer n, return the count of the numbers of n-digit positive integers that start or end with 1, and also return the count of the numbers of n-digit positive integers that start and end with 1. Additionally, calculate the ratio of the count of numbers that start and end with 1 to the count of numbers that start or end with 1.\ndef complex_starts_one_ends(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                3,
+                1
+            ],
+            "weighted_similarity": [
+                2,
+                3,
+                1
+            ]
+        }
+    },
+    {
+        "id": 84,
+        "query_question": "Given a list of positive integers, return the concatenated binary representation of the sum of their digit sums. Each integer in the list should be processed individually to find its digit sum, and then the binary representation of the total sum of these digit sums should be returned.\ndef new_solve(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 85,
+        "query_question": "Given a list of lists of integers, where each sublist represents a row in a matrix, calculate the sum of all even elements that are located at odd indices in each row. Return the total sum of these elements across all rows.\ndef total_even_odd_sum(matrix):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 86,
+        "query_question": "Write a function that takes a list of strings and returns a new list where each string is the anti-shuffled version of the corresponding string in the input list. Additionally, the function should also return a single string that is the concatenation of all the anti-shuffled strings, with each string separated by a space. The function should handle lists of varying lengths, including empty lists.\ndef multi_anti_shuffle(string_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                5,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                5,
+                4
+            ]
+        }
+    },
+    {
+        "id": 87,
+        "query_question": "You are given a 2 dimensional data, as a nested lists, which is similar to matrix, however, unlike matrices, each row may contain a different number of columns. Given a list of integers, find each integer in the list and return a dictionary where the keys are the integers and the values are lists of tuples representing the coordinates of the integer in the matrix. Each tuple should be a coordinate - (row, column), starting with 0. The coordinates for each integer should be sorted initially by rows in ascending order. Also, sort coordinates of the row by columns in descending order. If an integer is not found in the matrix, its value in the dictionary should be an empty list.\ndef get_coordinates(lst, integers):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 88,
+        "query_question": "Given a list of arrays, each containing non-negative integers, return a single sorted array that combines all the given arrays. The combined array should be sorted in ascending order if the total number of elements across all arrays is odd, or in descending order if the total number of elements is even. To achieve this, you must use the `sort_array` function provided, which sorts an array based on the sum of its first and last elements.\ndef combine_and_sort_arrays(arrays):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                4,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 89,
+        "query_question": "Create a function `encrypt_message` that takes a list of strings as an argument and returns a list of strings where each string is encrypted using the `encrypt` function. The `encrypt` function should be called for each string in the list. Additionally, the function should handle an optional argument `rotate_by` which specifies the number of places to rotate the alphabet. If `rotate_by` is not provided, it should default to 2. The `encrypt` function should be modified to accept this `rotate_by` argument.\ndef encrypt(s, rotate_by=2): \n    result = []\n    for char in s:",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                5
+            ]
+        }
+    },
+    {
+        "id": 90,
+        "query_question": "Given a list of lists of integers, write a function `next_smallest_in_lists()` that returns a list containing the 2nd smallest element from each sublist. If a sublist does not have a 2nd smallest element, append `None` to the result list for that sublist. The function should use the `next_smallest` function to find the 2nd smallest element for each sublist.\ndef next_smallest_in_lists(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 91,
+        "query_question": "Given a list of strings, each representing a paragraph, count the total number of boredoms across all paragraphs. A boredom is defined as a sentence that starts with the word 'I'. Sentences are delimited by '.', '?' or '!'. For example, if the input list is ['The sky is blue. The sun is shining. I love this weather', 'I am happy. I am excited.'], the output should be 3.\n\ndef count_total_boredoms(paragraphs):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 92,
+        "query_question": "Create a function that takes a list of tuples, where each tuple contains three numbers. The function should return a list of tuples where each tuple satisfies the condition that one of the numbers is equal to the sum of the other two, and all numbers are integers. Use the function 'any_int' to check each tuple.\ndef filter_tuples(tuples_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 93,
+        "query_question": "Given a list of messages, encode each message using the `encode` function and then concatenate all the encoded messages into a single string. Finally, reverse the concatenated string and return it.\ndef encode_and_concatenate(messages):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "id": 94,
+        "query_question": "You are given a list of lists of integers. For each list, you need to find the largest prime value and return the sum of its digits. Finally, return the sum of these sums for all lists.\ndef new_skjkasdkd(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 95,
+        "query_question": "Given a list of dictionaries, return a list of dictionaries that meet the criteria of the check_dict_case function. The output should be a list of dictionaries where each dictionary has either all lower case keys or all upper case keys. If the input list is empty, return an empty list.\ndef filter_dicts_by_case(dict_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 96,
+        "query_question": "Implement a function that takes a list of non-negative integers and returns a dictionary where each key is a unique integer from the list and the value is an array of the first n integers that are prime numbers and less than the key. For example, if the input list is [5, 11], the output should be {5: [2, 3], 11: [2, 3, 5, 7]}.\ndef generate_prime_dict(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                5
+            ],
+            "weighted_similarity": [
+                5,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 97,
+        "query_question": "Given a list of tuples, where each tuple contains two integers, return the sum of the products of the unit digits of each tuple. For example, if the list is [(148, 412), (19, 28), (2020, 1851)], the function should return the sum of the products of the unit digits of each tuple, which is 16 + 72 + 0 = 88.\ndef sum_of_products_of_unit_digits(tuples_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 98,
+        "query_question": "Given a list of strings, count the total number of uppercase vowels in even indices across all strings. If a string is empty, it should be ignored in the count.\ndef total_count_upper(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                5,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 99,
+        "query_question": "Create a function that takes a list of strings, each representing a number, and returns a list of the closest integers to each number. If a number is equidistant from two integers, round it away from zero. The function should handle multiple calls to the 'closest_integer' function to achieve this.\ndef closest_integers(values):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                1
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                1,
+                2
+            ]
+        }
+    },
+    {
+        "id": 100,
+        "query_question": "Given a positive integer n, you have to create a pyramid of stones. The pyramid consists of multiple piles, each pile representing a level in the pyramid. The first pile has 1 stone, the second pile has 2 stones, and so on up to the nth pile which has n stones. Each pile must be constructed according to the rules of the 'make_a_pile' function. Return a list of lists where each sublist represents the stones in each level of the pyramid.\ndef create_pyramid(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                5,
+                4
+            ],
+            "weighted_similarity": [
+                2,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 101,
+        "query_question": "Given a list of sentences, each separated by a newline character, your task is to split each sentence into words and return a list of lists where each inner list contains the words of a sentence. The sentences may contain words separated by commas or spaces.\ndef sentences_to_words(sentences):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                5
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "id": 102,
+        "query_question": "Given a list of tuples, where each tuple contains two positive integers representing a range [x, y], write a function that returns the sum of the biggest even integers from each range. If any range does not contain an even integer, it should be ignored in the sum. The function should return -1 if no ranges contain even integers.\ndef sum_of_biggest_evens(ranges):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 103,
+        "query_question": "You are given a list of tuples, where each tuple contains two positive integers. Your task is to compute the rounded average for each tuple, convert the result to binary, and then concatenate all the binary strings together. If any tuple contains a first integer greater than the second, append '-1' to the result string instead. Finally, return the resulting concatenated string.\ndef process_tuples(tuples):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                5
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 104,
+        "query_question": "Given a list of lists of positive integers, return a sorted list of all elements that do not have any even digit across all the lists. The returned list should be sorted in increasing order.\ndef unique_digits_across_lists(list_of_lists):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                1
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 105,
+        "query_question": "Given a list of arrays of integers, each containing integers between 1 and 9 inclusive, sort each array, reverse the resulting array, and then replace each digit by its corresponding name from 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'. Finally, concatenate all the transformed arrays into a single array and return it.\ndef process_arrays(arrays):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                4,
+                2
+            ],
+            "analysis_similarity": [
+                5,
+                2,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                2,
+                4
+            ]
+        }
+    },
+    {
+        "id": 106,
+        "query_question": "Implement the function g that takes a list of integers as a parameter, and returns a list where each element at index i is the result of applying the function f to the element at index i in the input list. The function f should be called multiple times, once for each element in the input list. The function f is defined as follows: f(n) returns a list of size n, such that the value of the element at index i is the factorial of i if i is even or the sum of numbers from 1 to i otherwise. i starts from 1. The factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).\ndef g(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 107,
+        "query_question": "Given a list of positive integers, return a list of tuples where each tuple contains the number of even and odd integer palindromes within the range (1, n) for each n in the list. The input list will have at least one element and at most 10 elements, and each element will be between 1 and 1000.\ndef even_odd_palindrome_list(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 108,
+        "query_question": "Write a function `count_nums_in_matrix` which takes a 2D array (matrix) of integers and returns the number of elements in the matrix which have a sum of digits > 0. If a number is negative, then its first signed digit will be negative: e.g. -123 has signed digits -1, 2, and 3. The function should iterate through each row of the matrix and use the `count_nums` function to count the qualifying elements in each row. Finally, it should sum up these counts to get the total count for the entire matrix.\ndef count_nums_in_matrix(matrix):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                4,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 109,
+        "query_question": "Given a list of arrays, each containing unique integers, determine if it is possible to sort each array in non-decreasing order by performing right shift operations any number of times. Return a list of boolean values indicating whether each array can be sorted.\ndef can_sort_all_arrays(arrays):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                4,
+                3,
+                1
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 110,
+        "query_question": "Given a list of lists of numbers, determine if it is possible to perform exchanges between the lists such that all lists become lists of only even numbers. Each list can exchange elements with any other list, and there is no limit on the number of exchanged elements. If it is possible to make all lists contain only even numbers, return 'YES'. Otherwise, return 'NO'.\n\ndef can_make_even_with_exchange(lst1, lst2, lst3, lst4):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 111,
+        "query_question": "Given a list of strings representing space separated lowercase letters, return a dictionary of the letter(s) with the most total repetitions across all strings and containing the corresponding total count. If several letters have the same total occurrence, return all of them.\ndef total_histogram(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "id": 112,
+        "query_question": "Given a list of tuples where each tuple contains two strings, s and c, perform the following operations for each tuple:",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                5
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 113,
+        "query_question": "Given a list of lists of strings, where each string consists of only digits, return a list of lists. Each element i of the output should be a list where each element j of this list is a string formatted as 'the number of odd elements in the string j of the list i of the input.' where all the i's and j's should be replaced by the number of odd digits in the i'th list and j'th string of the input respectively.\ndef odd_count_nested(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                1
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 114,
+        "query_question": "Given an array of integers nums, find the maximum sum of any non-empty sub-array of nums that is greater than a given threshold T. If no such sub-array exists, return -1. To solve this problem, you need to first find the minimum sum of any non-empty sub-array of nums, then use this information to determine the maximum sum greater than T.\ndef maxSubArraySumGreaterThanT(nums, T):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                4,
+                2
+            ]
+        }
+    },
+    {
+        "id": 115,
+        "query_question": "You are given a list of rectangular grids of wells, each with a corresponding bucket capacity. Each grid represents a different set of wells, and each well has a corresponding bucket that can be used to extract water from it. Your task is to determine the total number of times you need to lower the buckets across all grids to empty all the wells. Output the total number of times you need to lower the buckets.\ndef total_bucket_lowers(grids, capacities):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                4,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 116,
+        "query_question": "Given a list of lists, each containing non-negative integers, sort each sublist according to the number of ones in their binary representation in ascending order. For sublists with similar number of ones, sort based on the decimal value. Finally, sort the main list based on the sum of the number of ones in the binary representation of all elements in each sublist.\ndef new_sort_array(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                0
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 117,
+        "query_question": "Given a list of strings and a natural number n, you have been tasked to implement a function that returns a list of all words from each string in the list that contain exactly n consonants, in the order these words appear in their respective strings. If a string in the list is empty, it should be ignored. The function should return a list of lists, where each sublist corresponds to the words from the respective string in the input list that meet the criteria. Note: you may assume the input strings contain only letters and spaces.\ndef select_words_from_list(strings, n):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                2,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                0
+            ]
+        }
+    },
+    {
+        "id": 118,
+        "query_question": "You are given a list of words. Your task is to find the closest vowel for each word that stands between two consonants from the right side of the word (case sensitive). Then, concatenate all the vowels found in the order of the words and return the resulting string. If no vowels are found for a word, concatenate an underscore '_' instead. The resulting string should be in lowercase. For example, given the list ['yogurt', 'FULL', 'quick', 'ab'], the function should return 'u_u_'.\ndef get_closest_vowels_concat(words):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                4
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                1,
+                3,
+                5
+            ]
+        }
+    },
+    {
+        "id": 119,
+        "query_question": "You are given a list of strings, each string consists of open parentheses '(' or close parentheses ')' only. Your job is to determine if it is possible to concatenate any number of these strings in some order, such that the resulting string will be good. A string S is considered to be good if and only if all parentheses in S are balanced. For example: the string '(())()' is good, while the string '())' is not. Return 'Yes' if there's a way to make a good string by concatenating any number of the given strings, and return 'No' otherwise.\n\ndef can_form_good_string(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 120,
+        "query_question": "Given a list of arrays, each containing integers, and a list of positive integers representing the values of k for each corresponding array, return a list of sorted lists where each sorted list contains the maximum k numbers from the corresponding array. If an array has fewer elements than k, return the sorted list of all elements in that array.\ndef maximum_for_multiple_arrays(arrays, ks):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                4,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                4,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 121,
+        "query_question": "Given a list of lists of integers, return the sum of all odd elements that are in even positions across all sublists. If a sublist is empty, it should be ignored.\ndef new_solution(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 122,
+        "query_question": "Given a non-empty array of integers arr and an integer k, return the sum of the elements with at most two digits from the first k elements of arr for each subarray of length k in arr. If the length of arr is not a multiple of k, the last subarray will contain the remaining elements. For example, if arr = [111,21,3,4000,5,6,7,8,9] and k = 4, the subarrays are [111,21,3,4000] and [5,6,7,8]. The function should return the sum of the elements with at most two digits from each subarray.\ndef sum_of_two_digit_elements_in_subarrays(arr, k):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                4,
+                2
+            ]
+        }
+    },
+    {
+        "id": 123,
+        "query_question": "Given a list of positive integers, return a sorted list of all odd numbers that appear in the Collatz sequences of these integers. The Collatz sequence for each integer should be computed independently.\ndef get_all_odd_collatz(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                5
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 124,
+        "query_question": "You are given a list of date strings. Write a function that returns the number of valid dates and the number of invalid dates. A date is considered valid if it satisfies the rules defined in the `valid_date` function. The function should return a tuple where the first element is the count of valid dates and the second element is the count of invalid dates.\ndef count_valid_dates(dates):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 125,
+        "query_question": "Given a list of strings, return a dictionary where each key is a string from the list and the value is a list of words split on whitespace, if no whitespaces exist in the text, split on commas ','. If no commas exist, the value should be the number of lower-case letters with odd order in the alphabet. Additionally, the dictionary should include a special key 'total_odd_letters' which is the sum of all odd order letters from all strings.\ndef process_strings(string_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 126,
+        "query_question": "Given a list of lists of numbers, return a list of booleans indicating whether each sublist is sorted in ascending order. If any sublist has more than 1 duplicate of the same number, the corresponding boolean should be False. Assume no negative numbers and only integers.\ndef check_sublists_sorted(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 127,
+        "query_question": "Given a list of intervals, determine if there exists a pair of intervals such that the length of their intersection is a prime number. If such a pair exists, return the indices of the intervals in the list. If no such pair exists, return an empty list. Note that the intervals are closed and each interval's start is less than or equal to its end.\ndef find_prime_intersection_pair(intervals):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 128,
+        "query_question": "Given a list of lists of integers, calculate the sum of the results of the 'prod_signs' function applied to each sublist. If any sublist is empty, it should be ignored in the sum. The 'prod_signs' function returns the sum of magnitudes of integers multiplied by the product of all signs of each number in the array, represented by 1, -1, or 0.\ndef sum_prod_signs(list_of_lists):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                4,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                4,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 129,
+        "query_question": "Given a 3D grid with dimensions N x N x N (N >= 2) and a positive integer k, each cell of the grid contains a value. Every integer in the range [1, N * N * N] inclusive appears exactly once on the cells of the grid. You need to find the minimum path of length k in each 2D slice of the 3D grid (i.e., for each depth level). Then, combine these paths to form a single path that traverses through each 2D slice in order. The final path should be the lexicographically smallest path among all possible combinations of paths from each 2D slice. Return an ordered list of the values on the cells that the final path go through.\ndef minPath3D(grid3D, k):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                2,
+                5
+            ],
+            "analysis_similarity": [
+                1,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "id": 130,
+        "query_question": "Given a non-negative integer number n, you have to return a list of the first n + 1 numbers of the Tribonacci sequence for each of the first n + 1 natural numbers. For example, if n is 3, you should return a list of lists where each sublist is the Tribonacci sequence for the numbers 0 through 3.\ndef multi_tri(n):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 131,
+        "query_question": "Given a list of positive integers, return the sum of the products of the odd digits for each integer. If all digits of an integer are even, the product for that integer should be considered as 0. For example, given the list [1, 4, 235], the function should return 16 (1 + 0 + 15).\ndef sum_of_products_of_odd_digits(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                5
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "id": 132,
+        "query_question": "Create a function that takes a list of strings, each containing only square brackets. The function should return True if and only if there is at least one valid subsequence of brackets in the list where at least one bracket in the subsequence is nested in at least one of the strings. Otherwise, it should return False.\ndef is_nested_in_list(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 133,
+        "query_question": "You are given a list of lists of numbers. You need to return the sum of the sums of squared numbers in each sublist, where each element in the sublist is rounded to the upper integer (Ceiling) first. For example, for the input [[1,2,3], [1,4,9]], the output should be 112.\ndef sum_of_sum_squares(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 134,
+        "query_question": "Create a function that takes a list of strings and returns a list of booleans indicating whether each string in the list ends with an alphabetical character that is not part of a word. The function should handle multiple strings and return a boolean list corresponding to each string's condition.\ndef check_if_last_char_is_a_letter_in_list(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                1
+            ]
+        }
+    },
+    {
+        "id": 135,
+        "query_question": "Given a list of integers, find the maximum sum of a subarray where each subarray is defined by indices returned by the function 'can_arrange' applied to the original list. The subarray sum should be calculated for each valid subarray and the maximum sum should be returned. If no valid subarray exists, return 0.\ndef max_subarray_sum(arr):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                2
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 136,
+        "query_question": "Given a list of lists, find the largest negative integer and the smallest positive integer across all sublists. Return a tuple (a, b), where 'a' is the largest negative integer and 'b' is the smallest positive integer. If there are no negative or positive integers, return them as None.\ndef find_largest_smallest_across_lists(list_of_lists):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 137,
+        "query_question": "Create a function that takes a list of pairs of integers, floats, or strings representing real numbers, and returns a list of the larger variables in their given variable type for each pair. If the values in a pair are equal, the corresponding element in the result list should be None. Note: If a real number is represented as a string, the floating point might be . or ,\ndef compare_many(pairs):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 138,
+        "query_question": "Given a list of integers, determine if each integer can be expressed as the sum of exactly 4 positive even numbers. Return a list of boolean values where each value corresponds to whether the integer at the same index in the input list can be expressed as such.\ndef can_each_be_sum_of_even(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                2
+            ],
+            "weighted_similarity": [
+                5,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 139,
+        "query_question": "Given a list of integers, calculate the sum of the Brazilian factorials for each integer in the list. The Brazilian factorial is defined as: brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1! where n > 0. For example, if the list is [1, 2, 3], the function should return the sum of the Brazilian factorials of 1, 2, and 3.\ndef sum_of_special_factorials(lst):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                0,
+                4
+            ],
+            "analysis_similarity": [
+                2,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                2,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 140,
+        "query_question": "Given a list of strings, replace all spaces in each string with underscores, and if a string has more than 2 consecutive spaces, then replace all consecutive spaces with a hyphen. After processing all strings, concatenate them into a single string with each string separated by a newline character. Finally, replace all underscores in the concatenated string with asterisks.\ndef process_and_concatenate_strings(string_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                1
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 141,
+        "query_question": "Create a function which takes a list of file names and returns a list of valid file names based on the rules defined in the `file_name_check` function. The function should return 'None' if no file names in the list are valid.\ndef validate_file_names(file_names):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                4,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                4,
+                0
+            ]
+        }
+    },
+    {
+        "id": 142,
+        "query_question": "Given a list of lists of integers, where each sublist represents a set of scores for a game. For each game, calculate the total score using the following rules: if the index of the sublist is even, use the sum_squares function to calculate the score; if the index of the sublist is odd, use the sum_squares function twice, summing the results of both calls. Return the total score for all games.\ndef total_score(games):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                2,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                4,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                2
+            ]
+        }
+    },
+    {
+        "id": 143,
+        "query_question": "Given a list of sentences, return a list of strings where each string contains words from the corresponding sentence whose lengths are prime numbers. The order of the words in each string should be the same as in the original sentence.\ndef words_in_sentences(sentences):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                5
+            ],
+            "weighted_similarity": [
+                3,
+                5,
+                0
+            ]
+        }
+    },
+    {
+        "id": 144,
+        "query_question": "Given a list of fractions represented as strings in the format <numerator>/<denominator>, determine if the product of any two fractions in the list simplifies to a whole number. Return a list of tuples where each tuple contains the indices of the two fractions whose product simplifies to a whole number.\ndef find_whole_number_products(fractions):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                4
+            ],
+            "analysis_similarity": [
+                0,
+                3,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "id": 145,
+        "query_question": "Given a list of lists of integers, write a function that sorts each sublist according to the sum of their digits and then sorts the main list based on the sum of the digits of the first element of each sublist. If two sublists have the same sum for their first elements, sort them based on their original index in the main list.\ndef complex_order_by_points(nums_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 146,
+        "query_question": "Given a list of lists of numbers, write a function that returns the total count of elements across all sublists that are greater than 10 and both first and last digits of a number are odd (1, 3, 5, 7, 9).\ndef totalSpecialFilter(nums_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                2,
+                3,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                5,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "id": 147,
+        "query_question": "Given a list of positive integers, you need to find the number of valid quadruples (a[i], a[j], a[k], a[l]) where i < j < k < l, and the sum of the elements in each quadruple is a multiple of 3. To solve this problem, you can use the function `get_max_triples` to find the number of valid triples for each subset of three elements in the list, and then combine these results to find the number of valid quadruples.\n\ndef get_max_quadruples(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 148,
+        "query_question": "Given a list of planet names, find the shortest path that visits each planet exactly once and returns to the starting planet. The path should be determined by the proximity of the planets to the sun, as defined in the raw question. If the list contains invalid planet names, return an empty list. If the list contains only one valid planet, return that planet as a single-element list.\ndef find_shortest_path(planets):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                3,
+                1
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                1,
+                0
+            ]
+        }
+    },
+    {
+        "id": 149,
+        "query_question": "Given a list of lists of strings, where each list of strings is sorted by the rules defined in the raw question, write a function that merges all these lists into a single sorted list. The merged list should also follow the same sorting rules: sorted by length of each word in ascending order, and alphabetically for words of the same length. The function should return the merged list of strings.\ndef merge_sorted_lists(list_of_lists):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                5,
+                4
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                1
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                3
+            ]
+        }
+    },
+    {
+        "id": 150,
+        "query_question": "Given a list of integers, determine the sum of the values of x for all prime numbers in the list and the sum of the values of y for all non-prime numbers in the list. The function should take a list of integers, a list of x values, and a list of y values as inputs. The length of the list of integers will always be equal to the length of the lists of x and y values.\n\ndef sum_x_or_y(numbers, x_values, y_values):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 151,
+        "query_question": "Given a list of lists of numbers, return the sum of squares of the numbers in each sublist that are odd. Ignore numbers that are negative or not integers. If a sublist is empty, its contribution to the total sum should be 0. Finally, return the total sum of these sums.\ndef sum_of_double_differences(lst_of_lsts):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 152,
+        "query_question": "You are given a list of matches with their actual scores and a list of guesses for each match. Each match has multiple rounds, and you need to determine how far off each guess was for each round. The input consists of a list of matches, where each match is represented by a tuple containing the actual scores and the guesses for each round. Your task is to return a list of lists, where each sublist corresponds to a match and contains the differences for each round. If the guess is correct, the difference is 0; otherwise, it is the absolute difference between the guess and the actual score.\ndef compare_matches(matches):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                4
+            ],
+            "analysis_similarity": [
+                4,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                4,
+                0,
+                1
+            ]
+        }
+    },
+    {
+        "id": 153,
+        "query_question": "Given a list of classes with their respective extensions, determine the strongest extension for each class and return a list of strings in the format: ClassName.StrongestExtensionName. If a class has no extensions, it should be represented as ClassName.None. The strength of an extension is calculated as the difference between the number of uppercase letters and the number of lowercase letters in the extension's name. If there are two or more extensions with the same strength, choose the one that comes first in the list.\ndef Strongest_Extensions(classes_with_extensions):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                1,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 154,
+        "query_question": "Given a list of words, determine if each word in the list can be transformed into a valid rotation of any other word in the list. A valid rotation means that if you rotate the word any number of times, it will become a substring of another word in the list. Return a list of boolean values indicating whether each word can be transformed into a valid rotation of any other word in the list.\ndef valid_rotations(words):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                1,
+                0
+            ],
+            "weighted_similarity": [
+                3,
+                1,
+                0
+            ]
+        }
+    },
+    {
+        "id": 155,
+        "query_question": "Given a list of integers, return a tuple where the first element is the total number of even digits across all integers in the list, and the second element is the total number of odd digits across all integers in the list.\ndef total_even_odd_count(nums):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                5,
+                0,
+                3
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                3
+            ]
+        }
+    },
+    {
+        "id": 156,
+        "query_question": "Given a list of positive integers, obtain their roman numeral equivalents as a list of strings, each in lowercase. Restrictions: Each integer in the list should be within the range 1 to 1000.\ndef list_to_mini_roman(numbers):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                2,
+                3
+            ],
+            "analysis_similarity": [
+                2,
+                3,
+                5
+            ],
+            "weighted_similarity": [
+                2,
+                5,
+                3
+            ]
+        }
+    },
+    {
+        "id": 157,
+        "query_question": "Given a list of tuples, where each tuple contains three integers representing the sides of a triangle, determine the number of right-angled triangles in the list. A right-angled triangle is defined as a triangle in which one angle is 90 degrees.\ndef count_right_angle_triangles(triangles):",
+        "retrieval_results": {
+            "question_similarity": [
+                3,
+                0,
+                2
+            ],
+            "analysis_similarity": [
+                2,
+                1,
+                3
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                2
+            ]
+        }
+    },
+    {
+        "id": 158,
+        "query_question": "Given a list of lists of strings, where each sublist represents a category of words, write a function that returns a list of the words with the maximum number of unique characters from each category. If multiple words in a category have the maximum number of unique characters, return the one which comes first in lexicographical order. If a category is empty, append 'None' to the result list.\ndef find_max_in_categories(categories):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                3,
+                4,
+                0
+            ],
+            "weighted_similarity": [
+                4,
+                3,
+                0
+            ]
+        }
+    },
+    {
+        "id": 159,
+        "query_question": "You are a farmer who needs to feed a group of hungry rabbits. Each rabbit has a specific number of carrots it has already eaten and a specific number it still needs to eat. You have a limited number of carrots in stock. Write a function that takes in a list of rabbits, where each rabbit is represented by a tuple (number, need), and the total number of carrots in stock. The function should return the total number of carrots eaten by all rabbits and the number of carrots left in stock after feeding all the rabbits.\n\ndef feed_rabbits(rabbits, stock):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                3,
+                2
+            ],
+            "analysis_similarity": [
+                0,
+                2,
+                3
+            ],
+            "weighted_similarity": [
+                0,
+                3,
+                2
+            ]
+        }
+    },
+    {
+        "id": 160,
+        "query_question": "Given a list of algebraic expressions represented by pairs of operator and operand lists, evaluate each expression and then perform a final operation on all the results to obtain a single final value. The final operation is specified as a tuple ('final_operator', final_operand), where 'final_operator' is one of the basic algebra operations ('+', '-', '*', '//', '**') and 'final_operand' is an integer. The final operation should be applied to all the evaluated results from the expressions. For example, if the final operation is ('+', 0), it means summing all the results. If the final operation is ('*', 1), it means multiplying all the results.\n\ndef solve_complex_algebra(expressions, final_operation_tuple):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                1
+            ],
+            "analysis_similarity": [
+                1,
+                0,
+                2
+            ],
+            "weighted_similarity": [
+                0,
+                1,
+                4
+            ]
+        }
+    },
+    {
+        "id": 161,
+        "query_question": "You are given a list of strings. For each string, if it contains at least one letter, reverse its case for all letters in the string. If a string contains no letters, reverse the entire string. After processing all strings, concatenate the results into a single string. Finally, reverse the case of all letters in the concatenated result. Return the final string.\ndef new_solve(strings):",
+        "retrieval_results": {
+            "question_similarity": [
+                4,
+                5,
+                0
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                3,
+                0,
+                4
+            ]
+        }
+    },
+    {
+        "id": 162,
+        "query_question": "Given a list of strings, return a dictionary where each key is a string from the list and the value is the md5 hash of the string. If a string is empty, its corresponding value in the dictionary should be None. Additionally, if the list contains duplicate strings, the dictionary should only include the first occurrence of each string.\ndef list_to_md5_dict(string_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                0,
+                4,
+                5
+            ],
+            "analysis_similarity": [
+                3,
+                0,
+                4
+            ],
+            "weighted_similarity": [
+                0,
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "id": 163,
+        "query_question": "Given a list of tuples, where each tuple contains two positive integers, return a list of lists where each sublist contains the even digits between the two integers in the corresponding tuple, in ascending order. If a tuple contains integers that are the same, the sublist should be an empty list.\ndef generate_even_digits_lists(tuples_list):",
+        "retrieval_results": {
+            "question_similarity": [
+                5,
+                0,
+                3
+            ],
+            "analysis_similarity": [
+                5,
+                3,
+                0
+            ],
+            "weighted_similarity": [
+                5,
+                0,
+                3
+            ]
+        }
+    }
+]
