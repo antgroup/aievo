@@ -34,7 +34,7 @@ def _strip_code_fences(code: str) -> str:
         text = "\n".join(lines).strip()
     return text
 
-def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: str) -> str:
+def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: str, mode: int) -> str:
     """Construct executable code so that a single function named `candidate` is defined,
     while keeping helper functions from prompt and providing a back-compat alias for tests.
 
@@ -45,6 +45,37 @@ def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: s
     """
     # Prepare a candidate-style prompt header (no canonical solution in prompt)
     # Only rename the entrypoint signature; other helpers remain.
+    import re
+
+    def sanitize_prompt_to_code(p: str) -> str:
+        # 去掉代码围栏，并把自然语言段落注释化，直到出现代码行
+        p = _strip_code_fences(p or "")
+        lines = p.splitlines()
+        out = []
+        code_started = False
+        for ln in lines:
+            s = ln.lstrip()
+            if not code_started:
+                if not s:
+                    out.append("")  # 保留空行
+                    continue
+                if s.startswith(("#", "def ", "from ", "import ", "@")):
+                    code_started = True
+                    out.append(ln)
+                    continue
+                # 普通自然语言行，注释化
+                out.append("# " + ln if not ln.startswith("#") else ln)
+                continue
+            out.append(ln)
+        return "\n".join(out).strip()
+
+    if mode == 1:
+        # prompt = sanitize_prompt_to_code(prompt)
+        # print("Sanitized prompt for PRO mode.")
+        # print(prompt)
+        # print("----- End of sanitized prompt -----")
+        prompt = ""
+
     prompt_candidate = prompt.replace(f"def {entry_point}", "def candidate")
 
     def indent_body(body: str) -> str:
@@ -77,6 +108,8 @@ def _build_full_code(prompt: str, generated_code: str, test: str, entry_point: s
         # Treat as body and attach under the prompt header (now named candidate).
         body = indent_body(generated_code)
         full = prompt_candidate + "\n" + body + alias_line + test
+    # print(full)
+    # exit(0)
     return full
 
 
@@ -121,7 +154,7 @@ def _worker_run(full_code_str: str, q: Queue):
         })
 
 
-def check_correctness(prompt: str, generated_code: str, test: str, entry_point: str, timeout: int = 30) -> dict:
+def check_correctness(prompt: str, generated_code: str, test: str, entry_point: str, timeout: int = 30, mode: int = 0) -> dict:
     """
     Evaluates the generated code against the test cases.
 
@@ -137,7 +170,7 @@ def check_correctness(prompt: str, generated_code: str, test: str, entry_point: 
     # The prompt provides the 'def candidate(...):' line.
     # The generated_code is the indented body.
     # The test code contains the checks.
-    full_code_str = _build_full_code(prompt, generated_code, test, entry_point)
+    full_code_str = _build_full_code(prompt, generated_code, test, entry_point, mode)
 
     # Run evaluation in a separate process and enforce timeout
     q: Queue = Queue()
@@ -184,10 +217,14 @@ def main():
     # --- Configuration ---
     model_output_path = args.model_output_path
     per_problem_timeout = args.timeout
+    mode = 0
     if 'train' in model_output_path:
         dataset_path = '../../../../dataset/humaneval/train.jsonl'
     elif 'valid' in model_output_path or 'eval' in model_output_path:
         dataset_path = '../../../../dataset/humaneval/valid.jsonl'
+    elif 'pro' in model_output_path:
+        dataset_path = '../../../../dataset/humaneval/pro.jsonl'
+        mode = 1
     else:
         dataset_path = '../../../../dataset/humaneval/test.jsonl'
     results_output_path = '../results/' + model_output_path[10:] + '_results.jsonl'
@@ -231,7 +268,7 @@ def main():
 
             # print(f"Evaluating Task ID: {task_id}...")
             
-            result = check_correctness(prompt_for_eval, generated_code, test_for_eval, entry_point, timeout=per_problem_timeout)
+            result = check_correctness(prompt_for_eval, generated_code, test_for_eval, entry_point, timeout=per_problem_timeout, mode=mode)
             
             # print(f"Result: {result['status'].upper()}")
             n_true += (result['status'] == 'pass')

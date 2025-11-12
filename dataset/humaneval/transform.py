@@ -164,7 +164,7 @@ def transform_record(item: Dict[str, Any], idx: int) -> Dict[str, Any]:
     test_code = item.get('test_code') or ""
 
     # Determine entry_point
-    ep = extract_entry_point_from_tests(test_code) or extract_first_def_name(new_problem) or ""
+    ep = extract_first_def_name(new_problem) or ""
 
     # Find signature for ep
     signature = find_signature_for_ep(ep, new_problem, new_solution)
@@ -195,7 +195,7 @@ def transform_record(item: Dict[str, Any], idx: int) -> Dict[str, Any]:
 
     row = {
         "task_id": task_id,
-        "prompt": new_problem[2:],
+        "prompt": new_problem,
         "canonical_solution": canonical_solution,
         "test": test_block,
         "entry_point": entry_point,

@@ -418,6 +418,8 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 		retrievalPath = "Analysis/retri_results_eval_qwen.json"
 	case "test":
 		retrievalPath = "Analysis/retri_results_test_qwen.json"
+	case "pro":
+		retrievalPath = "Analysis/retri_results_pro_qwen.json"
 	}
 
 	retrievalFile, err := os.ReadFile(retrievalPath)
@@ -440,12 +442,12 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 
 	for _, entry := range retrievalData {
 		if entry.ID == questionID {
-			if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
-				return entry.RetrievalResults.WeightedSimilarity[0], nil
-			}
-			// if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
-			// return entry.RetrievalResults.AnalysisSimilarity[0], nil
+			// if len(entry.RetrievalResults.WeightedSimilarity) > 0 {
+			// return entry.RetrievalResults.WeightedSimilarity[0], nil
 			// }
+			if len(entry.RetrievalResults.AnalysisSimilarity) > 0 {
+				return entry.RetrievalResults.AnalysisSimilarity[0], nil
+			}
 			return 0, fmt.Errorf("found entry for question ID %d, but weighted_similarity is empty", questionID)
 		}
 	}
@@ -491,11 +493,11 @@ func main() {
 	var results []HumanEvalResultLog
 	totalCount := 0
 	timeStamp := time.Now().Format("20060102150405")
-	resultsFilename := fmt.Sprintf("output/%s_qt_v2_%s.json", mode, timeStamp)
+	resultsFilename := fmt.Sprintf("output/%s_qt_rev1.1_ta_%s.json", mode, timeStamp)
 	ErrorlogFilename := strings.TrimSuffix(resultsFilename, ".json") + ".log"
 	logFilename := "log/" + strings.TrimSuffix(resultsFilename[7:], ".json") + ".log"
 	start_time := time.Now()
-	start_id := 325
+	start_id := 0
 	// end_id := 1 //len(questions)
 	watcherInterval := 30
 	watcherActionInterval := 50
@@ -558,7 +560,7 @@ func main() {
 				reflectionPath := ""
 				// Set writeToFile to true if you want to save the generated SOP.
 				writeToFile := false
-				rag := false
+				rag := true
 				if rag { // RAG模式：从检索SOP作为引导生成SOP
 					retrievedQuestionNumber, err := retrieveSOPFile(mode, i)
 					if err != nil {
