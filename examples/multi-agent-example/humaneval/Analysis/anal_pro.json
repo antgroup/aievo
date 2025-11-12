@@ -1,0 +1,986 @@
+[
+  {
+    "id": 0,
+    "task_id": "0",
+    "question": "Given a list of lists of floats, determine if there exists any list where at least two numbers are closer to each other than a given threshold. If such a list exists, return the indices of the lists where this condition is met. If no such list exists, return an empty list.\ndef find_close_elements_lists(list_of_lists: List[List[float]], threshold: float) -\u003e List[int]:",
+    "analysis": "The user's query requires implementing a function to identify lists containing at least two elements within a threshold, involving edge cases (non-positive threshold, short lists) and an efficient algorithm (sorting for 1D closest pair). A multi-agent system with a Programming Expert for implementation, a Test Analyst for validation against edge cases and examples, and an AnswerAgent for final delivery ensures correctness through iterative testing."
+  },
+  {
+    "id": 1,
+    "task_id": "1",
+    "question": "Given a string containing multiple groups of nested parentheses, your goal is to count the number of balanced groups and return the total count. Each group is balanced (each open brace is properly closed) and not nested within each other. Ignore any spaces in the input string.\n\ndef count_balanced_paren_groups(paren_string: str) -\u003e int:",
+    "analysis": "The problem requires processing a string to count top-level balanced parentheses groups while ignoring spaces, involving depth tracking and edge case handling (e.g., empty input, adjacent groups). A multi-agent system is beneficial: a Programming Expert implements the depth-based traversal logic, a Test Analyst validates against edge cases (spaces, nested vs. separate groups), and an AnswerAgent ensures final correctness through iterative testing."
+  },
+  {
+    "id": 2,
+    "task_id": "2",
+    "question": "Given a list of positive floating point numbers, decompose each number into its integer part and decimal part. Then, calculate the sum of all the integer parts and the sum of all the decimal parts separately. Finally, return the product of these two sums.\nimport math\ndef sum_of_parts(numbers: list) -\u003e float:",
+    "analysis": "The user's query involves decomposing floating-point numbers into integer and decimal parts, summing them separately, and computing their product. This requires basic arithmetic operations and handling of edge cases like empty lists or whole numbers. The problem is straightforward with a clear implementation path (using math.floor or divmod) and minimal edge cases, making it suitable for a single agent. An AnswerAgent can directly implement the logic without needing specialized roles for algorithm design or extensive testing."
+  },
+  {
+    "id": 3,
+    "task_id": "3",
+    "question": "You are given a list of transactions where each transaction is a list of deposit and withdrawal operations on multiple bank accounts. Each sublist represents the operations for a single account, and the accounts are processed in the order they appear in the main list. Your task is to determine if any account falls below zero at any point during its operations. If any account falls below zero, the function should return True. Otherwise, it should return False.\nfrom typing import List\n\ndef below_zero(operations: List[int]) -\u003e bool:",
+    "analysis": "The problem requires checking if any bank account's running balance drops below zero during sequential operations, with input structured as a list of account operation lists (despite the function signature incorrectly specifying List[int] instead of List[List[int]]). This involves iterating through each account's operations, tracking cumulative balances, and validating edge cases (e.g., empty operations, immediate overdrafts). A multi-agent system ensures robustness: a Programming Expert implements the core logic to handle nested iterations and balance checks, while a Test Analyst validates against critical edge cases (e.g., single-account overdrafts, multi-account scenarios, zero-balance transitions) to resolve ambiguities in the problem statement's input structure."
+  },
+  {
+    "id": 4,
+    "task_id": "4",
+    "question": "Given a list of lists of numbers, calculate the Mean Absolute Deviation (MAD) for each sublist and then find the overall Mean Absolute Deviation of these MADs. The overall MAD should be calculated around the mean of the MADs of the sublists.\ndef overall_mean_absolute_deviation(list_of_lists: List[List[float]]) -\u003e float:",
+    "analysis": "The problem requires nested Mean Absolute Deviation calculations involving multiple statistical steps and edge cases (e.g., single-element sublists, floating-point precision). While algorithmically straightforward, correct implementation demands precise handling of two-layered MAD computations and validation against numerical edge cases. A multi-agent approach ensures robustness: a Programming Expert implements the statistical logic, a Test Analyst verifies edge cases (e.g., uniform sublists, empty inputs), and an AnswerAgent delivers the final solution. This prevents errors in mean/MAD calculations and ensures correctness through iterative validation."
+  },
+  {
+    "id": 5,
+    "task_id": "5",
+    "question": "Given a list of integers, intersperse a specified delimiter between every two consecutive elements of the list. Then, repeat this process with a different delimiter for the resulting list. Finally, return the list after both interspersing operations.\nfrom typing import List\n\n\ndef intersperse(numbers: List[int], delimeter: int) -\u003e List[int]:",
+    "analysis": "The problem requires implementing a function that performs two sequential intersperse operations with different delimiters, involving careful list manipulation and edge case handling (e.g., empty lists, single-element lists). While the core logic is straightforward (inserting delimiters between elements twice), verifying correctness across edge cases necessitates rigorous validation. A multi-agent approach with a Programming Expert to implement the intersperse logic and a Test Analyst to validate edge cases (empty input, delimiter placement in single-element lists) ensures robustness through iterative testing, avoiding subtle errors in list transformation steps."
+  },
+  {
+    "id": 6,
+    "task_id": "6",
+    "question": "Given a list of strings, each representing multiple groups of nested parentheses separated by spaces, return the sum of the deepest levels of nesting for each group in each string. For example, if a string contains '(()()) ((())) () ((())()())', the sum of the deepest levels of nesting is 2 + 3 + 1 + 3 = 9.\ndef sum_deepest_nesting(strings: List[str]) -\u003e List[int]:",
+    "analysis": "The problem requires parsing nested parentheses groups in strings, calculating maximum nesting depths per group, and summing them. This involves string manipulation (handling space-separated groups), precise depth tracking (using counter logic), and edge cases like empty groups or multiple spaces. A multi-agent system ensures robustness: an Algorithm Designer to outline the depth-calculation strategy, a Programming Expert to implement group splitting and depth logic, a Test Analyst to validate edge cases (e.g., empty inputs, irregular spacing), and an AnswerAgent for final solution assembly. Iterative testing is critical to catch parsing errors."
+  },
+  {
+    "id": 7,
+    "task_id": "7",
+    "question": "Given a list of strings and a list of substrings, return a set of strings that contain at least one of the given substrings. If a string contains multiple substrings, it should only appear once in the result.\nfrom typing import List\ndef filter_by_multiple_substrings(strings: List[str], substrings: List[str]) -\u003e List[str]:",
+    "analysis": "The user's query requires filtering strings based on substring presence with deduplication, involving edge cases like empty substrings (which match all strings) and handling duplicate matches. A multi-agent system ensures robustness: a Programming Expert implements the core logic using set deduplication and efficient substring checks, a Test Analyst validates edge cases (e.g., empty inputs, overlapping substrings), and an AnswerAgent finalizes the solution. This分工 guarantees correctness through iterative testing while avoiding premature code delivery."
+  },
+  {
+    "id": 8,
+    "task_id": "8",
+    "question": "Given a list of lists of integers, return a list of tuples where each tuple consists of the sum and product of the integers in the corresponding sublist. Additionally, calculate the total sum and total product of all integers across all sublists.\nfrom typing import List, Tuple\n\n\ndef sum_product_of_lists(lists: List[List[int]]) -\u003e Tuple[List[Tuple[int, int]], int, int]:",
+    "analysis": "The user's query involves processing a list of integer lists to compute per-sublist sum-product tuples and aggregate totals. It requires handling standard edge cases (empty sublists, empty main list) with straightforward accumulation logic. The problem is an extension of simple sum/product tasks, solvable with direct iteration and arithmetic operations without complex algorithms. A single AnswerAgent can implement the solution correctly by leveraging built-in functions and careful edge-case handling, as the required logic is linear and well-defined."
+  },
+  {
+    "id": 9,
+    "task_id": "9",
+    "question": "Given a list of lists of integers, generate a list of lists where each sublist contains the rolling maximum elements for the corresponding sublist in the input. Additionally, find the maximum element across all sublists at each rolling position and return this as a single list.\nfrom typing import List\n\n\ndef rolling_max_across_lists(list_of_lists: List[List[int]]) -\u003e Tuple[List[List[int]], List[int]]:",
+    "analysis": "The problem requires computing rolling maxima per sublist and cross-sublist maxima at each position, with considerations for varying sublist lengths and edge cases (e.g., empty lists, mixed-length sublists). A multi-agent system ensures robustness: an Algorithm Designer to handle logic for dynamic sublist length handling and cross-position aggregation, a Programming Expert to implement the dual-output computation, and a Test Analyst to validate edge cases (empty inputs, negative values, uneven lengths). This分工 guarantees correct handling of positional alignment and edge-case resilience."
+  },
+  {
+    "id": 10,
+    "task_id": "10",
+    "question": "Given a list of strings, find the shortest palindrome for each string and then concatenate all the resulting palindromes into a single string. If the list is empty, return an empty string.\ndef concatenate_palindromes(strings: list) -\u003e str:",
+    "analysis": "The user's query requires generating the shortest palindrome for each string in a list (via non-trivial string manipulation like finding longest palindromic prefixes and mirroring suffixes) and concatenating results. This involves algorithm design (e.g., KMP-based optimization or brute-force prefix checks), edge case handling (empty strings, pre-existing palindromes), and validation across diverse inputs. A multi-agent system is necessary: an Algorithm Designer to devise the palindrome construction logic, a Programming Expert to implement efficient string operations, a Test Analyst to verify correctness with edge cases (e.g., 'a', 'ab', 'race'), and an AnswerAgent for final integration. This ensures robustness against common pitfalls like off-by-one errors in substring mirroring."
+  },
+  {
+    "id": 11,
+    "task_id": "11",
+    "question": "Given a list of binary strings, perform a cumulative XOR operation on them. The cumulative XOR operation means that for each string in the list, XOR it with the result of all previous XOR operations. Return the final result as a string.\nfrom typing import List\n\n\ndef cumulative_xor(binary_strings: List[str]) -\u003e str:",
+    "analysis": "The problem requires handling variable-length binary strings, padding to the maximum length, and performing bitwise XOR operations with edge cases like empty lists and differing string lengths. A multi-agent system is appropriate: a Programming Expert to implement the padding and XOR logic, a Test Analyst to validate edge cases (empty input, varying lengths, single elements), and an AnswerAgent to deliver the final solution. This ensures robust handling of non-trivial string manipulation and avoids missing critical edge scenarios."
+  },
+  {
+    "id": 12,
+    "task_id": "12",
+    "question": "Given a list of lists of strings, return the longest string from each sublist. If a sublist is empty, return 'EMPTY' for that sublist. If there are multiple strings of the same length in a sublist, return the first one. Return a list of these longest strings.\ndef find_longest_strings(list_of_lists: List[List[str]]) -\u003e List[str]:",
+    "analysis": "The user's query requires implementing a function that processes each sublist to find the longest string with specific conditions (empty sublists return 'EMPTY', first occurrence on ties). Given the straightforward nature of the problem (simple iteration, conditional checks, and built-in max functionality with length key), a single AnswerAgent can directly handle the implementation. The solution involves basic list operations without complex algorithm design or extensive edge case validation beyond the clearly defined requirements, making additional specialized agents unnecessary."
+  },
+  {
+    "id": 13,
+    "task_id": "13",
+    "question": "Given a list of integers, find the greatest common divisor (GCD) of all the integers in the list. You need to implement a function that takes a list of integers as input and returns their GCD.\n\nfrom typing import List\ndef gcd_of_list(lst: List[int]) -\u003e int:",
+    "analysis": "The user's query requires implementing a function to compute the GCD of a list of integers, which involves applying the Euclidean algorithm iteratively across the list while handling edge cases like negative numbers and single-element lists. This is a standard algorithmic problem with well-defined steps (using pairwise GCD reduction) and manageable edge cases (e.g., absolute value handling). A single AnswerAgent suffices to implement the solution directly, as no complex algorithm design, multi-step validation, or specialized testing beyond basic correctness checks is required."
+  },
+  {
+    "id": 14,
+    "task_id": "14",
+    "question": "Given a list of strings, return a list of lists where each sublist contains all prefixes of the corresponding string in the input list, sorted from shortest to longest. If the input list is empty, return an empty list.\nfrom typing import List\n\n\ndef all_prefixes(string: str) -\u003e List[str]:",
+    "analysis": "The user's query requires implementing a function to generate all prefixes of a string, including the empty string, sorted by length. This involves a straightforward iteration over the string's characters to build prefixes incrementally. Edge cases (e.g., empty input string) are trivially handled by the iteration logic. Given the simplicity of the problem (no complex algorithms, validation, or multi-step reasoning), a single AnswerAgent suffices to directly translate the specification into a concise list comprehension."
+  },
+  {
+    "id": 15,
+    "task_id": "15",
+    "question": "Given a list of integers, return a single string that concatenates the space-delimited sequences starting from 0 up to each integer in the list. If the list is empty, return an empty string.\nfrom typing import List\ndef concatenated_sequences(lst: List[int]) -\u003e str:",
+    "analysis": "The user's query requires generating space-delimited sequences from 0 to each integer in a list and concatenating them into a single string, with edge cases like empty lists and negative integers (which produce empty sequences). This is a straightforward implementation problem involving iteration, range handling, and string joining. No complex algorithm design is needed, as the solution relies on basic loop structures and edge-case checks. A single AnswerAgent can directly translate the requirements into code without requiring specialized roles for algorithm design or extensive test validation."
+  },
+  {
+    "id": 16,
+    "task_id": "16",
+    "question": "Given a list of strings, find out how many distinct characters (regardless of case) are present across all strings. For example, if the list is ['xyzXYZ', 'Jerry'], the output should be 6 because the distinct characters are 'x', 'y', 'z', 'j', 'e', 'r'.\ndef count_distinct_characters_across_strings(strings: list) -\u003e int:",
+    "analysis": "The user's query requires counting distinct case-insensitive characters across multiple strings, which involves straightforward string processing and set operations. The solution entails converting all characters to a uniform case and leveraging set properties for uniqueness. Given the simplicity of the required logic (no complex algorithm design or intricate edge-case handling beyond basic empty-input consideration), a single AnswerAgent can efficiently implement the solution by directly translating the problem requirements into code without needing specialized validation or design roles."
+  },
+  {
+    "id": 17,
+    "task_id": "17",
+    "question": "Given a list of musical note strings, each representing a measure in a piece of music, calculate the total number of beats for each measure and return the sum of all beats in the piece. Each measure is separated by a space and the notes within a measure are also separated by a space. Use the parse_music function to parse each measure and sum the beats.\nfrom typing import List\n\n\ndef total_beats(music_measures: List[str]) -\u003e int:",
+    "analysis": "The user's query requires summing beats across musical measures by utilizing a predefined parse_music function. The task involves iterating over each measure string, applying parse_music to compute individual measure beats, and aggregating the results. Given the straightforward nature of the problem (simple iteration and summation with no complex logic or edge cases beyond basic list processing), a single AnswerAgent suffices to implement the solution directly without requiring specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 18,
+    "task_id": "18",
+    "question": "Given a list of strings and a list of substrings, find the total number of times each substring appears in the list of strings. Return a dictionary where the keys are the substrings and the values are the total counts across all strings.\ndef total_substring_counts(strings: list, substrings: list) -\u003e dict:",
+    "analysis": "The user's query requires counting substring occurrences across multiple strings and aggregating results into a dictionary. This involves straightforward iteration over strings and substrings using built-in string methods (e.g., `str.count`), with no complex algorithm design needed. Edge cases like empty strings or substrings are naturally handled by Python's standard behavior. Given the simplicity of the logic and absence of multi-step validation requirements, a single AnswerAgent suffices to implement the solution directly without specialized roles."
+  },
+  {
+    "id": 19,
+    "task_id": "19",
+    "question": "Given a list of space-delimited strings, each representing a sequence of numerals from 'zero' to 'nine', sort each individual string from smallest to largest and then concatenate the sorted strings into a single string, maintaining the original order of the strings. If any string contains an invalid numeral, it should be replaced with an empty string in the final result.\nfrom typing import List\n\n\ndef sort_and_concatenate(sequences: List[str]) -\u003e str:",
+    "analysis": "The problem requires processing each string by validating numeral words, sorting valid sequences numerically, and handling edge cases like invalid inputs. This involves multiple non-trivial steps: mapping words to numeric values, strict validation per string, conditional sorting, and concatenation logic. A multi-agent approach ensures robustness: a Programming Expert implements the core logic (validation, sorting, concatenation), a Test Analyst verifies edge cases (invalid words, empty inputs, mixed valid/invalid strings), and an AnswerAgent integrates and delivers the final solution. This分工 prevents errors in numeral mapping or edge-case handling that a single agent might overlook."
+  },
+  {
+    "id": 20,
+    "task_id": "20",
+    "question": "Given a list of lists of numbers, find the pair of numbers across all lists that are the closest to each other. Return the pair in the order (smaller number, larger number). If there are multiple pairs with the same smallest difference, return the first one found.\nfrom typing import List, Tuple\n\n\ndef find_closest_elements(numbers: List[float]) -\u003e Tuple[float, float]:",
+    "analysis": "The user's query requires finding the closest pair of numbers in a single list (despite the problem statement mentioning 'list of lists', the function signature specifies List[float], indicating a flat list). This involves sorting the list and checking adjacent elements for minimal difference—a non-trivial algorithmic step beyond basic condition checks. Edge cases like duplicates, negatives, and minimal differences demand careful implementation and validation. A multi-agent system ensures robustness: an Algorithm Designer to outline the sorting-and-scan approach, a Programming Expert to implement it, a Test Analyst to verify edge cases (e.g., duplicates, negatives), and an AnswerAgent for final delivery. Iterative testing is critical to handle the 'first pair' requirement and correctness."
+  },
+  {
+    "id": 21,
+    "task_id": "21",
+    "question": "Given a list of lists of numbers (each sublist containing at least two elements), apply a linear transform to each sublist such that the smallest number in each sublist will become 0 and the largest will become 1. Then, combine all the transformed sublists into a single list and apply the same linear transform to this combined list, ensuring the smallest number in the combined list becomes 0 and the largest becomes 1.\nfrom typing import List\n\n\ndef rescale_to_unit(numbers: List[float]) -\u003e List[float]:",
+    "analysis": "The user's query requires implementing a min-max normalization function for a list of numbers, scaling values to [0,1] range. This involves straightforward computation of minimum/maximum values and linear transformation with basic edge-case handling (e.g., ensuring division by zero doesn't occur, though problem constraints imply valid input ranges). Given the simplicity of the mathematical operation and lack of complex algorithmic design or multi-step validation needs, a single AnswerAgent suffices to directly implement the logic without requiring specialized roles for testing or algorithm design."
+  },
+  {
+    "id": 22,
+    "task_id": "22",
+    "question": "Given a list of lists containing any Python values, filter out all non-integer values from each sublist and return a new list of lists containing only the integers. If a sublist becomes empty after filtering, it should not be included in the final result.\nfrom typing import List, Any\n\n\ndef filter_integers(values: List[Any]) -\u003e List[int]:",
+    "analysis": "The user's query requires filtering non-integer values from sublists within a list of lists and excluding empty sublists. This involves list comprehension, type checking (using `isinstance`), and handling edge cases like empty sublists or mixed-type elements. The problem is straightforward with clear implementation steps (nested filtering) and minimal edge cases, requiring no complex algorithm design. A single AnswerAgent can directly implement the solution using Python's built-in features without needing specialized roles for testing or algorithm design."
+  },
+  {
+    "id": 23,
+    "task_id": "23",
+    "question": "Given a list of strings, write a function to return the total length of all strings combined. If the list is empty, return 0.\ndef total_length(strings: list) -\u003e int:",
+    "analysis": "The user's query requires a simple function to compute the total length of strings in a list with a trivial edge case (empty list). This is a basic iteration and summation task with no complex logic, edge cases beyond empty input, or algorithmic design needed. A single AnswerAgent can directly implement the solution using Python's built-in sum() and len() functions without requiring specialized roles for testing or algorithm design."
+  },
+  {
+    "id": 24,
+    "task_id": "24",
+    "question": "Given a list of integers, find the largest number that divides each of the numbers in the list evenly, smaller than the smallest number in the list.\ndef largest_common_divisor(numbers: list) -\u003e int:\n    \"\"\" For a given list of integers, find the largest number that divides each of the numbers in the list evenly, smaller than the smallest number in the list\n    \u003e\u003e\u003e largest_common_divisor([15, 30, 45])\n    15\n    \"\"\"",
+    "analysis": "The problem requires finding the greatest common divisor (GCD) of a list of integers, which inherently must be less than or equal to the smallest number in the list. Despite the confusing phrasing 'smaller than the smallest number' (contradicted by the example where GCD equals the smallest number), the core task is a standard GCD computation. This involves iterative pairwise GCD calculation using the Euclidean algorithm. Given the straightforward nature of implementing a well-known mathematical algorithm with clear edge cases (e.g., single-element lists), a single AnswerAgent can handle requirements analysis, code implementation, and basic validation without needing specialized roles."
+  },
+  {
+    "id": 25,
+    "task_id": "25",
+    "question": "Given a list of integers, return a list of lists where each sublist contains the prime factors of the corresponding integer in the original list. The prime factors should be listed in ascending order, and each factor should appear as many times as it does in the factorization of the integer.\nfrom typing import List\n\n\ndef factorize_list(numbers: List[int]) -\u003e List[List[int]]:",
+    "analysis": "The problem requires prime factorization for each integer in a list, handling edge cases (e.g., 1, primes, composites) and ensuring factors are sorted with correct multiplicity. While the core algorithm (trial division) is standard, robust implementation demands careful edge-case validation (e.g., 1 → empty list, primes → [n], composites → sorted factors). A multi-agent approach ensures correctness: a Programming Expert implements the factorization logic, a Test Analyst validates against edge cases (including 1, negative numbers if applicable, and large composites), and an AnswerAgent integrates feedback for final delivery. This workflow prevents oversight of non-trivial cases like 1 or repeated factors."
+  },
+  {
+    "id": 26,
+    "task_id": "26",
+    "question": "Given a list of lists of integers, remove all elements that occur more than once across all lists. Keep the order of elements left the same as in the input. For example, given [[1, 2, 3, 2, 4], [2, 3, 5]], the output should be [[1, 4], [5]].\nfrom typing import List\ndef remove_duplicates_across_lists(lists: List[List[int]]) -\u003e List[List[int]]:",
+    "analysis": "The user's query requires processing nested lists to remove elements duplicated across all sublists while preserving order. This involves global frequency counting (aggregating counts across all lists) and conditional filtering per sublist. Key challenges include correctly identifying duplicates in a flattened context and maintaining original element order. A multi-agent approach ensures robustness: an Algorithm Designer outlines the two-phase strategy (count then filter), a Programming Expert implements the logic with attention to nested iteration and defaultdict usage, a Test Analyst validates edge cases (e.g., all duplicates, empty lists, negative integers), and an AnswerAgent delivers the verified solution. This分工 prevents oversight in cross-list aggregation and order preservation."
+  },
+  {
+    "id": 27,
+    "task_id": "27",
+    "question": "Given a list of strings, flip the case of each character in each string and then concatenate all the strings together. Return the resulting string.\ndef flip_and_concatenate(strings: list) -\u003e str:",
+    "analysis": "The user's query requires implementing a function to flip character cases in each string of a list and concatenate the results. This involves straightforward string manipulation using Python's built-in `swapcase()` method and simple iteration. Given the simplicity of the task (no complex algorithm design, edge cases are handled by built-in methods), a single AnswerAgent can directly implement the solution by applying `swapcase()` to each string and joining them. Additional agents would be unnecessary overhead for this trivial workflow."
+  },
+  {
+    "id": 28,
+    "task_id": "28",
+    "question": "Given a list of lists of strings, concatenate each sublist into a single string and then concatenate all the resulting strings into a single string. Return the final concatenated string.\nfrom typing import List\n\n\ndef concatenate(strings: List[str]) -\u003e str:",
+    "analysis": "The user's query requires concatenating sublists of strings and then combining the results, which involves straightforward nested string joining operations. The problem is simple with minimal edge cases (e.g., empty lists), and the solution can be achieved using basic Python string methods like `join`. No complex algorithm design or rigorous multi-step validation is needed, so a single AnswerAgent can directly implement the logic by iterating through sublists and handling concatenation."
+  },
+  {
+    "id": 29,
+    "task_id": "29",
+    "question": "f filter_by_multiple_prefixes(strings: List[str], prefixes: List[str]) -\u003e List[str]:",
+    "analysis": "The user's query defines a function to filter strings based on multiple prefixes, requiring checks for whether each string starts with any prefix from a given list. This involves straightforward string operations and edge cases (e.g., empty inputs, overlapping prefixes). Given the simplicity of the logic—no complex algorithm design or numerical methods needed—a single AnswerAgent can implement the solution using basic iteration and string methods while handling edge cases directly. Introducing additional agents would be unnecessary overhead for this low-complexity task."
+  },
+  {
+    "id": 30,
+    "task_id": "30",
+    "question": "Given a list of lists, return a list containing only the positive numbers from each sublist. If a sublist is empty, it should be ignored in the final result. The order of the numbers should be maintained as they appear in the original lists.\ndef get_all_positives(list_of_lists: list) -\u003e list:",
+    "analysis": "The user's query involves filtering positive numbers from nested lists while maintaining order and skipping empty sublists. This is a straightforward list comprehension task requiring basic iteration and conditional checks. The problem has clear requirements with minimal edge cases (e.g., handling zeros/negatives, empty sublists), which can be directly addressed through simple code logic. A single AnswerAgent suffices to implement the solution without needing specialized roles for algorithm design or extensive testing, as the solution pattern is common and verifiable through basic validation."
+  },
+  {
+    "id": 31,
+    "task_id": "31",
+    "question": "Write a function that takes a list of numbers and returns a list of tuples. Each tuple should contain a number from the input list and a boolean indicating whether the number is prime. The function should use the is_prime function to determine if a number is prime.\ndef prime_check_list(numbers):",
+    "analysis": "The user's query requires implementing a function that maps each number in a list to a tuple with its prime check result using a provided is_prime helper. This is a straightforward task involving iteration and function application with no complex algorithm design or edge-case handling beyond typical prime checks (handled by is_prime). A single AnswerAgent can directly implement the solution via list comprehension or loop, as the problem lacks ambiguity or multi-step validation needs."
+  },
+  {
+    "id": 32,
+    "task_id": "32",
+    "question": "Given a list of polynomials, each represented by their coefficients, find the common zero point for all polynomials if it exists. If no common zero point exists, return None. Note that each polynomial is guaranteed to have an even number of coefficients and the largest non-zero coefficient ensures a solution.\n\ndef find_common_zero(polys: list):",
+    "analysis": "The problem requires finding a common zero across multiple polynomials, each guaranteed to have at least one real root (due to even coefficients implying odd degree). This involves: (1) designing a robust root-finding algorithm for individual polynomials (handling multiple roots via numerical methods like interval-based bisection), (2) efficiently checking root intersections across polynomials with tolerance-based comparisons to address floating-point precision, and (3) validating edge cases (e.g., no common roots, multiple overlapping roots). A multi-agent system is essential: an Algorithm Designer to devise the root-finding and intersection strategy, a Programming Expert to implement numerical stability and edge-case handling, a Test Analyst to verify correctness across diverse polynomial sets, and an AnswerAgent for final solution synthesis. This ensures systematic handling of complexity beyond single-polynomial root-finding."
+  },
+  {
+    "id": 33,
+    "task_id": "33",
+    "question": "Given a list of lists, where each sublist contains integers, write a function that sorts every third sublist in ascending order. If a sublist has fewer than three elements, it should remain unchanged. The function should return the modified list of lists.\ndef sort_every_third_sublist(list_of_lists: list):",
+    "analysis": "The user's query requires implementing a function to sort every third sublist (0-based index 2,5,8...) only if it has at least three elements. This involves straightforward list iteration, index-based conditional checks, and in-place sorting. The problem is simple with no complex algorithmic choices or edge cases beyond basic length validation. A single AnswerAgent can directly implement the logic by checking index modulo 3 and sublist length, making additional specialized agents unnecessary."
+  },
+  {
+    "id": 34,
+    "task_id": "34",
+    "question": "Given a list of lists, return a list of sorted unique elements from all sublists. Each sublist may contain duplicate elements, and the final list should not have any duplicates.\ndef unique_from_lists(lists: list[list]) -\u003e list:",
+    "analysis": "The user's query requires processing a nested list structure to extract, deduplicate, and sort elements—a task involving straightforward list flattening, set conversion, and sorting. Given the simplicity of the required operations (no complex algorithm design or edge-case validation beyond basic Python idioms), a single AnswerAgent can efficiently implement the solution by leveraging built-in functions like list comprehensions, set(), and sorted(). Introducing specialized agents would be unnecessary overhead for this elementary workflow."
+  },
+  {
+    "id": 35,
+    "task_id": "35",
+    "question": "Given a list of lists, return the maximum element among all the sublists. If the list of lists is empty, return None.\ndef max_element_in_lists(list_of_lists: list):",
+    "analysis": "The user's query involves finding the maximum element across all sublists in a list of lists, with specific handling for empty inputs. This requires basic iteration, edge case management (empty outer list or empty sublists), and straightforward comparison logic. Given the simplicity of the problem—no complex algorithms, data structures, or multi-step validation are needed—a single agent can efficiently analyze requirements, implement the solution, and validate edge cases. Introducing multiple agents would be unnecessary overhead for this trivial workflow."
+  },
+  {
+    "id": 36,
+    "task_id": "36",
+    "question": "Given a list of integers, return the sum of the number of times the digit 7 appears in integers less than each integer in the list which are divisible by 11 or 13.\ndef new_fizz_buzz(lst):",
+    "analysis": "The problem requires processing each integer in the list to count digit '7' occurrences in numbers below it divisible by 11 or 13. This involves nested iteration (over list elements and candidate numbers), divisibility checks, digit counting, and handling edge cases (e.g., numbers like 77 with multiple '7's, overlapping multiples of 11/13). A multi-agent system is necessary: an Algorithm Designer to structure the iteration and edge-case logic, a Programming Expert to implement efficient digit counting and divisibility checks, and a Test Analyst to validate against critical cases (e.g., [78] should count 77's two '7's). This ensures robustness through iterative refinement before final delivery."
+  },
+  {
+    "id": 37,
+    "task_id": "37",
+    "question": "Given a list of lists, where each sublist contains integers, return a new list of lists where each sublist is transformed such that the even indexed elements are sorted and the odd indexed elements remain the same. The transformation should be applied to each sublist individually.\ndef transform_sublists(list_of_lists: list) -\u003e list:",
+    "analysis": "The user's query requires transforming each sublist by sorting even-indexed elements while preserving odd-indexed ones, which involves careful index handling and edge cases (e.g., empty sublists, single-element sublists). A multi-agent approach ensures robustness: a Programming Expert implements the core logic (separating/sorting even indices and merging), a Test Analyst validates against edge cases (varying sublist lengths, negative numbers), and an AnswerAgent delivers the final solution. This分工 guarantees correctness through iterative testing without overcomplicating simple index operations."
+  },
+  {
+    "id": 38,
+    "task_id": "38",
+    "question": "Given a list of strings, each encoded using the `encode_cyclic` function, decode all strings and concatenate the results. If the list contains an empty string, it should be ignored in the concatenation. Write a function `decode_all_cyclic` that takes a list of encoded strings and returns the concatenated decoded strings.\ndef decode_all_cyclic(encoded_strings: list) -\u003e str:",
+    "analysis": "The user's query requires implementing a decoder for cyclically encoded strings, involving string manipulation (chunk rotation reversal), edge case handling (empty strings, non-multiple-of-3 lengths), and validation. A multi-agent approach ensures robustness: a Programming Expert designs the decoding logic (reversing cyclic shifts per chunk), a Test Analyst validates against edge cases (e.g., partial chunks, empty inputs), and an AnswerAgent integrates and delivers the final solution. This workflow prevents errors from unverified assumptions about the encoding mechanics."
+  },
+  {
+    "id": 39,
+    "task_id": "39",
+    "question": "Write a function `prime_fib_sum(n: int)` that returns the sum of the first `n` prime Fibonacci numbers. For example, if `n` is 3, the function should return the sum of the first 3 prime Fibonacci numbers, which are 2, 3, and 5, resulting in a sum of 10.\ndef prime_fib_sum(n: int):",
+    "analysis": "The user's query requires generating Fibonacci numbers, identifying primes within them, and summing the first n such primes. This involves integrating two non-trivial algorithms (Fibonacci sequence generation and primality testing) with edge cases (e.g., skipping non-prime Fib numbers like 1 or 8). A multi-agent system is necessary: an Algorithm Designer to outline the iterative Fib generation and prime-checking strategy, a Programming Expert to implement efficient helper functions (e.g., is_prime), a Test Analyst to validate against edge cases (n=0, n=1, large n), and an AnswerAgent for final code synthesis. This ensures correctness through specialized role collaboration."
+  },
+  {
+    "id": 40,
+    "task_id": "40",
+    "question": "Given a list of lists of integers, determine if there exists at least one sublist that contains three distinct elements summing to zero in each of the given lists. Return True if such a sublist exists in every list, and False otherwise.\ndef all_lists_have_triples_sum_to_zero(lists: list):",
+    "analysis": "The problem requires checking each sublist for a triplet of distinct elements summing to zero and verifying this condition across all sublists. This involves adapting the classic 3Sum problem with distinct-value constraints, handling edge cases (e.g., sublists with \u003c3 elements), and ensuring correctness across multiple lists. A multi-agent system is necessary: an Algorithm Designer to devise the efficient O(k²) per-sublist check using unique-element sets and pair validation, a Programming Expert to implement the logic with edge-case handling, a Test Analyst to validate against scenarios like duplicates, minimal valid triplets, and empty sublists, and an AnswerAgent for final synthesis. Iterative testing is critical due to subtle constraints around distinct elements."
+  },
+  {
+    "id": 41,
+    "task_id": "41",
+    "question": "Imagine a circular racetrack with 2n cars, where n cars are driving clockwise and n cars are driving counterclockwise. The cars start at equal intervals around the racetrack and move at the same speed. A collision occurs when a car moving clockwise meets a car moving counterclockwise. Write a function that calculates the total number of collisions that will occur during a complete lap for all cars.\n# To solve this problem, we need to consider that each pair of cars moving in opposite directions will collide exactly once per lap. Since there are n cars moving clockwise and n cars moving counterclockwise, the total number of collisions is the number of ways to choose 2 cars out of n, which is given by the combination formula C(n, 2) = n * (n - 1) / 2. This can be implemented by calling the function `car_race_collision` twice, once for the clockwise cars and once for the counterclockwise cars, and then summing the results.\ndef car_race_collision(n):",
+    "analysis": "The problem requires calculating the total number of collisions between clockwise and counterclockwise cars on a circular track. Despite the user's misleading note suggesting a combination formula, the correct solution is derived from recognizing each of the n clockwise cars collides with each of the n counterclockwise cars exactly once per lap, resulting in n² collisions. This is a straightforward mathematical computation with no complex algorithm design or edge-case validation needed beyond basic integer arithmetic. A single AnswerAgent can directly implement the solution as a simple return statement."
+  },
+  {
+    "id": 42,
+    "task_id": "42",
+    "question": "Given a list of lists, increment each sublist by 1 and then increment the entire list of lists by 1. Return the final incremented list of lists.\ndef incr_nested_list(l: list):",
+    "analysis": "The user's query requires incrementing each element in nested sublists twice (once per sublist, then across the entire structure). This is a straightforward transformation task involving nested list comprehensions with no complex algorithm design or edge cases beyond empty sublists. A single AnswerAgent can directly implement the solution by applying two sequential increments to each numeric element, as the logic is deterministic and lacks ambiguous requirements needing multi-agent validation."
+  },
+  {
+    "id": 43,
+    "task_id": "43",
+    "question": "Given a list of lists of integers, determine if there exists a pair of integers in each sublist that sum to zero. Return True if all sublists contain such a pair, and False otherwise.\ndef all_pairs_sum_to_zero(list_of_lists):",
+    "analysis": "The user's query requires implementing a function that checks each sublist for a pair of distinct integers summing to zero (handling edge cases like zeros, empty sublists, and single elements) and returns True only if all sublists satisfy this condition. This involves solving a constrained two-sum variant per sublist with careful edge-case handling and efficiency considerations (O(n) per sublist via set operations). A multi-agent system is necessary: an Algorithm Designer to devise the set-based approach for pair detection and overall control flow, a Programming Expert to implement the solution with robust edge-case handling, a Test Analyst to validate against critical cases (e.g., [0,0], [0], empty sublists, mixed-sign lists), and an AnswerAgent for final integration. This ensures correctness through iterative testing and avoids pitfalls like misinterpreting distinct indices or mishandling zero pairs."
+  },
+  {
+    "id": 44,
+    "task_id": "44",
+    "question": "Given a list of integers and a target base, convert each integer in the list to the target base and concatenate the results into a single string. If the list contains any number that cannot be represented in the given base (i.e., the number is negative or the base is less than 2), return 'Invalid input'. Finally, reverse the concatenated string and return it.\ndef convert_and_concatenate(numbers: list, base: int) -\u003e str:",
+    "analysis": "The problem requires input validation (base \u003c 2 or negative numbers), non-trivial base conversion (handling alphanumeric digits for bases \u003e10), and string manipulation. It involves multiple edge cases (zero, empty list, base=2, base=16, etc.) and nuanced logic for correct digit representation. A multi-agent system is needed: an Algorithm Designer to formalize the conversion workflow, a Programming Expert to implement base-specific digit handling and edge cases, and a Test Analyst to validate against critical scenarios (e.g., base=1, negative inputs, zero values, high bases). This ensures robustness through iterative testing and avoids oversights in conversion logic."
+  },
+  {
+    "id": 45,
+    "task_id": "45",
+    "question": "Given a list of tuples where each tuple contains the length of a side and the corresponding height of multiple triangles, calculate the total area of all the triangles combined.\ndef total_triangle_area(triangles):",
+    "analysis": "The user's query requires calculating the total area of multiple triangles given side-height tuples, using the standard area formula (0.5 * base * height). This is a straightforward computational task involving iteration and arithmetic operations with no complex algorithm design, edge case handling beyond empty list (naturally handled by summation), or validation requirements. A single AnswerAgent can directly implement the solution by summing individual triangle areas, making additional specialized roles unnecessary."
+  },
+  {
+    "id": 46,
+    "task_id": "46",
+    "question": "The Fib4 number sequence is a sequence similar to the Fibonacci sequence that's defined as follows:",
+    "analysis": "The problem statement is incomplete, lacking the actual definition of the Fib4 sequence recurrence relation and expected output specifications. This ambiguity necessitates a Requirements Analyst agent to clarify the sequence's mathematical formulation (e.g., initial terms, recurrence rule) before implementation. Once defined, additional roles like Algorithm Designer (for recurrence logic), Programming Expert (for code implementation), and Test Analyst (for edge-case validation) would be required. The current state prevents direct solution drafting due to missing critical problem details."
+  },
+  {
+    "id": 47,
+    "task_id": "47",
+    "question": "Given a list of lists, where each sublist contains numbers, write a function to return the median of the medians of each sublist.\ndef median_of_medians(list_of_lists: list):",
+    "analysis": "The problem requires calculating medians for each sublist (handling odd/even lengths) and then computing the median of those values, which involves nuanced numerical logic and edge cases (e.g., even-length sublists requiring averaging). A multi-agent approach ensures robustness: a Programming Expert implements the median logic, a Test Analyst validates edge cases (negative numbers, mixed lengths), and an AnswerAgent delivers the final solution. This workflow prevents errors in median calculations and guarantees correctness through iterative testing."
+  },
+  {
+    "id": 48,
+    "task_id": "48",
+    "question": "Given a list of strings, return the number of palindromic substrings in each string. A palindromic substring is a contiguous substring that reads the same forward and backward. For each string, find all possible substrings and count how many of them are palindromes.\ndef count_palindromic_substrings(strings: list) -\u003e list:",
+    "analysis": "The problem requires counting palindromic substrings for multiple strings, involving non-trivial algorithm design (e.g., efficient substring validation via brute-force or optimized methods like center expansion), edge case handling (empty strings, single characters), and validation against diverse test scenarios. A multi-agent system ensures robustness: an Algorithm Designer selects the optimal approach, a Programming Expert implements substring iteration and palindrome checks, and a Test Analyst verifies correctness across edge cases (e.g., all-same-character strings, non-palindromic sequences). This分工 prevents oversight in complex string manipulations and guarantees accurate counting."
+  },
+  {
+    "id": 49,
+    "task_id": "49",
+    "question": "Given a list of tuples where each tuple contains two integers (n, p), compute the sum of all 2^n modulo p for each tuple in the list. Return the final sum modulo 123.\ndef sum_modp_list(tuples_list):",
+    "analysis": "The user's query requires computing modular exponentiation (2^n mod p) for each tuple to avoid overflow with large n, then summing these values modulo 123. Key challenges include handling edge cases (n=0, p=1), ensuring efficient computation via modular exponentiation, and validating correctness across diverse inputs. A multi-agent system is necessary: a Programming Expert implements the solution using Python's pow(2, n, p) for efficiency, a Test Analyst validates edge cases (empty list, n=0, p=1, large n), and an AnswerAgent delivers the final robust solution after verification."
+  },
+  {
+    "id": 50,
+    "task_id": "50",
+    "question": "Given a list of encoded messages, each encoded with the `encode_shift` function, decode all messages and concatenate the results into a single string. Then, encode this concatenated string using the `encode_shift` function again. Return the final encoded string.\ndef decode_and_reencode(encoded_messages: list) -\u003e str:",
+    "analysis": "The problem requires reversing a shift-based encoding on multiple messages, concatenating the results, and reapplying the encoding. This involves understanding the encoding mechanism (likely a character shift cipher), implementing precise decoding logic, handling edge cases (e.g., empty input, non-alphabetic characters), and validating correctness. A multi-agent approach ensures robustness: a Programming Expert implements the core logic, a Test Analyst verifies edge cases (e.g., empty list, mixed character types), and an AnswerAgent delivers the final solution. This分工 guarantees accurate decoding/re-encoding through iterative validation."
+  },
+  {
+    "id": 51,
+    "task_id": "51",
+    "question": "Create a function `remove_vowels_from_list` that takes a list of strings and returns a list of strings with all vowels removed from each string. The function should handle an empty list and lists containing empty strings.\ndef remove_vowels_from_list(texts):",
+    "analysis": "The user's query requires implementing a function to remove vowels from each string in a list, handling edge cases like empty lists and empty strings. This is a straightforward string manipulation task with clear requirements and no complex algorithmic components. A single AnswerAgent can directly implement the solution using standard string operations and comprehensions, as the problem involves basic iteration and character filtering without needing specialized validation or multi-step design."
+  },
+  {
+    "id": 52,
+    "task_id": "52",
+    "question": "Given a list of lists, where each sublist contains numbers, determine if all numbers in each sublist are below a given threshold. Return a list of boolean values where each value corresponds to whether all numbers in the respective sublist are below the threshold.\ndef all_below_threshold(ll: list, t: int):",
+    "analysis": "The user's query requires checking each sublist in a list of lists to determine if all elements are below a threshold, returning a boolean list. This is a straightforward application of Python's built-in `all()` function within a list comprehension. The problem involves no complex algorithm design, edge cases are minimal (e.g., empty sublists handled naturally by `all()`), and validation can be done through direct implementation. A single AnswerAgent suffices to write and verify the concise solution without needing specialized roles."
+  },
+  {
+    "id": 53,
+    "task_id": "53",
+    "question": "Given a list of tuples where each tuple contains two integers, write a function that returns the sum of the sums of all the tuples. For example, given [(1, 2), (3, 4)], the function should return 10 because (1+2) + (3+4) = 10.\ndef sum_of_tuples(tuples_list: list) -\u003e int:",
+    "analysis": "The user's query requires implementing a simple aggregation function that sums the elements of each tuple in a list and then sums those results. Given the straightforward nature of the problem (basic iteration and arithmetic operations with no complex edge cases beyond handling empty lists, which aligns with default sum behavior), a single AnswerAgent suffices. The solution involves a one-liner comprehension that directly maps to the problem's requirements, eliminating the need for specialized agents like algorithm designers or test analysts."
+  },
+  {
+    "id": 54,
+    "task_id": "54",
+    "question": "Given a list of words, determine if each word can be formed by rearranging the characters of any other word in the list. Return a list of boolean values indicating whether each word can be formed by rearranging the characters of any other word in the list.\ndef can_form_by_rearranging(words: list) -\u003e list:",
+    "analysis": "The problem requires determining if each word in a list has at least one anagram among other words, involving character frequency analysis and edge case handling (e.g., empty lists, single words, duplicate anagrams). A multi-agent system is beneficial: a Programming Expert implements the core logic (using sorted signatures and frequency counting), a Test Analyst validates against edge cases (empty input, single-word lists, case sensitivity), and an AnswerAgent ensures final correctness. This分工 guarantees robustness through iterative testing and avoids overlooking critical scenarios."
+  },
+  {
+    "id": 55,
+    "task_id": "55",
+    "question": "Given a list of integers, return a list where each element at index i is the sum of the Fibonacci numbers of all elements in the original list except the element at index i. For example, if the input list is [1, 2, 3], the output should be [fib(2) + fib(3), fib(1) + fib(3), fib(1) + fib(2)].\nfrom typing import List\ndef sum_of_fibs_except_self(lst: List[int]) -\u003e List[int]:    \n    result = []\n    for i in range(len(lst)):",
+    "analysis": "The user's query requires implementing a function that computes the sum of Fibonacci numbers for all elements except the current index, with efficiency and correctness. Key challenges include: (1) designing an optimal O(n) solution using total sum subtraction (avoiding O(n^2) naive double-loop), (2) correctly implementing Fibonacci for non-negative integers with caching to handle duplicates efficiently, (3) handling edge cases (empty list, single element, zeros), and (4) resolving ambiguity around negative inputs (problem specifies 'integers' but Fibonacci is undefined for negatives). Given the need for algorithmic optimization, mathematical implementation precision, and rigorous test coverage beyond basic coding, a multi-agent system is essential: an Algorithm Designer for the two-pass/caching strategy, a Programming Expert for efficient Fibonacci implementation, and a Test Analyst to validate edge cases and negative input assumptions."
+  },
+  {
+    "id": 56,
+    "task_id": "56",
+    "question": "Given a list of bracket strings, determine if each string in the list is correctly bracketed and then return a list of booleans indicating the correctness of each string. If the list is empty, return an empty list.\ndef check_bracket_strings(bracket_list: list) -\u003e list:",
+    "analysis": "The problem requires implementing a stack-based algorithm to validate balanced brackets (supporting multiple types: parentheses, square, and curly) for each string in a list. Edge cases include empty strings, unmatched brackets, nested structures, and handling empty input lists. Given the algorithmic complexity of bracket matching (requiring state management via stack) and the need for rigorous validation against diverse bracket sequences (e.g., '([)]' vs '([])'), a multi-agent system ensures robustness: an Algorithm Designer to specify bracket-pairing rules and stack logic, a Programming Expert for precise implementation, and a Test Analyst to validate with comprehensive edge cases (e.g., single brackets, mixed types, empty inputs)."
+  },
+  {
+    "id": 57,
+    "task_id": "57",
+    "question": "Given a list of lists, determine if each sublist is monotonic and if the entire list of lists is also monotonic when concatenated. Return a tuple where the first element is a list of boolean values indicating whether each sublist is monotonic, and the second element is a boolean indicating whether the concatenated list is monotonic.\ndef check_monotonic_lists(lists: list[list]) -\u003e tuple[list[bool], bool]:",
+    "analysis": "The user's query requires implementing a function to check monotonicity at two levels (individual sublists and concatenated list) with edge cases like empty sublists, single-element lists, and direction changes. A multi-agent system is beneficial: a Programming Expert writes the core logic for monotonic checks, a Test Analyst validates against diverse scenarios (e.g., mixed-direction concatenation, uniform-value sublists), and an AnswerAgent integrates feedback to deliver a robust solution. This ensures edge cases are systematically addressed without overcomplicating the workflow."
+  },
+  {
+    "id": 58,
+    "task_id": "58",
+    "question": "Given a list of lists, find the sorted unique common elements across all lists. For example, given [[1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121], [5, 3, 2, 8]], the output should be [1, 2, 3, 5, 653].\n\ndef common_elements(lists: list):",
+    "analysis": "The user's query requires finding sorted unique common elements across all sublists, which involves computing the intersection of multiple sets and sorting the result. This is a straightforward problem leveraging Python's set operations for intersection and built-in sorting. Given the simplicity of the required logic (no complex algorithm design or nuanced edge cases beyond empty inputs), a single AnswerAgent can efficiently implement the solution by converting lists to sets, computing intersections iteratively, and returning the sorted result. Introducing specialized agents would be unnecessary overhead for this basic set-operation task."
+  },
+  {
+    "id": 59,
+    "task_id": "59",
+    "question": "Given a list of integers, find the product of the largest prime factors of each integer. If an integer is less than or equal to 1 or is a prime number, ignore it. The function should return the product of the largest prime factors of the valid integers in the list.\ndef product_of_largest_prime_factors(numbers: list):",
+    "analysis": "The user's query requires identifying valid composite numbers (\u003e1, non-prime), computing their largest prime factors, and multiplying these factors. This involves non-trivial algorithm design for prime checking and factorization, handling edge cases (empty list, primes, composites), and ensuring correctness. A multi-agent system is needed: an Algorithm Designer to outline prime validation and factorization logic, a Programming Expert to implement the solution, a Test Analyst to validate against edge cases (e.g., [4,6,9] → 2*3*3=18), and an AnswerAgent for final delivery. This ensures robustness through iterative testing and avoids errors in prime-related computations."
+  },
+  {
+    "id": 60,
+    "task_id": "60",
+    "question": "Given a list of integers, write a function that returns the sum of the sums of numbers from 1 to each integer in the list. For example, if the list is [3, 5], the function should return the sum of (1+2+3) and (1+2+3+4+5), which is 15 + 15 = 30.\ndef sum_of_sums_to_n(lst: list):",
+    "analysis": "The user's query involves calculating the sum of triangular numbers for each integer in a list, requiring basic arithmetic and iteration. The problem is straightforward with clear edge cases (e.g., empty list, non-positive integers) that can be handled via simple conditional checks. A single AnswerAgent suffices to implement the solution using the triangular number formula (n*(n+1)/2) and aggregate results, as no complex algorithm design or multi-step validation is needed."
+  },
+  {
+    "id": 61,
+    "task_id": "61",
+    "question": "Given a list of bracket strings, determine if each string in the list is correctly bracketed. Return a list of boolean values indicating whether each string is correctly bracketed or not.\ndef check_bracket_strings(bracket_strings: list) -\u003e list:",
+    "analysis": "The user's query requires validating multiple bracket strings for correct nesting, which involves implementing a stack-based algorithm to handle different bracket types and edge cases (e.g., empty strings, mismatched pairs). Given the need for precise algorithm logic and comprehensive test coverage (including edge cases like unbalanced brackets or invalid sequences), a multi-agent approach ensures robustness: a Programming Expert implements the core validation logic, a Test Analyst designs and executes test cases to verify correctness across scenarios, and an AnswerAgent finalizes the solution. This分工 prevents oversight of subtle bracket-matching edge cases."
+  },
+  {
+    "id": 62,
+    "task_id": "62",
+    "question": "Given a list of polynomials, each represented by their coefficients, compute the second derivative of each polynomial. The second derivative is obtained by applying the derivative function twice. Return a list of the second derivatives for each polynomial.\ndef second_derivative(polynomials: list) -\u003e list:",
+    "analysis": "The user's query requires computing the second derivative of polynomials by applying derivative logic twice, which involves straightforward coefficient transformation (multiplying by i*(i-1) for terms beyond the quadratic term). The problem has clear edge cases (e.g., polynomials with fewer than 3 coefficients yielding empty lists), but the solution follows a direct mathematical pattern without complex algorithm design. A single AnswerAgent can implement this via list comprehensions or iterative derivative steps, as the logic is simple and self-contained, similar to basic polynomial operations in Example 1."
+  },
+  {
+    "id": 63,
+    "task_id": "63",
+    "question": "Given a list of integers, where each integer represents the position in the FibFib sequence, write a function to return the sum of the FibFib numbers at those positions. The FibFib sequence is defined as follows:",
+    "analysis": "The problem requires understanding a custom FibFib sequence (likely a Fibonacci variant with specific recurrence rules not fully detailed here but implied to be non-trivial), implementing efficient computation for potentially large indices, and summing values. This involves algorithm design (e.g., dynamic programming for sequence generation), code implementation with edge-case handling (e.g., position validity), and rigorous testing. A multi-agent system is needed: an Algorithm Designer to define the sequence logic, a Programming Expert to optimize implementation, a Test Analyst to validate against edge cases (e.g., zero/negative positions, large indices), and an AnswerAgent for final solution synthesis."
+  },
+  {
+    "id": 64,
+    "task_id": "64",
+    "question": "Write a function `total_vowels_count` that takes a list of strings as input and returns the total number of vowels in all the strings combined. The function should consider 'a', 'e', 'i', 'o', 'u' as vowels, and 'y' as a vowel only when it is at the end of any given string in the list.\ndef total_vowels_count(strings):",
+    "analysis": "The user's query requires counting vowels in strings with a specific condition for 'y' (only at the end). This involves iterating through strings, checking characters for standard vowels (case-insensitive), and validating the last character for 'y'. The problem is straightforward with clear edge cases (empty strings, case handling), but does not require complex algorithm design. A single AnswerAgent can implement the logic directly by converting to lowercase for case insensitivity, counting standard vowels, and checking the last character for 'y', ensuring all edge cases are handled in a concise solution."
+  },
+  {
+    "id": 65,
+    "task_id": "65",
+    "question": "Given a list of integers, perform a circular shift on each integer by a specified shift value. If the shift value is greater than the number of digits in the integer, reverse the digits. Return the list of transformed integers as strings.\ndef circular_shift_list(lst, shift):",
+    "analysis": "The user's query requires implementing a function that processes each integer in a list with conditional circular shifts or digit reversal based on shift magnitude, while handling edge cases like negative numbers, leading zeros, and varying digit lengths. This involves non-trivial string manipulation, sign management, and edge-case validation. A multi-agent system is necessary: an Algorithm Designer to formalize the shift/reversal logic, a Programming Expert to implement digit processing and string operations, a Test Analyst to validate edge cases (negatives, zeros, shift boundaries), and an AnswerAgent for final code synthesis. This ensures robustness against tricky scenarios like leading zeros in string outputs and correct sign handling."
+  },
+  {
+    "id": 66,
+    "task_id": "66",
+    "question": "Given a list of strings, write a function that returns the total sum of the ASCII codes of the uppercase characters in all the strings. If a string is empty, it should be ignored in the sum.\ndef totalUppercaseSum(strings):",
+    "analysis": "The user's query involves summing ASCII codes of uppercase characters across strings with empty string handling, which is a straightforward string processing task requiring iteration, character checks, and arithmetic operations. Given the simplicity (no complex algorithms or edge cases beyond basic string handling), a single AnswerAgent can efficiently analyze requirements, implement the logic using `isupper()` and `ord()`, and validate with minimal test cases. Additional agents would introduce unnecessary complexity for this linear workflow."
+  },
+  {
+    "id": 67,
+    "task_id": "67",
+    "question": "Given a list of strings, each representing the distribution of apples and oranges in multiple baskets, and a list of integers, each representing the total number of fruits in the corresponding basket, write a function to calculate the total number of mango fruits across all baskets. Each string follows the format 'X apples and Y oranges' where X and Y are integers.\ndef total_mangoes(distributions, totals):",
+    "analysis": "The user's query requires parsing structured strings to extract apple and orange counts, then computing mango counts by subtracting from total fruits per basket. This involves string manipulation, arithmetic validation, and handling potential edge cases (e.g., inconsistent totals). A multi-agent approach ensures robustness: a Programming Expert implements parsing logic, a Test Analyst validates against edge cases (e.g., mismatched totals, formatting variations), and an AnswerAgent finalizes the solution. This分工 guarantees correctness through iterative refinement."
+  },
+  {
+    "id": 68,
+    "task_id": "68",
+    "question": "Given a list of branches from a tree, where each branch is represented as an array of non-negative integer nodes, your task is to pluck the smallest even node from each branch and return a list of these plucked nodes. Each plucked node should be represented as a list containing the smallest even value and its index in the original branch. If a branch does not contain any even nodes, it should be represented as an empty list in the result. The final result should be a list of these lists, where each sublist corresponds to a branch from the input list.\ndef pluck_branches(branches):",
+    "analysis": "The problem requires processing each branch to identify the smallest even node and its index, with handling for branches lacking even nodes. Given the straightforward iteration logic and minimal edge cases (inputs are guaranteed non-negative integers, eliminating type validation needs), a single AnswerAgent suffices. The solution involves linear scanning per branch to track the smallest even value and index, which is simple enough to implement directly without requiring specialized roles for algorithm design or rigorous testing."
+  },
+  {
+    "id": 69,
+    "task_id": "69",
+    "question": "You are given a list of non-empty lists of positive integers. For each list, find the greatest integer that is greater than zero, and has a frequency greater than or equal to the value of the integer itself. Return a list of these integers for each input list. If no such integer exists for a list, append -1 to the result list. Finally, return the sum of all the integers in the result list.\ndef new_search(lst_of_lsts):",
+    "analysis": "The problem requires processing each sublist to identify the maximum integer meeting specific frequency conditions, which involves non-trivial logic for frequency counting, conditional validation, and edge case handling (e.g., no valid integers, multiple valid candidates). A multi-agent approach ensures robustness: a Programming Expert implements the core logic (frequency analysis and condition checks), a Test Analyst validates against edge cases (e.g., single-element lists, all-invalid scenarios), and an AnswerAgent synthesizes the final solution. This workflow prevents overlooking subtle validation requirements and guarantees correctness through iterative testing."
+  },
+  {
+    "id": 70,
+    "task_id": "70",
+    "question": "Given a list of lists of integers, return a list of lists in a strange order. The strange order for each sublist should be calculated using the strange_sort_list function. Additionally, the final result should be sorted by the sum of the elements in each sublist in ascending order.\ndef strange_sort_lists(lst_of_lsts):",
+    "analysis": "The problem requires transforming each sublist into a 'strange order' (implied to be a non-trivial pattern like alternating min/max elements) and then sorting the result by sublist sums. This involves ambiguous requirements for the 'strange' transformation (needing algorithmic interpretation), multi-step processing (per-sublist transformation + global sort), and edge cases (empty sublists, varying lengths). A multi-agent system is necessary: an Algorithm Designer to define the 'strange_sort_list' logic, a Programming Expert to implement both functions, a Test Analyst to validate edge cases and sorting behavior, and an AnswerAgent for final integration. This ensures robust handling of implicit requirements and correctness verification."
+  },
+  {
+    "id": 71,
+    "task_id": "71",
+    "question": "Given a list of tuples, where each tuple contains the lengths of the three sides of a triangle, return the total area of all valid triangles. If no valid triangles are found, return -1. Each tuple should be processed using the `triangle_area` function to determine if it forms a valid triangle and to calculate its area.\ndef total_triangle_area(triangles):",
+    "analysis": "The user's query requires implementing a function to sum areas of valid triangles using a provided `triangle_area` function, with specific edge handling for no valid triangles. The core logic involves iterating through tuples, validating via `triangle_area`, and aggregating results. This is a straightforward workflow with basic iteration, conditional checks, and edge-case handling (empty input or no valid triangles). No complex algorithm design or multi-step validation is needed beyond leveraging the given helper function, making a single AnswerAgent sufficient to implement the solution directly."
+  },
+  {
+    "id": 72,
+    "task_id": "72",
+    "question": "Given a list of objects and their maximum possible weights, determine if each object can fly according to the rules of the `will_it_fly` function. Return a list of boolean values indicating whether each object can fly or not. If the input list is empty, return an empty list.\ndef can_objects_fly(objects, weights):",
+    "analysis": "The user's query requires implementing a function that applies a predefined `will_it_fly` check to each object-weight pair, returning booleans. Given the straightforward nature of iterating through lists and delegating validation to an existing function (no complex logic, edge cases limited to empty input handling), a single AnswerAgent can directly translate the requirements into a concise list comprehension. Additional agents are unnecessary as there are no algorithmic design challenges or multi-step validations implied by the problem statement."
+  },
+  {
+    "id": 73,
+    "task_id": "73",
+    "question": "Given a 2D array of integers, find the minimum number of elements that need to be changed to make each row and each column of the array palindromic. A palindromic row or column is a row or column that is read the same backwards and forwards. In one change, you can change one element to any other element.\n\n\ndef smallest_change_2d(arr):",
+    "analysis": "The problem requires transforming a 2D array into a structure where all rows and columns are palindromic with minimal element changes. This involves complex interdependencies between row and column constraints, as modifying one element affects both its row and column. Solving it requires identifying equivalence groups of elements that must be equal (via BFS/DFS for connected positions across row/column mirrors), calculating minimal changes per group (group size minus max frequency value), and aggregating results. A multi-agent system is essential: an Algorithm Designer to model the graph-based grouping logic, a Programming Expert to implement BFS and frequency analysis, a Test Analyst to validate edge cases (non-square matrices, overlapping constraints), and an AnswerAgent for final code synthesis. Iterative refinement between agents ensures correctness in handling interconnected constraints."
+  },
+  {
+    "id": 74,
+    "task_id": "74",
+    "question": "Given a list of lists of strings, return the list of strings that has the smallest total number of characters across all its sublists. If there are multiple lists with the same smallest total number of characters, return the first one encountered.\ndef smallest_total_match(list_of_lists):",
+    "analysis": "The user's query requires identifying a sublist with the minimal total character count through straightforward iteration and summation. This involves basic list processing (summing string lengths per sublist) and comparison logic with a simple edge case (first occurrence tiebreaker). Given the absence of complex algorithmic decisions or multi-step validation, a single AnswerAgent can directly implement the solution by iterating through sublists, calculating totals, and tracking the minimum."
+  },
+  {
+    "id": 75,
+    "task_id": "75",
+    "question": "Write a function that takes a list of numbers and returns a list of numbers that are the multiplication of exactly 3 prime numbers, considering each number in the input list. The input list contains numbers less than 100.\ndef find_multiply_primes(numbers):",
+    "analysis": "The user's query requires identifying numbers that are products of exactly three prime factors (counted with multiplicity) under 100. This involves prime factorization, counting exponents, and handling edge cases (e.g., 8=2³, 12=2²×3). A multi-agent system is necessary: an Algorithm Designer to define the factorization logic, a Programming Expert to implement efficient prime checks and factorization, a Test Analyst to validate edge cases (primes, composites with \u003c3 or \u003e3 factors), and an AnswerAgent to consolidate the solution. Iterative testing ensures correctness given subtle constraints."
+  },
+  {
+    "id": 76,
+    "task_id": "76",
+    "question": "Given a list of numbers and a base number, determine if each number in the list is a simple power of the base number. Return a list of boolean values indicating whether each number is a simple power of the base number or not.\ndef check_powers(numbers, base):",
+    "analysis": "The problem requires checking if each number in a list is a power of a given base, involving multiple edge cases (base 0/1/-1, negative numbers, zero values). This demands careful algorithm design to handle mathematical edge conditions, precise implementation to avoid floating-point errors, and rigorous testing against diverse scenarios. A multi-agent system is necessary: an Algorithm Designer to define the logic for edge cases (e.g., iterative division method), a Programming Expert to implement the solution robustly, a Test Analyst to validate against edge cases (e.g., base=0 with x=0, base=-2 with x=4), and an AnswerAgent to deliver the final verified code. This ensures correctness through specialized role collaboration."
+  },
+  {
+    "id": 77,
+    "task_id": "77",
+    "question": "Given a list of integers, write a function that returns the sum of all the integers in the list that are cubes of some integer. You may assume the input list is always valid.\ndef sum_of_cubes(lst):",
+    "analysis": "The user's query requires identifying perfect cubes in an integer list (including negatives and zero) and summing them, which involves nuanced cube validation to avoid floating-point errors and handle edge cases. A multi-agent system is warranted: an Algorithm Designer to devise a robust integer-based cube-checking method (e.g., binary search for cube roots), a Programming Expert to implement the logic, and a Test Analyst to validate with critical cases (e.g., [-8, 0, 1, 9]) ensuring correctness beyond basic examples. This prevents oversights like negative cube handling or precision issues."
+  },
+  {
+    "id": 78,
+    "task_id": "78",
+    "question": "You are given a list of hexadecimal numbers as strings. Your task is to write a function that calculates the total number of prime hexadecimal digits across all the given hexadecimal numbers. A prime hexadecimal digit is one of the following: 2, 3, 5, 7, B (decimal 11), D (decimal 13). The function should return the total count of these prime digits.\ndef total_prime_hex_digits(hex_list):",
+    "analysis": "The user's query involves counting specific prime hexadecimal digits (2, 3, 5, 7, B, D) across multiple hex strings with case insensitivity. This requires straightforward iteration, character validation, and summation without complex algorithm design or edge-case handling beyond basic case normalization. Given the simplicity of the logic (defining prime digits, looping through characters, and counting matches), a single AnswerAgent can efficiently implement the solution without needing specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 79,
+    "task_id": "79",
+    "question": "You are given a list of decimal numbers. Your task is to convert each decimal number to its binary form using the `decimal_to_binary` function, then concatenate all the binary strings together, and finally, convert the concatenated binary string back to a decimal number. The final result should be returned as a string with 'db' at the beginning and at the end, similar to the output format of the `decimal_to_binary` function.\ndef convert_decimals_to_binary_and_back(decimal_list):",
+    "analysis": "The problem involves string manipulation, edge case handling (empty list, leading zeros in binary), and multi-step conversions (decimal-to-binary, concatenation, binary-to-decimal). While the workflow is procedural, nuances like stripping 'db' wrappers from intermediate results and handling empty inputs require careful validation. A multi-agent approach ensures correctness: a Programming Expert implements the core logic, a Test Analyst verifies edge cases (e.g., empty list, zero values), and an AnswerAgent finalizes the solution. This prevents errors in string processing and conversion steps."
+  },
+  {
+    "id": 80,
+    "task_id": "80",
+    "question": "You are given a list of strings. Your task is to determine the number of happy strings in the list. A string is happy if its length is at least 3 and every 3 consecutive letters are distinct. You need to implement a function `count_happy_strings(strings)` that returns the count of happy strings in the list.\ndef count_happy_strings(strings):",
+    "analysis": "The user's query requires implementing a function to count strings meeting specific criteria (length \u003e=3 and all consecutive triplets distinct). This involves string traversal logic, edge case handling (e.g., minimal length, duplicate characters in triplets), and validation against diverse test scenarios. A multi-agent approach ensures robustness: a Programming Expert implements the core logic, a Test Analyst designs comprehensive test cases (including edge cases like length=3, repeated middle characters, and non-happy strings), and an AnswerAgent integrates and verifies the solution. This分工 prevents oversight in triplet validation and guarantees correctness through iterative testing."
+  },
+  {
+    "id": 81,
+    "task_id": "81",
+    "question": "The teacher now wants to analyze the overall performance of her students over the semester. She has provided you with a list of lists, where each sublist contains the GPAs of a student for each semester. Your task is to write a function that calculates the overall letter grade for each student based on their GPAs across all semesters. The overall GPA for a student should be the average of their GPAs across all semesters. Use the grading scale provided in the original problem to determine the letter grade for each student.\ndef overall_letter_grades(semester_gpas):",
+    "analysis": "The user's query requires calculating average GPAs per student and mapping them to letter grades using a specific grading scale, which involves handling precise threshold checks and edge cases (e.g., boundary values, floating-point precision). A multi-agent approach ensures robustness: the Programming Expert implements the averaging and grading logic, the Test Analyst validates edge cases (e.g., exact threshold values, varying semester counts), and the AnswerAgent delivers the final solution. This workflow prevents errors in grade boundary handling and ensures correctness through iterative validation."
+  },
+  {
+    "id": 82,
+    "task_id": "82",
+    "question": "Given a list of strings, write a function that returns the count of strings with prime length and the sum of their lengths. The function should return a tuple where the first element is the count and the second element is the sum of the lengths.\ndef prime_length_count_sum(strings):",
+    "analysis": "The user's query involves implementing a function that checks string lengths for primality, requiring correct prime validation (handling edge cases like lengths 0, 1, and small primes) and aggregation of results. While the core logic is manageable, ensuring robustness against edge cases (e.g., non-prime lengths, empty inputs) necessitates thorough testing. A multi-agent approach is appropriate: a Programming Expert to implement the prime-checking logic and aggregation, a Test Analyst to validate edge cases (e.g., lengths 0/1, single-character strings), and an AnswerAgent to deliver the verified solution. This ensures correctness through iterative testing without overcomplicating the workflow."
+  },
+  {
+    "id": 83,
+    "task_id": "83",
+    "question": "Given a positive integer n, return the count of the numbers of n-digit positive integers that start or end with 1, and also return the count of the numbers of n-digit positive integers that start and end with 1. Additionally, calculate the ratio of the count of numbers that start and end with 1 to the count of numbers that start or end with 1.\ndef complex_starts_one_ends(n):",
+    "analysis": "The problem requires deriving combinatorial formulas for counts of n-digit numbers with specific digit constraints (start/end with 1) and calculating their ratio. This involves non-trivial mathematical analysis to handle edge cases (e.g., n=1) and general patterns for n≥2. A multi-agent system ensures correctness: an Algorithm Designer derives the formulas (e.g., 18*10^(n-2) for 'start or end' count), a Programming Expert implements conditional logic for edge cases, and a Test Analyst validates against examples (n=1, n=2) to prevent off-by-one errors. Single-agent implementation risks missing edge-case nuances."
+  },
+  {
+    "id": 84,
+    "task_id": "84",
+    "question": "Given a list of positive integers, return the concatenated binary representation of the sum of their digit sums. Each integer in the list should be processed individually to find its digit sum, and then the binary representation of the total sum of these digit sums should be returned.\ndef new_solve(numbers):",
+    "analysis": "The user's query involves processing each number to compute digit sums, aggregating them, and converting the total to a binary string. This is a procedural task with clear steps (digit sum calculation, summation, binary conversion) and minimal edge cases (e.g., empty list handling). The problem requires basic arithmetic and string operations without complex algorithmic design or extensive validation. A single AnswerAgent can efficiently implement the solution by directly translating the requirements into code, as the logic is linear and well-defined."
+  },
+  {
+    "id": 85,
+    "task_id": "85",
+    "question": "Given a list of lists of integers, where each sublist represents a row in a matrix, calculate the sum of all even elements that are located at odd indices in each row. Return the total sum of these elements across all rows.\ndef total_even_odd_sum(matrix):",
+    "analysis": "The user's query requires iterating through a matrix to sum even elements at odd indices per row, involving straightforward conditional checks (index parity and element parity). The problem's core logic is simple with predictable edge cases (empty matrix, rows of varying lengths), which a single agent can handle by directly implementing nested loops and modulo checks. No complex algorithm design or multi-step validation is needed, making additional roles like Test Analyst unnecessary as the solution can be verified through basic logical reasoning."
+  },
+  {
+    "id": 86,
+    "task_id": "86",
+    "question": "Write a function that takes a list of strings and returns a new list where each string is the anti-shuffled version of the corresponding string in the input list. Additionally, the function should also return a single string that is the concatenation of all the anti-shuffled strings, with each string separated by a space. The function should handle lists of varying lengths, including empty lists.\ndef multi_anti_shuffle(string_list):",
+    "analysis": "The user's query requires transforming each string in a list by 'anti-shuffling' (interpreted as sorting characters lexicographically) and returning both the transformed list and a space-concatenated string. This is a straightforward task involving basic string/list operations with minimal edge cases (e.g., empty lists/strings). A single AnswerAgent can implement the solution directly using list comprehensions and string joins, as no complex algorithm design or multi-step validation is needed."
+  },
+  {
+    "id": 87,
+    "task_id": "87",
+    "question": "You are given a 2 dimensional data, as a nested lists, which is similar to matrix, however, unlike matrices, each row may contain a different number of columns. Given a list of integers, find each integer in the list and return a dictionary where the keys are the integers and the values are lists of tuples representing the coordinates of the integer in the matrix. Each tuple should be a coordinate - (row, column), starting with 0. The coordinates for each integer should be sorted initially by rows in ascending order. Also, sort coordinates of the row by columns in descending order. If an integer is not found in the matrix, its value in the dictionary should be an empty list.\ndef get_coordinates(lst, integers):",
+    "analysis": "The user's query requires scanning a jagged 2D array to locate coordinates of specific integers with custom sorting rules (row ascending, column descending within rows). This involves handling uneven row lengths, efficient membership checks, and precise sorting logic. A multi-agent system ensures robustness: an Algorithm Designer to plan coordinate collection and sorting strategy, a Programming Expert to implement jagged array traversal and sorting, a Test Analyst to validate edge cases (empty matrix, missing integers, duplicate values), and an AnswerAgent for final solution delivery. This分工 guarantees correctness through iterative refinement of both logic and edge-case handling."
+  },
+  {
+    "id": 88,
+    "task_id": "88",
+    "question": "Given a list of arrays, each containing non-negative integers, return a single sorted array that combines all the given arrays. The combined array should be sorted in ascending order if the total number of elements across all arrays is odd, or in descending order if the total number of elements is even. To achieve this, you must use the `sort_array` function provided, which sorts an array based on the sum of its first and last elements.\ndef combine_and_sort_arrays(arrays):",
+    "analysis": "The problem requires combining multiple arrays and sorting the result based on the total element count's parity (ascending for odd, descending for even), but mandates using a non-standard `sort_array` function that sorts based on first/last element sums. This introduces complexity: the solution must reconcile the required sort order with the provided function's behavior, likely involving conditional logic to manipulate inputs/outputs of `sort_array`. A multi-agent approach is necessary: an Algorithm Designer to devise how to adapt `sort_array` for parity-based sorting, a Programming Expert to implement array combination and conditional logic, a Test Analyst to validate edge cases (empty arrays, parity transitions), and an AnswerAgent for final integration."
+  },
+  {
+    "id": 89,
+    "task_id": "89",
+    "question": "Create a function `encrypt_message` that takes a list of strings as an argument and returns a list of strings where each string is encrypted using the `encrypt` function. The `encrypt` function should be called for each string in the list. Additionally, the function should handle an optional argument `rotate_by` which specifies the number of places to rotate the alphabet. If `rotate_by` is not provided, it should default to 2. The `encrypt` function should be modified to accept this `rotate_by` argument.\ndef encrypt(s, rotate_by=2): \n    result = []\n    for char in s:",
+    "analysis": "The user's query requires implementing two interdependent functions: `encrypt` (modified to handle variable alphabet rotation) and `encrypt_message` (which applies encryption to a list of strings). This involves nuanced logic for Caesar cipher implementation (handling character cases, rotation wrapping, and edge cases like non-alphabetic characters) and parameter propagation. A multi-agent approach ensures robustness: a Programming Expert designs the core encryption logic with modulo arithmetic for rotation, a Test Analyst validates against edge cases (e.g., `rotate_by=26`, negative values, mixed-case strings), and an AnswerAgent integrates and delivers the solution. Iterative testing is critical to catch subtle bugs in character shifting."
+  },
+  {
+    "id": 90,
+    "task_id": "90",
+    "question": "Given a list of lists of integers, write a function `next_smallest_in_lists()` that returns a list containing the 2nd smallest element from each sublist. If a sublist does not have a 2nd smallest element, append `None` to the result list for that sublist. The function should use the `next_smallest` function to find the 2nd smallest element for each sublist.\ndef next_smallest_in_lists(lst_of_lsts):",
+    "analysis": "The user's query requires implementing a function that processes each sublist to find the 2nd smallest element using a helper function, with edge cases like sublists of insufficient length. While the core logic (sorting and index access) is straightforward, robustness depends on thorough validation of edge cases (empty lists, single-element sublists, duplicates). A multi-agent system ensures reliability: a Programming Expert implements the helper and main function, a Test Analyst verifies edge cases and correctness, and an AnswerAgent finalizes the solution. This prevents oversight in handling None cases and validates the helper function's behavior across scenarios."
+  },
+  {
+    "id": 91,
+    "task_id": "91",
+    "question": "Given a list of strings, each representing a paragraph, count the total number of boredoms across all paragraphs. A boredom is defined as a sentence that starts with the word 'I'. Sentences are delimited by '.', '?' or '!'. For example, if the input list is ['The sky is blue. The sun is shining. I love this weather', 'I am happy. I am excited.'], the output should be 3.\n\ndef count_total_boredoms(paragraphs):",
+    "analysis": "The problem involves string processing to split paragraphs into sentences and identify those starting with 'I' as 'boredoms'. It requires careful handling of sentence delimiters (., ?, !), edge cases like empty sentences, and precise word matching (e.g., 'I' vs 'In'). While the core logic is straightforward, robustness demands validation of edge cases (e.g., 'I.' as a sentence, leading whitespace, or contractions like 'I'm'). A multi-agent system ensures correctness: a Programming Expert implements the splitting and validation logic, a Test Analyst verifies against edge cases (e.g., empty inputs, multi-delimiter sequences), and an AnswerAgent delivers the final solution after validation."
+  },
+  {
+    "id": 92,
+    "task_id": "92",
+    "question": "Create a function that takes a list of tuples, where each tuple contains three numbers. The function should return a list of tuples where each tuple satisfies the condition that one of the numbers is equal to the sum of the other two, and all numbers are integers. Use the function 'any_int' to check each tuple.\ndef filter_tuples(tuples_list):",
+    "analysis": "The user's query requires filtering a list of 3-number tuples using a predefined 'any_int' function that checks integer validity and sum conditions. This is a straightforward application of existing logic (from Example 3) with no complex algorithm design or edge-case handling beyond the helper function's scope. A single AnswerAgent can directly implement the solution via list comprehension to apply 'any_int' to each tuple, as the problem reduces to simple iteration and predicate filtering without requiring additional validation or algorithmic innovation."
+  },
+  {
+    "id": 93,
+    "task_id": "93",
+    "question": "Given a list of messages, encode each message using the `encode` function and then concatenate all the encoded messages into a single string. Finally, reverse the concatenated string and return it.\ndef encode_and_concatenate(messages):",
+    "analysis": "The user's query requires implementing a function that processes a list of messages through encoding, concatenation, and reversal. This involves straightforward procedural steps (applying a predefined encode function, string joining, and reversal) with minimal edge cases (e.g., empty input list). The task is simple, requiring no complex algorithm design or multi-step validation. A single AnswerAgent can directly implement the logic by chaining the operations, as the problem constraints are clear and the solution follows a linear workflow."
+  },
+  {
+    "id": 94,
+    "task_id": "94",
+    "question": "You are given a list of lists of integers. For each list, you need to find the largest prime value and return the sum of its digits. Finally, return the sum of these sums for all lists.\ndef new_skjkasdkd(lst_of_lsts):",
+    "analysis": "The problem requires identifying primes across nested lists (with edge cases like negatives, 0, 1, and large numbers), computing digit sums, and aggregating results. Prime validation is error-prone (e.g., handling 2 vs. even composites, efficiency for large inputs), and the absence of explicit examples necessitates rigorous edge-case testing (e.g., no primes in a sublist). A multi-agent system with Algorithm Designer (for prime-check strategy), Programming Expert (implementation), and Test Analyst (generating cases like [-3, 2] or large primes) ensures correctness through iterative validation."
+  },
+  {
+    "id": 95,
+    "task_id": "95",
+    "question": "Given a list of dictionaries, return a list of dictionaries that meet the criteria of the check_dict_case function. The output should be a list of dictionaries where each dictionary has either all lower case keys or all upper case keys. If the input list is empty, return an empty list.\ndef filter_dicts_by_case(dict_list):",
+    "analysis": "The user's query requires filtering dictionaries based on key case consistency (all lowercase or all uppercase), handling edge cases like empty dictionaries and non-alphabet keys. While the core logic is straightforward (using string case checks), ensuring correctness demands rigorous validation of edge scenarios (e.g., empty dicts, mixed-case keys, numeric/symbolic keys). A multi-agent system is beneficial: a Programming Expert implements the logic, a Test Analyst designs comprehensive test cases (including empty inputs and invalid key formats), and an AnswerAgent finalizes the solution. This prevents oversight of subtle edge cases and ensures robustness."
+  },
+  {
+    "id": 96,
+    "task_id": "96",
+    "question": "Implement a function that takes a list of non-negative integers and returns a dictionary where each key is a unique integer from the list and the value is an array of the first n integers that are prime numbers and less than the key. For example, if the input list is [5, 11], the output should be {5: [2, 3], 11: [2, 3, 5, 7]}.\ndef generate_prime_dict(numbers):",
+    "analysis": "The user's query requires generating primes for multiple keys with edge cases (e.g., keys \u003c2) and efficient prime generation up to the maximum key. This involves algorithm design (Sieve of Eratosthenes for prime generation), handling unique keys and edge cases, and rigorous testing. A multi-agent system is necessary: an Algorithm Designer to optimize prime computation, a Programming Expert to implement the sieve and dictionary logic, and a Test Analyst to validate against edge cases (e.g., empty input, keys=0/1/2) and examples. This ensures correctness and efficiency through iterative refinement."
+  },
+  {
+    "id": 97,
+    "task_id": "97",
+    "question": "Given a list of tuples, where each tuple contains two integers, return the sum of the products of the unit digits of each tuple. For example, if the list is [(148, 412), (19, 28), (2020, 1851)], the function should return the sum of the products of the unit digits of each tuple, which is 16 + 72 + 0 = 88.\ndef sum_of_products_of_unit_digits(tuples_list):",
+    "analysis": "The user's query requires implementing a function to compute the sum of products of unit digits from integer pairs, which involves correctly extracting unit digits (including handling negative numbers via absolute values) and summing products. A multi-agent approach ensures robustness: the Programming Expert writes the initial implementation, the Test Analyst validates it against edge cases such as negative integers and zeros, and the AnswerAgent delivers the final solution. This workflow guarantees correctness through iterative testing and avoids pitfalls like incorrect unit digit handling for negative values."
+  },
+  {
+    "id": 98,
+    "task_id": "98",
+    "question": "Given a list of strings, count the total number of uppercase vowels in even indices across all strings. If a string is empty, it should be ignored in the count.\ndef total_count_upper(strings):",
+    "analysis": "The user's query involves counting uppercase vowels at even indices across non-empty strings, requiring basic string iteration and condition checks. The problem is straightforward with clear edge cases (empty strings, index parity, vowel validation). A single AnswerAgent can efficiently implement the solution by iterating through strings and characters, applying the specified conditions without needing complex algorithm design or multi-agent validation."
+  },
+  {
+    "id": 99,
+    "task_id": "99",
+    "question": "Create a function that takes a list of strings, each representing a number, and returns a list of the closest integers to each number. If a number is equidistant from two integers, round it away from zero. The function should handle multiple calls to the 'closest_integer' function to achieve this.\ndef closest_integers(values):",
+    "analysis": "The user's query requires implementing a rounding function with a specific edge case (equidistant numbers rounded away from zero), which involves handling negative values and fractional precision correctly. This necessitates precise logic beyond standard rounding methods. A multi-agent approach ensures robustness: a Programming Expert to implement the custom rounding logic, a Test Analyst to validate edge cases (e.g., ±0.5, negative values), and an AnswerAgent to consolidate and deliver the verified solution. Iterative refinement between coding and testing is critical to avoid subtle errors in rounding behavior."
+  },
+  {
+    "id": 100,
+    "task_id": "100",
+    "question": "Given a positive integer n, you have to create a pyramid of stones. The pyramid consists of multiple piles, each pile representing a level in the pyramid. The first pile has 1 stone, the second pile has 2 stones, and so on up to the nth pile which has n stones. Each pile must be constructed according to the rules of the 'make_a_pile' function. Return a list of lists where each sublist represents the stones in each level of the pyramid.\ndef create_pyramid(n):",
+    "analysis": "The user's query requires generating a pyramid structure where each level i contains i stones, represented as a list of i elements. This is a straightforward iteration problem with clear specifications (positive integer n, no ambiguous edge cases like empty input). The solution involves a simple loop to construct each sublist, which can be directly implemented without complex algorithm design or extensive testing. A single AnswerAgent suffices to analyze requirements and produce the correct code, as no specialized roles for validation or algorithm design are needed for this basic pattern generation."
+  },
+  {
+    "id": 101,
+    "task_id": "101",
+    "question": "Given a list of sentences, each separated by a newline character, your task is to split each sentence into words and return a list of lists where each inner list contains the words of a sentence. The sentences may contain words separated by commas or spaces.\ndef sentences_to_words(sentences):",
+    "analysis": "The user's query requires splitting a string of newline-separated sentences into words, handling both commas and spaces as delimiters. This is a straightforward string manipulation task involving splitting on multiple delimiters and processing each sentence. A single AnswerAgent can implement the solution by replacing commas with spaces and using Python's built-in split() method to handle whitespace, ensuring simplicity and correctness without needing specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 102,
+    "task_id": "102",
+    "question": "Given a list of tuples, where each tuple contains two positive integers representing a range [x, y], write a function that returns the sum of the biggest even integers from each range. If any range does not contain an even integer, it should be ignored in the sum. The function should return -1 if no ranges contain even integers.\ndef sum_of_biggest_evens(ranges):",
+    "analysis": "The user's query requires implementing a function to compute the sum of largest even integers from specified ranges, with edge cases like ranges lacking even numbers and handling the -1 return condition. This involves logical validation (determining the largest even per range), edge case handling (empty valid ranges), and correctness verification. A multi-agent approach ensures robustness: a Programming Expert implements the core logic, a Test Analyst validates against critical cases (e.g., single-element ranges, all-invalid ranges), and an AnswerAgent delivers the verified solution. This prevents oversight of edge cases like returning -1 when no valid ranges exist."
+  },
+  {
+    "id": 103,
+    "task_id": "103",
+    "question": "You are given a list of tuples, where each tuple contains two positive integers. Your task is to compute the rounded average for each tuple, convert the result to binary, and then concatenate all the binary strings together. If any tuple contains a first integer greater than the second, append '-1' to the result string instead. Finally, return the resulting concatenated string.\ndef process_tuples(tuples):",
+    "analysis": "The problem requires processing each tuple with conditional logic (checking first \u003e second), computing rounded averages, converting to binary, and concatenating results. Edge cases include empty lists, exact averages (e.g., 1.5 rounding to 2), and mixed valid/invalid tuples. A multi-agent approach ensures correctness: a Programming Expert implements the core logic, a Test Analyst validates edge cases (e.g., a \u003e b scenarios, rounding behavior), and an AnswerAgent finalizes the solution. This prevents errors in conditional handling and binary conversion through iterative testing."
+  },
+  {
+    "id": 104,
+    "task_id": "104",
+    "question": "Given a list of lists of positive integers, return a sorted list of all elements that do not have any even digit across all the lists. The returned list should be sorted in increasing order.\ndef unique_digits_across_lists(list_of_lists):",
+    "analysis": "The user's query requires filtering numbers from a flattened list of lists based on the absence of even digits (0,2,4,6,8) in any digit position, then sorting the result. Given the straightforward nature of the problem (simple iteration, digit checking via string conversion, and sorting) and the absence of complex algorithmic requirements or ambiguous edge cases beyond basic digit validation, a single AnswerAgent can efficiently implement the solution. The problem constraints (positive integers) eliminate input validation complexity, and the solution involves common operations that do not necessitate specialized agent roles like algorithm designers or test analysts."
+  },
+  {
+    "id": 105,
+    "task_id": "105",
+    "question": "Given a list of arrays of integers, each containing integers between 1 and 9 inclusive, sort each array, reverse the resulting array, and then replace each digit by its corresponding name from 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'. Finally, concatenate all the transformed arrays into a single array and return it.\ndef process_arrays(arrays):",
+    "analysis": "The user's query involves a sequence of straightforward data transformations (sorting, reversing, mapping digits to names) on constrained input (integers 1-9). The problem requires no complex algorithm design, input validation (given guaranteed input constraints), or iterative testing beyond basic logic. A single AnswerAgent can directly implement the step-by-step transformation logic using built-in functions and a predefined mapping, making additional specialized agents unnecessary for this simple workflow."
+  },
+  {
+    "id": 106,
+    "task_id": "106",
+    "question": "Implement the function g that takes a list of integers as a parameter, and returns a list where each element at index i is the result of applying the function f to the element at index i in the input list. The function f should be called multiple times, once for each element in the input list. The function f is defined as follows: f(n) returns a list of size n, such that the value of the element at index i is the factorial of i if i is even or the sum of numbers from 1 to i otherwise. i starts from 1. The factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).\ndef g(lst):",
+    "analysis": "The problem requires implementing nested list operations with conditional logic (factorial vs. summation based on index parity) and careful handling of edge cases (e.g., zero/negative inputs). This involves algorithmic decomposition (defining f(n) correctly for varying n), precise implementation (indexing from 1, even/odd checks), and rigorous validation (testing edge cases like n=0, negative inputs, and mixed lists). A multi-agent system ensures robustness: an Algorithm Designer to formalize the logic, a Programming Expert to implement f/g with correct loops and math, a Test Analyst to validate edge cases (e.g., g([0]) → [[]], g([-1]) → [[]]), and an AnswerAgent for final synthesis. Iterative testing is critical to catch off-by-one errors and invalid input handling."
+  },
+  {
+    "id": 107,
+    "task_id": "107",
+    "question": "Given a list of positive integers, return a list of tuples where each tuple contains the number of even and odd integer palindromes within the range (1, n) for each n in the list. The input list will have at least one element and at most 10 elements, and each element will be between 1 and 1000.\ndef even_odd_palindrome_list(lst):",
+    "analysis": "The problem requires identifying integer palindromes in ranges up to each n in the input list, then counting even/odd occurrences. This involves multiple non-trivial steps: efficient palindrome detection (including edge cases like single-digit numbers), parity determination, and aggregation across dynamic ranges. Given potential pitfalls (e.g., misclassifying palindromes like '11', handling range boundaries), a multi-agent approach ensures robustness: a Programming Expert implements core logic, a Test Analyst validates against critical cases (n=1, n=10, n=101), and an AnswerAgent synthesizes the final solution after verification."
+  },
+  {
+    "id": 108,
+    "task_id": "108",
+    "question": "Write a function `count_nums_in_matrix` which takes a 2D array (matrix) of integers and returns the number of elements in the matrix which have a sum of digits \u003e 0. If a number is negative, then its first signed digit will be negative: e.g. -123 has signed digits -1, 2, and 3. The function should iterate through each row of the matrix and use the `count_nums` function to count the qualifying elements in each row. Finally, it should sum up these counts to get the total count for the entire matrix.\ndef count_nums_in_matrix(matrix):",
+    "analysis": "The problem requires implementing a matrix element counter with non-trivial digit sum logic for negative numbers (e.g., -123 → -1+2+3=4). Key challenges include correctly handling signed digit sums, edge cases (zero, single-digit negatives), and ensuring row-wise aggregation via count_nums. A multi-agent approach is needed: a Programming Expert to implement the digit sum logic and row processing, a Test Analyst to validate edge cases (e.g., -10, 0, -123), and an AnswerAgent to finalize the solution. This ensures robustness through iterative testing of the nuanced digit-sum rules."
+  },
+  {
+    "id": 109,
+    "task_id": "109",
+    "question": "Given a list of arrays, each containing unique integers, determine if it is possible to sort each array in non-decreasing order by performing right shift operations any number of times. Return a list of boolean values indicating whether each array can be sorted.\ndef can_sort_all_arrays(arrays):",
+    "analysis": "The user's query requires determining if each array can be sorted via right shifts (rotations), which hinges on identifying if the array has at most one 'drop' where an element exceeds the next (circularly). This involves non-trivial algorithmic insight to recognize the rotation-sort condition, careful implementation to handle edge cases (e.g., single-element arrays), and rigorous validation. A multi-agent system is necessary: an Algorithm Designer to derive the 'drop count' criterion, a Programming Expert to implement the logic, a Test Analyst to verify edge cases (e.g., zero drops, multiple drops), and an AnswerAgent to synthesize the solution. This ensures correctness through collaborative validation of the algorithmic approach."
+  },
+  {
+    "id": 110,
+    "task_id": "110",
+    "question": "Given a list of lists of numbers, determine if it is possible to perform exchanges between the lists such that all lists become lists of only even numbers. Each list can exchange elements with any other list, and there is no limit on the number of exchanged elements. If it is possible to make all lists contain only even numbers, return 'YES'. Otherwise, return 'NO'.\n\ndef can_make_even_with_exchange(lst1, lst2, lst3, lst4):",
+    "analysis": "The problem requires checking if all elements across four lists can be redistributed (via exchanges) such that every list contains only even numbers. Since exchanges must retain all elements and each list must exclusively contain even numbers, the solution hinges on verifying that every element in all lists is even. If any odd number exists, it cannot be placed in any list without violating the condition. This is a straightforward validation task requiring only element parity checks, making a single AnswerAgent sufficient to implement the solution without needing specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 111,
+    "task_id": "111",
+    "question": "Given a list of strings representing space separated lowercase letters, return a dictionary of the letter(s) with the most total repetitions across all strings and containing the corresponding total count. If several letters have the same total occurrence, return all of them.\ndef total_histogram(strings):",
+    "analysis": "The user's query involves processing a list of space-separated lowercase letters to compute the most frequent letters and their counts. This requires string splitting, frequency counting, and filtering for maximum occurrences. The problem is algorithmically straightforward (O(n) complexity) with clear edge cases (empty input, multiple max-frequency letters). A single AnswerAgent can efficiently handle the implementation by leveraging Python's built-in functions (split, defaultdict, max) without needing specialized roles, as the logic is linear and lacks complex algorithmic design or numerical validation."
+  },
+  {
+    "id": 112,
+    "task_id": "112",
+    "question": "Given a list of tuples where each tuple contains two strings, s and c, perform the following operations for each tuple:",
+    "analysis": "The user's query is incomplete as the specific operations to perform on the tuples are not defined. However, given the common structure (processing a list of tuples containing two strings), typical tasks involve straightforward string manipulations or comparisons which are usually low-difficulty problems. Since no complex algorithm design, edge-case validation, or multi-step reasoning is indicated by the partial description, a single AnswerAgent suffices to implement such simple operations once fully specified. Introducing additional roles would be unnecessary overhead for this likely basic task."
+  },
+  {
+    "id": 113,
+    "task_id": "113",
+    "question": "Given a list of lists of strings, where each string consists of only digits, return a list of lists. Each element i of the output should be a list where each element j of this list is a string formatted as 'the number of odd elements in the string j of the list i of the input.' where all the i's and j's should be replaced by the number of odd digits in the i'th list and j'th string of the input respectively.\ndef odd_count_nested(lst_of_lsts):",
+    "analysis": "The problem requires processing nested lists of digit strings to generate formatted strings based on counts of odd digits at multiple levels (per string and per list). This involves nested iteration, conditional counting, and precise string formatting with potential edge cases (empty lists/strings, all-even digits). A multi-agent approach ensures correctness: a Programming Expert implements the core logic (counting odd digits and constructing output), a Test Analyst validates against edge cases (e.g., empty inputs, mixed digit strings), and an AnswerAgent synthesizes the final solution. The complexity of coordinating hierarchical counts and string templating justifies specialized roles to avoid logical errors."
+  },
+  {
+    "id": 114,
+    "task_id": "114",
+    "question": "Given an array of integers nums, find the maximum sum of any non-empty sub-array of nums that is greater than a given threshold T. If no such sub-array exists, return -1. To solve this problem, you need to first find the minimum sum of any non-empty sub-array of nums, then use this information to determine the maximum sum greater than T.\ndef maxSubArraySumGreaterThanT(nums, T):",
+    "analysis": "The problem statement mandates using the minimum subarray sum to solve for the maximum subarray sum above threshold T, which is atypical for standard contiguous subarray problems. This strongly implies circular subarrays (where minimum subarray sum is used in circular maximum subarray algorithms). The solution requires Kadane's algorithm for both max/min sums, handling circular array edge cases (all-negative, wrap-around), and threshold validation. Due to the complexity of correctly interpreting the circular requirement, potential misalignment with non-circular expectations, and critical need for edge-case testing (e.g., when circular candidate exceeds linear max), a multi-agent system is essential: Algorithm Designer to resolve circular ambiguity and design the solution, Programming Expert for precise implementation, Test Analyst to validate circular/edge scenarios, and AnswerAgent for final delivery."
+  },
+  {
+    "id": 115,
+    "task_id": "115",
+    "question": "You are given a list of rectangular grids of wells, each with a corresponding bucket capacity. Each grid represents a different set of wells, and each well has a corresponding bucket that can be used to extract water from it. Your task is to determine the total number of times you need to lower the buckets across all grids to empty all the wells. Output the total number of times you need to lower the buckets.\ndef total_bucket_lowers(grids, capacities):",
+    "analysis": "The user's query requires computing total bucket lowers across multiple grids with uniform bucket capacity per grid. The solution involves nested iteration over grids and wells, applying integer ceiling division (water_amount / capacity) per well. Given the problem's straightforward nature (simple arithmetic, clear edge-case handling for zero water, and no complex algorithm design), a single AnswerAgent suffices to implement the direct iteration and calculation logic without needing specialized roles for testing or algorithm design."
+  },
+  {
+    "id": 116,
+    "task_id": "116",
+    "question": "Given a list of lists, each containing non-negative integers, sort each sublist according to the number of ones in their binary representation in ascending order. For sublists with similar number of ones, sort based on the decimal value. Finally, sort the main list based on the sum of the number of ones in the binary representation of all elements in each sublist.\ndef new_sort_array(arr):",
+    "analysis": "The problem requires multi-level sorting based on binary representations (popcount) and decimal values, involving nested custom key logic and edge cases like identical popcounts or empty sublists. A multi-agent approach ensures clarity: an Algorithm Designer to define the two-tier sorting strategy (sublist element sorting by popcount then value, main list sorting by total popcount sum), a Programming Expert to implement efficient popcount computation and Python's sorted with lambda keys, and a Test Analyst to validate edge cases (e.g., same popcount sums, negative handling despite non-negative constraints). This分工 prevents logical errors in complex sorting criteria."
+  },
+  {
+    "id": 117,
+    "task_id": "117",
+    "question": "Given a list of strings and a natural number n, you have been tasked to implement a function that returns a list of all words from each string in the list that contain exactly n consonants, in the order these words appear in their respective strings. If a string in the list is empty, it should be ignored. The function should return a list of lists, where each sublist corresponds to the words from the respective string in the input list that meet the criteria. Note: you may assume the input strings contain only letters and spaces.\ndef select_words_from_list(strings, n):",
+    "analysis": "The user's query requires processing strings to filter words based on consonant count with specific edge cases (empty strings, case sensitivity, and exact consonant matching). This involves string manipulation, consonant counting logic, and handling multiple edge scenarios (e.g., n=0, mixed-case words). A multi-agent approach ensures robustness: a Programming Expert implements the core logic (splitting strings, consonant validation), a Test Analyst verifies against edge cases (empty inputs, varying n values, case variations), and an AnswerAgent finalizes the solution. This分工 guarantees correctness through iterative validation of non-trivial string processing requirements."
+  },
+  {
+    "id": 118,
+    "task_id": "118",
+    "question": "You are given a list of words. Your task is to find the closest vowel for each word that stands between two consonants from the right side of the word (case sensitive). Then, concatenate all the vowels found in the order of the words and return the resulting string. If no vowels are found for a word, concatenate an underscore '_' instead. The resulting string should be in lowercase. For example, given the list ['yogurt', 'FULL', 'quick', 'ab'], the function should return 'u_u_'.\ndef get_closest_vowels_concat(words):",
+    "analysis": "The problem requires processing each word to find a specific vowel based on case-sensitive conditions (lowercase vowels only) between consonants from the right, with edge cases like uppercase vowels and short words. This involves non-trivial string traversal logic, precise vowel/consonant checks, and handling multiple edge scenarios. A multi-agent approach is needed: a Programming Expert to implement the scanning logic, a Test Analyst to validate against examples (e.g., 'FULL' ignoring uppercase 'U') and edge cases, and an AnswerAgent for final code delivery. Iterative testing ensures correctness for cases like 'quick' where vowel positioning is ambiguous."
+  },
+  {
+    "id": 119,
+    "task_id": "119",
+    "question": "You are given a list of strings, each string consists of open parentheses '(' or close parentheses ')' only. Your job is to determine if it is possible to concatenate any number of these strings in some order, such that the resulting string will be good. A string S is considered to be good if and only if all parentheses in S are balanced. For example: the string '(())()' is good, while the string '())' is not. Return 'Yes' if there's a way to make a good string by concatenating any number of the given strings, and return 'No' otherwise.\n\ndef can_form_good_string(lst):",
+    "analysis": "The problem requires determining if a subset of parenthesis strings can be concatenated into a balanced string, involving non-trivial analysis of cumulative balance constraints and subset selection. Key steps include computing each string's delta (net parentheses) and minimum balance, validating subset feasibility with total delta zero, and ensuring valid ordering to prevent negative intermediate balances. This demands algorithmic design for sorting criteria (positive/negative delta handling), rigorous edge-case testing (e.g., empty strings, invalid min-balance sequences), and implementation of simulation logic. A multi-agent system is necessary: an Algorithm Designer to formulate the delta/min-balance strategy and sorting rules, a Programming Expert to implement validation/simulation, a Test Analyst to verify edge cases (e.g., zero-delta strings with negative min-balance), and an AnswerAgent for final synthesis."
+  },
+  {
+    "id": 120,
+    "task_id": "120",
+    "question": "Given a list of arrays, each containing integers, and a list of positive integers representing the values of k for each corresponding array, return a list of sorted lists where each sorted list contains the maximum k numbers from the corresponding array. If an array has fewer elements than k, return the sorted list of all elements in that array.\ndef maximum_for_multiple_arrays(arrays, ks):",
+    "analysis": "The user's query involves processing multiple arrays to extract and sort the top k elements per array, with edge cases for arrays smaller than k. This requires straightforward iteration, sorting, and list slicing—operations that are simple to implement in Python without complex algorithm design. Since the logic is linear and edge cases (e.g., empty arrays, size mismatches) are easily handled via basic conditional checks, a single AnswerAgent can efficiently analyze requirements, write correct code, and validate against minimal test scenarios. Introducing specialized agents would be redundant for this low-complexity task."
+  },
+  {
+    "id": 121,
+    "task_id": "121",
+    "question": "Given a list of lists of integers, return the sum of all odd elements that are in even positions across all sublists. If a sublist is empty, it should be ignored.\ndef new_solution(lst_of_lsts):",
+    "analysis": "The problem requires iterating through each non-empty sublist, identifying elements at even indices (0-based) that are odd, and summing them. This involves straightforward list traversal with index and value checks, handling empty sublists, and basic arithmetic. Given the simplicity of the logic (no complex algorithms, edge cases are manageable with basic conditionals), a single AnswerAgent can implement the solution directly by processing sublists, validating index parity and element oddness, and accumulating the sum. Introducing additional agents would be unnecessary overhead for this linear, deterministic task."
+  },
+  {
+    "id": 122,
+    "task_id": "122",
+    "question": "Given a non-empty array of integers arr and an integer k, return the sum of the elements with at most two digits from the first k elements of arr for each subarray of length k in arr. If the length of arr is not a multiple of k, the last subarray will contain the remaining elements. For example, if arr = [111,21,3,4000,5,6,7,8,9] and k = 4, the subarrays are [111,21,3,4000] and [5,6,7,8]. The function should return the sum of the elements with at most two digits from each subarray.\ndef sum_of_two_digit_elements_in_subarrays(arr, k):",
+    "analysis": "The problem requires splitting an array into subarrays of size k, then summing elements with at most two digits (absolute value \u003c 100) per subarray. This involves array chunking logic, conditional summation, and handling edge cases like boundary values (e.g., 99 vs 100), negative numbers, and uneven subarray lengths. While the core logic is implementable with basic Python operations, robustness requires validating against diverse test scenarios (e.g., k=1, k \u003e len(arr), values like -99/100). A multi-agent system ensures correctness: a Programming Expert implements the chunking and filtering logic, a Test Analyst verifies edge cases (including the problem's implicit constraints), and an AnswerAgent finalizes the solution. This分工 prevents oversight in nuanced conditions."
+  },
+  {
+    "id": 123,
+    "task_id": "123",
+    "question": "Given a list of positive integers, return a sorted list of all odd numbers that appear in the Collatz sequences of these integers. The Collatz sequence for each integer should be computed independently.\ndef get_all_odd_collatz(numbers):",
+    "analysis": "The user's query requires generating Collatz sequences for multiple numbers, extracting all odd numbers (including duplicates) from these sequences, and returning a sorted list. The problem involves careful handling of sequence generation (termination at 1), odd-number collection, and sorting with potential duplicates. A multi-agent system ensures robustness: a Programming Expert implements the Collatz logic and accumulation, a Test Analyst validates edge cases (e.g., input [1], [2], [3], and combinations like [1,2] to verify 1 inclusion and duplicate handling), and an AnswerAgent delivers the final solution through iterative testing."
+  },
+  {
+    "id": 124,
+    "task_id": "124",
+    "question": "You are given a list of date strings. Write a function that returns the number of valid dates and the number of invalid dates. A date is considered valid if it satisfies the rules defined in the `valid_date` function. The function should return a tuple where the first element is the count of valid dates and the second element is the count of invalid dates.\ndef count_valid_dates(dates):",
+    "analysis": "The user's query requires counting valid and invalid dates based on a predefined `valid_date` function's rules. This is a simple iteration and conditional counting task with no complex algorithm design or edge-case analysis beyond the provided validation logic. A single AnswerAgent can directly implement the solution by iterating through the date list, applying `valid_date`, and aggregating counts. Introducing additional agents would be unnecessary for this straightforward workflow."
+  },
+  {
+    "id": 125,
+    "task_id": "125",
+    "question": "Given a list of strings, return a dictionary where each key is a string from the list and the value is a list of words split on whitespace, if no whitespaces exist in the text, split on commas ','. If no commas exist, the value should be the number of lower-case letters with odd order in the alphabet. Additionally, the dictionary should include a special key 'total_odd_letters' which is the sum of all odd order letters from all strings.\ndef process_strings(string_list):",
+    "analysis": "The user's query involves conditional string processing with multiple branching logic (whitespace/comma splits vs. letter counting) and a global aggregation requirement. This requires careful handling of edge cases (e.g., mixed separators, non-alphabet characters, empty strings) and dual computation paths (per-string value determination + global odd-letter summation). A multi-agent approach ensures robustness: an Algorithm Designer to formalize the decision tree and counting logic, a Programming Expert to implement precise string checks and splits, and a Test Analyst to validate all edge cases (e.g., strings with both commas/whitespace, uppercase letters, non-alphanumeric chars). Iterative testing is critical to verify correct behavior across all conditional branches."
+  },
+  {
+    "id": 126,
+    "task_id": "126",
+    "question": "Given a list of lists of numbers, return a list of booleans indicating whether each sublist is sorted in ascending order. If any sublist has more than 1 duplicate of the same number, the corresponding boolean should be False. Assume no negative numbers and only integers.\ndef check_sublists_sorted(lst_of_lsts):",
+    "analysis": "The problem requires checking two conditions per sublist: ascending order (non-decreasing) and no element appearing more than twice (i.e., ≤2 occurrences). This involves edge cases like empty sublists, single-element lists, and handling duplicates correctly. A multi-agent approach ensures robustness: a Programming Expert implements the dual checks (sorted validation and frequency counting), a Test Analyst verifies against critical cases (e.g., [1,1,1], [3,2,1], empty lists), and an AnswerAgent finalizes the solution. Iterative testing is crucial to catch subtle errors in duplicate handling or sorting logic."
+  },
+  {
+    "id": 127,
+    "task_id": "127",
+    "question": "Given a list of intervals, determine if there exists a pair of intervals such that the length of their intersection is a prime number. If such a pair exists, return the indices of the intervals in the list. If no such pair exists, return an empty list. Note that the intervals are closed and each interval's start is less than or equal to its end.\ndef find_prime_intersection_pair(intervals):",
+    "analysis": "The problem requires checking all interval pairs for prime-length intersections, involving multiple complex steps: interval overlap calculation, prime validation (handling edge cases like 0/1), and index tracking. This necessitates a multi-agent system: an Algorithm Designer to devise the pairwise comparison and prime-checking logic, a Programming Expert to implement efficient interval math and is_prime helper, a Test Analyst to validate edge cases (non-overlapping intervals, length=1, large primes), and an AnswerAgent for final code synthesis. The workflow ensures correctness through iterative testing of intersection logic and prime verification."
+  },
+  {
+    "id": 128,
+    "task_id": "128",
+    "question": "Given a list of lists of integers, calculate the sum of the results of the 'prod_signs' function applied to each sublist. If any sublist is empty, it should be ignored in the sum. The 'prod_signs' function returns the sum of magnitudes of integers multiplied by the product of all signs of each number in the array, represented by 1, -1, or 0.\ndef sum_prod_signs(list_of_lists):",
+    "analysis": "The problem requires implementing a function that processes nested lists with specific edge cases (empty sublists, zero values affecting sign product, and magnitude summation). It involves non-trivial logic for computing the product of signs (including zero handling) and sum of absolute values, which risks errors if not rigorously validated. A multi-agent system is warranted: a Programming Expert to implement the core logic, a Test Analyst to design comprehensive test cases (e.g., sublists with zeros, mixed signs, empty inputs), and an AnswerAgent to synthesize and deliver the final solution. This ensures correctness through iterative validation against edge cases."
+  },
+  {
+    "id": 129,
+    "task_id": "129",
+    "question": "Given a 3D grid with dimensions N x N x N (N \u003e= 2) and a positive integer k, each cell of the grid contains a value. Every integer in the range [1, N * N * N] inclusive appears exactly once on the cells of the grid. You need to find the minimum path of length k in each 2D slice of the 3D grid (i.e., for each depth level). Then, combine these paths to form a single path that traverses through each 2D slice in order. The final path should be the lexicographically smallest path among all possible combinations of paths from each 2D slice. Return an ordered list of the values on the cells that the final path go through.\ndef minPath3D(grid3D, k):",
+    "analysis": "The problem requires finding lexicographically smallest paths in multiple 2D slices of a 3D grid with strict movement constraints and combinatorial path selection. This involves complex algorithm design (dynamic programming for lex-smallest path in grids), handling ambiguous movement rules (4/8-directional), validating path length semantics, and ensuring cross-slice concatenation correctness. A multi-agent system is essential: Algorithm Designer to formulate the DP approach for 2D pathfinding and slice combination strategy, Programming Expert to implement grid traversal and lex-comparison logic, Test Analyst to validate edge cases (k=1, N=2, movement boundaries), and AnswerAgent to integrate solutions while guaranteeing lexicographical minimality across all slices."
+  },
+  {
+    "id": 130,
+    "task_id": "130",
+    "question": "Given a non-negative integer number n, you have to return a list of the first n + 1 numbers of the Tribonacci sequence for each of the first n + 1 natural numbers. For example, if n is 3, you should return a list of lists where each sublist is the Tribonacci sequence for the numbers 0 through 3.\ndef multi_tri(n):",
+    "analysis": "The user's query requires generating multiple Tribonacci sequences for varying lengths (0 to n), each needing correct base cases and recurrence handling. This involves understanding the sequence definition (e.g., initial terms like [0, 0, 1]), iterative computation for dynamic list lengths, and edge-case validation (n=0, n=1). A multi-agent approach ensures robustness: an Algorithm Designer clarifies the Tribonacci logic and recurrence structure, a Programming Expert implements the nested sequence generation, and a Test Analyst validates edge cases (e.g., small n values, sequence length correctness). The AnswerAgent consolidates the verified solution, avoiding errors from ambiguous initial conditions or off-by-one mistakes."
+  },
+  {
+    "id": 131,
+    "task_id": "131",
+    "question": "Given a list of positive integers, return the sum of the products of the odd digits for each integer. If all digits of an integer are even, the product for that integer should be considered as 0. For example, given the list [1, 4, 235], the function should return 16 (1 + 0 + 15).\ndef sum_of_products_of_odd_digits(lst):",
+    "analysis": "The user's query involves processing each integer's digits to compute products of odd digits with specific edge handling (all-even digits yielding 0). This requires digit iteration, parity checks, and conditional product calculation—tasks that are algorithmically straightforward with clear edge cases. Given the simplicity of the logic (no complex numerical methods or multi-step validations beyond basic digit processing), a single AnswerAgent suffices to implement the solution correctly, leveraging direct iteration and conditional logic as demonstrated in similar simple list-processing problems."
+  },
+  {
+    "id": 132,
+    "task_id": "132",
+    "question": "Create a function that takes a list of strings, each containing only square brackets. The function should return True if and only if there is at least one valid subsequence of brackets in the list where at least one bracket in the subsequence is nested in at least one of the strings. Otherwise, it should return False.\ndef is_nested_in_list(strings):",
+    "analysis": "The problem requires checking if any string in the list contains a valid nested bracket subsequence (e.g., '[[]]'). This involves non-trivial algorithm design to detect ordered bracket patterns (two '[' followed by two ']') across non-contiguous positions, handling edge cases like invalid sequences or partial matches. A multi-agent system is needed: an Algorithm Designer to devise the subsequence detection logic (tracking bracket pairs in order), a Programming Expert to implement the stateful traversal, and a Test Analyst to validate against critical cases (e.g., '[][]' vs '[[]]', single-character strings). Iterative refinement between agents ensures robustness against misinterpretation of 'subsequence' and nesting conditions."
+  },
+  {
+    "id": 133,
+    "task_id": "133",
+    "question": "You are given a list of lists of numbers. You need to return the sum of the sums of squared numbers in each sublist, where each element in the sublist is rounded to the upper integer (Ceiling) first. For example, for the input [[1,2,3], [1,4,9]], the output should be 112.\ndef sum_of_sum_squares(lst_of_lsts):",
+    "analysis": "The user's query involves transforming each number in sublists by applying ceiling, squaring, and summing results across nested lists. This requires basic numerical operations and list comprehension handling. Given the clear problem structure (no complex algorithm design or ambiguous edge cases beyond standard ceiling behavior), a single AnswerAgent can directly implement the solution using math.ceil and nested summations. The example provided validates straightforward computation, eliminating the need for specialized testing or algorithmic roles."
+  },
+  {
+    "id": 134,
+    "task_id": "134",
+    "question": "Create a function that takes a list of strings and returns a list of booleans indicating whether each string in the list ends with an alphabetical character that is not part of a word. The function should handle multiple strings and return a boolean list corresponding to each string's condition.\ndef check_if_last_char_is_a_letter_in_list(lst):",
+    "analysis": "The user's query requires implementing a function to check if each string ends with an isolated alphabetical character (e.g., standalone letter after non-letter characters). This involves handling edge cases like empty strings, single-character inputs, and strings with trailing spaces/punctuation. A multi-agent approach ensures robustness: the Programming Expert implements the core logic (checking last character and preceding character), the Test Analyst validates against diverse cases (e.g., ['', 'a', ' a', 'a ', '1a']), and the AnswerAgent finalizes the solution. This workflow addresses ambiguity in problem interpretation through iterative testing."
+  },
+  {
+    "id": 135,
+    "task_id": "135",
+    "question": "Given a list of integers, find the maximum sum of a subarray where each subarray is defined by indices returned by the function 'can_arrange' applied to the original list. The subarray sum should be calculated for each valid subarray and the maximum sum should be returned. If no valid subarray exists, return 0.\ndef max_subarray_sum(arr):",
+    "analysis": "The problem requires identifying valid subarrays via an undefined 'can_arrange' function, implying hidden criteria for subarray validity. This necessitates reverse-engineering the intended behavior of 'can_arrange' (e.g., filtering subarrays based on implicit constraints like sum positivity or structural properties) and integrating it with maximum subarray sum logic. A multi-agent system is essential: an Algorithm Designer to hypothesize and formalize 'can_arrange' logic, a Programming Expert to implement both functions with edge-case handling (e.g., all-negative arrays), and a Test Analyst to validate against scenarios where 'can_arrange' returns no valid subarrays or non-trivial indices. Iterative refinement between agents ensures correctness given the ambiguous problem constraints."
+  },
+  {
+    "id": 136,
+    "task_id": "136",
+    "question": "Given a list of lists, find the largest negative integer and the smallest positive integer across all sublists. Return a tuple (a, b), where 'a' is the largest negative integer and 'b' is the smallest positive integer. If there are no negative or positive integers, return them as None.\ndef find_largest_smallest_across_lists(list_of_lists):",
+    "analysis": "The user's query requires processing nested lists to identify specific integer values with clear conditions (largest negative and smallest positive) and handling edge cases like absence of such values. This involves straightforward iteration, type checking, and aggregation logic without complex algorithmic design. A single AnswerAgent can efficiently implement the solution by flattening sublists, filtering valid integers, and computing required values while managing None cases, making additional agent roles unnecessary for this simple workflow."
+  },
+  {
+    "id": 137,
+    "task_id": "137",
+    "question": "Create a function that takes a list of pairs of integers, floats, or strings representing real numbers, and returns a list of the larger variables in their given variable type for each pair. If the values in a pair are equal, the corresponding element in the result list should be None. Note: If a real number is represented as a string, the floating point might be . or ,\ndef compare_many(pairs):",
+    "analysis": "The user's query requires implementing a function that handles mixed-type comparisons (integers, floats, strings with decimal separators) and preserves original types in the output. This involves type conversion logic for numerical comparison, edge case handling (e.g., comma vs. dot decimals, equal values with different representations), and strict output formatting. A multi-agent approach is warranted: a Programming Expert to implement the type-agnostic comparison logic and string parsing, and a Test Analyst to validate against nuanced cases (e.g., ('1,0', 1) → None, ('7,2', 7.1) → '7,2'). This ensures robustness where single-agent implementation might overlook locale-specific string interpretations or equality edge cases."
+  },
+  {
+    "id": 138,
+    "task_id": "138",
+    "question": "Given a list of integers, determine if each integer can be expressed as the sum of exactly 4 positive even numbers. Return a list of boolean values where each value corresponds to whether the integer at the same index in the input list can be expressed as such.\ndef can_each_be_sum_of_even(numbers):",
+    "analysis": "The problem requires checking if each integer in a list can be expressed as the sum of exactly 4 positive even numbers. The key insight is recognizing that a number must be even and at least 8 (since the smallest sum of four positive even numbers is 2+2+2+2=8). This reduces the solution to a simple conditional check per element. Given the straightforward mathematical derivation and absence of complex algorithmic steps or edge cases beyond basic parity and range validation, a single AnswerAgent can efficiently implement the solution via a list comprehension without needing specialized roles for algorithm design or extensive testing."
+  },
+  {
+    "id": 139,
+    "task_id": "139",
+    "question": "Given a list of integers, calculate the sum of the Brazilian factorials for each integer in the list. The Brazilian factorial is defined as: brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1! where n \u003e 0. For example, if the list is [1, 2, 3], the function should return the sum of the Brazilian factorials of 1, 2, and 3.\ndef sum_of_special_factorials(lst):",
+    "analysis": "The problem requires computing Brazilian factorials (product of factorials from 1! to n!) for each list element and summing results. This involves non-trivial iterative factorial calculations with potential for off-by-one errors and edge cases (e.g., n=1). A multi-agent approach ensures correctness: an Algorithm Designer to formalize the nested factorial product logic, a Programming Expert to implement efficient incremental computation, a Test Analyst to validate against examples (like [1,2,3]→15) and edge cases, and an AnswerAgent for final code synthesis. This prevents errors in factorial accumulation and guarantees robust handling of mathematical operations."
+  },
+  {
+    "id": 140,
+    "task_id": "140",
+    "question": "Given a list of strings, replace all spaces in each string with underscores, and if a string has more than 2 consecutive spaces, then replace all consecutive spaces with a hyphen. After processing all strings, concatenate them into a single string with each string separated by a newline character. Finally, replace all underscores in the concatenated string with asterisks.\ndef process_and_concatenate_strings(string_list):",
+    "analysis": "The user's query involves conditional string processing per element (replacing spaces based on consecutive run length) followed by concatenation and global character replacement. Ambiguity in the problem statement (e.g., whether single spaces become underscores in conditional branch) and edge cases (leading/trailing spaces, mixed run lengths, empty strings) require careful interpretation. A multi-agent system ensures robustness: Programming Expert handles implementation logic, Test Analyst validates edge cases (e.g., 'a  b   c' vs 'd  e'), and AnswerAgent delivers verified solution through iterative testing."
+  },
+  {
+    "id": 141,
+    "task_id": "141",
+    "question": "Create a function which takes a list of file names and returns a list of valid file names based on the rules defined in the `file_name_check` function. The function should return 'None' if no file names in the list are valid.\ndef validate_file_names(file_names):",
+    "analysis": "The user's query requires implementing a function that filters file names using an external validation function (`file_name_check`) and handles edge cases (returning `None` for no valid files). This is a straightforward task involving list filtering and conditional logic with no complex algorithm design or multi-step validation. A single AnswerAgent can directly implement the solution by iterating through the list, applying `file_name_check`, and managing the empty result case. Additional agents are unnecessary as the problem lacks ambiguity or intricate requirements."
+  },
+  {
+    "id": 142,
+    "task_id": "142",
+    "question": "Given a list of lists of integers, where each sublist represents a set of scores for a game. For each game, calculate the total score using the following rules: if the index of the sublist is even, use the sum_squares function to calculate the score; if the index of the sublist is odd, use the sum_squares function twice, summing the results of both calls. Return the total score for all games.\ndef total_score(games):",
+    "analysis": "The problem requires calculating a total score based on index parity with simple arithmetic operations (sum of squares) and conditional logic. The core tasks involve implementing a helper function for sum of squares, iterating through sublists with index checks, and applying multipliers. Given the straightforward nature (no complex algorithms, minimal edge cases like empty lists handled by standard sum behavior), a single AnswerAgent can efficiently design, implement, and validate the solution without requiring specialized roles."
+  },
+  {
+    "id": 143,
+    "task_id": "143",
+    "question": "Given a list of sentences, return a list of strings where each string contains words from the corresponding sentence whose lengths are prime numbers. The order of the words in each string should be the same as in the original sentence.\ndef words_in_sentences(sentences):",
+    "analysis": "The user's query requires implementing a function that filters words based on prime-length criteria across multiple sentences, involving string manipulation, prime number validation, and edge case handling (e.g., single-letter words, empty results). While the core logic is manageable, ensuring correctness for prime checks (e.g., handling 1 vs. 2) and maintaining word order necessitates rigorous validation. A multi-agent approach is optimal: a Programming Expert implements the prime-check helper and filtering logic, a Test Analyst validates against edge cases (e.g., words of length 1, 2, or empty outputs), and an AnswerAgent integrates and delivers the final solution to guarantee robustness."
+  },
+  {
+    "id": 144,
+    "task_id": "144",
+    "question": "Given a list of fractions represented as strings in the format \u003cnumerator\u003e/\u003cdenominator\u003e, determine if the product of any two fractions in the list simplifies to a whole number. Return a list of tuples where each tuple contains the indices of the two fractions whose product simplifies to a whole number.\ndef find_whole_number_products(fractions):",
+    "analysis": "The problem requires identifying pairs of fractions whose product simplifies to a whole number, involving string parsing, mathematical validation (checking divisibility of numerator product by denominator product), and handling edge cases like zero numerators or negative values. While the core logic is straightforward (nested iteration and modulus check), the need to correctly parse fractions, manage integer arithmetic edge cases, and ensure comprehensive validation makes it moderately complex. However, it doesn't require advanced algorithm design or iterative refinement. A single AnswerAgent can implement the solution by parsing fractions, checking all pairs for the divisibility condition, and returning valid index tuples, as the workflow is linear and well-defined."
+  },
+  {
+    "id": 145,
+    "task_id": "145",
+    "question": "Given a list of lists of integers, write a function that sorts each sublist according to the sum of their digits and then sorts the main list based on the sum of the digits of the first element of each sublist. If two sublists have the same sum for their first elements, sort them based on their original index in the main list.\ndef complex_order_by_points(nums_list):",
+    "analysis": "The problem requires sorting sublists by digit sums and then the main list by the first element's digit sum with original index tie-breaking. This involves non-trivial key handling for nested sorts, edge cases like negative numbers (requiring absolute value in digit sums), and stable sorting based on original indices. A multi-agent approach is needed: a Programming Expert to implement correct sorting logic with composite keys, a Test Analyst to validate edge cases (e.g., negative values, duplicate sums, index preservation), and an AnswerAgent for final solution delivery. This ensures robustness through iterative testing of complex sorting criteria."
+  },
+  {
+    "id": 146,
+    "task_id": "146",
+    "question": "Given a list of lists of numbers, write a function that returns the total count of elements across all sublists that are greater than 10 and both first and last digits of a number are odd (1, 3, 5, 7, 9).\ndef totalSpecialFilter(nums_list):",
+    "analysis": "The user's query requires implementing a function that processes nested lists, applies numerical and string-based digit checks (greater than 10, odd first/last digits), and handles edge cases like multi-digit numbers (e.g., 105, 110). This involves non-trivial logic for digit validation and iteration over nested structures. A multi-agent approach ensures robustness: a Programming Expert implements the core logic, a Test Analyst validates edge cases (e.g., numbers with even digits, boundary values like 11), and an AnswerAgent delivers the final solution. This分工 prevents oversight of subtle digit-checking nuances."
+  },
+  {
+    "id": 147,
+    "task_id": "147",
+    "question": "Given a list of positive integers, you need to find the number of valid quadruples (a[i], a[j], a[k], a[l]) where i \u003c j \u003c k \u003c l, and the sum of the elements in each quadruple is a multiple of 3. To solve this problem, you can use the function `get_max_triples` to find the number of valid triples for each subset of three elements in the list, and then combine these results to find the number of valid quadruples.\n\ndef get_max_quadruples(nums):",
+    "analysis": "The problem requires counting quadruples with sum divisible by 3 using combinatorial modular arithmetic and incremental prefix tracking. This involves non-trivial algorithm design (managing frequency counts for remainders, pairs, and triples with correct update order), precise implementation to avoid off-by-one errors, and rigorous testing for edge cases (e.g., small lists, uniform remainders). A multi-agent system is necessary: an Algorithm Designer to devise the O(n) counting strategy using remainder tracking, a Programming Expert to implement the state updates correctly, a Test Analyst to validate against edge cases (e.g., lists with \u003c4 elements, all elements ≡0 mod3), and an AnswerAgent for final synthesis. Skipping specialized roles risks missing critical logic in the incremental counting workflow."
+  },
+  {
+    "id": 148,
+    "task_id": "148",
+    "question": "Given a list of planet names, find the shortest path that visits each planet exactly once and returns to the starting planet. The path should be determined by the proximity of the planets to the sun, as defined in the raw question. If the list contains invalid planet names, return an empty list. If the list contains only one valid planet, return that planet as a single-element list.\ndef find_shortest_path(planets):",
+    "analysis": "The problem requires solving a constrained Traveling Salesman Problem variant using solar system planet order as the distance metric. It involves domain knowledge (valid planet names and their solar proximity order), input validation (handling invalid names/duplicates), and correct path construction (sorted order with edge cases). A multi-agent approach is needed: a Domain Expert to provide authoritative planet order, a Programming Expert to implement validation and sorting logic, and a Test Analyst to verify edge cases (invalid inputs, single-planet handling, ordering correctness). This ensures robust handling of implicit requirements like solar system knowledge and prevents errors from hardcoding planet sequences."
+  },
+  {
+    "id": 149,
+    "task_id": "149",
+    "question": "Given a list of lists of strings, where each list of strings is sorted by the rules defined in the raw question, write a function that merges all these lists into a single sorted list. The merged list should also follow the same sorting rules: sorted by length of each word in ascending order, and alphabetically for words of the same length. The function should return the merged list of strings.\ndef merge_sorted_lists(list_of_lists):",
+    "analysis": "The user's query requires merging multiple pre-sorted lists while maintaining a custom sort order (length ascending, then alphabetical). This involves algorithm design for efficient k-way merging (e.g., heap-based approach), careful implementation to handle the composite sorting key, and validation of edge cases (empty lists, same-length words). A multi-agent system is needed: an Algorithm Designer to devise the optimal merging strategy, a Programming Expert to implement the heap-based logic, a Test Analyst to verify correctness across edge cases, and an AnswerAgent for final solution delivery. This ensures robustness through iterative design and validation."
+  },
+  {
+    "id": 150,
+    "task_id": "150",
+    "question": "Given a list of integers, determine the sum of the values of x for all prime numbers in the list and the sum of the values of y for all non-prime numbers in the list. The function should take a list of integers, a list of x values, and a list of y values as inputs. The length of the list of integers will always be equal to the length of the lists of x and y values.\n\ndef sum_x_or_y(numbers, x_values, y_values):",
+    "analysis": "The problem requires identifying primes (with edge cases like 0, 1, negatives), summing corresponding x/y values, and handling list synchronization. A multi-agent system is needed: a Programming Expert implements prime-checking logic and summation, a Test Analyst validates edge cases (e.g., non-primes, negative numbers), and an AnswerAgent delivers the verified solution. This ensures correctness through iterative testing of prime classification and summation logic."
+  },
+  {
+    "id": 151,
+    "task_id": "151",
+    "question": "Given a list of lists of numbers, return the sum of squares of the numbers in each sublist that are odd. Ignore numbers that are negative or not integers. If a sublist is empty, its contribution to the total sum should be 0. Finally, return the total sum of these sums.\ndef sum_of_double_differences(lst_of_lsts):",
+    "analysis": "The user's query requires processing nested lists with multiple filtering conditions (non-negative integers, oddness) and edge cases (empty sublists, non-integers, negatives). This involves careful iteration, type/condition checks, and aggregation. A multi-agent system ensures robustness: a Programming Expert implements the logic with proper filtering and summation, a Test Analyst validates against edge cases (e.g., empty lists, mixed types, zero/negative values), and an AnswerAgent finalizes the solution. Iterative testing is critical to handle all specified constraints correctly."
+  },
+  {
+    "id": 152,
+    "task_id": "152",
+    "question": "You are given a list of matches with their actual scores and a list of guesses for each match. Each match has multiple rounds, and you need to determine how far off each guess was for each round. The input consists of a list of matches, where each match is represented by a tuple containing the actual scores and the guesses for each round. Your task is to return a list of lists, where each sublist corresponds to a match and contains the differences for each round. If the guess is correct, the difference is 0; otherwise, it is the absolute difference between the guess and the actual score.\ndef compare_matches(matches):",
+    "analysis": "The user's query involves processing structured input to compute per-round absolute differences between actual scores and guesses for multiple matches. This requires parsing nested lists, iterating through corresponding elements, and applying basic arithmetic operations. Given the clear problem structure and absence of complex algorithmic requirements (only straightforward iteration and absolute difference calculation), a single AnswerAgent can efficiently handle the implementation without needing specialized roles for algorithm design or extensive testing."
+  },
+  {
+    "id": 153,
+    "task_id": "153",
+    "question": "Given a list of classes with their respective extensions, determine the strongest extension for each class and return a list of strings in the format: ClassName.StrongestExtensionName. If a class has no extensions, it should be represented as ClassName.None. The strength of an extension is calculated as the difference between the number of uppercase letters and the number of lowercase letters in the extension's name. If there are two or more extensions with the same strength, choose the one that comes first in the list.\ndef Strongest_Extensions(classes_with_extensions):",
+    "analysis": "The user's query requires implementing a function to compute extension strength based on uppercase-lowercase letter differences, handle edge cases (empty extensions, strength ties), and format outputs correctly. A multi-agent approach ensures robustness: a Programming Expert writes the core logic for string processing and comparison, a Test Analyst validates against critical scenarios (e.g., empty lists, non-alphabet characters, tie-breakers), and an AnswerAgent finalizes the solution. This分工 prevents oversight of nuanced requirements like tie resolution and edge-case handling."
+  },
+  {
+    "id": 154,
+    "task_id": "154",
+    "question": "Given a list of words, determine if each word in the list can be transformed into a valid rotation of any other word in the list. A valid rotation means that if you rotate the word any number of times, it will become a substring of another word in the list. Return a list of boolean values indicating whether each word can be transformed into a valid rotation of any other word in the list.\ndef valid_rotations(words):",
+    "analysis": "The problem requires checking for each word if any rotation is a substring of another word, involving string manipulation, rotation logic, and edge cases (e.g., varying word lengths, empty strings). A multi-agent system is necessary: the Algorithm Designer devises the efficient 'doubled string' method to check rotations without explicit generation; the Programming Expert implements nested loops with substring checks and length optimizations; the Test Analyst validates against edge cases (e.g., same words, empty strings, length mismatches); and the AnswerAgent ensures final correctness. This分工 ensures robust handling of algorithmic complexity and validation."
+  },
+  {
+    "id": 155,
+    "task_id": "155",
+    "question": "Given a list of integers, return a tuple where the first element is the total number of even digits across all integers in the list, and the second element is the total number of odd digits across all integers in the list.\ndef total_even_odd_count(nums):",
+    "analysis": "The user's query requires counting even and odd digits across all integers in a list, handling edge cases like negative numbers (by using absolute values) and zero. This involves straightforward iteration over each digit of each number with basic arithmetic checks. Given the problem's simplicity—no complex algorithms, numerical methods, or input validation beyond digit processing—a single AnswerAgent can efficiently implement the solution by converting numbers to strings for digit extraction and counting. Introducing additional agents would be unnecessary overhead for this linear, well-defined task."
+  },
+  {
+    "id": 156,
+    "task_id": "156",
+    "question": "Given a list of positive integers, obtain their roman numeral equivalents as a list of strings, each in lowercase. Restrictions: Each integer in the list should be within the range 1 to 1000.\ndef list_to_mini_roman(numbers):",
+    "analysis": "The user's query requires converting integers (1-1000) to lowercase Roman numerals, which involves handling subtractive notation rules and edge cases (e.g., 4=iv, 9=ix, 900=cm). This demands precise algorithmic implementation for Roman numeral conversion and rigorous validation of edge cases. A multi-agent system is warranted: a Programming Expert to implement the conversion logic using value-symbol mappings, a Test Analyst to verify correctness against critical test cases (e.g., 1, 4, 9, 40, 90, 400, 900, 1000), and an AnswerAgent to deliver the final solution. This ensures robustness through iterative testing of non-trivial Roman numeral patterns."
+  },
+  {
+    "id": 157,
+    "task_id": "157",
+    "question": "Given a list of tuples, where each tuple contains three integers representing the sides of a triangle, determine the number of right-angled triangles in the list. A right-angled triangle is defined as a triangle in which one angle is 90 degrees.\ndef count_right_angle_triangles(triangles):",
+    "analysis": "The user's query requires counting right-angled triangles in a list by verifying the Pythagorean theorem for each triplet. The task involves sorting sides to identify the hypotenuse and checking a simple mathematical condition. Given the straightforward nature of the problem (no complex algorithm design, edge cases are minimal beyond basic sorting and integer arithmetic), a single AnswerAgent can efficiently implement the solution by iterating through each triangle, sorting sides, and validating a² + b² = c². Introducing additional agents would be unnecessary for this linear, well-defined workflow."
+  },
+  {
+    "id": 158,
+    "task_id": "158",
+    "question": "Given a list of lists of strings, where each sublist represents a category of words, write a function that returns a list of the words with the maximum number of unique characters from each category. If multiple words in a category have the maximum number of unique characters, return the one which comes first in lexicographical order. If a category is empty, append 'None' to the result list.\ndef find_max_in_categories(categories):",
+    "analysis": "The user's query requires processing nested lists with specific constraints (max unique characters, lexicographical ordering for ties, empty category handling). This involves careful edge case management (empty sublists, lex order comparisons) and correctness validation. A multi-agent system is needed: a Programming Expert to implement the logic (iterating categories, tracking max unique chars with lex priority), a Test Analyst to verify edge cases (empty inputs, tied uniqueness scenarios), and an AnswerAgent for final solution delivery. This ensures robustness through iterative testing and avoids missing subtle requirements."
+  },
+  {
+    "id": 159,
+    "task_id": "159",
+    "question": "You are a farmer who needs to feed a group of hungry rabbits. Each rabbit has a specific number of carrots it has already eaten and a specific number it still needs to eat. You have a limited number of carrots in stock. Write a function that takes in a list of rabbits, where each rabbit is represented by a tuple (number, need), and the total number of carrots in stock. The function should return the total number of carrots eaten by all rabbits and the number of carrots left in stock after feeding all the rabbits.\n\ndef feed_rabbits(rabbits, stock):",
+    "analysis": "The user's query involves calculating total carrots eaten and remaining stock after feeding rabbits based on their initial consumption and remaining needs. This requires summing initial eaten values and needs, then determining fed amount as the minimum of total need and stock. The problem is straightforward with no complex algorithmic requirements or edge cases beyond basic arithmetic and conditional checks. A single AnswerAgent can directly implement the solution by aggregating values and applying min/max logic without needing specialized roles for algorithm design or testing."
+  },
+  {
+    "id": 160,
+    "task_id": "160",
+    "question": "Given a list of algebraic expressions represented by pairs of operator and operand lists, evaluate each expression and then perform a final operation on all the results to obtain a single final value. The final operation is specified as a tuple ('final_operator', final_operand), where 'final_operator' is one of the basic algebra operations ('+', '-', '*', '//', '**') and 'final_operand' is an integer. The final operation should be applied to all the evaluated results from the expressions. For example, if the final operation is ('+', 0), it means summing all the results. If the final operation is ('*', 1), it means multiplying all the results.\n\ndef solve_complex_algebra(expressions, final_operation_tuple):",
+    "analysis": "The user's query involves evaluating multiple algebraic expressions with left-to-right operator precedence (ignoring standard math precedence) and applying a final reduce operation. This requires careful algorithm design for expression parsing (handling operator sequences), robust implementation to manage all operation types (including edge cases like empty expressions), and rigorous testing to validate evaluation order and final aggregation. A multi-agent system is essential: an Algorithm Designer to define the left-to-right evaluation logic, a Programming Expert to implement the sequential processing and reduce operation, a Test Analyst to verify edge cases (e.g., single-operand expressions, division handling), and an AnswerAgent for final solution delivery. Iterative testing ensures correctness in operator sequencing and final aggregation."
+  },
+  {
+    "id": 161,
+    "task_id": "161",
+    "question": "You are given a list of strings. For each string, if it contains at least one letter, reverse its case for all letters in the string. If a string contains no letters, reverse the entire string. After processing all strings, concatenate the results into a single string. Finally, reverse the case of all letters in the concatenated result. Return the final string.\ndef new_solve(strings):",
+    "analysis": "The user's query involves multi-step string transformations with conditional logic (case reversal based on letter presence, string reversal for non-letter strings, and final case reversal on concatenated result). It requires handling diverse edge cases (empty strings, non-alphanumeric characters, mixed content) and ensuring correct sequential processing. A multi-agent system is necessary: a Programming Expert to implement the precise transformation logic, a Test Analyst to validate against comprehensive edge cases (e.g., empty inputs, pure-symbol strings, case-sensitivity checks), and an AnswerAgent to deliver the verified solution. This ensures iterative refinement and correctness through targeted testing."
+  },
+  {
+    "id": 162,
+    "task_id": "162",
+    "question": "Given a list of strings, return a dictionary where each key is a string from the list and the value is the md5 hash of the string. If a string is empty, its corresponding value in the dictionary should be None. Additionally, if the list contains duplicate strings, the dictionary should only include the first occurrence of each string.\ndef list_to_md5_dict(string_list):",
+    "analysis": "The user's query requires implementing a function to convert a list of strings into a dictionary with MD5 hashes while handling empty strings and duplicates. This involves straightforward iteration, conditional checks for empty strings, MD5 computation using hashlib, and ensuring first-occurrence uniqueness. The problem is algorithmically simple (linear traversal with dictionary operations) and doesn't require complex numerical methods or multi-step validation. A single AnswerAgent can directly implement the logic, handle edge cases (empty strings, duplicates), and validate against basic test scenarios without needing specialized roles."
+  },
+  {
+    "id": 163,
+    "task_id": "163",
+    "question": "Given a list of tuples, where each tuple contains two positive integers, return a list of lists where each sublist contains the even digits between the two integers in the corresponding tuple, in ascending order. If a tuple contains integers that are the same, the sublist should be an empty list.\ndef generate_even_digits_lists(tuples_list):",
+    "analysis": "The user's query requires processing each tuple to extract unique even digits from numbers in a range (handling reversed order and same-value tuples), involving digit manipulation, uniqueness, and sorting. This demands careful implementation of range handling, digit extraction, and edge case validation (e.g., 0 as a digit in numbers like 10). A multi-agent system ensures robustness: a Programming Expert implements the core logic, a Test Analyst validates edge cases (reversed ranges, same integers, 0-containing digits), and an AnswerAgent delivers the final solution. Iterative testing is critical to avoid errors in digit processing and sorting."
+  }
+]

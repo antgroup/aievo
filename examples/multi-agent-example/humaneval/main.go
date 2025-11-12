@@ -579,7 +579,7 @@ func main() {
 				// sopPath = fmt.Sprintf("SOP/rev_sop/rev_rep_v3.1_q%d.json", i)
 				reflectionPath := ""
 				// sopPath = fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)
-				sopPath = fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", i)
+				// sopPath = fmt.Sprintf("SOP/repo/repo_sop_v1_q%d.json", i)
 				evo, err = createEvoFromSOP(client, tools, sopPath, nil, reflectionPath, watcherInterval, watcherActionInterval, logFilename, maxWatcherUses)
 
 				// newSopPath := fmt.Sprintf("SOP/gen_sop/gen_sop_v3_q%d.json", i)

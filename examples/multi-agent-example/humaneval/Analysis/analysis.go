@@ -80,7 +80,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	modes := []string{"train", "valid"}
+	// modes := []string{"train", "valid"}
+	modes := []string{"pro"}
 	for _, mode := range modes {
 		rel := filepath.Join("dataset", "humaneval", fmt.Sprintf("%s.jsonl", mode))
 		datasetPath, err := tryResolveDataset(rel)
