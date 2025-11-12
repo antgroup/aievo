@@ -227,7 +227,7 @@ def retrieve_and_rank(model_name='qwen'):
         })
 
     # Save results for the valid set to a JSON file
-    output_filename = f"retri_results_valid_{model_name}.json"
+    output_filename = f"retri_results_{mode}_{model_name}.json"
     with open(output_filename, 'w') as f:
         json.dump(results, f, indent=4)
 
@@ -240,5 +240,5 @@ if __name__ == "__main__":
     model_to_use = 'qwen' 
 
     create_query_embeddings(model_name=model_to_use)
-    create_repo_embeddings(model_name=model_to_use)
+    # create_repo_embeddings(model_name=model_to_use)
     retrieve_and_rank(model_name=model_to_use)
