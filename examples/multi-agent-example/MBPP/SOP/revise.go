@@ -458,7 +458,7 @@ func main() {
 	// Default to latest "train_*.json" or "test_*.json" under output
 	// evalLogPath := findLatestFile(outputDir, []string{"train_*.json", "test_*.json", "valid*_*.json"})
 	datasetPath := filepath.Join("../../../../dataset/MBPP", "mbpp_train.jsonl")
-	filename := "train_qt_v1_20251031172559.json"
+	filename := "train_qt_v2_20251119112800.json"
 	evalLogPath := filepath.Join(outputDir, filename)
 	evaluationResultsPath := filepath.Join(resultsDir, filename+"_results.jsonl")
 
@@ -516,10 +516,10 @@ func main() {
 
 		// Choose a SOP file in this directory; prefer v2.json
 		// sopPath := filepath.Join(sopDir, "v2.json")
-		sopPath := filepath.Join("./gen_sop/", fmt.Sprintf("gen_sop_v1_q%d.json", result.ID))
+		sopPath := filepath.Join("./gen_sop/", fmt.Sprintf("gen_sop_v2_q%d.json", result.ID))
 		// sopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1_q%d.json", result.ID))
-		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_sop_v1_q%d.json", result.ID))
-		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v1.1_q%d.json", result.ID))
+		reflectionOutputPath := filepath.Join(reflectionOutDir, fmt.Sprintf("ref_sop_v2_q%d.json", result.ID))
+		revisedSopPath := filepath.Join(revisionOutDir, fmt.Sprintf("rev_sop_v2.1_q%d.json", result.ID))
 
 		sopBytes, err := os.ReadFile(sopPath)
 		if err != nil {

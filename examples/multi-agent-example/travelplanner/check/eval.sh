@@ -2,7 +2,7 @@
 
 set -e
 
-INPUT_FILE=../output/validation_rep3_tan_wgr_m363_20250928200513.json
+INPUT_FILE=../output/32_trainall_t3_20251205165159.json
 # INPUT_FILE=../../travelplanner-sole/output/train_v3_20250918193921.json
 
 

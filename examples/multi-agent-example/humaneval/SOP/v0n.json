@@ -1,0 +1,24 @@
+[
+    {
+    "team": [
+        "CoderAgent",
+        "AnswerAgent"
+    ],
+    "workflow": "1. User -> CoderAgent; 2. CoderAgent -> AnswerAgent; 3. AnswerAgent -> End;",
+    "details": [
+        {
+            "name": "CoderAgent",
+            "responsibility": "You are a Python programming assistant. Your task is to carefully analyze the user's coding needs, and write the Python code.",
+            "instruction": "Analyze the user's request and write the python code to solve the problem.",
+            "tools": [
+            ]
+        },
+        {
+            "name": "AnswerAgent",
+            "responsibility": "You are the Code Finalizer Agent. Your core mission is to generate the final, complete Python code for the user's question.",
+            "instruction": "Review the code from the CoderAgent and present it as the final answer to the user.",
+            "tools": []
+        }
+    ]
+}
+]

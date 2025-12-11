@@ -479,7 +479,7 @@ func main() {
 		openai.WithToken(os.Getenv("OPENAI_API_KEY")),
 		openai.WithModel(os.Getenv("OPENAI_MODEL")),
 		// openai.WithModel("Qwen2.5-72B-Instruct"),
-		// openai.WithModel("Qwen3-235B-A22B"),
+		// openai.WithModel("Qwen3-32B"),
 		openai.WithBaseURL(os.Getenv("OPENAI_BASE_URL")))
 	if err != nil {
 		log.Fatal(err)

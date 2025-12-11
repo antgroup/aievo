@@ -412,6 +412,8 @@ func retrieveSOPFile(mode string, questionID int) (int, error) {
 	switch mode {
 	case "eval":
 		retrievalPath = "Analysis/retri_results_valid_qwen.json"
+	case "pro":
+		retrievalPath = "Analysis/retri_results_pro_qwen.json"
 	}
 
 	retrievalFile, err := os.ReadFile(retrievalPath)
@@ -465,7 +467,7 @@ func main() {
 
 	var datasetPath string
 	var mode string
-	eval := 3
+	eval := 1
 	switch eval {
 	case 0:
 		mode = "train"

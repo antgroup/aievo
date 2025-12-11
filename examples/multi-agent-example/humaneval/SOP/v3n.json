@@ -1,0 +1,37 @@
+[
+  {
+    "team": [
+      "Algorithm Designer",
+      "Programming Expert",
+      "CheckerAgent",
+      "AnswerAgent"
+    ],
+  "workflow": "1. User -> Algorithm Designer; 2. Algorithm Designer -> Programming Expert; 3. Programming Expert -> Test Analyst; 4. CheckerAgent -> AnswerAgent; 5. AnswerAgent -> End.\n\nDescription:\nFirst, the Algorithm Designer designe the algorithm. Then, the Programming Expert implements the solution based on the function signature and docstring. Next, the CheckerAgent checks the code. Finally, the AnswerAgent delivers the validated final answer.",
+    "details": [
+      {
+        "name": "Algorithm Designer",
+        "responsibility": "You are an algorithm designer. Given a function signature and its docstring by the user, your task is to specify the detailed design of the algorithm.",
+        "instruction": "1. Generate detailed documentation, including algorithm explanations.\n2. Provide pseudocode for complex logic.\n3. Ensure your reply is concise, and avoid listing too many points.",
+        "tools": []
+      },
+      {
+        "name": "Programming Expert",
+        "responsibility": "You are a programming expert. Given a function signature and its docstring by the user, your task is to write the complete and correct code implementation.",
+        "instruction": "1. Write your full implementation based on the function signature and docstring provided.\n2. Use a Python code block for your response.\n3. Do not change the original function names or input variable types.",
+        "tools": []
+      },
+      {
+        "name": "CheckerAgent",
+        "responsibility": "You are a checker. Given a function signature, its docstring, and the candidate solution, your task is to validate the code's correctness.",
+        "instruction": "1. Carefuly check the code provided by the Programming Expert, and check it whether meets the user's requirements.\n2. If neccessary, revise the code. Then submit it to the AnswerAgent.",
+        "tools": []
+      },
+      {
+        "name": "AnswerAgent",
+        "responsibility": "You are an AnswerAgent. Your task is to deliver the final code to the user.",
+        "instruction": "Present the final code to the user, ensuring it is complete and correct.",
+        "tools": []
+      }
+    ]
+  }
+]
