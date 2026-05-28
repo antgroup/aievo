@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aievo-next · Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #020617;
+      min-height: 100vh;
+      padding: 2rem;
+      color: white;
+    }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .header-text { flex: 1; }
+    .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .pulse-dot { width: 12px; height: 12px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.025em; }
+    .subtitle { color: #94a3b8; font-size: 0.85rem; margin-left: 1.75rem; }
+    .toolbar { position: relative; }
+    .toolbar-toggle {
+      background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; color: #94a3b8;
+      width: 36px; height: 36px; border-radius: 0.5rem; cursor: pointer; font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .toolbar-toggle:hover { color: white; border-color: #334155; }
+    .toolbar-actions {
+      display: none; position: absolute; right: 0; top: 44px; gap: 0.5rem; flex-direction: column;
+      background: rgba(15, 23, 42, 0.95); border: 1px solid #1e293b; border-radius: 0.5rem; padding: 0.5rem;
+    }
+    .toolbar-actions.open { display: flex; }
+    .toolbar button {
+      background: transparent; border: none; color: #cbd5e1; padding: 0.4rem 0.75rem;
+      cursor: pointer; font-family: inherit; font-size: 0.75rem; text-align: left; border-radius: 0.25rem;
+    }
+    .toolbar button:hover { background: rgba(51, 65, 85, 0.5); color: white; }
+    .diagram-container {
+      background: rgba(15, 23, 42, 0.5); border-radius: 1rem; border: 1px solid #1e293b;
+      padding: 1.5rem; overflow-x: auto;
+    }
+    svg { width: 100%; min-width: 1100px; display: block; }
+    .cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1rem; margin-top: 2rem;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem;
+    }
+    .card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .card-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .card-dot.cyan    { background: #22d3ee; }
+    .card-dot.emerald { background: #34d399; }
+    .card-dot.amber   { background: #fbbf24; }
+    .card-dot.violet  { background: #a78bfa; }
+    .card-dot.rose    { background: #fb7185; }
+    .card-dot.orange  { background: #fb923c; }
+    h3 { font-size: 0.9rem; font-weight: 600; }
+    .card ul { list-style: none; }
+    .card li { color: #cbd5e1; font-size: 0.78rem; padding: 0.2rem 0; }
+    .footer { color: #475569; font-size: 0.75rem; margin-top: 2rem; text-align: center; }
+    @media print { .toolbar { display: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="container" id="report-container">
+    <div class="header">
+      <div class="header-text">
+        <div class="header-row">
+          <div class="pulse-dot"></div>
+          <h1>aievo-next · Architecture</h1>
+        </div>
+        <p class="subtitle">A Go multi-agent framework with parallel tool dispatch, typed streaming, and an explicit state machine — inspired by Claude Code's engineering choices.</p>
+      </div>
+      <div class="toolbar">
+        <button class="toolbar-toggle" onclick="document.querySelector('.toolbar-actions').classList.toggle('open')">⋯</button>
+        <div class="toolbar-actions">
+          <button onclick="copyAsImage()">📋 Copy</button>
+          <button onclick="downloadPNG()">🖼️ PNG</button>
+          <button onclick="downloadPDF()">📄 PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+          </marker>
+          <marker id="arrowhead-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee"/>
+          </marker>
+          <marker id="arrowhead-emerald" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#34d399"/>
+          </marker>
+        </defs>
+        <rect width="1200" height="800" fill="url(#grid)"/>
+
+        <!-- ============ CONNECTION ARROWS (drawn first → behind boxes) ============ -->
+        <!-- Examples → Scheduler/Agent -->
+        <line x1="600" y1="740" x2="600" y2="650" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrowhead-cyan)"/>
+        <!-- Scheduler → Agent -->
+        <line x1="600" y1="620" x2="600" y2="540" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrowhead-cyan)"/>
+        <!-- Agent → Tool -->
+        <line x1="500" y1="510" x2="290" y2="430" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)"/>
+        <!-- Agent → LLM -->
+        <line x1="700" y1="510" x2="900" y2="430" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)"/>
+        <!-- Agent → queryloop -->
+        <line x1="600" y1="510" x2="600" y2="450" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)" stroke-dasharray="4,3"/>
+        <!-- Tool → MCP -->
+        <line x1="220" y1="395" x2="220" y2="330" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- LLM → External APIs -->
+        <line x1="900" y1="370" x2="900" y2="100" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowhead)"/>
+        <!-- MCP → External -->
+        <line x1="220" y1="270" x2="220" y2="100" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowhead)"/>
+        <!-- Skill → Agent (system prompt injection) -->
+        <line x1="420" y1="270" x2="500" y2="490" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowhead)"/>
+
+        <!-- ============ LAYER 1: EXTERNAL (top, slate-ish, dashed border) ============ -->
+        <rect x="40" y="40" width="1120" height="70" rx="12"
+              fill="rgba(30,41,59,0.3)" stroke="#475569" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="60" y="62" fill="#94a3b8" font-size="10" font-weight="600">EXTERNAL · LLM providers · MCP servers · Skill files</text>
+
+        <rect x="80" y="68" width="180" height="34" rx="6" fill="rgba(30,41,59,0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="170" y="90" fill="white" font-size="11" font-weight="600" text-anchor="middle">MCP stdio Servers</text>
+
+        <rect x="280" y="68" width="180" height="34" rx="6" fill="rgba(30,41,59,0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="370" y="90" fill="white" font-size="11" font-weight="600" text-anchor="middle">~/.aievo/skills/*</text>
+
+        <rect x="700" y="68" width="180" height="34" rx="6" fill="rgba(30,41,59,0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="790" y="90" fill="white" font-size="11" font-weight="600" text-anchor="middle">OpenAI / Ollama</text>
+
+        <rect x="900" y="68" width="180" height="34" rx="6" fill="rgba(30,41,59,0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="990" y="90" fill="white" font-size="11" font-weight="600" text-anchor="middle">Anthropic / Bedrock</text>
+
+        <!-- ============ LAYER 2: CAPABILITIES (amber) ============ -->
+        <rect x="40" y="160" width="940" height="120" rx="12"
+              fill="rgba(120,53,15,0.06)" stroke="#fbbf24" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="60" y="182" fill="#fbbf24" font-size="10" font-weight="600">CAPABILITY LAYER · tools · MCP · skills · permission</text>
+
+        <!-- mcp -->
+        <rect x="60" y="200" width="180" height="70" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="150" y="222" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/mcp</text>
+        <text x="150" y="240" fill="#94a3b8" font-size="9" text-anchor="middle">stdio JSON-RPC</text>
+        <text x="150" y="254" fill="#94a3b8" font-size="9" text-anchor="middle">tools/list + call</text>
+
+        <!-- skill -->
+        <rect x="260" y="200" width="180" height="70" rx="6" fill="rgba(251,146,60,0.25)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="350" y="222" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/skill</text>
+        <text x="350" y="240" fill="#94a3b8" font-size="9" text-anchor="middle">SKILL.md frontmatter</text>
+        <text x="350" y="254" fill="#94a3b8" font-size="9" text-anchor="middle">project + global roots</text>
+
+        <!-- permission -->
+        <rect x="460" y="200" width="180" height="70" rx="6" fill="rgba(136,19,55,0.4)" stroke="#fb7185" stroke-width="1.5"/>
+        <text x="550" y="222" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/permission</text>
+        <text x="550" y="240" fill="#94a3b8" font-size="9" text-anchor="middle">default / acceptEdits</text>
+        <text x="550" y="254" fill="#94a3b8" font-size="9" text-anchor="middle">plan / bypass</text>
+
+        <!-- compaction -->
+        <rect x="660" y="200" width="180" height="70" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="750" y="222" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/compaction</text>
+        <text x="750" y="240" fill="#94a3b8" font-size="9" text-anchor="middle">EstimateTokens</text>
+        <text x="750" y="254" fill="#94a3b8" font-size="9" text-anchor="middle">summarise + keep tail</text>
+
+        <!-- subagent -->
+        <rect x="860" y="200" width="100" height="70" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="910" y="222" fill="white" font-size="11" font-weight="600" text-anchor="middle">pkg/</text>
+        <text x="910" y="240" fill="white" font-size="11" font-weight="600" text-anchor="middle">subagent</text>
+        <text x="910" y="258" fill="#94a3b8" font-size="9" text-anchor="middle">spawn child</text>
+
+        <!-- ============ LAYER 3: TOOL SCHEDULER + LLM (big boxes) ============ -->
+        <!-- Tool scheduler (LEFT, big highlight — the key optimisation) -->
+        <rect x="40" y="320" width="380" height="120" rx="12"
+              fill="rgba(6,78,59,0.06)" stroke="#34d399" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="60" y="342" fill="#34d399" font-size="10" font-weight="600">TOOL DISPATCH · concurrency-safe partition + errgroup</text>
+
+        <rect x="60" y="360" width="180" height="70" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="150" y="382" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/tool</text>
+        <text x="150" y="400" fill="#94a3b8" font-size="9" text-anchor="middle">interface +</text>
+        <text x="150" y="414" fill="#34d399" font-size="10" font-weight="600" text-anchor="middle">ExecuteCalls (8× ⚡)</text>
+
+        <rect x="260" y="360" width="140" height="70" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="330" y="382" fill="white" font-size="12" font-weight="600" text-anchor="middle">builtin (12)</text>
+        <text x="330" y="400" fill="#94a3b8" font-size="9" text-anchor="middle">File* · Glob · Grep</text>
+        <text x="330" y="414" fill="#94a3b8" font-size="9" text-anchor="middle">Bash · Web · Task · Plan</text>
+
+        <!-- LLM provider (RIGHT) -->
+        <rect x="780" y="320" width="380" height="120" rx="12"
+              fill="rgba(76,29,149,0.06)" stroke="#a78bfa" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="800" y="342" fill="#a78bfa" font-size="10" font-weight="600">PROVIDER LAYER · typed StreamEvent · per-provider adapter</text>
+
+        <rect x="800" y="360" width="160" height="70" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="880" y="382" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/llm</text>
+        <text x="880" y="400" fill="#94a3b8" font-size="9" text-anchor="middle">Delta/ToolUse/</text>
+        <text x="880" y="414" fill="#94a3b8" font-size="9" text-anchor="middle">Reasoning/Finish/Err</text>
+
+        <rect x="980" y="360" width="160" height="70" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="1060" y="382" fill="white" font-size="12" font-weight="600" text-anchor="middle">openai · anthropic</text>
+        <text x="1060" y="400" fill="#94a3b8" font-size="9" text-anchor="middle">mock · llmenv</text>
+        <text x="1060" y="414" fill="#94a3b8" font-size="9" text-anchor="middle">PickProvider router</text>
+
+        <!-- ============ LAYER 4: AGENT (cyan, the centre of gravity) ============ -->
+        <rect x="40" y="480" width="1120" height="100" rx="12"
+              fill="rgba(8,51,68,0.1)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="60" y="502" fill="#22d3ee" font-size="10" font-weight="600">AGENT CORE · drives one Plan→Act→Reflect→… until terminal</text>
+
+        <rect x="60" y="520" width="280" height="50" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="200" y="540" fill="white" font-size="13" font-weight="600" text-anchor="middle">pkg/agent (ReAct)</text>
+        <text x="200" y="558" fill="#94a3b8" font-size="9" text-anchor="middle">Plan · Act · Reflect — every tick checks ctx</text>
+
+        <rect x="360" y="520" width="240" height="50" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="480" y="540" fill="white" font-size="13" font-weight="600" text-anchor="middle">pkg/queryloop</text>
+        <text x="480" y="558" fill="#94a3b8" font-size="9" text-anchor="middle">8 states · explicit transitions</text>
+
+        <rect x="620" y="520" width="540" height="50" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="890" y="540" fill="white" font-size="13" font-weight="600" text-anchor="middle">pkg/event (sealed Event + fan-out Bus, slow-consumer safe)</text>
+        <text x="890" y="558" fill="#94a3b8" font-size="9" text-anchor="middle">AgentStarted · LLMChunk · ToolCall · ToolResult · Terminal · Error</text>
+
+        <!-- ============ LAYER 5: ORCHESTRATION (rose-orange) ============ -->
+        <rect x="40" y="620" width="1120" height="80" rx="12"
+              fill="rgba(251,146,60,0.06)" stroke="#fb923c" stroke-width="1" stroke-dasharray="8,4"/>
+        <text x="60" y="640" fill="#fb923c" font-size="10" font-weight="600">MULTI-AGENT ORCHESTRATION · SOP graph · shared memory</text>
+
+        <rect x="60" y="650" width="540" height="40" rx="6" fill="rgba(251,146,60,0.25)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="330" y="673" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/scheduler · SOP Graph (typed Node + {{prev}} substitution)</text>
+
+        <rect x="620" y="650" width="540" height="40" rx="6" fill="rgba(251,146,60,0.25)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="890" y="673" fill="white" font-size="12" font-weight="600" text-anchor="middle">pkg/env · Memory interface (in-mem default) + Filter queries</text>
+
+        <!-- ============ LAYER 6: APPLICATION (bottom) ============ -->
+        <rect x="40" y="730" width="1120" height="50" rx="6" fill="rgba(8,51,68,0.5)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="600" y="752" fill="white" font-size="12" font-weight="600" text-anchor="middle">examples/</text>
+        <text x="600" y="769" fill="#94a3b8" font-size="9" text-anchor="middle">engineer · paper-write · battle-{auto,custom}-sop · werewolf · undercover-{auto,custom}-sop  +  cmd/validate · cmd/smoke</text>
+
+        <!-- ============ LEGEND ============ -->
+        <text x="1000" y="62" fill="white" font-size="10" font-weight="600">Legend</text>
+        <rect x="1000" y="68" width="14" height="9" rx="2" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1"/>
+        <text x="1020" y="76" fill="#94a3b8" font-size="8">Agent core</text>
+        <rect x="1000" y="80" width="14" height="9" rx="2" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1"/>
+        <text x="1020" y="88" fill="#94a3b8" font-size="8">Tool / scheduler</text>
+        <rect x="1000" y="92" width="14" height="9" rx="2" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1"/>
+        <text x="1020" y="100" fill="#94a3b8" font-size="8">Provider</text>
+      </svg>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-header"><div class="card-dot emerald"></div><h3>Concurrent Tools (8× ⚡)</h3></div>
+        <ul>
+          <li>• Tool.IsConcurrencySafe() partition</li>
+          <li>• errgroup with MaxParallel limit</li>
+          <li>• Stable model-order results</li>
+          <li>• Benchmark: 808ms → 101ms</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot cyan"></div><h3>Explicit State Machine</h3></div>
+        <ul>
+          <li>• 8 states with named transitions</li>
+          <li>• ctx.Done() checked every tick</li>
+          <li>• Terminal reasons typed (OK / Err / Max / Cxl)</li>
+          <li>• Strict mode panics on illegal moves</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot violet"></div><h3>Typed Stream + Multi-Provider</h3></div>
+        <ul>
+          <li>• Sealed StreamEvent interface (5 variants)</li>
+          <li>• OpenAI + Anthropic + mock</li>
+          <li>• PickProvider routes by model prefix</li>
+          <li>• Compat with Ollama / DeepSeek / vLLM</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot rose"></div><h3>Permission Modes</h3></div>
+        <ul>
+          <li>• plan — read-only, denies mutations</li>
+          <li>• acceptEdits — auto-approve writes</li>
+          <li>• default — ask via Decider</li>
+          <li>• bypass — sandbox / CI only</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot orange"></div><h3>Multi-Agent SOP</h3></div>
+        <ul>
+          <li>• Graph = read-only data, validated for cycles</li>
+          <li>• {{prev}} substitution between nodes</li>
+          <li>• OnError fallback per node</li>
+          <li>• 7 demo apps cover all aievo use-cases</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-dot amber"></div><h3>Extensibility</h3></div>
+        <ul>
+          <li>• MCP stdio servers as tools</li>
+          <li>• SKILL.md markdown skills</li>
+          <li>• Subagent spawning via tool call</li>
+          <li>• Feature flags via AIEVO_FEATURE_*</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">aievo-next · MIT · github.com/samson-samson/aievo</div>
+  </div>
+
+  <script>
+    function captureRect(scale = 2) {
+      const c = document.getElementById('report-container');
+      const r = c.getBoundingClientRect();
+      const pad = 32;
+      return html2canvas(document.body, {
+        backgroundColor: '#020617',
+        scale,
+        x: r.left - pad, y: r.top - pad,
+        width: r.width + pad * 2, height: r.height + pad * 2,
+        ignoreElements: el => el.classList && el.classList.contains('toolbar')
+      });
+    }
+    async function copyAsImage() {
+      const canvas = await captureRect(2);
+      canvas.toBlob(async (blob) => {
+        try { await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]); alert('Copied!'); }
+        catch (e) { alert('Copy failed: ' + e.message); }
+      });
+    }
+    async function downloadPNG() {
+      const canvas = await captureRect(2);
+      const a = document.createElement('a');
+      a.download = 'aievo-next-architecture.png';
+      a.href = canvas.toDataURL('image/png'); a.click();
+    }
+    async function downloadPDF() {
+      const canvas = await captureRect(2);
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [canvas.width / 2, canvas.height / 2] });
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
+      pdf.save('aievo-next-architecture.pdf');
+    }
+  </script>
+</body>
+</html>

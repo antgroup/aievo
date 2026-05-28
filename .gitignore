@@ -1,0 +1,47 @@
+# Binaries
+/bin/
+*.exe
+*.test
+*.out
+
+# Go build artifacts that land at the repo root when running `go run ./examples/*`
+/engineer
+/undercover-auto-sop
+/paper-write
+/battle-auto-sop
+/battle-custom-sop
+/werewolf
+/undercover-custom-sop
+/validate
+/smoke
+
+# LLM-generated example outputs
+/snake.py
+/examples/*/workspace/*
+!/examples/*/workspace/.gitkeep
+
+# Go build cache / vendored deps we don't ship
+/.go-build/
+/vendor/
+
+# Local env / secrets — NEVER commit
+.env
+.env.*
+.envrc
+*.pem
+*.key
+*_token
+*_secret
+credentials*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
+
+# Coverage
+coverage.out
+coverage.html
