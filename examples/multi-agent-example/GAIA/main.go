@@ -627,7 +627,7 @@ func main() {
 	//   }
 	// }
 	// }
-	// `, "fc-33002eb0435d4ea69c39d6d8ac79204e"))  //"fc-a31dbc4a572145faa888bd8d3f45fa71"))
+	// `, "fc-")) 
 	// if err != nil {
 	// 	log.Fatalf("mcp register err: %+v", err)
 	// }
